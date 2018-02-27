@@ -5,6 +5,8 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.ejb.Stateful;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
@@ -20,7 +22,9 @@ import fi.metatavu.jouko.server.rest.model.DevicePowerConsumption;
 import fi.metatavu.jouko.server.rest.model.Interruption;
 import fi.metatavu.jouko.server.rest.model.InterruptionCancellation;
 
-public class JoukoUsersApi implements UsersApi {
+@RequestScoped
+@Stateful
+public class UsersApiImpl implements UsersApi {
   
   @Inject
   private DeviceDAO deviceDAO;
@@ -51,16 +55,14 @@ public class JoukoUsersApi implements UsersApi {
 
   @Override
   public Response getPowerConsumption(
-      Integer userId,
-      Integer deviceId,
+      Long userId,
+      Long deviceId,
       OffsetDateTime fromTime,
       OffsetDateTime toTime) throws Exception {
     // TODO error handling
     // TODO handle different measurement durations
     // TODO do in database
-    int deviceIdInt = deviceId;
-    long deviceIdLong = deviceIdInt;
-    DeviceEntity deviceEntity = deviceDAO.findById(deviceIdLong);
+    DeviceEntity deviceEntity = deviceDAO.findById(deviceId);
     List<DevicePowerMeasurementEntity> entities = powerMeasurementDAO.listByDeviceAndDate(
         deviceEntity,
         fromTime,
@@ -78,7 +80,7 @@ public class JoukoUsersApi implements UsersApi {
 
   @Override
   public Response listDevices(
-      Integer userId,
+      Long userId,
       Integer firstResult,
       Integer maxResults) throws Exception {
     // TODO error handling
@@ -91,14 +93,12 @@ public class JoukoUsersApi implements UsersApi {
 
   @Override
   public Response listInterruptions(
-      Integer userId,
+      Long userId,
       OffsetDateTime fromTime,
       OffsetDateTime toTime,
-      Integer deviceId) throws Exception {
+      Long deviceId) throws Exception {
     // TODO error handling
-    int deviceIdInt = deviceId;
-    long deviceIdLong = deviceIdInt;
-    DeviceEntity deviceEntity = deviceDAO.findById(deviceIdLong);
+    DeviceEntity deviceEntity = deviceDAO.findById(deviceId);
     List<InterruptionEntity> entities = interruptionDAO.listByDeviceAndDate(
         deviceEntity,
         fromTime,
@@ -112,13 +112,11 @@ public class JoukoUsersApi implements UsersApi {
 
   @Override
   public Response setInterruptionCancelled(
-      Integer userId,
-      Integer interruptionId,
+      Long userId,
+      Long interruptionId,
       InterruptionCancellation body) throws Exception {
     // TODO error handling
-    int interruptionIdInt = interruptionId;
-    long interruptionIdLong = interruptionIdInt;
-    InterruptionEntity interruptionEntity = interruptionDAO.findById(interruptionIdLong);
+    InterruptionEntity interruptionEntity = interruptionDAO.findById(interruptionId);
     interruptionEntity.setCancelled(body.isCancelled());
     if (body.isCancelled()) {
       interruptionEntity.setCancellationTime(OffsetDateTime.now(ZoneOffset.UTC));

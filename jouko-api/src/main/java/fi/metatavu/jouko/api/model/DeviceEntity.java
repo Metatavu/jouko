@@ -2,18 +2,19 @@ package fi.metatavu.jouko.api.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.persistence.Id;
-import javax.persistence.GenerationType;
-import javax.persistence.GeneratedValue;
 
+@Table(name="Device")
 @Entity
 public class DeviceEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
   
   @Column(nullable = false)
   @NotNull
@@ -22,17 +23,17 @@ public class DeviceEntity {
   @ManyToOne
   private UserEntity user;
 
-  public DeviceEntity(Integer id, String name) {
+  public DeviceEntity(Long id, String name) {
     super();
     this.id = id;
     this.name = name;
   }
 
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

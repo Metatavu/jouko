@@ -22,7 +22,7 @@ public class LiquibaseProducer {
   @LiquibaseType
   public CDILiquibaseConfig createConfig() {
     CDILiquibaseConfig config = new CDILiquibaseConfig();
-    config.setChangeLog("fi/metatavu/jouko/api/changelog.sql");
+    config.setChangeLog("fi/metatavu/jouko/api/changelog.xml");
     return config;
   }
   

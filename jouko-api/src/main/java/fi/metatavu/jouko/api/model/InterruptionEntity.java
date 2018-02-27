@@ -8,13 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+@Table(name="Interruption")
 @Entity
 public class InterruptionEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
   
   @Column(nullable = false)
   @NotNull
@@ -34,7 +36,7 @@ public class InterruptionEntity {
   @NotNull
   private OffsetDateTime cancellationTime;
 
-  public InterruptionEntity(Integer id, OffsetDateTime startTime, OffsetDateTime endTime,
+  public InterruptionEntity(Long id, OffsetDateTime startTime, OffsetDateTime endTime,
       DeviceEntity device, boolean cancelled, OffsetDateTime cancellationTime) {
     super();
     this.id = id;
@@ -45,11 +47,11 @@ public class InterruptionEntity {
     this.cancellationTime = cancellationTime;
   }
 
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

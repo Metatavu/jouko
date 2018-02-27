@@ -8,13 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+@Table(name="DevicePowerMeasurement")
 @Entity
 public class DevicePowerMeasurementEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
 
   @ManyToOne
   private DeviceEntity device;
@@ -31,7 +33,7 @@ public class DevicePowerMeasurementEntity {
   @NotNull
   private OffsetDateTime endTime;
 
-  public DevicePowerMeasurementEntity(Integer id, DeviceEntity device, Double average,
+  public DevicePowerMeasurementEntity(Long id, DeviceEntity device, Double average,
       OffsetDateTime startTime, OffsetDateTime endTime) {
     super();
     this.id = id;
@@ -41,10 +43,10 @@ public class DevicePowerMeasurementEntity {
     this.endTime = endTime;
   }
 
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
   public DeviceEntity getDevice() {
