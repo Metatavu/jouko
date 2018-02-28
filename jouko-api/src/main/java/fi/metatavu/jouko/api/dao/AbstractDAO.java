@@ -26,7 +26,7 @@ public abstract class AbstractDAO<T> {
   @Inject
   private Logger logger;
   
-  @PersistenceContext
+  @PersistenceContext(unitName = "jouko")
   private EntityManager entityManager;
   
   /**

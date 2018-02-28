@@ -22,6 +22,9 @@ public class DeviceEntity {
   
   @ManyToOne
   private UserEntity user;
+  
+  public DeviceEntity() {
+  }
 
   public DeviceEntity(Long id, String name) {
     super();

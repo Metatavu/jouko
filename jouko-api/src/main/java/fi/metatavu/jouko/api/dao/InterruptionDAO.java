@@ -3,6 +3,7 @@ package fi.metatavu.jouko.api.dao;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -12,6 +13,7 @@ import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity_;
 
+@Dependent
 public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
   
   public List<InterruptionEntity> listByDeviceAndDate(
