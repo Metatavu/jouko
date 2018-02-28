@@ -32,6 +32,9 @@ public class DevicePowerMeasurementEntity {
   @Column(nullable = false)
   @NotNull
   private OffsetDateTime endTime;
+  
+  public DevicePowerMeasurementEntity() {
+  }
 
   public DevicePowerMeasurementEntity(Long id, DeviceEntity device, Double average,
       OffsetDateTime startTime, OffsetDateTime endTime) {

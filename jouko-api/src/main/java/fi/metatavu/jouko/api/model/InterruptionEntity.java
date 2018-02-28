@@ -35,6 +35,10 @@ public class InterruptionEntity {
   @Column(nullable = false)
   @NotNull
   private OffsetDateTime cancellationTime;
+  
+  public InterruptionEntity() {
+    cancelled = false;
+  }
 
   public InterruptionEntity(Long id, OffsetDateTime startTime, OffsetDateTime endTime,
       DeviceEntity device, boolean cancelled, OffsetDateTime cancellationTime) {

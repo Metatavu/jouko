@@ -1,11 +1,11 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
   <changeSet author="Ilmo Euro" id="20180227-contents-initial-database">
-    <createTable tableName="User">
-      <column autoIncrement="true" name="id" type="INTEGER">
+    <createTable tableName="user">
+      <column autoIncrement="true" name="id" type="BIGINT">
         <constraints primaryKey="true"/>
       </column>
-      <column name="keycloakId" type="UUID">
+      <column name="keycloakId" type="VARCHAR(36)">
         <constraints nullable="false"/>
       </column>
       <column name="name" type="VARCHAR(4095)">
@@ -13,69 +13,69 @@
       </column>
     </createTable>
 
-    <createTable tableName="Device">
-      <column autoIncrement="true" name="id" type="INTEGER">
+    <createTable tableName="device">
+      <column autoIncrement="true" name="id" type="BIGINT">
           <constraints primaryKey="true"/>
       </column>
       <column name="name" type="VARCHAR(4095)">
         <constraints nullable="false"/>
       </column>
-      <column name="user_id" type="INTEGER">
+      <column name="user_id" type="BIGINT">
           <constraints nullable="false"/>
       </column>
     </createTable>
 
     <addForeignKeyConstraint
-        baseTableName="Device"
+        baseTableName="device"
         baseColumnNames="user_id"
-        referencedTableName="User"
+        referencedTableName="user"
         referencedColumnNames="id"
-        constraintName="fk_Device_user_id"
+        constraintName="fk_device_user_id"
         deferrable="false"
         initiallyDeferred="false"
         onDelete="NO ACTION"
         onUpdate="NO ACTION" />
 
-    <createTable tableName="Interruption">
-      <column autoIncrement="true" name="id" type="INTEGER">
+    <createTable tableName="interruption">
+      <column autoIncrement="true" name="id" type="BIGINT">
           <constraints primaryKey="true"/>
       </column>
-      <column name="startTime" type="TIMESTAMP WITH TIME ZONE">
+      <column name="startTime" type="DATETIME">
           <constraints nullable="false"/>
       </column>
-      <column name="endTime" type="TIMESTAMP WITH TIME ZONE">
+      <column name="endTime" type="DATETIME">
           <constraints nullable="false"/>
       </column>
       <column name="cancelled" type="BOOLEAN">
           <constraints nullable="false"/>
       </column>
-      <column name="cancellationTime" type="TIMESTAMP WITH TIME ZONE">
+      <column name="cancellationTime" type="DATETIME">
           <constraints nullable="false"/>
       </column>
-      <column name="device_id" type="INTEGER">
+      <column name="device_id" type="BIGINT">
           <constraints nullable="false"/>
       </column>
     </createTable>
 
     <addForeignKeyConstraint
-        baseTableName="Interruption"
+        baseTableName="interruption"
         baseColumnNames="device_id"
-        referencedTableName="Device"
+        referencedTableName="device"
         referencedColumnNames="id"
-        constraintName="fk_Interruption_device_id"
+        constraintName="fk_interruption_device_id"
         deferrable="false"
         initiallyDeferred="false"
         onDelete="NO ACTION"
         onUpdate="NO ACTION" />
 
-    <createTable tableName="DevicePowerMeasurement">
-      <column autoIncrement="true" name="id" type="INTEGER">
+    <createTable tableName="devicepowermeasurement">
+      <column autoIncrement="true" name="id" type="BIGINT">
           <constraints primaryKey="true"/>
       </column>
-      <column name="startTime" type="TIMESTAMP WITH TIME ZONE">
+      <column name="startTime" type="DATETIME">
           <constraints nullable="false"/>
       </column>
-      <column name="endTime" type="TIMESTAMP WITH TIME ZONE">
+      <column name="endTime" type="DATETIME">
           <constraints nullable="false"/>
       </column>
       <column name="measurementType" type="VARCHAR(255)">
@@ -84,17 +84,17 @@
       <column name="measurementValue" type="DOUBLE">
           <constraints nullable="false"/>
       </column>
-      <column name="device_id" type="INTEGER">
+      <column name="device_id" type="BIGINT">
           <constraints nullable="false"/>
       </column>
     </createTable>
 
     <addForeignKeyConstraint
-        baseTableName="DevicePowerMeasurement"
+        baseTableName="devicepowermeasurement"
         baseColumnNames="device_id"
-        referencedTableName="Device"
+        referencedTableName="device"
         referencedColumnNames="id"
-        constraintName="fk_DevicePowerMeasurement_device_id"
+        constraintName="fk_devicepowermeasurement_device_id"
         deferrable="false"
         initiallyDeferred="false"
         onDelete="NO ACTION"

@@ -12,12 +12,16 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class UserEntity {
   @Id
+  @Column
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   
   @Column(nullable = false)
   @NotNull
   private String name;
+  
+  public UserEntity() {
+  }
   
   public UserEntity(Long id, String name) {
     super();
