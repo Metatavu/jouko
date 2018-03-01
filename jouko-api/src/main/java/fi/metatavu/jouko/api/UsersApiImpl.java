@@ -1,7 +1,6 @@
 package fi.metatavu.jouko.api;
 
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,12 +8,10 @@ import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
-import fi.metatavu.jouko.api.dao.DeviceDAO;
-import fi.metatavu.jouko.api.dao.InterruptionDAO;
 import fi.metatavu.jouko.api.dao.PowerMeasurementDAO;
 import fi.metatavu.jouko.api.model.DeviceEntity;
-import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.server.rest.UsersApi;
 import fi.metatavu.jouko.server.rest.model.Device;
@@ -27,13 +24,10 @@ import fi.metatavu.jouko.server.rest.model.InterruptionCancellation;
 public class UsersApiImpl implements UsersApi {
   
   @Inject
-  private DeviceDAO deviceDAO;
+  private DeviceController deviceController;
   
   @Inject
-  private InterruptionDAO interruptionDAO;
-  
-  @Inject
-  private PowerMeasurementDAO powerMeasurementDAO;
+  private InterruptionController interruptionController;
   
   private Device deviceFromEntity(DeviceEntity entity) {
     Device result = new Device();
@@ -45,8 +39,8 @@ public class UsersApiImpl implements UsersApi {
   private Interruption interruptionFromEntity(InterruptionEntity entity) {
     Interruption result = new Interruption();
     result.setId(entity.getId());
-    result.setStartTime(entity.getStartTime());
-    result.setEndTime(entity.getEndTime());
+    result.setStartTime(entity.getGroup().getStartTime());
+    result.setEndTime(entity.getGroup().getEndTime());
     result.setDeviceId(entity.getDevice().getId());
     result.setCancelled(entity.isCancelled());
     result.setCancellationTime(entity.getCancellationTime());
@@ -59,20 +53,12 @@ public class UsersApiImpl implements UsersApi {
       Long deviceId,
       OffsetDateTime fromTime,
       OffsetDateTime toTime) throws Exception {
-    // TODO error handling
-    // TODO handle different measurement durations
-    // TODO do in database
-    DeviceEntity deviceEntity = deviceDAO.findById(deviceId);
-    List<DevicePowerMeasurementEntity> entities = powerMeasurementDAO.listByDeviceAndDate(
-        deviceEntity,
-        fromTime,
-        toTime
-    );
-    double average = 0;
-    for (DevicePowerMeasurementEntity entity : entities) {
-      average += entity.getAverage();
+    DeviceEntity device = deviceController.findById(deviceId);
+    if (device == null) {
+      return Response.status(Status.NOT_FOUND).entity("Device not found").build();
     }
-    average /= entities.size();
+
+    double average = deviceController.averageConsumptionInWatts(device, fromTime, toTime);
     DevicePowerConsumption result = new DevicePowerConsumption();
     result.setAverageConsumptionInWatts(average);
     return Response.ok(result).build();
@@ -83,8 +69,7 @@ public class UsersApiImpl implements UsersApi {
       Long userId,
       Integer firstResult,
       Integer maxResults) throws Exception {
-    // TODO error handling
-    List<DeviceEntity> entities = deviceDAO.listAll(firstResult, maxResults);
+    List<DeviceEntity> entities = deviceController.listAll(firstResult, maxResults);
     List<Device> devices = entities.stream()
                                    .map(this::deviceFromEntity)
                                    .collect(Collectors.toList());
@@ -97,10 +82,12 @@ public class UsersApiImpl implements UsersApi {
       OffsetDateTime fromTime,
       OffsetDateTime toTime,
       Long deviceId) throws Exception {
-    // TODO error handling
-    DeviceEntity deviceEntity = deviceDAO.findById(deviceId);
-    List<InterruptionEntity> entities = interruptionDAO.listByDeviceAndDate(
-        deviceEntity,
+    DeviceEntity device = deviceController.findById(deviceId);
+    if (device == null) {
+      return Response.status(Status.NOT_FOUND).entity("Device not found").build();
+    }
+    List<InterruptionEntity> entities = interruptionController.listByDeviceAndDate(
+        device,
         fromTime,
         toTime
     );
@@ -115,12 +102,12 @@ public class UsersApiImpl implements UsersApi {
       Long userId,
       Long interruptionId,
       InterruptionCancellation body) throws Exception {
-    // TODO error handling
-    InterruptionEntity interruptionEntity = interruptionDAO.findById(interruptionId);
-    interruptionEntity.setCancelled(body.isCancelled());
-    if (body.isCancelled()) {
-      interruptionEntity.setCancellationTime(OffsetDateTime.now(ZoneOffset.UTC));
+    InterruptionEntity interruption = interruptionController.findById(interruptionId);
+    if (interruption == null) {
+      return Response.status(Status.NOT_FOUND).entity("Interruption not found").build();
     }
+
+    interruptionController.setInterruptionCancelled(interruption, body.isCancelled());
     return Response.ok(body).build();
   }
 

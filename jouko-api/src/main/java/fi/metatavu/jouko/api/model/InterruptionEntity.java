@@ -18,16 +18,11 @@ public class InterruptionEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   
-  @Column(nullable = false)
-  @NotNull
-  private OffsetDateTime startTime;
-  
-  @Column(nullable = false)
-  @NotNull
-  private OffsetDateTime endTime;
-  
   @ManyToOne
   private DeviceEntity device;
+  
+  @ManyToOne
+  private InterruptionGroupEntity group;
   
   @Column(nullable = false)
   private boolean cancelled;
@@ -40,12 +35,10 @@ public class InterruptionEntity {
     cancelled = false;
   }
 
-  public InterruptionEntity(Long id, OffsetDateTime startTime, OffsetDateTime endTime,
-      DeviceEntity device, boolean cancelled, OffsetDateTime cancellationTime) {
+  public InterruptionEntity(Long id, DeviceEntity device, boolean cancelled,
+      OffsetDateTime cancellationTime) {
     super();
     this.id = id;
-    this.startTime = startTime;
-    this.endTime = endTime;
     this.device = device;
     this.cancelled = cancelled;
     this.cancellationTime = cancellationTime;
@@ -59,28 +52,20 @@ public class InterruptionEntity {
     this.id = id;
   }
 
-  public OffsetDateTime getStartTime() {
-    return startTime;
-  }
-
-  public void setStartTime(OffsetDateTime startTime) {
-    this.startTime = startTime;
-  }
-
-  public OffsetDateTime getEndTime() {
-    return endTime;
-  }
-
-  public void setEndTime(OffsetDateTime endTime) {
-    this.endTime = endTime;
-  }
-
   public DeviceEntity getDevice() {
     return device;
   }
 
   public void setDevice(DeviceEntity device) {
     this.device = device;
+  }
+
+  public InterruptionGroupEntity getGroup() {
+    return group;
+  }
+
+  public void setGroup(InterruptionGroupEntity group) {
+    this.group = group;
   }
 
   public boolean isCancelled() {

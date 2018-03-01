@@ -4,6 +4,8 @@ import java.time.OffsetDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +25,12 @@ public class DevicePowerMeasurementEntity {
   
   @Column(nullable = false)
   @NotNull
-  private Double average;
+  private Double measurementValue;
+  
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  @NotNull
+  private MeasurementType measurementType;
   
   @Column(nullable = false)
   @NotNull
@@ -36,12 +43,18 @@ public class DevicePowerMeasurementEntity {
   public DevicePowerMeasurementEntity() {
   }
 
-  public DevicePowerMeasurementEntity(Long id, DeviceEntity device, Double average,
-      OffsetDateTime startTime, OffsetDateTime endTime) {
+  public DevicePowerMeasurementEntity(
+      Long id,
+      DeviceEntity device,
+      Double measurementValue,
+      MeasurementType measurementType,
+      OffsetDateTime startTime,
+      OffsetDateTime endTime) {
     super();
     this.id = id;
     this.device = device;
-    this.average = average;
+    this.measurementValue = measurementValue;
+    this.measurementType = measurementType;
     this.startTime = startTime;
     this.endTime = endTime;
   }
@@ -58,11 +71,17 @@ public class DevicePowerMeasurementEntity {
   public void setDevice(DeviceEntity device) {
     this.device = device;
   }
-  public Double getAverage() {
-    return average;
+  public Double getMeasurementValue() {
+    return measurementValue;
   }
-  public void setAverage(Double average) {
-    this.average = average;
+  public void setMeasurementValue(Double average) {
+    this.measurementValue = measurementValue;
+  }
+  public MeasurementType getMeasurementType() {
+    return measurementType;
+  }
+  public void setMeasurementType(MeasurementType measurementType) {
+    this.measurementType = measurementType;
   }
   public OffsetDateTime getStartTime() {
     return startTime;

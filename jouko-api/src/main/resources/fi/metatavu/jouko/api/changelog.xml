@@ -40,12 +40,6 @@
       <column autoIncrement="true" name="id" type="BIGINT">
           <constraints primaryKey="true"/>
       </column>
-      <column name="startTime" type="DATETIME">
-          <constraints nullable="false"/>
-      </column>
-      <column name="endTime" type="DATETIME">
-          <constraints nullable="false"/>
-      </column>
       <column name="cancelled" type="BOOLEAN">
           <constraints nullable="false"/>
       </column>
@@ -53,6 +47,9 @@
           <constraints nullable="false"/>
       </column>
       <column name="device_id" type="BIGINT">
+          <constraints nullable="false"/>
+      </column>
+      <column name="group_id" type="BIGINT">
           <constraints nullable="false"/>
       </column>
     </createTable>
@@ -63,6 +60,17 @@
         referencedTableName="device"
         referencedColumnNames="id"
         constraintName="fk_interruption_device_id"
+        deferrable="false"
+        initiallyDeferred="false"
+        onDelete="NO ACTION"
+        onUpdate="NO ACTION" />
+
+    <addForeignKeyConstraint
+        baseTableName="interruption"
+        baseColumnNames="group_id"
+        referencedTableName="interruptiongroup"
+        referencedColumnNames="id"
+        constraintName="fk_interruption_group_id"
         deferrable="false"
         initiallyDeferred="false"
         onDelete="NO ACTION"
@@ -97,8 +105,58 @@
         constraintName="fk_devicepowermeasurement_device_id"
         deferrable="false"
         initiallyDeferred="false"
-        onDelete="NO ACTION"
+        onDelete="CASCADE"
         onUpdate="NO ACTION" />
+
+    <createTable tableName="interruptiongroup">
+      <column autoIncrement="true" name="id" type="BIGINT">
+          <constraints primaryKey="true"/>
+      </column>
+      <column name="name" type="VARCHAR(255)">
+          <constraints nullable="false"/>
+      </column>
+      <column name="startTime" type="DATETIME">
+          <constraints nullable="false"/>
+      </column>
+      <column name="endTime" type="DATETIME">
+          <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="interruptiongroupdevice">
+      <column autoIncrement="true" name="id" type="BIGINT">
+          <constraints primaryKey="true"/>
+      </column>
+      <column name="interruptiongroup_id" type="BIGINT">
+          <constraints nullable="false"/>
+      </column>
+      <column name="device_id" type="BIGINT">
+          <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <addForeignKeyConstraint
+        baseTableName="interruptiongroupdevice"
+        baseColumnNames="interruptiongroup_id"
+        referencedTableName="interruptiongroup"
+        referencedColumnNames="id"
+        constraintName="fk_interruptiongroupdevice_interruptiongroup_id"
+        deferrable="false"
+        initiallyDeferred="false"
+        onDelete="CASCADE"
+        onUpdate="NO ACTION" />
+
+    <addForeignKeyConstraint
+        baseTableName="interruptiongroupdevice"
+        baseColumnNames="device_id"
+        referencedTableName="device"
+        referencedColumnNames="id"
+        constraintName="fk_interruptiongroupdevice_device_id"
+        deferrable="false"
+        initiallyDeferred="false"
+        onDelete="CASCADE"
+        onUpdate="NO ACTION" />
+
   </changeSet>
 
 </databaseChangeLog>
