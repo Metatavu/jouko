@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import fi.metatavu.jouko.api.dao.PowerMeasurementDAO;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.server.rest.UsersApi;
@@ -86,7 +85,7 @@ public class UsersApiImpl implements UsersApi {
     if (device == null) {
       return Response.status(Status.NOT_FOUND).entity("Device not found").build();
     }
-    List<InterruptionEntity> entities = interruptionController.listByDeviceAndDate(
+    List<InterruptionEntity> entities = interruptionController.listInterruptionsByDeviceAndDate(
         device,
         fromTime,
         toTime
@@ -102,7 +101,7 @@ public class UsersApiImpl implements UsersApi {
       Long userId,
       Long interruptionId,
       InterruptionCancellation body) throws Exception {
-    InterruptionEntity interruption = interruptionController.findById(interruptionId);
+    InterruptionEntity interruption = interruptionController.findInterruptionById(interruptionId);
     if (interruption == null) {
       return Response.status(Status.NOT_FOUND).entity("Interruption not found").build();
     }
