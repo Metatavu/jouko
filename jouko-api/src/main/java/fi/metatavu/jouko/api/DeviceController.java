@@ -10,6 +10,7 @@ import fi.metatavu.jouko.api.dao.DeviceDAO;
 import fi.metatavu.jouko.api.dao.PowerMeasurementDAO;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity;
+import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.api.model.MeasurementType;
 
 @Dependent
@@ -26,6 +27,10 @@ public class DeviceController {
       Integer maxResults
   ) {
     return deviceDAO.listAll(firstResult, maxResults);
+  }
+  
+  public List<DeviceEntity> listByInterruption(InterruptionEntity interruption) {
+    return deviceDAO.listByInterruption(interruption);
   }
 
   public DeviceEntity findById(Long deviceId) {

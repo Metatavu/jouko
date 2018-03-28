@@ -1,0 +1,73 @@
+syntax = "proto2";
+
+package fi.metatavu.jouko.api.device;
+
+
+message Katkot {
+	message Katko {
+		required int64 katkoID = 1;
+		required int64 laiteID = 2;
+		required int64 alku = 3;
+		required int64 loppu = 4;
+	}
+
+	repeated Katko katkot = 1;
+}
+
+message Katkonestot {
+	message Katkonesto {
+		required int64 katkoID = 1;
+	}
+
+
+	repeated Katkonesto katkonestot = 1;
+}
+
+message AikasynkLaitteelle {
+	required int64 erotus = 1;
+}
+
+message SbUpdateStart {
+	required int32 numFiles = 1;
+}
+
+message SbUpdatePart {
+	required string num = 1;
+	required bytes part = 2;
+}
+
+message SbUpdateStop {
+	required int32 splitSize = 1;
+	required int32 numFiles = 2;
+}
+
+message Mittaus {
+	required int32 laiteID = 1;
+	required int64 aika = 2;
+	required int32 vaihe1KA = 3;
+	required int32 vaihe2KA = 4;
+	required int32 vaihe3KA = 5;
+	required bool releOhjaus = 6;
+}
+
+message AikasynkLaitteelta {
+	required int64 laiteaika = 1;
+}
+
+message ViestiLaitteelle {
+	oneof viesti {
+		Katkot katkot = 1;
+		Katkonestot katkonestot = 2;
+		AikasynkLaitteelle aikasynkLaitteelle = 3;
+		SbUpdateStart sbUpdateStart = 4;
+		SbUpdatePart sbUpdatePart = 5;
+		SbUpdateStop sbUpdateStop = 6;
+	}
+}
+
+message ViestiLaitteelta {
+	oneof viesti {
+		Mittaus mittaus = 1;
+		AikasynkLaitteelta aikasynkLaitteelta = 2;
+	}
+}

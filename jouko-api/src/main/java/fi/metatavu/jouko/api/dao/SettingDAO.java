@@ -1,0 +1,31 @@
+package fi.metatavu.jouko.api.dao;
+
+import javax.enterprise.context.Dependent;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import fi.metatavu.jouko.api.model.InterruptionEntity;
+import fi.metatavu.jouko.api.model.SettingEntity;
+import fi.metatavu.jouko.api.model.SettingEntity_;
+
+@Dependent
+public class SettingDAO extends AbstractDAO<SettingEntity> {
+  
+  public SettingEntity findByKey(String key) {
+    EntityManager em = getEntityManager();
+    
+    CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+    CriteriaQuery<SettingEntity> criteria = criteriaBuilder.createQuery(SettingEntity.class);
+    Root<SettingEntity> root = criteria.from(SettingEntity.class);
+    
+    criteria.select(root);
+    criteria.where(
+      criteriaBuilder.equal(root.get(SettingEntity_.key), key)
+    );
+    
+    return em.createQuery(criteria).getSingleResult();
+  }
+
+}

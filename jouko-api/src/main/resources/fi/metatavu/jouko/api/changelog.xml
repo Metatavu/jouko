@@ -13,6 +13,18 @@
       </column>
     </createTable>
 
+    <createTable tableName="controller">
+      <column autoIncrement="true" name="id" type="BIGINT">
+          <constraints primaryKey="true"/>
+      </column>
+      <column name="eui" type="VARCHAR(4095)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="key" type="VARCHAR(4095)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
     <createTable tableName="device">
       <column autoIncrement="true" name="id" type="BIGINT">
           <constraints primaryKey="true"/>
@@ -23,18 +35,10 @@
       <column name="user_id" type="BIGINT">
           <constraints nullable="false"/>
       </column>
+      <column name="controller_id" type="BIGINT">
+          <constraints nullable="false"/>
+      </column>
     </createTable>
-
-    <addForeignKeyConstraint
-        baseTableName="device"
-        baseColumnNames="user_id"
-        referencedTableName="user"
-        referencedColumnNames="id"
-        constraintName="fk_device_user_id"
-        deferrable="false"
-        initiallyDeferred="false"
-        onDelete="NO ACTION"
-        onUpdate="NO ACTION" />
 
     <createTable tableName="interruption">
       <column autoIncrement="true" name="id" type="BIGINT">
@@ -53,28 +57,6 @@
           <constraints nullable="false"/>
       </column>
     </createTable>
-
-    <addForeignKeyConstraint
-        baseTableName="interruption"
-        baseColumnNames="device_id"
-        referencedTableName="device"
-        referencedColumnNames="id"
-        constraintName="fk_interruption_device_id"
-        deferrable="false"
-        initiallyDeferred="false"
-        onDelete="NO ACTION"
-        onUpdate="NO ACTION" />
-
-    <addForeignKeyConstraint
-        baseTableName="interruption"
-        baseColumnNames="group_id"
-        referencedTableName="interruptiongroup"
-        referencedColumnNames="id"
-        constraintName="fk_interruption_group_id"
-        deferrable="false"
-        initiallyDeferred="false"
-        onDelete="NO ACTION"
-        onUpdate="NO ACTION" />
 
     <createTable tableName="devicepowermeasurement">
       <column autoIncrement="true" name="id" type="BIGINT">
@@ -96,17 +78,6 @@
           <constraints nullable="false"/>
       </column>
     </createTable>
-
-    <addForeignKeyConstraint
-        baseTableName="devicepowermeasurement"
-        baseColumnNames="device_id"
-        referencedTableName="device"
-        referencedColumnNames="id"
-        constraintName="fk_devicepowermeasurement_device_id"
-        deferrable="false"
-        initiallyDeferred="false"
-        onDelete="CASCADE"
-        onUpdate="NO ACTION" />
 
     <createTable tableName="interruptiongroup">
       <column autoIncrement="true" name="id" type="BIGINT">
@@ -134,6 +105,61 @@
           <constraints nullable="false"/>
       </column>
     </createTable>
+
+    <addForeignKeyConstraint
+        baseTableName="device"
+        baseColumnNames="user_id"
+        referencedTableName="user"
+        referencedColumnNames="id"
+        constraintName="fk_device_user_id"
+        deferrable="false"
+        initiallyDeferred="false"
+        onDelete="NO ACTION"
+        onUpdate="NO ACTION" />
+
+    <addForeignKeyConstraint
+        baseTableName="device"
+        baseColumnNames="controller_id"
+        referencedTableName="controller"
+        referencedColumnNames="id"
+        constraintName="fk_device_controller_id"
+        deferrable="false"
+        initiallyDeferred="false"
+        onDelete="NO ACTION"
+        onUpdate="NO ACTION" />
+
+    <addForeignKeyConstraint
+        baseTableName="interruption"
+        baseColumnNames="device_id"
+        referencedTableName="device"
+        referencedColumnNames="id"
+        constraintName="fk_interruption_device_id"
+        deferrable="false"
+        initiallyDeferred="false"
+        onDelete="NO ACTION"
+        onUpdate="NO ACTION" />
+
+    <addForeignKeyConstraint
+        baseTableName="interruption"
+        baseColumnNames="group_id"
+        referencedTableName="interruptiongroup"
+        referencedColumnNames="id"
+        constraintName="fk_interruption_group_id"
+        deferrable="false"
+        initiallyDeferred="false"
+        onDelete="NO ACTION"
+        onUpdate="NO ACTION" />
+
+    <addForeignKeyConstraint
+        baseTableName="devicepowermeasurement"
+        baseColumnNames="device_id"
+        referencedTableName="device"
+        referencedColumnNames="id"
+        constraintName="fk_devicepowermeasurement_device_id"
+        deferrable="false"
+        initiallyDeferred="false"
+        onDelete="CASCADE"
+        onUpdate="NO ACTION" />
 
     <addForeignKeyConstraint
         baseTableName="interruptiongroupdevice"

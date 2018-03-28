@@ -23,13 +23,18 @@ public class DeviceEntity {
   @ManyToOne
   private UserEntity user;
   
+  @ManyToOne
+  private ControllerEntity controller;
+  
   public DeviceEntity() {
   }
 
-  public DeviceEntity(Long id, String name) {
+  public DeviceEntity(Long id, String name, UserEntity user, ControllerEntity controller) {
     super();
     this.id = id;
     this.name = name;
+    this.user = user;
+    this.controller = controller;
   }
 
   public Long getId() {
@@ -54,6 +59,14 @@ public class DeviceEntity {
 
   public void setUser(UserEntity user) {
     this.user = user;
+  }
+
+  public ControllerEntity getController() {
+    return controller;
+  }
+
+  public void setController(ControllerEntity controller) {
+    this.controller = controller;
   }
   
 }

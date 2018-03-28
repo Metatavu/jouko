@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Table(name="Interruption")
 @Entity
@@ -27,19 +26,23 @@ public class InterruptionEntity {
   @Column(nullable = false)
   private boolean cancelled;
   
-  @Column(nullable = false)
-  @NotNull
+  @Column(nullable = true)
   private OffsetDateTime cancellationTime;
   
   public InterruptionEntity() {
     cancelled = false;
   }
 
-  public InterruptionEntity(Long id, DeviceEntity device, boolean cancelled,
+  public InterruptionEntity(
+      Long id,
+      DeviceEntity device,
+      InterruptionGroupEntity group,
+      boolean cancelled,
       OffsetDateTime cancellationTime) {
     super();
     this.id = id;
     this.device = device;
+    this.group = group;
     this.cancelled = cancelled;
     this.cancellationTime = cancellationTime;
   }

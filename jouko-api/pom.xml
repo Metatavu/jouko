@@ -56,6 +56,9 @@
     <!-- Wildfly -->
 
     <wildfly-spec-api.version>11.0.0.Final</wildfly-spec-api.version>
+    
+    <!-- HttpComponents extras -->
+    <fluent-hc.version>4.5.2</fluent-hc.version>
 
     <!-- slf4j-api -->
 
@@ -68,6 +71,10 @@
     <!-- Swagger -->
     
     <swagger-annotations.version>1.5.9</swagger-annotations.version>
+    
+    <!-- Protobuf -->
+    
+    <protobuf.version>3.4.0</protobuf.version>
     
     <!-- Test -->
     
@@ -135,7 +142,23 @@
           </execution>
         </executions>
       </plugin>
-
+      
+      <plugin>
+        <groupId>org.xolstice.maven.plugins</groupId>
+        <artifactId>protobuf-maven-plugin</artifactId>
+        <version>0.5.1</version>
+        <configuration>
+          <protocExecutable>/usr/bin/protoc</protocExecutable>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>test-compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <!--
       <plugin>
         <groupId>org.eluder.coveralls</groupId>
@@ -239,6 +262,12 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>fluent-hc</artifactId>
+      <version>${fluent-hc.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
       <version>2.7</version>
@@ -333,7 +362,14 @@
       <artifactId>swagger-annotations</artifactId>
       <version>${swagger-annotations.version}</version>
     </dependency>
+    
+    <!-- Protobuf -->
 
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>${protobuf.version}</version>
+    </dependency>
 
     <!-- Test -->
 
