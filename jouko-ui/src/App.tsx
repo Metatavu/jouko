@@ -1,70 +1,7 @@
 import * as React from 'react';
 import './App.css';
+import { InterruptionGroupsTable } from './InterruptionGroupsTable';
 import { InterruptionGroupsApi, InterruptionGroup } from 'jouko-ts-client';
-
-// const logo = require('./logo.svg');
-
-interface InterruptionGroupTableRowProps {
-  entityId: Number;
-  startDate: Date;
-  endDate: Date;
-}
-
-class InterruptionGroupsTableRow
-    extends React.Component<InterruptionGroupTableRowProps> {
-  constructor(props: InterruptionGroupTableRowProps) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <tr>
-        <td>{this.props.entityId}</td>
-        <td>{this.props.startDate.toISOString()}</td>
-        <td>{this.props.endDate.toISOString()}</td>
-      </tr>
-    );
-  }
-}
-
-interface InterruptionGroupTableProps {
-  rowProps: InterruptionGroupTableRowProps[];
-}
-
-class InterruptionGroupsTable
-    extends React.Component<InterruptionGroupTableProps> {
-  constructor(props: InterruptionGroupTableProps) {
-    super(props);
-  }
-
-  render() {
-    const rows = this.props.rowProps.map(rowProp => {
-      return (
-        <InterruptionGroupsTableRow
-          key={rowProp.entityId.toString()}
-          entityId={rowProp.entityId}
-          startDate={rowProp.startDate}
-          endDate={rowProp.endDate}
-        />
-      );
-    });
-
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>startDate</th>
-            <th>endDate</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
-    );
-  }
-}
 
 interface AppState {
   interruptionGroups: InterruptionGroup[];
@@ -97,15 +34,6 @@ class App extends React.Component<{}, AppState> {
   render() {
     return (
       <div className="App">
-      {/*
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      */}
         <InterruptionGroupsTable
           rowProps={this.state.interruptionGroups.map(group => {
             return {
