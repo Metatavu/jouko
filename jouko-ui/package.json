@@ -1,0 +1,19 @@
+{
+  "name": "jouko-ui",
+  "version": "0.1.0",
+  "description": "User interface for JouKo system",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Metatavu/jouko.git"
+  },
+  "author": "Metatavu <info@metatavu.fi>",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Metatavu/jouko/issues"
+  },
+  "homepage": "https://github.com/Metatavu/jouko#readme"
+}
