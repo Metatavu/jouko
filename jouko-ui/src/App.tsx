@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { InterruptionGroupsApi } from 'jouko-ts-client';
+import { InterruptionGroupsTable } from './components/InterruptionGroupsTable';
+import { InterruptionGroupsApi, InterruptionGroup } from 'jouko-ts-client';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
-import Header from './components/Header';
+import { Header } from './components/Header';
 
+const logo = require('./logo.svg');
 
 interface AppState {
   interruptionGroups: InterruptionGroup[];
@@ -20,10 +22,6 @@ class App extends React.Component<{}, AppState> {
     this.updateInterruptionGroups();
   }
 
-  onRefreshClick() {
-    this.updateInterruptionGroups();
-  }
-
   async updateInterruptionGroups() {
     const api = new InterruptionGroupsApi(
       undefined,
@@ -34,23 +32,33 @@ class App extends React.Component<{}, AppState> {
   }
 
   render() {
+    const rowProps = this.state.interruptionGroups.map(group => {
+      return {
+        entityId: group.id,
+        startDate: new Date(group.startTime),
+        endDate: new Date(group.endTime)
+      };
+    });
+
     return (
         <BrowserRouter>
-            <div>
+          <div>
             <div className="Header">
                 <Header />
             </div>
 
-          <div className="App">
-            <header className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-              <h1 className="App-title">Welcome to React</h1>
-            </header>
-            <p className="App-intro">
-              To get started, edit <code>src/App.tsx</code> and save to reload.
-            </p>
-          </div>
+            <div className="App">
+              <header className="App-header">
+                <img src={logo} className="App-logo" alt="logo" />
+                <h1 className="App-title">Welcome to React</h1>
+              </header>
+              <p className="App-intro">
+                To get started, edit <code>src/App.tsx</code> and save to reload.
+              </p>
             </div>
+
+            <InterruptionGroupsTable rowProps={rowProps} />
+          </div>
         </BrowserRouter>
     );
   }

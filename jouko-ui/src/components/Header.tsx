@@ -1,7 +1,7 @@
-let React = require('react');
-let NavLink = require('react-router-dom').NavLink;
+import * as React from 'react';
+import { NavLink } from 'react-router-dom';
 
-function Header () {
+export function Header () {
     return (
         <ul className="header">
             <li>
@@ -16,5 +16,3 @@ function Header () {
         </ul>
     );
 }
-
-module.exports = Header;
