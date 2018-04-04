@@ -7,9 +7,16 @@
   height: 80px;
 }
 
-.App-header {
+
+.App-Block1 {
+  background-color: #ededed;
+  height: 250px;
+  padding: 20px;
+  color: #222222;
+}
+.App-Block2 {
   background-color: #222;
-  height: 150px;
+  height: 250px;
   padding: 20px;
   color: white;
 }

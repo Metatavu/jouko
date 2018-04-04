@@ -4,6 +4,7 @@ import { InterruptionGroupsApi, InterruptionGroup } from 'jouko-ts-client';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Header } from './components/Header';
+import { Bottombar } from './components/Bottombar';
 
 const logo = require('./logo.svg');
 
@@ -48,15 +49,25 @@ class App extends React.Component<{}, AppState> {
             </div>
 
             <div className="App">
-              <header className="App-header">
+              <header className="App-Block1">
                 <img src={logo} className="App-logo" alt="logo" />
-                <h1 className="App-title">Welcome to React</h1>
+                <h1 className="App-title">JOUKO - kotiapp</h1>
+                <h1>Kirjautuneena: Tero <button>Kirjaudu ulos</button></h1>
               </header>
-              <p className="App-intro">
-                To get started, edit <code>src/App.tsx</code> and save to reload.
-              </p>
+              <div className="App-Block2">
+                <h1 className="App-title">TULEVAT KATKOT</h1>
+                <p>Laite 1: pe 9.2.2018 klo 16.05 - 16.35 <button>ESTÄ KATKO</button></p>
+                <p>Laite 2: pe 9.2.2018 klo 16.05 - 16.35 <button>ESTÄ KATKO</button></p>
+              </div>
+              <div className="App-Block1">
+                <h1 className="App-title">TEHONKULUTUSTIEDOT</h1>
+                <p><button>Laite 1</button>: 1602 W</p>
+                <p><button>Laite 2</button>: 2050 W</p>
+              </div>
+              <div className="Bottombar">
+                <Bottombar />
+              </div>
             </div>
-
             <InterruptionGroupsTable rowProps={rowProps} />
           </div>
         </BrowserRouter>
