@@ -10,14 +10,13 @@ interface InterruptionGroupTableRowProps {
   endDate: Date;
 }
 
-class InterruptionGroupsTableRow extends React.Component<InterruptionGroupTableRowProps, {}> {
+class InterruptionGroupsTableRow
+    extends React.Component<InterruptionGroupTableRowProps> {
   constructor(props: InterruptionGroupTableRowProps) {
     super(props);
   }
 
   render() {
-    console.log(this.props);
-
     return (
       <tr>
         <td>{this.props.entityId}</td>
@@ -32,15 +31,15 @@ interface InterruptionGroupTableProps {
   rowProps: InterruptionGroupTableRowProps[];
 }
 
-class InterruptionGroupsTable extends React.Component<InterruptionGroupTableProps> {
+class InterruptionGroupsTable
+    extends React.Component<InterruptionGroupTableProps> {
   constructor(props: InterruptionGroupTableProps) {
     super(props);
   }
 
   render() {
-    const rows = [];
-    for (const rowProp of this.props.rowProps) {
-      rows.push(
+    const rows = this.props.rowProps.map(rowProp => {
+      return (
         <InterruptionGroupsTableRow
           key={rowProp.entityId.toString()}
           entityId={rowProp.entityId}
@@ -48,7 +47,7 @@ class InterruptionGroupsTable extends React.Component<InterruptionGroupTableProp
           endDate={rowProp.endDate}
         />
       );
-    }
+    });
 
     return (
       <table>
@@ -79,11 +78,20 @@ class App extends React.Component<{}, AppState> {
   }
 
   componentDidMount() {
-    const api = new InterruptionGroupsApi(undefined, 'http://192.168.100.14:8080/api-0.0.1-SNAPSHOT/v1');
+    this.updateInterruptionGroups();
+  }
 
-    api.listInterruptionGroups(0, 10000).then(groups => {
-      this.setState({interruptionGroups: groups});
-    });
+  onRefreshClick() {
+    this.updateInterruptionGroups();
+  }
+
+  async updateInterruptionGroups() {
+    const api = new InterruptionGroupsApi(
+      undefined,
+      'http://192.168.100.14:8080/api-0.0.1-SNAPSHOT/v1');
+
+    const groups = await api.listInterruptionGroups(0, 10000);
+    this.setState({interruptionGroups: groups});
   }
 
   render() {
@@ -100,7 +108,6 @@ class App extends React.Component<{}, AppState> {
       */}
         <InterruptionGroupsTable
           rowProps={this.state.interruptionGroups.map(group => {
-            console.log(group);
             return {
               entityId: group.id,
               startDate: new Date(group.startTime),
@@ -108,6 +115,7 @@ class App extends React.Component<{}, AppState> {
             })
           }
         />
+        <button onClick={() => this.onRefreshClick()}>Refresh</button>
       </div>
     );
   }
