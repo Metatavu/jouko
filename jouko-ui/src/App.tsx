@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { InterruptionGroupsApi } from 'jouko-ts-client';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './components/Header';
