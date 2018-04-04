@@ -45,7 +45,7 @@ public class DeviceCommunicatorTest {
         Clock.fixed(Instant.EPOCH, ZoneOffset.UTC),
         (String postResult) -> {
           postResults.add(postResult);
-          return "Request queued by LRC";
+          return "<html><body>Request queued by LRC</body></html>";
         }
     );
   }

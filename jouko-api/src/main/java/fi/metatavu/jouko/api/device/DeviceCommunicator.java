@@ -20,7 +20,6 @@ import org.jboss.resteasy.util.Hex;
 
 import fi.metatavu.jouko.api.DeviceController;
 import fi.metatavu.jouko.api.SettingController;
-import fi.metatavu.jouko.api.dao.DeviceDAO;
 import fi.metatavu.jouko.api.device.Laiteviestit.Katkonestot;
 import fi.metatavu.jouko.api.device.Laiteviestit.Katkonestot.Katkonesto;
 import fi.metatavu.jouko.api.device.Laiteviestit.Katkot;
@@ -101,7 +100,7 @@ public class DeviceCommunicator {
     url.append(token);
     
     String response = doPost.apply(url.toString());
-    if (!"Request queued by LRC".equals(response)) {
+    if (!"<html><body>Request queued by LRC</body></html>".equals(response)) {
       // Maybe check status code instead, IF none of the errors are 200
       throw new DeviceCommunicationException(response);
     }

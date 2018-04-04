@@ -3,18 +3,29 @@ package fi.metatavu.jouko.api;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import fi.metatavu.jouko.api.device.DeviceCommunicator;
+import fi.metatavu.jouko.api.model.DeviceEntity;
+import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
 import fi.metatavu.jouko.server.rest.AdminApi;
 import fi.metatavu.jouko.server.rest.model.InterruptionGroup;
 
+@Stateless
 public class AdminApiImpl implements AdminApi {
   
   @Inject
   private InterruptionController interruptionController;
+  
+  @Inject
+  private DeviceController deviceController;
+  
+  @Inject
+  private DeviceCommunicator deviceCommunicator;
   
   public InterruptionGroup interruptionGroupFromEntity(InterruptionGroupEntity entity) {
     InterruptionGroup result = new InterruptionGroup();
@@ -27,10 +38,18 @@ public class AdminApiImpl implements AdminApi {
   @Override
   public Response createInterruptionGroup(InterruptionGroup body)
       throws Exception {
-    InterruptionGroupEntity entity = interruptionController.createInterruptionGroup(
+    InterruptionGroupEntity group = interruptionController.createInterruptionGroup(
         body.getStartTime(),
         body.getEndTime());
-    return Response.ok(interruptionGroupFromEntity(entity)).build();
+    
+    List<DeviceEntity> devices = deviceController.listAll(null, null);
+    
+    for (DeviceEntity device : devices) {
+      InterruptionEntity interruption = interruptionController.createInterruption(device, group);
+      deviceCommunicator.notifyInterruption(interruption);
+    }
+    
+    return Response.ok(interruptionGroupFromEntity(group)).build();
   }
 
   @Override

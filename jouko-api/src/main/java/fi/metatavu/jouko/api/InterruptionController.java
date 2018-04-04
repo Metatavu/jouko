@@ -60,6 +60,14 @@ public class InterruptionController {
     return interruptionGroupDAO.create(startTime, endTime);
   }
   
+  public InterruptionEntity createInterruption(
+      DeviceEntity device,
+      InterruptionGroupEntity group
+  ) {
+    return interruptionDAO.create(device, group);
+  }
+      
+  
   public InterruptionGroupEntity updateInterruptionGroup(
       InterruptionGroupEntity group,
       OffsetDateTime startTime,

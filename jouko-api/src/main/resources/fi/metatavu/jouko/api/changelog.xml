@@ -13,7 +13,7 @@
       </column>
     </createTable>
 
-    <createTable tableName="controller">
+    <createTable tableName="Controller">
       <column autoIncrement="true" name="id" type="BIGINT">
           <constraints primaryKey="true"/>
       </column>
@@ -25,7 +25,7 @@
       </column>
     </createTable>
 
-    <createTable tableName="device">
+    <createTable tableName="Device">
       <column autoIncrement="true" name="id" type="BIGINT">
           <constraints primaryKey="true"/>
       </column>
@@ -40,7 +40,7 @@
       </column>
     </createTable>
 
-    <createTable tableName="interruption">
+    <createTable tableName="Interruption">
       <column autoIncrement="true" name="id" type="BIGINT">
           <constraints primaryKey="true"/>
       </column>
@@ -48,7 +48,6 @@
           <constraints nullable="false"/>
       </column>
       <column name="cancellationTime" type="DATETIME">
-          <constraints nullable="false"/>
       </column>
       <column name="device_id" type="BIGINT">
           <constraints nullable="false"/>
@@ -58,7 +57,7 @@
       </column>
     </createTable>
 
-    <createTable tableName="devicepowermeasurement">
+    <createTable tableName="DevicePowerMeasurement">
       <column autoIncrement="true" name="id" type="BIGINT">
           <constraints primaryKey="true"/>
       </column>
@@ -79,12 +78,9 @@
       </column>
     </createTable>
 
-    <createTable tableName="interruptiongroup">
+    <createTable tableName="InterruptionGroup">
       <column autoIncrement="true" name="id" type="BIGINT">
           <constraints primaryKey="true"/>
-      </column>
-      <column name="name" type="VARCHAR(255)">
-          <constraints nullable="false"/>
       </column>
       <column name="startTime" type="DATETIME">
           <constraints nullable="false"/>
@@ -94,7 +90,7 @@
       </column>
     </createTable>
 
-    <createTable tableName="interruptiongroupdevice">
+    <createTable tableName="InterruptionGroupDevice">
       <column autoIncrement="true" name="id" type="BIGINT">
           <constraints primaryKey="true"/>
       </column>
@@ -106,10 +102,22 @@
       </column>
     </createTable>
 
+    <createTable tableName="Setting">
+      <column autoIncrement="true" name="id" type="BIGINT">
+          <constraints primaryKey="true"/>
+      </column>
+      <column name="key" type="VARCHAR(255)">
+          <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="value" type="VARCHAR(4095)">
+          <constraints nullable="false"/>
+      </column>
+    </createTable>
+
     <addForeignKeyConstraint
-        baseTableName="device"
+        baseTableName="Device"
         baseColumnNames="user_id"
-        referencedTableName="user"
+        referencedTableName="User"
         referencedColumnNames="id"
         constraintName="fk_device_user_id"
         deferrable="false"
@@ -118,9 +126,9 @@
         onUpdate="NO ACTION" />
 
     <addForeignKeyConstraint
-        baseTableName="device"
+        baseTableName="Device"
         baseColumnNames="controller_id"
-        referencedTableName="controller"
+        referencedTableName="Controller"
         referencedColumnNames="id"
         constraintName="fk_device_controller_id"
         deferrable="false"
@@ -129,9 +137,9 @@
         onUpdate="NO ACTION" />
 
     <addForeignKeyConstraint
-        baseTableName="interruption"
+        baseTableName="Interruption"
         baseColumnNames="device_id"
-        referencedTableName="device"
+        referencedTableName="Device"
         referencedColumnNames="id"
         constraintName="fk_interruption_device_id"
         deferrable="false"
@@ -140,9 +148,9 @@
         onUpdate="NO ACTION" />
 
     <addForeignKeyConstraint
-        baseTableName="interruption"
+        baseTableName="Interruption"
         baseColumnNames="group_id"
-        referencedTableName="interruptiongroup"
+        referencedTableName="InterruptionGroup"
         referencedColumnNames="id"
         constraintName="fk_interruption_group_id"
         deferrable="false"
@@ -151,9 +159,9 @@
         onUpdate="NO ACTION" />
 
     <addForeignKeyConstraint
-        baseTableName="devicepowermeasurement"
+        baseTableName="DevicePowerMeasurement"
         baseColumnNames="device_id"
-        referencedTableName="device"
+        referencedTableName="Device"
         referencedColumnNames="id"
         constraintName="fk_devicepowermeasurement_device_id"
         deferrable="false"
@@ -162,9 +170,9 @@
         onUpdate="NO ACTION" />
 
     <addForeignKeyConstraint
-        baseTableName="interruptiongroupdevice"
+        baseTableName="InterruptionGroupDevice"
         baseColumnNames="interruptiongroup_id"
-        referencedTableName="interruptiongroup"
+        referencedTableName="InterruptionGroup"
         referencedColumnNames="id"
         constraintName="fk_interruptiongroupdevice_interruptiongroup_id"
         deferrable="false"
@@ -173,9 +181,9 @@
         onUpdate="NO ACTION" />
 
     <addForeignKeyConstraint
-        baseTableName="interruptiongroupdevice"
+        baseTableName="InterruptionGroupDevice"
         baseColumnNames="device_id"
-        referencedTableName="device"
+        referencedTableName="Device"
         referencedColumnNames="id"
         constraintName="fk_interruptiongroupdevice_device_id"
         deferrable="false"

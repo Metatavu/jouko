@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import fi.metatavu.jouko.api.device.DeviceCommunicator;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.server.rest.UsersApi;
@@ -27,6 +28,9 @@ public class UsersApiImpl implements UsersApi {
   
   @Inject
   private InterruptionController interruptionController;
+  
+  @Inject
+  private DeviceCommunicator deviceCommunicator;
   
   private Device deviceFromEntity(DeviceEntity entity) {
     Device result = new Device();
@@ -107,6 +111,10 @@ public class UsersApiImpl implements UsersApi {
     }
 
     interruptionController.setInterruptionCancelled(interruption, body.isCancelled());
+    if (body.isCancelled()) {
+      deviceCommunicator.notifyInterruptionCancellation(interruption);
+    }
+      
     return Response.ok(body).build();
   }
 

@@ -19,6 +19,21 @@ import fi.metatavu.jouko.api.model.InterruptionGroupEntity_;
 @Dependent
 public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
   
+  public InterruptionEntity create(
+      DeviceEntity device,
+      InterruptionGroupEntity group
+  ) {
+    InterruptionEntity entity = new InterruptionEntity(
+        null,
+        device,
+        group,
+        false,
+        null);
+    getEntityManager().persist(entity);
+    return entity;
+  }
+    
+  
   public List<InterruptionEntity> listByDeviceAndDate(
       DeviceEntity device,
       OffsetDateTime fromTime,
