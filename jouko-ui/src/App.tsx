@@ -3,9 +3,35 @@ import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './components/Header';
 
-const logo = require('./logo.svg');
 
-class App extends React.Component {
+interface AppState {
+  interruptionGroups: InterruptionGroup[];
+}
+
+class App extends React.Component<{}, AppState> {
+
+  constructor(props: {}) {
+    super(props);
+    this.state = {interruptionGroups: []};
+  }
+
+  componentDidMount() {
+    this.updateInterruptionGroups();
+  }
+
+  onRefreshClick() {
+    this.updateInterruptionGroups();
+  }
+
+  async updateInterruptionGroups() {
+    const api = new InterruptionGroupsApi(
+      undefined,
+      'http://192.168.100.14:8080/api-0.0.1-SNAPSHOT/v1');
+
+    const groups = await api.listInterruptionGroups(0, 10000);
+    this.setState({interruptionGroups: groups});
+  }
+
   render() {
     return (
         <BrowserRouter>
