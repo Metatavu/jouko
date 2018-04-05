@@ -38,9 +38,7 @@ export class InterruptionGroupsTable
       return (
         <InterruptionGroupsTableRow
           key={rowProp.entityId.toString()}
-          entityId={rowProp.entityId}
-          startDate={rowProp.startDate}
-          endDate={rowProp.endDate}
+          {...rowProp}
         />
       );
     });
