@@ -33,6 +33,7 @@ public class DeviceCommunicator {
   
   private static String ENDPOINT_SETTING = "deviceCommunicator.endpoint";
   private static String AS_ID_SETTING = "deviceCommunicator.asId";
+  private static String ENABLED_SETTING = "deviceCommunicator.enabled";
 
   private Clock clock;
   private Function<String, String> doPost;
@@ -116,7 +117,16 @@ public class DeviceCommunicator {
     return payloadBytes.toByteArray();
   }
   
+  private boolean isEnabled() {
+    String enabledSetting = settingController.getSetting(ENABLED_SETTING, "false");
+    return "true".equals(enabledSetting);
+  }
+  
   public void notifyInterruption(InterruptionEntity interruption) {
+    if (!isEnabled()) {
+      return;
+    }
+
     List<DeviceEntity> devices = deviceController.listByInterruption(interruption);
     Map<String, List<Katko>> katkos = new HashMap<>();
     Map<String, String> keys = new HashMap<>();
@@ -149,6 +159,10 @@ public class DeviceCommunicator {
   }
 
   public void notifyInterruptionCancellation(InterruptionEntity interruption) {
+    if (!isEnabled()) {
+      return;
+    }
+
     List<DeviceEntity> devices = deviceController.listByInterruption(interruption);
     Map<String, List<Katkonesto>> katkonestos = new HashMap<>();
     Map<String, String> keys = new HashMap<>();
