@@ -43,11 +43,11 @@ export class UpcomingInterruptions
   async fetchInterruptions() {
     const interruptionsApi = new InterruptionsApi(
       undefined,
-      'http://192.168.100.14:8080/api-0.0.1-SNAPSHOT/v1');
+      'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
 
     const devicesApi = new DevicesApi(
       undefined,
-      'http://192.168.100.14:8080/api-0.0.1-SNAPSHOT/v1');
+      'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
 
     const devices = await devicesApi.listDevices(1, 0, 1000);
 
