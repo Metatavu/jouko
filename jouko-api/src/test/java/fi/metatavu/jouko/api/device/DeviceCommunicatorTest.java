@@ -39,6 +39,9 @@ public class DeviceCommunicatorTest {
     Mockito.when(settingController.getSetting("deviceCommunicator.asId"))
            .thenReturn("as");
 
+    Mockito.when(settingController.getSetting("deviceCommunicator.enabled"))
+           .thenReturn("true");
+
     subject = new DeviceCommunicator(
         deviceController,
         settingController,
