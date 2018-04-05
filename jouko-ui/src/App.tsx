@@ -29,7 +29,7 @@ class App extends React.Component<{}, AppState> {
   async updateInterruptionGroups() {
     const api = new InterruptionGroupsApi(
       undefined,
-      'http://192.168.100.14:8080/api-0.0.1-SNAPSHOT/v1');
+      'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
 
     const groups = await api.listInterruptionGroups(0, 10000);
     this.setState({interruptionGroups: groups});
