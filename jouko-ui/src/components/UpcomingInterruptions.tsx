@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { InterruptionsApi, DevicesApi } from 'jouko-ts-client';
-import { subDays } from 'date-fns';
+import { addYears } from 'date-fns';
 import * as _ from 'lodash';
 
 interface UpcomingInterruptionProps {
@@ -56,8 +56,8 @@ export class UpcomingInterruptions
     for (const device of devices) {
       const interruptions = await interruptionsApi.listInterruptions(
         1,
-        subDays(new Date(), 10),
         new Date(),
+        addYears(new Date(), 1),
         device.id);
 
       for (const interruption of interruptions) {
