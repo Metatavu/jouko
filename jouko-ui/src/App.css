@@ -10,13 +10,15 @@
 
 .App-Block1 {
   background-color: #ededed;
-  height: 250px;
+  min-height: 250px;
+  height: 100%;
   padding: 20px;
   color: #222222;
 }
 .App-Block2 {
   background-color: #222;
-  height: 250px;
+  min-height: 250px;
+  height: 100%;
   padding: 20px;
   color: white;
 }
@@ -27,6 +29,25 @@
 
 .App-intro {
   font-size: large;
+}
+
+table{
+  max-width: 50%;
+  margin: auto;
+}
+
+td{
+  text-align: left;
+  padding-left: 20px;
+}
+
+column1{
+  max-width: 70%;
+  text-align: left;
+}
+column2{
+  max-width: 30%;
+  text-align: left;
 }
 
 @keyframes App-logo-spin {

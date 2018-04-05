@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { InterruptionsApi, DevicesApi } from 'jouko-ts-client';
-import { addYears } from 'date-fns';
+import { addYears, format } from 'date-fns';
 import * as _ from 'lodash';
+import { processSwaggerDate } from '../ProcessSwaggerDate';
 
 interface UpcomingInterruptionProps {
   id: number;
@@ -9,9 +10,9 @@ interface UpcomingInterruptionProps {
   startTime: Date;
   endTime: Date;
   cancelled: Boolean;
-  cancelInterruption(interruptionId: number): void;
-}
 
+  cancelInterruption(): void;
+}
 export class UpcomingInterruption
     extends React.Component<UpcomingInterruptionProps> {
 
@@ -19,17 +20,30 @@ export class UpcomingInterruption
     let button;
 
     if (!this.props.cancelled) {
-      button = <button onClick={() => (this.props.cancelInterruption(this.props.id))}>ESTÄ KATKO</button>;
+      button = <button onClick={() => (this.props.cancelInterruption())}>ESTÄ KATKO</button>;
     } else {
       button = null;
     }
 
+    let startdate = format(this.props.startTime, 'dd DD.MM.YYYY');
+    let starttime = format(this.props.startTime, 'H.mm');
+    let enddate = format(this.props.endTime, 'dd DD.MM.YYYY');
+    let endtime = format(this.props.endTime, 'H.mm');
+
+    if (enddate === startdate) {
+      enddate = '';
+    }
+
     return (
-      <p>{this.props.deviceName}:
-        {this.props.startTime.toISOString()} -
-        {this.props.endTime.toISOString()}
-        {button}
-      </p>
+        <tr>
+          <td id="column1">
+            {this.props.deviceName}:
+            {startdate} klo {starttime} - {enddate} klo {endtime}
+          </td>
+          <td id="column2">
+            {button}
+          </td>
+        </tr>
     );
   }
 }
@@ -51,7 +65,7 @@ export class UpcomingInterruptions
     this.fetchInterruptions();
   }
 
-  async cancellInterruption(interruptionId: number) {
+  async cancelInterruption(interruptionId: number) {
     const interruptionsApi = new InterruptionsApi(
       undefined,
       'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
@@ -73,11 +87,6 @@ export class UpcomingInterruptions
 
     const rowProps: UpcomingInterruptionProps[] = [];
 
-    const cancelInterruption = (id: number) => {
-      this.cancellInterruption(id).then(() => {/**/
-      });
-    };
-
     for (const device of devices) {
       const interruptions = await interruptionsApi.listInterruptions(
         1,
@@ -86,18 +95,24 @@ export class UpcomingInterruptions
         device.id);
 
       for (const interruption of interruptions) {
+
+        const cancelInterruption = () => {
+          this.cancelInterruption(interruption.id).then(() => {/**/
+          });
+        };
+
         rowProps.push({
           id: interruption.id,
           deviceName: device.name,
-          startTime: new Date(interruption.startTime),
-          endTime: new Date(interruption.endTime),
+          startTime: processSwaggerDate(interruption.startTime),
+          endTime: processSwaggerDate(interruption.endTime),
           cancelled: interruption.cancelled,
           cancelInterruption: cancelInterruption
         });
       }
     }
 
-    this.setState({rowProps: _.take(rowProps, 5)});
+    this.setState({rowProps: _.take(rowProps, 40)});
   }
 
   render() {
@@ -113,7 +128,7 @@ export class UpcomingInterruptions
     return (
       <div className="App-Block2">
         <h1 className="App-title">TULEVAT KATKOT</h1>
-        {rows}
+        <table><tbody>{rows}</tbody></table>
       </div>
     );
   }
