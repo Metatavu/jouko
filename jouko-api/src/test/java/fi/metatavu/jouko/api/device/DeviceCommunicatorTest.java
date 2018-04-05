@@ -39,7 +39,7 @@ public class DeviceCommunicatorTest {
     Mockito.when(settingController.getSetting("deviceCommunicator.asId"))
            .thenReturn("as");
 
-    Mockito.when(settingController.getSetting("deviceCommunicator.enabled"))
+    Mockito.when(settingController.getSetting("deviceCommunicator.enabled", "false"))
            .thenReturn("true");
 
     subject = new DeviceCommunicator(
@@ -78,8 +78,8 @@ public class DeviceCommunicatorTest {
                         + "&Time=1970-01-01T00:00:00Z"
                         + "&Token=b71383488144fe4e7418f2aeaf30d675ae91b953007978df9a6ee12c4a2d2ae8";
 
-    Assert.assertEquals(postResults.size(), 1);
-    Assert.assertEquals(postResults.get(0), expectedPost);
+    Assert.assertEquals(1, postResults.size());
+    Assert.assertEquals(expectedPost, postResults.get(0));
   }
   
   @Test
@@ -107,8 +107,8 @@ public class DeviceCommunicatorTest {
                         + "&Time=1970-01-01T00:00:00Z"
                         + "&Token=a2bef1536660afe6df263c79d51bcdaebc964d53bd9f2feb6260eb90bf8be8fd";
 
-    Assert.assertEquals(postResults.size(), 1);
-    Assert.assertEquals(postResults.get(0), expectedPost);
+    Assert.assertEquals(1, postResults.size());
+    Assert.assertEquals(expectedPost, postResults.get(0));
   }
 
 }
