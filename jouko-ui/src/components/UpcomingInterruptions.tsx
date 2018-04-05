@@ -97,6 +97,10 @@ export class UpcomingInterruptions
       }
     }
 
+    rowProps.sort((a, b) => {
+      return b.startTime.getTime() - a.startTime.getTime();
+    });
+
     this.setState({rowProps: _.take(rowProps, 5)});
   }
 
