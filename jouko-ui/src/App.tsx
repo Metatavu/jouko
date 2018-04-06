@@ -40,8 +40,8 @@ class App extends React.Component<{}, AppState> {
     const rowProps = this.state.interruptionGroups.map(group => {
       return {
         entityId: group.id,
-        startDate: processSwaggerDate(group.startTime),
-        endDate: processSwaggerDate(group.endTime)
+        startTime: processSwaggerDate(group.startTime),
+        endTime: processSwaggerDate(group.endTime)
       };
     });
 

@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 export interface InterruptionGroupTableRowProps {
-  entityId: Number;
-  startDate: Date;
-  endDate: Date;
+  entityId: number;
+  startTime: Date;
+  endTime: Date;
 }
 
 export class InterruptionGroupsTableRow
@@ -16,8 +16,8 @@ export class InterruptionGroupsTableRow
     return (
       <tr>
         <td>{this.props.entityId}</td>
-        <td>{this.props.startDate.toISOString()}</td>
-        <td>{this.props.endDate.toISOString()}</td>
+        <td>{this.props.startTime.toISOString()}</td>
+        <td>{this.props.endTime.toISOString()}</td>
       </tr>
     );
   }
@@ -48,8 +48,8 @@ export class InterruptionGroupsTable
         <thead>
           <tr>
             <th>id</th>
-            <th>startDate</th>
-            <th>endDate</th>
+            <th>startTime</th>
+            <th>endTime</th>
           </tr>
         </thead>
         <tbody>
