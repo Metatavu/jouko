@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { InterruptionsApi, DevicesApi } from 'jouko-ts-client';
-import { addYears, format } from 'date-fns';
+import { addYears, format as formatDate, parse as parseDate } from 'date-fns';
 import * as _ from 'lodash';
-import { processSwaggerDate } from '../ProcessSwaggerDate';
 
 interface UpcomingInterruptionProps {
   id: number;
@@ -25,10 +24,10 @@ export class UpcomingInterruption
       button = null;
     }
 
-    let startdate = format(this.props.startTime, 'dd DD.MM.YYYY');
-    let starttime = format(this.props.startTime, 'H.mm');
-    let enddate = format(this.props.endTime, 'dd DD.MM.YYYY');
-    let endtime = format(this.props.endTime, 'H.mm');
+    let startdate = formatDate(this.props.startTime, 'dd DD.MM.YYYY');
+    let starttime = formatDate(this.props.startTime, 'H.mm');
+    let enddate = formatDate(this.props.endTime, 'dd DD.MM.YYYY');
+    let endtime = formatDate(this.props.endTime, 'H.mm');
 
     if (enddate === startdate) {
       enddate = '';
@@ -90,22 +89,22 @@ export class UpcomingInterruptions
     for (const device of devices) {
       const interruptions = await interruptionsApi.listInterruptions(
         1,
-        new Date(),
-        addYears(new Date(), 1),
+        formatDate(new Date()),
+        formatDate(addYears(new Date(), 1)),
         device.id);
 
       for (const interruption of interruptions) {
 
         const cancelInterruption = () => {
-          this.cancelInterruption(interruption.id).then(() => {/**/
-          });
+          // tslint:disable-next-line:no-empty
+          this.cancelInterruption(interruption.id).then(() => {});
         };
 
         rowProps.push({
           id: interruption.id,
           deviceName: device.name,
-          startTime: processSwaggerDate(interruption.startTime),
-          endTime: processSwaggerDate(interruption.endTime),
+          startTime: parseDate(interruption.startTime),
+          endTime: parseDate(interruption.endTime),
           cancelled: interruption.cancelled,
           cancelInterruption: cancelInterruption
         });
