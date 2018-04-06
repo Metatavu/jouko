@@ -8,7 +8,7 @@ import { Bottombar } from './components/Bottombar';
 import { UpcomingInterruptions } from './components/UpcomingInterruptions';
 import { PowerUsageSummaries } from './components/PowerUsageSummary';
 import { InterruptionGroupsTable } from './components/InterruptionGroupsTable';
-import { processSwaggerDate } from './ProcessSwaggerDate';
+import { parse as parseDate } from 'date-fns';
 
 const logo = require('./logo.svg');
 
@@ -40,8 +40,8 @@ class App extends React.Component<{}, AppState> {
     const rowProps = this.state.interruptionGroups.map(group => {
       return {
         entityId: group.id,
-        startDate: processSwaggerDate(group.startTime),
-        endDate: processSwaggerDate(group.endTime)
+        startTime: parseDate(group.startTime),
+        endTime: parseDate(group.endTime)
       };
     });
 
