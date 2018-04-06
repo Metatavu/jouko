@@ -6,24 +6,20 @@ import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
-@Provider  
-@Produces(MediaType.APPLICATION_JSON)  
-public class JacksonConfig implements ContextResolver<ObjectMapper>  
-{  
-   private ObjectMapper objectMapper;  
-  
-  
-   public JacksonConfig() throws Exception  
-   {  
-      objectMapper = new ObjectMapper();  
-      objectMapper.findAndRegisterModules();
-   }  
-  
-  
-   public ObjectMapper getContext(Class<?> objectType)  
-   {  
-      return objectMapper;  
-   }  
-}  
+@Provider
+@Produces(MediaType.APPLICATION_JSON)
+public class JacksonConfig implements ContextResolver<ObjectMapper> {
+  private ObjectMapper objectMapper;
+
+  public JacksonConfig() throws Exception {
+    objectMapper = new ObjectMapper();
+    objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+    objectMapper.findAndRegisterModules();
+  }
+
+  public ObjectMapper getContext(Class<?> objectType) {
+    return objectMapper;
+  }
+}
