@@ -86,14 +86,16 @@ public class UsersApiImpl implements UsersApi {
       OffsetDateTime toTime,
       Long deviceId) throws Exception {
     DeviceEntity device = deviceController.findById(deviceId);
+    List<InterruptionEntity> entities;
     if (device == null) {
-      return Response.status(Status.NOT_FOUND).entity("Device not found").build();
+      entities = interruptionController.listInterruptionsByDate(fromTime, toTime);
+    } else {
+      entities = interruptionController.listInterruptionsByDeviceAndDate(
+          device,
+          fromTime,
+          toTime
+      );
     }
-    List<InterruptionEntity> entities = interruptionController.listInterruptionsByDeviceAndDate(
-        device,
-        fromTime,
-        toTime
-    );
     List<Interruption> interruptions = entities.stream()
                                                .map(this::interruptionFromEntity)
                                                .collect(Collectors.toList());

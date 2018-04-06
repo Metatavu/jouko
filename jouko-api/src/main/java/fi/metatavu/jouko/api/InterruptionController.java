@@ -30,6 +30,12 @@ public class InterruptionController {
     return interruptionDAO.listByDeviceAndDate(device, fromTime, toTime);
   }
 
+  public List<InterruptionEntity> listInterruptionsByDate(
+      OffsetDateTime fromTime,
+      OffsetDateTime toTime) {
+    return interruptionDAO.listByDate(fromTime, toTime);
+  }
+
   public List<InterruptionGroupEntity> listInterruptionGroups(
       Integer firstResult,
       Integer maxResults
