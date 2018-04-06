@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Bottombar } from './components/Bottombar';
 import { UpcomingInterruptions } from './components/UpcomingInterruptions';
-import { PowerUsageSummary } from './components/PowerUsageSummary';
+import { PowerUsageSummaries } from './components/PowerUsageSummary';
 import { InterruptionGroupsTable } from './components/InterruptionGroupsTable';
 import { processSwaggerDate } from './ProcessSwaggerDate';
 
@@ -59,7 +59,7 @@ class App extends React.Component<{}, AppState> {
                 <h1>Kirjautuneena: Tero <button>Kirjaudu ulos</button></h1>
               </header>
               <UpcomingInterruptions />
-              <PowerUsageSummary />
+              <PowerUsageSummaries />
               <div className="Bottombar">
                 <Bottombar />
               </div>

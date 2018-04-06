@@ -13,6 +13,7 @@ interface UpcomingInterruptionProps {
 
   cancelInterruption(): void;
 }
+
 export class UpcomingInterruption
     extends React.Component<UpcomingInterruptionProps> {
 
