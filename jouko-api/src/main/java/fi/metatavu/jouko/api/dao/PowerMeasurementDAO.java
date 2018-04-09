@@ -28,10 +28,22 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
     
     criteria.select(root);
     criteria.where(
-      criteriaBuilder.and(
-        criteriaBuilder.equal(root.get(DevicePowerMeasurementEntity_.device), device),
-        criteriaBuilder.greaterThanOrEqualTo(root.<OffsetDateTime>get(DevicePowerMeasurementEntity_.startTime), fromTime),
-        criteriaBuilder.lessThan(root.<OffsetDateTime>get(DevicePowerMeasurementEntity_.endTime), toTime)
+      criteriaBuilder.or(
+        criteriaBuilder.and(
+          criteriaBuilder.equal(root.get(DevicePowerMeasurementEntity_.device), device),
+          criteriaBuilder.lessThanOrEqualTo(root.<OffsetDateTime>get(DevicePowerMeasurementEntity_.startTime), fromTime),
+          criteriaBuilder.greaterThan(root.<OffsetDateTime>get(DevicePowerMeasurementEntity_.endTime), fromTime)
+        ),
+        criteriaBuilder.and(
+          criteriaBuilder.equal(root.get(DevicePowerMeasurementEntity_.device), device),
+          criteriaBuilder.greaterThanOrEqualTo(root.<OffsetDateTime>get(DevicePowerMeasurementEntity_.startTime), fromTime),
+          criteriaBuilder.lessThan(root.<OffsetDateTime>get(DevicePowerMeasurementEntity_.endTime), toTime)
+        ),
+        criteriaBuilder.and(
+          criteriaBuilder.equal(root.get(DevicePowerMeasurementEntity_.device), device),
+          criteriaBuilder.lessThanOrEqualTo(root.<OffsetDateTime>get(DevicePowerMeasurementEntity_.startTime), toTime),
+          criteriaBuilder.greaterThan(root.<OffsetDateTime>get(DevicePowerMeasurementEntity_.endTime), toTime)
+        )
       )
     );
     

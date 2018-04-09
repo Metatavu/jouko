@@ -6,6 +6,8 @@ import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+
 import fi.metatavu.jouko.api.dao.DeviceDAO;
 import fi.metatavu.jouko.api.dao.PowerMeasurementDAO;
 import fi.metatavu.jouko.api.model.DeviceEntity;
@@ -21,6 +23,9 @@ public class DeviceController {
   
   @Inject
   private PowerMeasurementDAO powerMeasurementDAO;
+  
+  @Inject
+  private Logger logger;
   
   public List<DeviceEntity> listAll(
       Integer firstResult,
@@ -45,13 +50,53 @@ public class DeviceController {
         fromTime,
         toTime
     );
-    double average = 0;
+    double energyInJoules = 0.0;
     for (DevicePowerMeasurementEntity entity : entities) {
-      if (entity.getMeasurementType() == MeasurementType.AVERAGE) {
-        average += entity.getMeasurementValue();
+      if (entity.getMeasurementType() != MeasurementType.AVERAGE) {
+        continue;
+      }
+      if (entity.getStartTime().isBefore(fromTime) && entity.getEndTime().isAfter(fromTime)) {
+        double measurementDurationInSecs =
+            entity.getEndTime().toEpochSecond() -
+            entity.getStartTime().toEpochSecond();
+        double relevantSpanDurationInSecs =
+            entity.getEndTime().toEpochSecond() -
+            fromTime.toEpochSecond();
+        double ratio = relevantSpanDurationInSecs / measurementDurationInSecs;
+        double measurementEnergyInJoules = entity.getMeasurementValue() * measurementDurationInSecs;
+        double relevantEnergyInJoules = ratio * measurementEnergyInJoules;
+        logger.info(String.format("Overlapping timespan with energy: %f and ratio %f",
+            relevantEnergyInJoules,
+            ratio));
+        energyInJoules += relevantEnergyInJoules;
+      } else if (entity.getStartTime().isAfter(fromTime) && entity.getEndTime().isBefore(toTime)) {
+        double measurementDurationInSecs =
+            entity.getEndTime().toEpochSecond() -
+            entity.getStartTime().toEpochSecond();
+        double measurementEnergyInJoules = entity.getMeasurementValue() * measurementDurationInSecs;
+        energyInJoules += measurementEnergyInJoules;
+        logger.info(String.format("Contained timespan with energy: %f and ratio %f",
+            measurementEnergyInJoules,
+            ratio));
+      } else if (entity.getStartTime().isBefore(toTime) && entity.getEndTime().isAfter(toTime)) {
+        double measurementDurationInSecs =
+            entity.getEndTime().toEpochSecond() -
+            entity.getStartTime().toEpochSecond();
+        double relevantSpanDurationInSecs =
+            entity.getEndTime().toEpochSecond() -
+            toTime.toEpochSecond();
+        double ratio = relevantSpanDurationInSecs / measurementDurationInSecs;
+        double measurementEnergyInJoules = entity.getMeasurementValue() * measurementDurationInSecs;
+        double relevantEnergyInJoules = ratio * measurementEnergyInJoules;
+        energyInJoules += relevantEnergyInJoules;
+        logger.info(String.format("Overlapping timespan with energy: %f and ratio %f",
+            relevantEnergyInJoules,
+            ratio));
       }
     }
-    average /= entities.size();
-    return average;
+    
+    double timeSpanInSeconds = toTime.toEpochSecond() - fromTime.toEpochSecond();
+    
+    return energyInJoules / timeSpanInSeconds;
   }
 }
