@@ -21,3 +21,12 @@ li a {
 li a:hover {
     background-color: #111111;
 }
+
+
+.bottombar{
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding-top: 10px;
+}

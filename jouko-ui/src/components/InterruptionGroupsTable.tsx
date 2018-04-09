@@ -44,6 +44,7 @@ export class InterruptionGroupsTable
     });
 
     return (
+      <div  className="App-Block3">
       <table>
         <thead>
           <tr>
@@ -56,6 +57,7 @@ export class InterruptionGroupsTable
           {rows}
         </tbody>
       </table>
+      </div>
     );
   }
 }

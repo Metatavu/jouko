@@ -2,6 +2,7 @@ import * as React from 'react';
 import { InterruptionsApi, DevicesApi } from 'jouko-ts-client';
 import { addYears, format as formatDate, parse as parseDate } from 'date-fns';
 import * as _ from 'lodash';
+import '../App.css';
 
 interface UpcomingInterruptionProps {
   id: number;
@@ -20,7 +21,7 @@ export class UpcomingInterruption
     let button;
 
     if (!this.props.cancelled) {
-      button = <button onClick={() => (this.props.cancelInterruption())}>ESTÄ KATKO</button>;
+      button = <button className="btn2" onClick={() => (this.props.cancelInterruption())}>ESTÄ KATKO</button>;
     } else {
       button = null;
     }

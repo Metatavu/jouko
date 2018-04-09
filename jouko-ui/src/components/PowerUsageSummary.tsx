@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as _ from 'lodash';
 import { DevicesApi,  } from 'jouko-ts-client';
 import { subDays, format as formatDate } from 'date-fns';
+import '../App.css';
 
 interface PowerUsageSummaryProps {
   deviceId: number;
@@ -16,7 +17,7 @@ export class PowerUsageSummary
     return (
       <div>
         <p>
-          <button>{this.props.name}</button>
+          <button className="btn">{this.props.name}</button>
           : {this.props.measurementvalue}</p>
       </div>
     );

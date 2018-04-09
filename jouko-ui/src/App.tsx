@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { InterruptionGroupsApi, InterruptionGroup } from 'jouko-ts-client';
 import './App.css';
+
 import { BrowserRouter } from 'react-router-dom';
 
 import { Header } from './components/Header';
@@ -47,25 +48,22 @@ class App extends React.Component<{}, AppState> {
 
     return (
         <BrowserRouter>
-          <div>
-            <div className="Header">
-                <Header />
-            </div>
-
-            <div className="App">
-              <header className="App-Block1">
-                <img src={logo} className="App-logo" alt="logo" />
-                <h1 className="App-title">JOUKO - kotiapp</h1>
-                <h1>Kirjautuneena: Tero <button>Kirjaudu ulos</button></h1>
-              </header>
-              <UpcomingInterruptions />
-              <PowerUsageSummaries />
+            <div className="wrapper">
+              <Header />
+              <div className="App">
+                <header className="App-Block1">
+                  <img src={logo} className="App-logo" alt="logo" />
+                  <h1 className="App-title">JOUKO - kotiapp</h1>
+                  <h1>Kirjautuneena: Tero <button className="btn">Kirjaudu ulos</button></h1>
+                </header>
+                <UpcomingInterruptions />
+                <PowerUsageSummaries />
+                <InterruptionGroupsTable rowProps={rowProps} />
+              </div>
               <div className="Bottombar">
                 <Bottombar />
               </div>
             </div>
-            <InterruptionGroupsTable rowProps={rowProps} />
-          </div>
         </BrowserRouter>
     );
   }
