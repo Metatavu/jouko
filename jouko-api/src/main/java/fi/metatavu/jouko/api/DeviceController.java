@@ -65,9 +65,6 @@ public class DeviceController {
         double ratio = relevantSpanDurationInSecs / measurementDurationInSecs;
         double measurementEnergyInJoules = entity.getMeasurementValue() * measurementDurationInSecs;
         double relevantEnergyInJoules = ratio * measurementEnergyInJoules;
-        logger.info(String.format("Overlapping timespan with energy: %f and ratio %f",
-            relevantEnergyInJoules,
-            ratio));
         energyInJoules += relevantEnergyInJoules;
       } else if (entity.getStartTime().isAfter(fromTime) && entity.getEndTime().isBefore(toTime)) {
         double measurementDurationInSecs =
@@ -75,9 +72,6 @@ public class DeviceController {
             entity.getStartTime().toEpochSecond();
         double measurementEnergyInJoules = entity.getMeasurementValue() * measurementDurationInSecs;
         energyInJoules += measurementEnergyInJoules;
-        logger.info(String.format("Contained timespan with energy: %f and ratio %f",
-            measurementEnergyInJoules,
-            ratio));
       } else if (entity.getStartTime().isBefore(toTime) && entity.getEndTime().isAfter(toTime)) {
         double measurementDurationInSecs =
             entity.getEndTime().toEpochSecond() -
@@ -89,9 +83,6 @@ public class DeviceController {
         double measurementEnergyInJoules = entity.getMeasurementValue() * measurementDurationInSecs;
         double relevantEnergyInJoules = ratio * measurementEnergyInJoules;
         energyInJoules += relevantEnergyInJoules;
-        logger.info(String.format("Overlapping timespan with energy: %f and ratio %f",
-            relevantEnergyInJoules,
-            ratio));
       }
     }
     
