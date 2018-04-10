@@ -48,9 +48,13 @@ export class Header
     }
 
     return (
-      <div>
-        <span className="menu" onClick={() => this.onMenuClick()}/>
-        <div className={classes}>
+      <div className="navigation">
+        <div className="menu" onClick={() => this.onMenuClick()}>
+          <div id="hamburger1" />
+          <div id="hamburger2" />
+          <div id="hamburger3" />
+        </div>
+          <div className={classes}>
           <ul>
             <li><a href="#">Menu 1</a></li>
             <li><a href="#">Menu 2</a></li>

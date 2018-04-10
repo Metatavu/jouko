@@ -94,33 +94,46 @@ body {
 }
 body .wrapper {
   width: 100%;
-  background: #30C4C9;
-  position: absolute;
-  overflow: hidden;
 }
-body .wrapper span {
-  z-index: 9999;
-  position: absolute;
-  top: 20px;
-  left: 10px;
-  width: 35px;
-  height: 4px;
-  background: #ffffff;
+.navigation {
+  background-color: #ededed;
+}
+body .wrapper .menu{
+  display: inline;
+  margin: 50px;
   cursor: pointer;
+  z-index: 999 !important;
 }
-body .wrapper span:before, body .wrapper span:after {
-  position: absolute;
-  content: '';
-  left: 0;
-  height: 4px;
+
+#hamburger1, #hamburger2, #hamburger3 {
+  position:absolute;
+  z-index: 999;
+}
+
+body .wrapper .menu #hamburger1{
   width: 35px;
-  background: #ffffff;
-}
-body .wrapper span:before {
-  top: -8px;
-}
-body .wrapper span:after {
-  bottom: -8px;
+  height: 5px;
+  top: 20px;
+  background-color: black;
+  margin: 6px 0;
+  margin-left:15px;
+  cursor: pointer;
+}body .wrapper .menu #hamburger2{
+  width: 35px;
+  height: 5px;
+  top: 30px;
+  background-color: black;
+  margin: 6px 0;
+  margin-left:15px;
+  cursor: pointer;
+}body .wrapper .menu #hamburger3{
+  width: 35px;
+  height: 5px;
+  top: 40px;
+  background-color: black;
+  margin: 6px 0;
+  margin-left:15px;
+  cursor: pointer;
 }
 body .wrapper .title {
   position: absolute;
@@ -160,10 +173,10 @@ body .wrapper .overlay.anim.reverse-anim {
 }
 body .wrapper .overlay ul {
   width: 100%;
-  text-align: center;
+  text-align: left;
   margin-top: 100px;
   padding-left: 0;
-  margin-left: -10px;
+  margin-left: 25px;
   font-size: 2em;
   font-weight: 800;
   background-color: transparent;
@@ -178,6 +191,8 @@ body .wrapper .overlay ul li a {
   position: relative;
   padding: 10px 0;
   overflow: hidden;
+  text-align: left;
+
 }
 body .wrapper .overlay ul li a:after {
   border-radius: 2px;
@@ -226,3 +241,4 @@ body .wrapper .overlay ul li a:hover:after {
     width: 25%;
   }
 }
+
