@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "date-fns": "^1.29.0",
+    "font-awesome": "^4.7.0",
     "jouko-ts-client": "0.0.6",
     "lodash": "^4.17.5",
     "react": "^16.3.1",

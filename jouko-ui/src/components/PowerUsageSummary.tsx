@@ -17,8 +17,7 @@ export class PowerUsageSummary
     return (
       <div>
         <p>
-          <button className="btn">{this.props.name}</button>
-          : {this.props.measurementvalue}</p>
+          <button className="btn">{this.props.name}</button>  {this.props.measurementvalue} Watt</p>
       </div>
     );
   }
@@ -78,9 +77,11 @@ export class PowerUsageSummaries
     });
 
     return (
-      <div  className="App-Block1">
+      <div  className="App-Block3">
+        <div>
         <h1 className="App-title">TEHONKULUTUSTIEDOT</h1>
         {rows}
+        </div>
       </div>
     );
   }

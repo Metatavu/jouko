@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { InterruptionGroupsApi, InterruptionGroup } from 'jouko-ts-client';
 import './App.css';
-
+import '../node_modules/font-awesome/css/font-awesome.min.css';
 import { BrowserRouter } from 'react-router-dom';
 
-import { Header } from './components/Header';
+// import { Header } from './components/Header';
 import { Bottombar } from './components/Bottombar';
 import { UpcomingInterruptions } from './components/UpcomingInterruptions';
 import { PowerUsageSummaries } from './components/PowerUsageSummary';
 import { InterruptionGroupsTable } from './components/InterruptionGroupsTable';
 import { parse as parseDate } from 'date-fns';
+import { Header } from './components/Header';
 
 const logo = require('./logo.svg');
 
@@ -49,16 +50,22 @@ class App extends React.Component<{}, AppState> {
     return (
         <BrowserRouter>
             <div className="wrapper">
-              <Header />
               <div className="App">
+                <div className="Navigation">
+                  <Header/>
+                </div>
+                <div className="Logout">
+                  <i className="fa fa-sign-out" />
+                </div>
                 <header className="App-Block1">
                   <img src={logo} className="App-logo" alt="logo" />
                   <h1 className="App-title">JOUKO - kotiapp</h1>
-                  <h1>Kirjautuneena: Tero <button className="btn">Kirjaudu ulos</button></h1>
+                  <h1>Kirjautuneena: Tero </h1>
                 </header>
                 <UpcomingInterruptions />
-                <PowerUsageSummaries />
-                <InterruptionGroupsTable rowProps={rowProps} />
+                <div>
+                <PowerUsageSummaries /> <InterruptionGroupsTable rowProps={rowProps} />
+                </div>
               </div>
               <div className="Bottombar">
                 <Bottombar />

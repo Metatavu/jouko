@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { format as formatDate } from 'date-fns';
 
 export interface InterruptionGroupTableRowProps {
   entityId: number;
@@ -13,11 +14,15 @@ export class InterruptionGroupsTableRow
   }
 
   render() {
+    let startdate = formatDate(this.props.startTime, 'DD.MM.YYYY');
+    let starttime = formatDate(this.props.startTime, 'HH.mm');
+    let enddate = formatDate(this.props.endTime, 'DD.MM.YYYY');
+    let endtime = formatDate(this.props.endTime, 'HH.mm');
     return (
       <tr>
         <td>{this.props.entityId}</td>
-        <td>{this.props.startTime.toISOString()}</td>
-        <td>{this.props.endTime.toISOString()}</td>
+        <td>{startdate}, klo {starttime}</td>
+        <td>{enddate}, klo {endtime}</td>
       </tr>
     );
   }
@@ -46,14 +51,14 @@ export class InterruptionGroupsTable
     return (
       <div  className="App-Block3">
       <table>
-        <thead>
+        <thead className="InterruptionsgroupHead">
           <tr>
-            <th>id</th>
-            <th>startTime</th>
-            <th>endTime</th>
+            <th>ID</th>
+            <th>Start Time</th>
+            <th>End Time</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="InterruptionsgroupBody">
           {rows}
         </tbody>
       </table>

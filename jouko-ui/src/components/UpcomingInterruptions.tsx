@@ -21,9 +21,11 @@ export class UpcomingInterruption
     let button;
 
     if (!this.props.cancelled) {
-      button = <button className="btn2" onClick={() => (this.props.cancelInterruption())}>ESTÄ KATKO</button>;
+      button = (
+        <button className="btn2" onClick={() => (this.props.cancelInterruption())}>
+        <span>ESTÄ KATKO</span></button>);
     } else {
-      button = null;
+      button = <button className="btn3" >CANCELLED</button>;
     }
 
     let startdate = formatDate(this.props.startTime, 'dd DD.MM.YYYY');
@@ -38,8 +40,7 @@ export class UpcomingInterruption
     return (
         <tr>
           <td id="column1">
-            {this.props.deviceName}:
-            {startdate} klo {starttime} - {enddate} klo {endtime}
+            {this.props.deviceName} | {startdate} klo {starttime} - {enddate} klo {endtime}
           </td>
           <td id="column2">
             {button}
@@ -116,7 +117,7 @@ export class UpcomingInterruptions
     rowProps.sort((a, b) => {
       return b.startTime.getTime() - a.startTime.getTime();
     });
-    this.setState({rowProps: _.take(rowProps, 40)});
+    this.setState({rowProps: _.take(rowProps, 5)});
   }
 
   render() {
@@ -132,6 +133,7 @@ export class UpcomingInterruptions
     return (
       <div className="App-Block2">
         <h1 className="App-title">TULEVAT KATKOT</h1>
+        <br/>
         <table><tbody>{rows}</tbody></table>
       </div>
     );
