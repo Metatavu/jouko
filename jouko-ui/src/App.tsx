@@ -10,6 +10,7 @@ import { PowerUsageSummary } from './components/PowerUsageSummary';
 import { User } from './components/User';
 import { Home } from './components/Home';
 import { Settings } from './components/Settings';
+import { Statistics } from './components/Statistics';
 
 const logo = require('./logo.svg');
 
@@ -38,6 +39,7 @@ class App extends React.Component {
                 <Route path="/" exact={true} component={Home} />
                 <Route path="/User" component={User} />
                 <Route path="/Settings" component={Settings} />
+                <Route path="/Statistics" component={Statistics} />
                 <Route path="/UpcomingInterruptions" component={UpcomingInterruptions} />
                 <Route path="/InterruptionGroupsTable" component={InterruptionGroupsTable} />
                 <Route path="/PowerUsageSummary" component={PowerUsageSummary} />

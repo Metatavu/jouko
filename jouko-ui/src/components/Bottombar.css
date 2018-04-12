@@ -8,7 +8,7 @@
 
 .Bottombar ul li {
   float: left;
-  width: 33.3333%;
+  width: 25%;
 }
 
 .Bottombar ul li a {
@@ -35,4 +35,10 @@
 
 .Bottombar i{
   font-size: 40px;
+}
+
+p{
+  margin: 0px;
+  margin-top: 5px;
+  font-size: 16px;
 }
