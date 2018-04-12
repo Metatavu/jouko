@@ -40,7 +40,7 @@ export class Header
         classes = 'overlay';
         break;
       case State.OPEN:
-        classes = 'overlay anim';
+        classes = 'overlay open';
         break;
       default:
         classes = 'overlay';

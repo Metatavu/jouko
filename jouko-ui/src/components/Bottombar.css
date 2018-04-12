@@ -8,10 +8,7 @@
 
 .Bottombar ul li {
   float: left;
-  width: 33%;
-}
-.Bottombar ul li:hover {
-  border-left: 2px solid #191919;
+  width: 33.3333%;
 }
 
 .Bottombar ul li a {
