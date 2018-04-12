@@ -19,7 +19,7 @@ public class ByteEscaper implements Iterable<Byte> {
   
     @Override
     public Byte next() {
-      // escape 0x00 - 0x03 by prefixing them with 0x03
+      // escape 0xfd-0xff by subtracting 0xfd and prepending 0xff
       if (escaped != null) {
         byte result = escaped;
         escaped = null;
@@ -28,9 +28,9 @@ public class ByteEscaper implements Iterable<Byte> {
   
       byte next = input[i];
       i++;
-      if (next < (byte)0x04) {
-        escaped = next;
-        return (byte)0x03;
+      if (next == 0xfd || next == 0xfe || next == 0xff) {
+        escaped = (byte)(next - 0xfd);
+        return (byte)0xff;
       } else {
         return next;
       }
