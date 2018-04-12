@@ -1,19 +1,116 @@
-.App {
+/*################################################ General App Setting #################################################*/
+.wrapper {
   text-align: center;
-  margin-bottom: 75px; /* Add a top margin to avoid content overlay */
+  margin-bottom: 75px; /* Add a top margin to avoid content overlay with bottom menu */
+}
+.App-intro {
+  font-size: large;
 }
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
 }
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+/*##################################################### Navigation bar #####################################################*/
+/*########################## Navigationbar ##########################*/
+.Navigationbar {
+  height: 75px;
+  background-color: #f6fbfd;
+  top: 0;
+  position: relative;
+}
+.Navigation {
+  width: 50%;
+  float: left;
+}
+.Logout {
+  width: 50%;
+  float: right;
+}
+/*########################## Menu ##########################*/
+.menu{
+  display: inline;
+  cursor: pointer;
+  z-index: 999 !important;
+}
+.hamburger1, .hamburger2, .hamburger3{
+  position:fixed;
+  z-index: 99999;
+  width: 35px;
+  height: 5px;
+  background-color: #0a242d;
+  margin: 6px 0;
+  margin-left:15px;
+  cursor: pointer;
+}
+.menu .hamburger1{
+  top: 15px;
+}
+.menu .hamburger2{
+  top: 25px;
+}
+.menu .hamburger3{
+  top: 35px;
+}
+.overlay{
+  display: flex;
+  height: 100%;
+  background: #30C4C9;
+  left: 0;
+  width: 20rem;
+  transition: transform 0.5s;
+  transform: translate(-20rem, 0);
+  position: fixed;
+}
+.overlay.open {
+  transform: translate(0, 0);
+}
+.overlay ul {
+  margin-top: 100px;
+  padding-left: 0px;
+  font-size: 2em;
+  font-weight: 400;
+}
+.overlay ul li {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(10,36,45,0.2);
+  list-style-type: none !important;
+  width: 20rem;
+  text-align: left;
+}
+.overlay ul li:hover {
+  background-color: rgba(10,36,45,0.2);
+  color: white;
+}
+.overlay ul li a {
+  text-decoration: none;
+  color: white;
+  padding-left: 25px;
+}
+.navigation i{
+  padding-right: 15px;
+}
+/*######################### Logout ########################*/
+.Logout i{
+  margin-top: 15px;
+  margin-right: 15px;
+  float:right;
+  font-size: 40px;
+  color: #0a242d;
+}
+/*##################################################### App-Blocks #####################################################*/
+/*########################## App-Block1 ##########################*/
 .App-Block1 {
   background-color: #f6fbfd;
-  min-height: 300px;
   height: 100%;
   padding: 20px;
-  padding-bottom: 0;
-  color: #222222;
+  padding-bottom: 50px;
+  color: #0a242d;
 }
+/*########################## App-Block2 ##########################*/
 .App-Block2 {
   background-image: url("./img/background_dark.jpg");
   background-size: cover;
@@ -21,11 +118,44 @@
   height: 100%;
   padding: 50px;
   color: white;
-  font-weight: 400;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
 }
+.App-Block2 table{
+  margin: auto !important;
+}
+@media (max-width:900px) {
+  .App-Block2 #column1 {
+    width: 60%;
+    padding-bottom: 25px;
+    text-align: left;
+  }
+  .App-Block2 #column2 {
+    width: 15%;
+    padding-bottom: 25px;
+    text-align: left;
+  }
+  .App-Block2 table {
+    width: 75%;
+  }
+}
+@media (min-width:900px) {
+  .App-Block2 #column1 {
+    width: 35%;
+    padding-bottom: 25px;
+    text-align: left;
+  }
+  .App-Block2 #column2 {
+    width: 10%;
+    padding-bottom: 25px;
+    text-align: left;
+  }
+  .App-Block2 table {
+    width: 45%;
+  }
+}
+/*########################## App-Block3 ##########################*/
   .App-Block3 {
     background-color: #f6fbfd;
     height: 100%;
@@ -40,77 +170,18 @@
     width: 90%;
     line-height: 1.5em;
   }
-
-@media (min-width:901px) {
-
   .App-Block3 h1{
     color: #0a242d;
-  }
-  .App-Block3 h1{
     margin-top: 0px;
     margin-bottom: 25px;
   }
-}
-.App-Block3 .InterruptionsgroupHead{
-  background-color: #0a242d;
-  height: 25px;
-  color: #ffffff;
-  font-size: 20px;
-  line-height: 2em;
-}
-.App-Block3 .InterruptionsgroupBody tr:nth-child(odd){
-  background-color: #eef8fc;
-  font-size: 15px;
-  line-height: 2em;
-}
-.App-Block3 .InterruptionsgroupBody tr:nth-child(even){
-  background-color: #f4fbfd;
-  font-size: 15px;
-}
-.App-title {
-  font-size: 1.5em;
-}
-.App-intro {
-  font-size: large;
-}
-.App-Block2 table{
-  margin: auto !important;
-}
-@media (max-width:900px) {
-  .App-Block2 #column1 {
-    width: 60%;
-  }
-  .App-Block2 #column2 {
-    width: 15%;
-    text-align: left;
-  }
-  .App-Block2 table {
-    width: 75%;
-  }
-}
-@media (min-width:900px) {
-  .App-Block2 #column1 {
-    width: 35%;
-  }
-  .App-Block2 #column2 {
-    width: 10%;
-    text-align: left;
-  }
-  .App-Block2 table {
-    width: 45%;
-  }
-}
-.App-Block2 td{
-  text-align: left;
-  padding-left: 20px;
-  vertical-align: text-bottom;
-}
+/*##################################################### Buttons #####################################################*/
+/*########################## Normal Button ##########################*/
 .btn{
   background: transparent;
   border-radius: 28px;
   border: 2px solid #0a242d;
   color: #0a242d;
-  font-size: 15px;
   padding: 10px 20px 10px 20px;
   margin-bottom: 25px;
   text-decoration: none;
@@ -121,35 +192,13 @@
   background: #0a242d;
   color: #ffffff;
 }
-.btn span{
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-.btn span:after{
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-.btn:hover span{
-  padding-right: 25px;
-}
-.btn:hover span:after{
-  opacity: 1;
-  right: 0;
-}
+/*########################## Buttons with arrows ##########################*/
 .btn2{
   background: #eef8fc;
   border-radius: 28px;
   border: none;
   color: #0a242d;
-  font-size: 13px;
   padding: 10px 20px 10px 20px;
-  margin-bottom: 25px;
   text-decoration: none;
   cursor: pointer;
   transition: all 0.5s;
@@ -175,151 +224,22 @@
   opacity: 1;
   right: 0;
 }
+/*########################## Cancelled Button ##########################*/
 .btn3{
-  background: #eef8fc;
+  background: transparent;
   border-radius: 28px;
-  border: none;
-  color: #0a242d;
+  border: 2px solid #eef8fc;
+  color: #eef8fc;
   font-size: 13px;
   font-weight: 900;
   padding: 10px 20px 10px 20px;
-  margin-bottom: 25px;
   text-decoration: none;
 }
-column1{
-  max-width: 70%;
-  text-align: left;
-}
-column2{
-  max-width: 30%;
-  text-align: left;
-}
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-.Logout i{
-  text-align: right;
-  background-color: #f6fbfd;
-  margin-top: 15px;
-  margin-right: 15px;
-  float:right;
-}
-.Logout i{
-  font-size: 40px;
-  color: #0a242d;
-}
-.Navigation {
-  height: 75px;
-  width: 50%;
+/*########################## Statistics ##########################*/
+.Statistics{
+  padding-bottom: 100px;
+  width: 25%;
   float: left;
-  overflow: hidden;
 }
-.Logout {
-  height: 75px;
-  width: 50%;
-  float: right;
-  overflow: hidden;
-}
-body .wrapper .menu{
-  display: inline;
-  cursor: pointer;
-  z-index: 999 !important;
-}
-.hamburger1, .hamburger2, .hamburger3 {
-  position:absolute;
-  z-index: 999;
-}
-body .wrapper .menu .hamburger1{
-  width: 35px;
-  height: 5px;
-  top: 15px;
-  background-color: #0a242d;
-  margin: 6px 0;
-  margin-left:15px;
-  cursor: pointer;
-}
-body .wrapper .menu .hamburger2{
-   width: 35px;
-   height: 5px;
-   top: 25px;
-   background-color: #0a242d;
-   margin: 6px 0;
-   margin-left:15px;
-   cursor: pointer;
-}
-body .wrapper .menu .hamburger3{
-    width: 35px;
-    height: 5px;
-    top: 35px;
-    background-color: #0a242d;
-    margin: 6px 0;
-    margin-left:15px;
-    cursor: pointer;
-}
-body .wrapper .title {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 100px;
-  margin-top: -50px;
-  width: 50%;
-  margin-left: -25%;
-  text-align: center;
-}
-body .wrapper .title h1 {
-  color: #30C4C9;
-}
-body .wrapper .overlay {
-  position: absolute;
-  display: flex;
-  height: 100vh;
-  background: #30C4C9;
-  left: 0;
-  width: 25vw;
-  transition: transform 0.5s;
-  transition-timing-function: cubic-bezier(0.025, 0.330, 0.175, 0.400);
-  transform: translate(-50vw, 0);
-}
-body .wrapper .overlay.open {
-  transform: translate(0, 0);
-}
-body .wrapper .overlay ul {
-  width: 100%;
-  text-align: left;
-  margin-top: 100px;
-  padding-left: 0;
-  margin-left: 25px;
-  font-size: 2em;
-  font-weight: 800;
-  background-color: transparent;
-}
-body .wrapper .overlay ul li {
-  margin: 10px 0;
-  float: none !important;
-  list-style-type: none !important;
-}
-body .wrapper .overlay ul li a {
-  text-decoration: none;
-  color: white;
-  position: relative;
-  padding: 10px 0;
-  overflow: hidden;
-  text-align: left;
-}
-body .wrapper .overlay ul li a:after {
-  border-radius: 2px;
-  content: '';
-  left: 0;
-  bottom: -10px;
-  height: 5px;
-  background: #ffffff;
-  transform: translateX(-101%);
-}
-body .wrapper .overlay ul li a:hover {
-  text-decoration: none;
-  background-color: transparent;
-}
-body .wrapper .overlay ul li a:hover:after {
-  transform: translateX(0);
-}
+
+

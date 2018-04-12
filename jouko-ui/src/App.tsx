@@ -24,18 +24,19 @@ class App extends React.Component {
     return (
         <BrowserRouter>
             <div className="wrapper">
-              <div className="App">
-                <div className="Navigation">
-                  <Header/>
+                <div className="Navigationbar">
+                  <div className="Navigation">
+                    <Header/>
+                  </div>
+                  <div className="Logout">
+                    <i className="fa fa-sign-out" />
+                  </div>
                 </div>
-                <div className="Logout">
-                  <i className="fa fa-sign-out" />
-                </div>
-                <header className="App-Block1">
+                <div className="App-Block1">
                   <img src={logo} className="App-logo" alt="logo" />
                   <h1 className="App-title">JOUKO - kotiapp</h1>
                   <h1>Kirjautuneena: Tero </h1>
-                </header>
+                </div>
                 <Route path="/" exact={true} component={Home} />
                 <Route path="/User" component={User} />
                 <Route path="/Settings" component={Settings} />
@@ -43,10 +44,9 @@ class App extends React.Component {
                 <Route path="/UpcomingInterruptions" component={UpcomingInterruptions} />
                 <Route path="/InterruptionGroupsTable" component={InterruptionGroupsTable} />
                 <Route path="/PowerUsageSummary" component={PowerUsageSummary} />
-              </div>
-              <div className="Bottombar">
-                <Bottombar />
-              </div>
+                <div className="Bottombar">
+                  <Bottombar />
+                </div>
             </div>
         </BrowserRouter>
     );

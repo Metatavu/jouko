@@ -1,5 +1,6 @@
 import * as React from 'react';
 import '../App.css';
+import { NavLink } from 'react-router-dom';
 
 enum State {
   CLOSED,
@@ -54,13 +55,13 @@ export class Header
           <div className="hamburger2" />
           <div className="hamburger3" />
         </div>
-          <div className={classes}>
+        <div className={classes}>
           <ul>
-            <li><a href="#">Menu 1</a></li>
-            <li><a href="#">Menu 2</a></li>
-            <li><a href="#">Menu 3</a></li>
-            <li><a href="#">Menu 4</a></li>
-            <li><a href="#">Menu 5</a></li>
+            <li><NavLink to="/"><i className="fa fa-home fa-fw"/> Home</NavLink></li>
+            <li><NavLink to="/User"><i className="fa fa-user fa-fw"/> User</NavLink></li>
+            <li><NavLink to="/Statistics"><i className="fa fa-line-chart fa-fw"/> Statistics</NavLink></li>
+            <li><NavLink to="/Settings"><i className="fa fa-cogs fa-fw"/> Settings</NavLink></li>
+            <li><NavLink to="/"><i className="fa fa-sign-out fa-fw" /> Logout</NavLink></li>
           </ul>
         </div>
       </div>
