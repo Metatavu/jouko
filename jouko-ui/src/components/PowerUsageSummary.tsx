@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import { DevicesApi,  } from 'jouko-ts-client';
-import { subDays, format as formatDate } from 'date-fns';
+import { format as formatDate, subHours } from 'date-fns';
 import '../App.css';
 
 interface PowerUsageSummaryProps {
@@ -51,9 +51,9 @@ export class PowerUsageSummaries
 
     for (const device of devices) {
 
-      let yesterday = formatDate(subDays(new Date(), 1));
+      let lastHour = formatDate(subHours(new Date(), 1));
       let today = formatDate(new Date());
-      const powerUsage = await devicesApi.getPowerConsumption(1, device.id, yesterday, today);
+      const powerUsage = await devicesApi.getPowerConsumption(1, device.id, lastHour, today);
       rowProps.push({
           deviceId: device.id,
           name: device.name,

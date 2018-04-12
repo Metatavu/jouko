@@ -109,11 +109,11 @@ public class DeviceCommunicator {
 
   private byte[] encodeMessage(ViestiLaitteelle message) {
     ByteArrayOutputStream payloadBytes = new ByteArrayOutputStream();
-    payloadBytes.write(0x01); // start data frame
+    payloadBytes.write(0xfd); // start data frame
     for (byte escaped : new ByteEscaper(message.toByteArray())) {
       payloadBytes.write(escaped);
     }
-    payloadBytes.write(0x02); // end frame
+    payloadBytes.write(0xfe); // end frame
     return payloadBytes.toByteArray();
   }
   
