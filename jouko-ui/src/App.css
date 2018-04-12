@@ -273,12 +273,13 @@ body .wrapper .title h1 {
 body .wrapper .overlay {
   position: absolute;
   display: flex;
-  height: 100vw;
+  height: 100vh;
   background: #30C4C9;
   left: 0;
   width: 25vw;
-  transition: transform 1s;
-  transform: translate(-25vw, 0);
+  transition: transform 0.5s;
+  transition-timing-function: cubic-bezier(0.025, 0.330, 0.175, 0.400);
+  transform: translate(-50vw, 0);
 }
 body .wrapper .overlay.open {
   transform: translate(0, 0);
