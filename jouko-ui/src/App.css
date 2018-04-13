@@ -70,7 +70,7 @@
 }
 .overlay ul {
   margin-top: 100px;
-  padding-left: 0px;
+  padding-left: 0;
   font-size: 2em;
   font-weight: 400;
 }
@@ -172,7 +172,7 @@
   }
   .App-Block3 h1{
     color: #0a242d;
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 25px;
   }
 /*##################################################### Buttons #####################################################*/
@@ -236,32 +236,8 @@
   text-decoration: none;
 }
 /*##################################################### Statistics #####################################################*/
-/*########################## Statistics1 ##########################*/
-@media (max-width:900px) {
-  .Statistics1 {
-    padding-left: 5%;
-    padding-right: 5%;
+.Statistics{
     padding-bottom: 100px;
-    width: 90%;
-    float: left;
-  }
+    margin: auto;
+    width: 50%;
 }
-@media (min-width:900px) {
-  .Statistics1 {
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-bottom: 100px;
-    width: 40%;
-    float: left;
-  }
-}
-/*########################## Statistics3 ##########################*/
-.Statistics2 {
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-bottom: 10%;
-  width: 90%;
-  float: left;
-  margin-bottom: 100px;
-}
-

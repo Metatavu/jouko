@@ -40,7 +40,12 @@ class App extends React.Component {
                 <Route path="/" exact={true} component={Home} />
                 <Route path="/User" component={User} />
                 <Route path="/Settings" component={Settings} />
-                <Route path="/Statistics" component={Statistics} />
+                <Route
+                  path="/Statistics/:id"
+                  render={props => (
+                    <Statistics deviceId={props.match.params.id as number}/>
+                  )}
+                />
                 <Route path="/UpcomingInterruptions" component={UpcomingInterruptions} />
                 <Route path="/InterruptionGroupsTable" component={InterruptionGroupsTable} />
                 <Route path="/PowerUsageSummary" component={PowerUsageSummary} />

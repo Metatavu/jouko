@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as _ from 'lodash';
 import { DevicesApi,  } from 'jouko-ts-client';
 import { format as formatDate, subHours } from 'date-fns';
+import { NavLink } from 'react-router-dom';
 import '../App.css';
 
 interface PowerUsageSummaryProps {
@@ -17,7 +18,9 @@ export class PowerUsageSummary
     return (
       <div>
         <p>
-          <button className="btn">{this.props.name}</button>  {this.props.measurementvalue} Watt</p>
+          <NavLink to={`/Statistics/${this.props.deviceId}`}>
+          <button className="btn">
+            {this.props.name}</button></NavLink> {this.props.measurementvalue} Watt</p>
       </div>
     );
   }
