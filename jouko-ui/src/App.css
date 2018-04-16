@@ -18,7 +18,7 @@
 /*########################## Navigationbar ##########################*/
 .Navigationbar {
   height: 75px;
-  background-color: #f6fbfd;
+  background-color: rgba(48,196,201,0.05);
   top: 0;
   position: relative;
 }
@@ -91,7 +91,7 @@
 /*##################################################### App-Blocks #####################################################*/
 /*########################## App-Block1 ##########################*/
 .App-Block1 {
-  background-color: #f6fbfd;
+  background-color: rgba(48,196,201,0.05);
   height: 100%;
   padding: 20px;
   padding-bottom: 50px;
@@ -227,4 +227,8 @@
     padding-bottom: 100px;
     margin: auto;
     width: 50%;
+}
+/*##################################################### Loader #####################################################*/
+.sweet-loading{
+  margin-top: 50px;
 }

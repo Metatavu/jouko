@@ -5,6 +5,7 @@ import { DevicesApi,  } from 'jouko-ts-client';
 import { addMinutes, addHours, addDays, subMinutes, subHours, subDays } from 'date-fns';
 import { format as formatDate } from 'date-fns';
 import * as _ from 'lodash';
+import { BeatLoader } from 'react-spinners';
 
 interface ChartProps {
   deviceId: number;
@@ -17,6 +18,7 @@ interface ChartProps {
 }
 interface StatisticsState {
   rowProps: ChartProps[];
+  loading: boolean;
 }
 
 interface StatisticsProps {
@@ -28,7 +30,7 @@ export class Statistics
 
   constructor(props: StatisticsProps) {
     super(props);
-    this.state = {rowProps: []};
+    this.state = {rowProps: [], loading: true};
   }
 
   componentDidMount() {
@@ -84,7 +86,6 @@ export class Statistics
           1, this.props.deviceId, formatDate(daysStartTime), formatDate(daysEndTime)));
       daysData.push(daysDataValue.averageConsumptionInWatts);
     }
-
     rowProps.push({
       deviceId: this.props.deviceId,
       hourLabels: hourLabels,
@@ -94,12 +95,14 @@ export class Statistics
       daysLabels: daysLabels,
       daysData: daysData
     });
-    this.setState({rowProps: _.take(rowProps, 40)});
+    this.setState({rowProps: _.take(rowProps, 40), loading: false});
   }
+
   render() {
     const hourChart = this.state.rowProps.map(prop => {
       return (
         <div key={prop.deviceId.toString()}>
+
           <h1>Statistics | 1 h</h1>
           <Bar
             data={
@@ -107,12 +110,12 @@ export class Statistics
                 labels: prop.hourLabels,
                 datasets: [
                   {
-                    label: 'My First dataset',
-                    backgroundColor: 'rgba(255,99,132,0.2)',
-                    borderColor: 'rgba(255,99,132,1)',
+                    label: '1 hour',
+                    backgroundColor: 'rgba(48,196,201,0.2)',
+                    borderColor: 'rgba(48,196,201,1)',
                     borderWidth: 1,
-                    hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                    hoverBorderColor: 'rgba(255,99,132,1)',
+                    hoverBackgroundColor: 'rgba(48,196,201,0.4)',
+                    hoverBorderColor: 'rgba(48,196,201,1)',
                     data: prop.hourData
                   }
                 ]
@@ -126,12 +129,12 @@ export class Statistics
                 labels: prop.hoursLabels,
                 datasets: [
                   {
-                    label: 'My First dataset',
-                    backgroundColor: 'rgba(255,99,132,0.2)',
-                    borderColor: 'rgba(255,99,132,1)',
+                    label: '24 hours',
+                    backgroundColor: 'rgba(48,196,201,0.2)',
+                    borderColor: 'rgba(48,196,201,1)',
                     borderWidth: 1,
-                    hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                    hoverBorderColor: 'rgba(255,99,132,1)',
+                    hoverBackgroundColor: 'rgba(48,196,201,0.4)',
+                    hoverBorderColor: 'rgba(48,196,201,1)',
                     data: prop.hoursData
                   }
                 ]
@@ -145,21 +148,22 @@ export class Statistics
               labels: prop.daysLabels,
               datasets: [
                 {
-                  label: 'My First dataset',
+                  label: '30 days',
                   fill: false,
                   lineTension: 0.1,
-                  backgroundColor: 'rgba(75,192,192,0.4)',
-                  borderColor: 'rgba(75,192,192,1)',
+                  borderWidth: 1,
+                  backgroundColor: 'rgba(48,196,201,0.2)',
+                  borderColor: 'rgba(48,196,201,1)',
                   borderCapStyle: 'butt',
                   borderDash: [],
                   borderDashOffset: 0.0,
                   borderJoinStyle: 'miter',
-                  pointBorderColor: 'rgba(75,192,192,1)',
+                  pointBorderColor: 'rgba(48,196,201,1)',
                   pointBackgroundColor: '#fff',
                   pointBorderWidth: 1,
                   pointHoverRadius: 5,
-                  pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                  pointHoverBorderColor: 'rgba(220,220,220,1)',
+                  pointHoverBackgroundColor: 'rgba(48,196,201,1)',
+                  pointHoverBorderColor: 'rgba(48,196,201,1)',
                   pointHoverBorderWidth: 2,
                   pointRadius: 1,
                   pointHitRadius: 10,
@@ -174,6 +178,12 @@ export class Statistics
     });
     return (
       <div className="Statistics">
+        <div className="sweet-loading">
+          <BeatLoader
+            color={'#30C4C9'}
+            loading={this.state.loading}
+          />
+        </div>
         {hourChart}
       </div>
     );
