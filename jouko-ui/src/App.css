@@ -32,13 +32,13 @@
 }
 /*########################## Menu ##########################*/
 .menu{
-  position: absolute;
   cursor: pointer;
   text-align: left;
   padding-left: 15px;
   padding-top: 15px;
   font-size: 40px;
   z-index: 9999;
+  position: fixed;
 }
 .overlay{
   display: flex;
@@ -79,6 +79,7 @@
 .navigation i{
   padding-right: 15px;
 }
+
 /*######################### Logout ########################*/
 .Logout i{
   margin-top: 15px;

@@ -13,7 +13,7 @@ export function Bottombar () {
                 <NavLink to="/"><i className="fa fa-home fa-home"/><p>Home</p></NavLink>
             </li>
             <li>
-                <NavLink to="/Statistics"><i className="fa fa-line-chart fa-line-chart"/><p>Statistics</p></NavLink>
+                <NavLink to="/Statistics/1"><i className="fa fa-line-chart fa-line-chart"/><p>Statistics</p></NavLink>
             </li>
             <li>
                 <NavLink to="/Settings"><i className="fa fa-cogs fa-cogs" /><p>Settings</p></NavLink>
