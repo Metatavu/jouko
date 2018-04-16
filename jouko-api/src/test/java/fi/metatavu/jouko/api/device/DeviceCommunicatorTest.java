@@ -73,10 +73,10 @@ public class DeviceCommunicatorTest {
     
     String expectedPost = "http://jouko.test/?DevEUI=EUI"
                         + "&FPort=1"
-                        + "&Payload=010a0a0a08080301100301180300206402"
+                        + "&Payload=7b43676f4b43416742454145594143426b7d"
                         + "&AS_ID=as"
                         + "&Time=1970-01-01T00:00:00Z"
-                        + "&Token=b71383488144fe4e7418f2aeaf30d675ae91b953007978df9a6ee12c4a2d2ae8";
+                        + "&Token=5b89dcabdeadcd07a523a6a26f94c951a4bc8b14947e30a048615010a4d3f034";
 
     Assert.assertEquals(1, postResults.size());
     Assert.assertEquals(expectedPost, postResults.get(0));
@@ -102,10 +102,10 @@ public class DeviceCommunicatorTest {
     
     String expectedPost = "http://jouko.test/?DevEUI=EUI"
                         + "&FPort=1"
-                        + "&Payload=0112040a030208030102"
+                        + "&Payload=7b4567514b416767427d"
                         + "&AS_ID=as"
                         + "&Time=1970-01-01T00:00:00Z"
-                        + "&Token=a2bef1536660afe6df263c79d51bcdaebc964d53bd9f2feb6260eb90bf8be8fd";
+                        + "&Token=31c171ca123ce8cf905ab83e4a9aad2f6190f3cdcb73b63714ea18eae2402d5f";
 
     Assert.assertEquals(1, postResults.size());
     Assert.assertEquals(expectedPost, postResults.get(0));

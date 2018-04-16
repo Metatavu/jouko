@@ -32,28 +32,13 @@
 }
 /*########################## Menu ##########################*/
 .menu{
-  display: inline;
+  position: absolute;
   cursor: pointer;
-  z-index: 999 !important;
-}
-.hamburger1, .hamburger2, .hamburger3{
-  position:fixed;
-  z-index: 99999;
-  width: 35px;
-  height: 5px;
-  background-color: #0a242d;
-  margin: 6px 0;
-  margin-left:15px;
-  cursor: pointer;
-}
-.menu .hamburger1{
-  top: 15px;
-}
-.menu .hamburger2{
-  top: 25px;
-}
-.menu .hamburger3{
-  top: 35px;
+  text-align: left;
+  padding-left: 15px;
+  padding-top: 15px;
+  font-size: 40px;
+  z-index: 9999;
 }
 .overlay{
   display: flex;
@@ -61,7 +46,8 @@
   background: #30C4C9;
   left: 0;
   width: 20rem;
-  transition: transform 0.5s;
+  transition: transform 0.75s;
+  transition-timing-function: ease-in-out;
   transform: translate(-20rem, 0);
   position: fixed;
 }

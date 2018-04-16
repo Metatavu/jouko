@@ -14,6 +14,7 @@ import java.util.function.Function;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.client.fluent.Request;
 import org.jboss.resteasy.util.Hex;
@@ -109,11 +110,10 @@ public class DeviceCommunicator {
 
   private byte[] encodeMessage(ViestiLaitteelle message) {
     ByteArrayOutputStream payloadBytes = new ByteArrayOutputStream();
-    payloadBytes.write(0xfd); // start data frame
-    for (byte escaped : new ByteEscaper(message.toByteArray())) {
-      payloadBytes.write(escaped);
-    }
-    payloadBytes.write(0xfe); // end frame
+    byte[] base64 = Base64.encodeBase64(message.toByteArray());
+    payloadBytes.write(Character.codePointAt("{", 0));
+    payloadBytes.write(base64, 0, base64.length);
+    payloadBytes.write(Character.codePointAt("}", 0));
     return payloadBytes.toByteArray();
   }
   
