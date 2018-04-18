@@ -11,11 +11,13 @@ import { User } from './components/User';
 import { Home } from './components/Home';
 import { Settings } from './components/Settings';
 import { Statistics } from './components/Statistics';
+import { NavLink } from 'react-router-dom';
+import * as keycloak from './index';
 
 const logo = require('./logo.svg');
+const user = '';
 
 class App extends React.Component {
-
   constructor(props: {}) {
     super(props);
   }
@@ -29,13 +31,13 @@ class App extends React.Component {
                     <Header/>
                   </div>
                   <div className="Logout">
-                    <i className="fa fa-sign-out" />
+                    <NavLink to="/" onClick={keycloak.kc.logout}><i className="fa fa-sign-out"/></NavLink>
                   </div>
                 </div>
                 <div className="App-Block1">
                   <img src={logo} className="App-logo" alt="logo" />
                   <h1 className="App-title">JOUKO - kotiapp</h1>
-                  <h1>Kirjautuneena: Tero </h1>
+                  <h1>Kirjautuneena: {user} </h1>
                 </div>
                 <Route path="/" exact={true} component={Home} />
                 <Route path="/User" component={User} />

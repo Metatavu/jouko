@@ -23,7 +23,7 @@ export class UpcomingInterruption
     if (!this.props.cancelled) {
       button = (
         <button className="btn2" onClick={() => (this.props.cancelInterruption())}>
-        <span>ESTÄ KATKO</span></button>);
+        ESTÄ KATKO</button>);
     } else {
       button = <button className="btn3" >CANCELLED</button>;
     }

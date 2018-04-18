@@ -9,6 +9,8 @@
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
+  position: relative;
+  z-index: -1;
 }
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
@@ -31,55 +33,100 @@
   float: right;
 }
 /*########################## Menu ##########################*/
-.menu{
-  cursor: pointer;
-  text-align: left;
-  padding-left: 15px;
-  padding-top: 15px;
-  font-size: 40px;
-  z-index: 9999;
-  position: fixed;
-}
-.overlay{
-  display: flex;
-  height: 100%;
-  background: #30C4C9;
-  left: 0;
-  width: 20rem;
-  transition: transform 0.75s;
-  transition-timing-function: ease-in-out;
-  transform: translate(-20rem, 0);
-  position: fixed;
-}
 .overlay.open {
   transform: translate(0, 0);
 }
-.overlay ul {
-  margin-top: 100px;
-  padding-left: 0;
-  font-size: 2em;
-  font-weight: 400;
+@media only screen and (max-width: 767px) {
+  .menu{
+    cursor: pointer;
+    text-align: left;
+    padding-left: 15px;
+    padding-top: 15px;
+    font-size: 40px;
+    z-index: 9999;
+    position: fixed;
+  }
+  .overlay ul {
+    margin-top: 100px;
+    padding-left: 0;
+    font-size: 1.2em;
+    font-weight: 400;
+  }
+  .overlay ul li {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(10,36,45,0.2);
+    list-style-type: none !important;
+    text-align: left;
+    width: 15rem;
+
+  }
+  .overlay{
+    display: flex;
+    height: 100%;
+    background: #30C4C9;
+    left: 0;
+    width: 15rem;
+    transition: transform 1s;
+    transition-timing-function: ease-in-out;
+    transform: translate(-15rem, 0);
+    position: fixed;
+  }
 }
-.overlay ul li {
-  padding: 20px 0;
-  border-bottom: 1px solid rgba(10,36,45,0.2);
-  list-style-type: none !important;
-  width: 20rem;
-  text-align: left;
+@media only screen and (min-width: 768px) {
+  .menu{
+    cursor: pointer;
+    text-align: left;
+    padding-left: 15px;
+    padding-top: 15px;
+    font-size: 40px;
+    z-index: 9999;
+    position: fixed;
+  }
+  .overlay ul {
+    margin-top: 100px;
+    padding-left: 0;
+    font-size: 1.2em;
+    font-weight: 400;
+  }
+  .overlay ul li {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(10,36,45,0.2);
+    list-style-type: none !important;
+    text-align: left;
+    width: 15rem;
+  }
+  .overlay{
+    display: flex;
+    height: 100%;
+    background: #30C4C9;
+    left: 0;
+    width: 15rem;
+    transition: transform 0.75s;
+    transition-timing-function: ease-in-out;
+    transform: translate(-15rem, 0);
+    position: fixed;
+  }
 }
+
 .overlay ul li:hover {
   background-color: rgba(10,36,45,0.2);
   color: white;
 }
-.overlay ul li a {
+.overlay ul a {
   text-decoration: none;
   color: white;
-  padding-left: 25px;
+  padding-left: 10px;
+  padding-top: 20px;
+  padding-right: 75px;
+  padding-bottom: 20px;
+
 }
 .navigation i{
   padding-right: 15px;
 }
-
+.navigation ul i{
+  padding-left: 15px;
+}
 /*######################### Logout ########################*/
 .Logout i{
   margin-top: 15px;
@@ -189,7 +236,10 @@
   text-decoration: none;
   cursor: pointer;
   transition: all 0.5s;
+  position: relative;
+  z-index: 5;
 }
+/*
 .btn2 span{
   cursor: pointer;
   display: inline-block;
@@ -211,6 +261,7 @@
   opacity: 1;
   right: 0;
 }
+*/
 /*########################## Cancelled Button ##########################*/
 .btn3{
   background: transparent;
@@ -231,4 +282,85 @@
 /*##################################################### Loader #####################################################*/
 .sweet-loading{
   margin-top: 50px;
+}
+/*##################################################### User Settings #####################################################*/
+.UserSettings{
+  max-width: 70%;
+  margin: 10px auto;
+  padding: 16px;
+  background: #ffffff;
+  font-size: 18px;
+  margin-bottom: 100px;
+}
+.UserSettings h1{
+  background: #21898c;
+  padding: 20px 0;
+  font-size: 140%;
+  font-weight: 300;
+  text-align: center;
+  color: #fff;
+}
+
+.UserSettings input[type="text"],
+.UserSettings input[type="date"],
+.UserSettings input[type="datetime"],
+.UserSettings input[type="email"],
+.UserSettings input[type="number"],
+.UserSettings input[type="search"],
+.UserSettings input[type="time"],
+.UserSettings input[type="url"],
+.UserSettings textarea,
+.UserSettings select
+{
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  width: 100%;
+  background: #fff;
+  margin-bottom: 4%;
+  border: 1px solid #ccc;
+  padding: 3%;
+  color: #555;
+}
+.UserSettings input[type="text"]:focus,
+.UserSettings input[type="date"]:focus,
+.UserSettings input[type="datetime"]:focus,
+.UserSettings input[type="email"]:focus,
+.UserSettings input[type="number"]:focus,
+.UserSettings input[type="search"]:focus,
+.UserSettings input[type="time"]:focus,
+.UserSettings input[type="url"]:focus,
+.UserSettings textarea:focus,
+.UserSettings select:focus
+{
+  box-shadow: 0 0 5px #21898c;
+  padding: 3%;
+  border: 1px solid #21898c;
+}
+
+.UserSettings input[type="submit"],
+.UserSettings input[type="reset"],
+.UserSettings input[type="button"]{
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  width: 49%;
+  padding: 3%;
+  background: #21898c;
+  border-bottom: 2px solid #186264;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+  color: #fff;
+  font-size: 18px;
+}
+.UserSettings input[type="submit"]:hover,
+.UserSettings input[type="reset"]:hover,
+.UserSettings input[type="button"]:hover{
+  background: #269ca0;
 }

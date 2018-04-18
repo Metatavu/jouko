@@ -5,12 +5,10 @@
   overflow: hidden;
   background-color: #191919;
 }
-
 .Bottombar ul li {
   float: left;
   width: 25%;
 }
-
 .Bottombar ul li a {
   display: block;
   color: white;
@@ -18,27 +16,33 @@
   padding: 16px;
   text-decoration: none;
   list-style-type: none;
-  font-size: 20px;
 }
-
 .Bottombar ul li a:hover {
   background-color: #202020;
 }
-
-
 .Bottombar{
   overflow: hidden;
   position: fixed;
   bottom: 0;
   width: 100%;
 }
-
-.Bottombar i{
-  font-size: 40px;
+@media only screen and (min-width: 768px) {
+  .Bottombar i {
+    font-size: 40px;
+  }
+  p{
+    margin: 0px;
+    margin-top: 5px;
+    font-size: 16px;
+  }
 }
-
-p{
-  margin: 0px;
-  margin-top: 5px;
-  font-size: 16px;
+@media only screen and (max-width: 767px) {
+  .Bottombar i {
+    font-size: 20px;
+  }
+  p{
+    margin: 0px;
+    margin-top: 5px;
+    font-size: 14px;
+  }
 }

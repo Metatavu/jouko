@@ -1,6 +1,7 @@
 import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
+import * as keycloak from '../index';
 
 enum State {
   CLOSED,
@@ -20,7 +21,6 @@ export class Header
   }
 
   onMenuClick() {
-
     switch (this.state.state) {
       case State.CLOSED:
         this.setState({ state: State.OPEN });
@@ -49,17 +49,17 @@ export class Header
     }
 
     return (
-      <div className="navigation">
-        <div className="menu" onClick={() => this.onMenuClick()}>
+      <div className="navigation" onClick={() => this.onMenuClick()}>
+        <div className="menu">
           <i className="fa fa-bars" />
         </div>
         <div className={classes}>
           <ul>
-            <li><NavLink to="/"><i className="fa fa-home fa-fw"/> Home</NavLink></li>
-            <li><NavLink to="/User"><i className="fa fa-user fa-fw"/> User</NavLink></li>
-            <li><NavLink to="/Statistics/1"><i className="fa fa-line-chart fa-fw"/> Statistics</NavLink></li>
-            <li><NavLink to="/Settings"><i className="fa fa-cogs fa-fw"/> Settings</NavLink></li>
-            <li><NavLink to="/"><i className="fa fa-sign-out fa-fw" /> Logout</NavLink></li>
+            <li><NavLink to="/"><i className="fa fa-home fa-fw"/>Home</NavLink></li>
+            <li><NavLink to="/User"><i className="fa fa-user fa-fw"/>User</NavLink></li>
+            <li><NavLink to="/Statistics/1"><i className="fa fa-line-chart fa-fw"/>Statistics</NavLink></li>
+            <li><NavLink to="/Settings"><i className="fa fa-cogs fa-fw"/>Settings</NavLink></li>
+            <li><NavLink to="/" onClick={keycloak.kc.logout}><i className="fa fa-sign-out fa-fw" />Logout</NavLink></li>
           </ul>
         </div>
       </div>
