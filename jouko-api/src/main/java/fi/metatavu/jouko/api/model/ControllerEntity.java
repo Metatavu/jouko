@@ -2,10 +2,11 @@ package fi.metatavu.jouko.api.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -23,6 +24,11 @@ public class ControllerEntity {
   @Column(nullable = false)
   @NotNull
   private String key;
+  
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  @NotNull
+  private ControllerCommunicationChannel communicationChannel;
   
   public ControllerEntity() {
   }
@@ -58,4 +64,11 @@ public class ControllerEntity {
     this.key = key;
   }
 
+  public ControllerCommunicationChannel getCommunicationChannel() {
+    return communicationChannel;
+  }
+
+  public void setCommunicationChannel(ControllerCommunicationChannel communicationChannel) {
+    this.communicationChannel = communicationChannel;
+  }
 }

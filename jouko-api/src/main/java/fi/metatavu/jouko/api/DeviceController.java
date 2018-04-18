@@ -2,16 +2,18 @@ package fi.metatavu.jouko.api;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import org.slf4j.Logger;
-
 import fi.metatavu.jouko.api.dao.DeviceDAO;
+import fi.metatavu.jouko.api.dao.GprsMessageDAO;
 import fi.metatavu.jouko.api.dao.PowerMeasurementDAO;
+import fi.metatavu.jouko.api.model.ControllerEntity;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity;
+import fi.metatavu.jouko.api.model.GprsMessageEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.api.model.MeasurementType;
 
@@ -25,7 +27,7 @@ public class DeviceController {
   private PowerMeasurementDAO powerMeasurementDAO;
   
   @Inject
-  private Logger logger;
+  private GprsMessageDAO gprsMessageDAO;
   
   public List<DeviceEntity> listAll(
       Integer firstResult,
@@ -89,5 +91,20 @@ public class DeviceController {
     double timeSpanInSeconds = toTime.toEpochSecond() - fromTime.toEpochSecond();
     
     return energyInJoules / timeSpanInSeconds;
+  }
+  
+  public void queueGprsMessage(ControllerEntity controller, String message) {
+    gprsMessageDAO.create(controller, message);
+  }
+  
+  public List<String> getAllQueuedGprsMessages() {
+    return gprsMessageDAO.listAll()
+                         .stream()
+                         .map(GprsMessageEntity::getContent)
+                         .collect(Collectors.toList());
+  }
+  
+  public void clearGprsMessages() {
+    gprsMessageDAO.clear();
   }
 }

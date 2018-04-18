@@ -74,7 +74,7 @@ public class DevicePowerMeasurementEntity {
   public Double getMeasurementValue() {
     return measurementValue;
   }
-  public void setMeasurementValue(Double average) {
+  public void setMeasurementValue(Double measurementValue) {
     this.measurementValue = measurementValue;
   }
   public MeasurementType getMeasurementType() {

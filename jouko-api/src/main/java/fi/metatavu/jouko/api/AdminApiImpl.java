@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.slf4j.Logger;
+
 import fi.metatavu.jouko.api.device.DeviceCommunicator;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
@@ -26,6 +28,9 @@ public class AdminApiImpl implements AdminApi {
   
   @Inject
   private DeviceCommunicator deviceCommunicator;
+  
+  @Inject
+  private Logger logger;
   
   public InterruptionGroup interruptionGroupFromEntity(InterruptionGroupEntity entity) {
     InterruptionGroup result = new InterruptionGroup();
@@ -97,5 +102,5 @@ public class AdminApiImpl implements AdminApi {
         body.getEndTime());
     return Response.ok(body).build();
   }
-
+  
 }
