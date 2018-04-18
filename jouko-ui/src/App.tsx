@@ -12,14 +12,43 @@ import { Home } from './components/Home';
 import { Settings } from './components/Settings';
 import { Statistics } from './components/Statistics';
 import { NavLink } from 'react-router-dom';
-import * as keycloak from './index';
+import * as Keycloak from 'keycloak-js';
 
 const logo = require('./logo.svg');
-const user = '';
 
-class App extends React.Component {
+interface AppState {
+  keycloakInstance?: Keycloak.KeycloakInstance;
+  username?: Keycloak.KeycloakInstance;
+}
+
+class App extends React.Component<{}, AppState> {
   constructor(props: {}) {
     super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    const kc = Keycloak(
+      {
+        url: 'http://localhost:9080/auth/',
+        realm: 'metatavu-realm',
+        clientId: 'jouko',
+      }
+    );
+    kc.init({ onLoad: 'login-required' })
+      .success(() => {
+      // tslint:disable-next-line:no-any
+      this.setState({keycloakInstance : kc, username: (kc.idTokenParsed as any).name });
+      // console.log((kc.idTokenParsed as any).name);
+    }
+    )
+      .error((e) => {console.log(e); } );
+  }
+
+  logout() {
+    if (this.state.keycloakInstance) {
+      this.state.keycloakInstance.logout();
+    }
   }
 
   render() {
@@ -28,16 +57,18 @@ class App extends React.Component {
             <div className="wrapper">
                 <div className="Navigationbar">
                   <div className="Navigation">
-                    <Header/>
+                    <Header logout={() => this.logout()}/>
                   </div>
                   <div className="Logout">
-                    <NavLink to="/" onClick={keycloak.kc.logout}><i className="fa fa-sign-out"/></NavLink>
+                    <NavLink to="/" onClick={() => this.logout()}>
+                      <i className="fa fa-sign-out"/>
+                    </NavLink>
                   </div>
                 </div>
                 <div className="App-Block1">
                   <img src={logo} className="App-logo" alt="logo" />
                   <h1 className="App-title">JOUKO - kotiapp</h1>
-                  <h1>Kirjautuneena: {user} </h1>
+                  <h1>Kirjautuneena: {this.state.username} </h1>
                 </div>
                 <Route path="/" exact={true} component={Home} />
                 <Route path="/User" component={User} />
