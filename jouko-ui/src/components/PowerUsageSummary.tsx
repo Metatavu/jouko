@@ -20,7 +20,7 @@ export class PowerUsageSummary
         <p>
           <NavLink to={`/Statistics/${this.props.deviceId}`}>
           <button className="btn">
-            {this.props.name}</button></NavLink> {this.props.measurementvalue} Watt</p>
+            {this.props.name} - {this.props.measurementvalue} Watt</button></NavLink></p>
       </div>
     );
   }

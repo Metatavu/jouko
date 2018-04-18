@@ -1,7 +1,6 @@
 import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
-import * as keycloak from '../index';
 
 enum State {
   CLOSED,
@@ -11,11 +10,14 @@ enum State {
 interface HeaderState {
   state: State;
 }
+interface HeaderProps {
+  logout(): void;
+}
 
 export class Header
-  extends React.Component<{}, HeaderState> {
+  extends React.Component<HeaderProps, HeaderState> {
 
-  constructor(props: {}) {
+  constructor(props: HeaderProps) {
     super(props);
     this.state = { state: State.CLOSED };
   }
@@ -59,7 +61,8 @@ export class Header
             <li><NavLink to="/User"><i className="fa fa-user fa-fw"/>User</NavLink></li>
             <li><NavLink to="/Statistics/1"><i className="fa fa-line-chart fa-fw"/>Statistics</NavLink></li>
             <li><NavLink to="/Settings"><i className="fa fa-cogs fa-fw"/>Settings</NavLink></li>
-            <li><NavLink to="/" onClick={keycloak.kc.logout}><i className="fa fa-sign-out fa-fw" />Logout</NavLink></li>
+            <li><NavLink to="/" onClick={() => this.props.logout()}>
+              <i className="fa fa-sign-out fa-fw" />Logout</NavLink></li>
           </ul>
         </div>
       </div>

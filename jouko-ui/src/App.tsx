@@ -39,8 +39,7 @@ class App extends React.Component<{}, AppState> {
       .success(() => {
       // tslint:disable-next-line:no-any
       this.setState({keycloakInstance : kc, username: (kc.idTokenParsed as any).name });
-      // console.log((kc.idTokenParsed as any).name);
-    }
+      }
     )
       .error((e) => {console.log(e); } );
   }
