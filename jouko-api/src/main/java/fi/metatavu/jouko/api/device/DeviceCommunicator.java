@@ -76,13 +76,18 @@ public class DeviceCommunicator {
       throw new DeviceCommunicationException("Couldn't send request", e);
     }
   }
+
+  private void sendMessageGprs(ViestiLaitteelle message, ControllerEntity controller) {
+    byte[] payloadBytes = encodeMessage(message);
+    deviceController.queueGprsMessage(controller, new String(payloadBytes, StandardCharsets.UTF_8));
+  }
   
-  private void sendMessage(ViestiLaitteelle message, String eui, String key) {
+  private void sendMessageLora(ViestiLaitteelle message, ControllerEntity controller) {
     byte[] payloadBytes = encodeMessage(message);
     
     StringBuilder qsNoToken = new StringBuilder();
     qsNoToken.append("DevEUI=");
-    qsNoToken.append(eui);
+    qsNoToken.append(controller.getEui());
     qsNoToken.append("&FPort=1");
     qsNoToken.append("&Payload=");
     qsNoToken.append(Hex.encodeHex(payloadBytes));
@@ -91,7 +96,7 @@ public class DeviceCommunicator {
     qsNoToken.append("&Time=");
     qsNoToken.append(clock.instant().toString());
     
-    String tokenSource = qsNoToken.toString() + key;
+    String tokenSource = qsNoToken.toString() + controller.getKey();
     String token = DigestUtils.sha256Hex(tokenSource.getBytes(StandardCharsets.UTF_8));
     
     StringBuilder url = new StringBuilder();
@@ -121,6 +126,15 @@ public class DeviceCommunicator {
     String enabledSetting = settingController.getSetting(ENABLED_SETTING, "false");
     return "true".equals(enabledSetting);
   }
+
+  private void sendMessage(ViestiLaitteelle viestiLaitteelle, ControllerEntity controller) {
+    switch (controller.getCommunicationChannel()) {
+    case LORA:
+      sendMessageLora(viestiLaitteelle, controller);
+    case GPRS:
+      sendMessageGprs(viestiLaitteelle, controller);
+    }
+  }
   
   public void notifyInterruption(InterruptionEntity interruption) {
     if (!isEnabled()) {
@@ -129,7 +143,7 @@ public class DeviceCommunicator {
 
     List<DeviceEntity> devices = deviceController.listByInterruption(interruption);
     Map<String, List<Katko>> katkos = new HashMap<>();
-    Map<String, String> keys = new HashMap<>();
+    Map<String, ControllerEntity> controllers = new HashMap<>();
     for (DeviceEntity device : devices) {
       ControllerEntity controller = device.getController();
       
@@ -145,7 +159,7 @@ public class DeviceCommunicator {
                                                .setAlku(alku)
                                                .setLoppu(loppu)
                                                .build());
-      keys.put(controller.getEui(), controller.getKey());
+      controllers.put(controller.getEui(), controller);
     }
     
     for (Entry<String, List<Katko>> entry : katkos.entrySet()) {
@@ -154,7 +168,8 @@ public class DeviceCommunicator {
                            .addAllKatkot(entry.getValue())
                            .build())
           .build();
-      sendMessage(viestiLaitteelle, entry.getKey(), keys.get(entry.getKey()));
+      ControllerEntity controller = controllers.get(entry.getKey());
+      sendMessage(viestiLaitteelle, controller);
     }
   }
 
@@ -165,7 +180,7 @@ public class DeviceCommunicator {
 
     List<DeviceEntity> devices = deviceController.listByInterruption(interruption);
     Map<String, List<Katkonesto>> katkonestos = new HashMap<>();
-    Map<String, String> keys = new HashMap<>();
+    Map<String, ControllerEntity> controllers = new HashMap<>();
     for (DeviceEntity device : devices) {
       ControllerEntity controller = device.getController();
       
@@ -175,7 +190,7 @@ public class DeviceCommunicator {
       katkonestos.get(controller.getEui()).add(Katkonesto.newBuilder()
                                                .setKatkoID(katkoID)
                                                .build());
-      keys.put(controller.getEui(), controller.getKey());
+      controllers.put(controller.getEui(), controller);
     }
     
     for (Entry<String, List<Katkonesto>> entry : katkonestos.entrySet()) {
@@ -184,7 +199,8 @@ public class DeviceCommunicator {
                            .addAllKatkonestot(entry.getValue())
                            .build())
           .build();
-      sendMessage(viestiLaitteelle, entry.getKey(), keys.get(entry.getKey()));
+      ControllerEntity controller = controllers.get(entry.getKey());
+      sendMessage(viestiLaitteelle, controller);
     }
   }
 }
