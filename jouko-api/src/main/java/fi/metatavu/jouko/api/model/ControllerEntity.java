@@ -33,11 +33,16 @@ public class ControllerEntity {
   public ControllerEntity() {
   }
 
-  public ControllerEntity(Long id, String eui, String key) {
+  public ControllerEntity(
+      Long id,
+      String eui,
+      String key,
+      ControllerCommunicationChannel communicationChannel) {
     super();
     this.id = id;
     this.eui = eui;
     this.key = key;
+    this.communicationChannel = communicationChannel;
   }
 
   public Long getId() {

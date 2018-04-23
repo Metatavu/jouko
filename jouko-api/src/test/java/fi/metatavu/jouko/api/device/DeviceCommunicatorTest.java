@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 
 import fi.metatavu.jouko.api.DeviceController;
 import fi.metatavu.jouko.api.SettingController;
+import fi.metatavu.jouko.api.model.ControllerCommunicationChannel;
 import fi.metatavu.jouko.api.model.ControllerEntity;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
@@ -55,7 +56,7 @@ public class DeviceCommunicatorTest {
   
   @Test
   public void testNotifySingleDeviceInterruption() {
-    ControllerEntity controller = new ControllerEntity(1l, "EUI", "KEY");
+    ControllerEntity controller = new ControllerEntity(1l, "EUI", "KEY", ControllerCommunicationChannel.LORA);
     
     DeviceEntity device = new DeviceEntity(1l, "Device", null, controller);
     
@@ -84,7 +85,7 @@ public class DeviceCommunicatorTest {
   
   @Test
   public void testNotifySingleDeviceInterruptionCancellation() {
-    ControllerEntity controller = new ControllerEntity(1l, "EUI", "KEY");
+    ControllerEntity controller = new ControllerEntity(1l, "EUI", "KEY", ControllerCommunicationChannel.LORA);
     
     DeviceEntity device = new DeviceEntity(1l, "Device", null, controller);
     
