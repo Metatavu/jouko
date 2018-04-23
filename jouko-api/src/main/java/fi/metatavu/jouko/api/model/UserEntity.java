@@ -19,6 +19,12 @@ public class UserEntity {
   @Column(nullable = false)
   @NotNull
   private String name;
+
+  // Use a separate keycloakId because the devices have very restricted
+  // communication bandwidth, so using UUIDs everywhere is not feasible
+  @Column(nullable = false)
+  @NotNull
+  private String keycloakId;
   
   public UserEntity() {
   }
@@ -32,13 +38,24 @@ public class UserEntity {
   public Long getId() {
     return id;
   }
+
   public void setId(Long id) {
     this.id = id;
   }
+
   public String getName() {
     return name;
   }
+
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getKeycloakId() {
+    return keycloakId;
+  }
+
+  public void setKeycloakId(String keycloakId) {
+    this.keycloakId = keycloakId;
   }
 }

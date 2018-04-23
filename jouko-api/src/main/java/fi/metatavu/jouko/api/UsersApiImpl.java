@@ -49,7 +49,7 @@ public class UsersApiImpl implements UsersApi {
     result.setCancellationTime(entity.getCancellationTime());
     return result;
   }
-
+  
   @Override
   public Response getPowerConsumption(
       Long userId,
@@ -119,5 +119,5 @@ public class UsersApiImpl implements UsersApi {
       
     return Response.ok(body).build();
   }
-
+  
 }
