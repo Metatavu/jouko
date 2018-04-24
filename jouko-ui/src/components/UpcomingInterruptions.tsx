@@ -40,9 +40,12 @@ export class UpcomingInterruption
     return (
         <tr>
           <td id="column1">
-            {this.props.deviceName} | {startdate} klo {starttime} - {enddate} klo {endtime}
+            {this.props.deviceName}
           </td>
           <td id="column2">
+            {startdate} klo {starttime} - {enddate} klo {endtime}
+          </td>
+          <td id="column3">
             {button}
           </td>
         </tr>
@@ -131,7 +134,7 @@ export class UpcomingInterruptions
     });
 
     return (
-      <div className="App-Block2">
+      <div className="UpcomingInterruptions">
         <h1 className="App-title">TULEVAT KATKOT</h1>
         <br/>
         <table><tbody>{rows}</tbody></table>

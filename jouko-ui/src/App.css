@@ -1,7 +1,7 @@
 /*################################################ General App Setting #################################################*/
 .wrapper {
   text-align: center;
-  margin-bottom: 75px; /* Add a top margin to avoid content overlay with bottom menu */
+  margin-bottom: 150px;  /* Add a top margin to avoid content overlay with bottom menu */
 }
 .App-intro {
   font-size: large;
@@ -22,7 +22,6 @@
   height: 75px;
   background-color: rgba(48,196,201,0.05);
   top: 0;
-  position: relative;
 }
 .Navigation {
   width: 50%;
@@ -36,6 +35,7 @@
 .overlay.open {
   transform: translate(0, 0);
 }
+
 @media only screen and (max-width: 767px) {
   .menu{
     cursor: pointer;
@@ -43,7 +43,7 @@
     padding-left: 15px;
     padding-top: 15px;
     font-size: 40px;
-    z-index: 9999;
+    z-index: 999;
     position: fixed;
   }
   .overlay ul {
@@ -70,6 +70,7 @@
     transition-timing-function: ease-in-out;
     transform: translate(-15rem, 0);
     position: fixed;
+    z-index: 999;
   }
 }
 @media only screen and (min-width: 768px) {
@@ -79,7 +80,7 @@
     padding-left: 15px;
     padding-top: 15px;
     font-size: 40px;
-    z-index: 9999;
+    z-index: 999;
     position: fixed;
   }
   .overlay ul {
@@ -144,72 +145,127 @@
   padding-bottom: 50px;
   color: #0a242d;
 }
-/*########################## App-Block2 ##########################*/
-.App-Block2 {
+/*########################## UpcomingInterruptions ##########################*/
+.UpcomingInterruptions {
   background-image: url("./img/background_dark.jpg");
   background-size: cover;
   min-height: 350px;
   height: 100%;
-  padding: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-bottom: 50px;
   color: white;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
 }
-.App-Block2 table{
+.UpcomingInterruptions table{
   margin: auto !important;
 }
-@media (max-width:900px) {
-  .App-Block2 #column1 {
-    width: 60%;
-    padding-bottom: 25px;
-    text-align: left;
-  }
-  .App-Block2 #column2 {
-    width: 15%;
-    padding-bottom: 25px;
-    text-align: left;
-  }
-  .App-Block2 table {
-    width: 75%;
-  }
-}
 @media (min-width:900px) {
-  .App-Block2 #column1 {
-    width: 35%;
-    padding-bottom: 25px;
-    text-align: left;
-  }
-  .App-Block2 #column2 {
+  .UpcomingInterruptions #column1 {
     width: 10%;
-    padding-bottom: 25px;
     text-align: left;
   }
-  .App-Block2 table {
+  .UpcomingInterruptions #column2 {
+    width: 25%;
+    text-align: left;
+  }
+  .UpcomingInterruptions #column3 {
+    width: 10%;
+    text-align: right;
+  }
+  .UpcomingInterruptions table {
     width: 45%;
   }
+  .UpcomingInterruptions table td{
+    padding-bottom: 35px;
+  }
 }
-/*########################## App-Block3 ##########################*/
-  .App-Block3 {
-    background-color: #f6fbfd;
-    height: 100%;
-    color: #222222;
-    width: 100%;
-    padding: 0;
-    padding-top: 60px;
-    padding-bottom: 100px !important;
+@media (max-width: 899px) {
+  .UpcomingInterruptions #column1 {
+    width: 20%;
+    text-align: left;
   }
-  .App-Block3 table{
-    margin: auto;
-    width: 90%;
-    line-height: 1.5em;
+  .UpcomingInterruptions #column2 {
+    width: 40%;
+    text-align: left;
   }
-  .App-Block3 h1{
-    color: #0a242d;
-    margin-top: 0;
-    margin-bottom: 25px;
+  .UpcomingInterruptions #column3 {
+    width: 15%;
+    text-align: right;
   }
-/*##################################################### Buttons #####################################################*/
+  .UpcomingInterruptions table {
+    width: 75%;
+  }
+  .UpcomingInterruptions table td{
+    padding-bottom: 15px;
+    padding-top: 15px;
+  }
+}
+@media (max-width: 568px) {
+  .UpcomingInterruptions #column1 {
+    width: 30%;
+    text-align: left;
+  }
+  .UpcomingInterruptions #column2 {
+    width: 40%;
+    text-align: left;
+  }
+  .UpcomingInterruptions #column3 {
+    width: 25%;
+    text-align: right;
+  }
+  .UpcomingInterruptions table {
+    width: 95%;
+    overflow-x: scroll;
+  }
+  .UpcomingInterruptions table td{
+    padding-bottom: 35px;
+  }
+}
+/*########################## PowerUsageSummary ##########################*/
+.PowerUsageSummary {
+  color: #222222;
+  width: 100%;
+  padding-top: 60px;
+}
+.PowerUsageSummary h1{
+  color: #0a242d;
+  margin-bottom: 50px;
+}
+.PowerUsageSummaryContent{
+  display: inline-flex;
+  width: 90%;
+  margin-top: 50px;
+}
+
+.PowerUsageSummaryCard {
+  /* Add shadows to create the "card" effect */
+  width: 20%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  margin-left:1.5%;
+  margin-right:1.5%;
+}
+.PowerUsageSummaryCard:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.PowerUsageSummaryCard:hover .PowerUsageSummaryCardImage{
+  opacity: 0.3;
+  transition: 1s;
+}
+
+.PowerUsageSummaryContainer {
+  padding: 2px 16px 20px;
+}
+.PowerUsageSummaryContainer h4, .PowerUsageSummaryContainer p{
+  color: #202020;
+}
+.PowerUsageSummaryContainer a{
+  text-decoration: none;
+}
+  /*##################################################### Buttons #####################################################*/
 /*########################## Normal Button ##########################*/
 .btn{
   background: transparent;
@@ -239,29 +295,6 @@
   position: relative;
   z-index: 5;
 }
-/*
-.btn2 span{
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-.btn2 span:after{
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-.btn2:hover span{
-  padding-right: 25px;
-}
-.btn2:hover span:after{
-  opacity: 1;
-  right: 0;
-}
-*/
 /*########################## Cancelled Button ##########################*/
 .btn3{
   background: transparent;
@@ -364,3 +397,4 @@
 .UserSettings input[type="button"]:hover{
   background: #269ca0;
 }
+

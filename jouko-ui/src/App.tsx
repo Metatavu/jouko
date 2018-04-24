@@ -5,7 +5,6 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Bottombar } from './components/Bottombar';
 import { UpcomingInterruptions } from './components/UpcomingInterruptions';
-import { InterruptionGroupsTable } from './components/InterruptionGroupsTable';
 import { PowerUsageSummary } from './components/PowerUsageSummary';
 import { User } from './components/User';
 import { Home } from './components/Home';
@@ -73,11 +72,11 @@ class App extends React.Component<{}, AppState> {
             </div>
           </div>
           <div className="App-Block1">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">JOUKO - kotiapp</h1>
-        <h1>Kirjautuneena: {this.state.username} </h1>
-        <p>User ID: {this.state.userId} </p>
-      </div>
+            <img src={logo} className="App-logo" alt="logo" />
+            <h1 className="App-title">JOUKO - kotiapp</h1>
+            <h1>Kirjautuneena: {this.state.username} </h1>
+            <p>User ID: {this.state.userId} </p>
+          </div>
         <Route path="/" exact={true} component={Home} />
         <Route path="/User" component={User} />
         <Route path="/Settings" component={Settings} />
@@ -88,11 +87,8 @@ class App extends React.Component<{}, AppState> {
           )}
         />
         <Route path="/UpcomingInterruptions" component={UpcomingInterruptions} />
-        <Route path="/InterruptionGroupsTable" component={InterruptionGroupsTable} />
         <Route path="/PowerUsageSummary" component={PowerUsageSummary} />
-        <div className="Bottombar">
-          <Bottombar />
-        </div>
+        <div className="Bottombar"><Bottombar /></div>
       </div>
       );
     }

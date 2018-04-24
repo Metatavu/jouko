@@ -10,18 +10,23 @@ interface PowerUsageSummaryProps {
   name: String;
   measurementvalue: number;
 }
-
+const deviceImage = require('../img/device.JPG');
 export class PowerUsageSummary
   extends React.Component<PowerUsageSummaryProps> {
 
   render() {
     return (
-      <div>
-        <p>
+        <div className="PowerUsageSummaryCard">
           <NavLink to={`/Statistics/${this.props.deviceId}`}>
-          <button className="btn">
-            {this.props.name} - {this.props.measurementvalue} Watt</button></NavLink></p>
-      </div>
+            <img src={deviceImage} width="100%" className="PowerUsageSummaryCardImage"/>
+          </NavLink>
+          <div className="PowerUsageSummaryContainer">
+            <NavLink to={`/Statistics/${this.props.deviceId}`}>
+              <h4>{this.props.name} </h4>
+              <p>{this.props.measurementvalue} Watt</p>
+            </NavLink>
+          </div>
+        </div>
     );
   }
 }
@@ -80,12 +85,13 @@ export class PowerUsageSummaries
     });
 
     return (
-      <div  className="App-Block3">
-        <div>
-        <h1 className="App-title">TEHONKULUTUSTIEDOT</h1>
-        {rows}
+      <div>
+        <h1>TEHONKULUTUS</h1>
+        <div className="PowerUsageSummaryContent">
+          {rows}
         </div>
       </div>
+
     );
   }
 }

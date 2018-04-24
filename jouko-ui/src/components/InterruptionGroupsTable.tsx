@@ -49,19 +49,19 @@ export class InterruptionGroupsTable
     });
 
     return (
-      <div  className="App-Block3">
-      <table>
-        <thead className="InterruptionsgroupHead">
-          <tr>
-            <th>ID</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-          </tr>
-        </thead>
-        <tbody className="InterruptionsgroupBody">
-          {rows}
-        </tbody>
-      </table>
+      <div  className="Interruptionsgroup">
+        <table>
+          <thead className="InterruptionsgroupHead">
+            <tr>
+              <th>ID</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+            </tr>
+          </thead>
+          <tbody className="InterruptionsgroupBody">
+            {rows}
+          </tbody>
+        </table>
       </div>
     );
   }
