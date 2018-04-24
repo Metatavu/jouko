@@ -5,22 +5,23 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Bottombar } from './components/Bottombar';
 import { UpcomingInterruptions } from './components/UpcomingInterruptions';
-import { PowerUsageSummary } from './components/PowerUsageSummary';
 import { User } from './components/User';
 import { Home } from './components/Home';
 import { Settings } from './components/Settings';
 import { Statistics } from './components/Statistics';
 import { NavLink } from 'react-router-dom';
 import * as Keycloak from 'keycloak-js';
+import { UsersApi } from 'jouko-ts-client';
+import { PowerUsageSummaries } from './components/PowerUsageSummary';
 
 const logo = require('./logo.svg');
 
 interface AppState {
   keycloakInstance?: Keycloak.KeycloakInstance;
-  username?: Keycloak.KeycloakInstance;
-  userId?: Keycloak.KeycloakInstance;
+  username?: string;
+  keycloakId?: string;
+  userId?: number;
 }
-
 class App extends React.Component<{}, AppState> {
   constructor(props: {}) {
     super(props);
@@ -37,15 +38,30 @@ class App extends React.Component<{}, AppState> {
     );
     kc.init({ onLoad: 'login-required' })
       .success(() => {
-      // tslint:disable-next-line:no-any
-      this.setState({keycloakInstance : kc, username: (kc.idTokenParsed as any).name,
-        // tslint:disable-next-line:no-any
-        userId: (kc.idTokenParsed as any).sub });
+      this.fetchUsers(kc);
       // tslint:disable-next-line:no-any
       // console.log(kc.idTokenParsed as any);
     }
     )
       .error((e) => {console.log(e); } );
+  }
+  // tslint:disable-next-line:no-any
+  async fetchUsers(kc: any) {
+    // tslint:disable-next-line:no-any
+    const keycloakId = (kc.idTokenParsed as any).sub;
+    const usersApi = new UsersApi(
+      undefined,
+      'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+    const user = await usersApi.getUserByKeycloakId(keycloakId);
+    if (user) {
+      this.setState({
+        keycloakInstance : kc,
+        // tslint:disable-next-line:no-any
+        username: (kc.idTokenParsed as any).name,
+        // tslint:disable-next-line:no-any
+        keycloakId: (kc.idTokenParsed as any).sub,
+        userId: user.id});
+    }
   }
 
   logout() {
@@ -75,9 +91,14 @@ class App extends React.Component<{}, AppState> {
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">JOUKO - kotiapp</h1>
             <h1>Kirjautuneena: {this.state.username} </h1>
-            <p>User ID: {this.state.userId} </p>
           </div>
-        <Route path="/" exact={true} component={Home} />
+        <Route
+          path="/"
+          exact={true}
+          render={props => (
+            <Home currentUserId={this.state.userId as number}/>
+          )}
+        />
         <Route path="/User" component={User} />
         <Route path="/Settings" component={Settings} />
         <Route
@@ -86,8 +107,22 @@ class App extends React.Component<{}, AppState> {
             <Statistics deviceId={props.match.params.id as number}/>
           )}
         />
-        <Route path="/UpcomingInterruptions" component={UpcomingInterruptions} />
-        <Route path="/PowerUsageSummary" component={PowerUsageSummary} />
+        <Route
+          path="/UpcomingInterruptions"
+          render={props => (
+            <UpcomingInterruptions
+              currentUserId={this.state.userId as number}
+            />
+          )}
+        />
+        <Route
+          path="/PowerUsageSummary/"
+          render={props => (
+            <PowerUsageSummaries
+              currentUserId={this.state.userId as number}
+            />
+          )}
+        />
         <div className="Bottombar"><Bottombar /></div>
       </div>
       );

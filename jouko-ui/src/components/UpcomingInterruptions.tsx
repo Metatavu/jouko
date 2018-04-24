@@ -56,11 +56,14 @@ export class UpcomingInterruption
 interface UpcomingInterruptionsState {
   rowProps: UpcomingInterruptionProps[];
 }
+interface  UpcomingInterruptionsProps {
+  currentUserId: number;
+}
 
 export class UpcomingInterruptions
-    extends React.Component<{}, UpcomingInterruptionsState> {
+    extends React.Component<UpcomingInterruptionsProps, UpcomingInterruptionsState> {
 
-  constructor(props: {}) {
+  constructor(props: UpcomingInterruptionsProps) {
     super(props);
 
     this.state = {rowProps: []};
@@ -75,7 +78,7 @@ export class UpcomingInterruptions
       undefined,
       'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
 
-    await interruptionsApi.setInterruptionCancelled(1, interruptionId, {cancelled: true});
+    await interruptionsApi.setInterruptionCancelled(this.props.currentUserId, interruptionId, {cancelled: true});
     await this.fetchInterruptions();
   }
 
@@ -88,7 +91,7 @@ export class UpcomingInterruptions
       undefined,
       'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
 
-    const devices = await devicesApi.listDevices(1, 0, 1000);
+    const devices = await devicesApi.listDevices(this.props.currentUserId, 0, 1000);
 
     const rowProps: UpcomingInterruptionProps[] = [];
 
@@ -124,7 +127,7 @@ export class UpcomingInterruptions
   }
 
   render() {
-    var rows = this.state.rowProps.map(prop => {
+    const rows = this.state.rowProps.map(prop => {
       return (
         <UpcomingInterruption
           key={prop.id.toString()}

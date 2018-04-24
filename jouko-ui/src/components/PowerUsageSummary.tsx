@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as _ from 'lodash';
-import { DevicesApi,  } from 'jouko-ts-client';
+import { DevicesApi } from 'jouko-ts-client';
 import { format as formatDate, subHours } from 'date-fns';
 import { NavLink } from 'react-router-dom';
 import '../App.css';
@@ -10,6 +10,7 @@ interface PowerUsageSummaryProps {
   name: String;
   measurementvalue: number;
 }
+
 const deviceImage = require('../img/device.JPG');
 export class PowerUsageSummary
   extends React.Component<PowerUsageSummaryProps> {
@@ -34,13 +35,15 @@ export class PowerUsageSummary
 interface PowerUsageSummariesState {
   rowProps: PowerUsageSummaryProps[];
 }
+interface  PowerUsageSummariesProps {
+  currentUserId: number;
+}
 
 export class PowerUsageSummaries
-  extends React.Component<{}, PowerUsageSummariesState> {
+  extends React.Component<PowerUsageSummariesProps, PowerUsageSummariesState> {
 
-  constructor(props: {}) {
+  constructor(props: PowerUsageSummariesProps) {
     super(props);
-
     this.state = {rowProps: []};
   }
 
@@ -52,8 +55,7 @@ export class PowerUsageSummaries
     const devicesApi = new DevicesApi(
       undefined,
       'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
-
-    const devices = await devicesApi.listDevices(1, 0, 1000);
+    const devices = await devicesApi.listDevices(this.props.currentUserId, 0, 1000);
 
     const rowProps: PowerUsageSummaryProps[] = [];
 
@@ -61,7 +63,7 @@ export class PowerUsageSummaries
 
       let lastHour = formatDate(subHours(new Date(), 1));
       let today = formatDate(new Date());
-      const powerUsage = await devicesApi.getPowerConsumption(1, device.id, lastHour, today);
+      const powerUsage = await devicesApi.getPowerConsumption(this.props.currentUserId, device.id, lastHour, today);
       rowProps.push({
           deviceId: device.id,
           name: device.name,

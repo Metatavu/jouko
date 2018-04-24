@@ -32,17 +32,17 @@
     font-size: 40px;
   }
   p{
-    margin: 0px;
+    margin: 0;
     margin-top: 5px;
     font-size: 16px;
   }
 }
-@media only screen and (max-width: 569px) {
+@media only screen and (min-width: 569px) {
   .Bottombar i {
     font-size: 20px;
   }
   p{
-    margin: 0px;
+    margin: 0;
     margin-top: 5px;
     font-size: 14px;
   }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export class User extends React.Component {
-  render() {
+   render() {
     return(
       <div className="UserSettings">
         <h1>User Settings</h1>
