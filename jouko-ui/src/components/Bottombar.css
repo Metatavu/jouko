@@ -29,7 +29,7 @@
 }
 @media only screen and (min-width: 768px) {
   .Bottombar i {
-    font-size: 40px;
+    font-size: 35px;
   }
   p{
     margin: 0;
@@ -39,7 +39,7 @@
 }
 @media only screen and (min-width: 569px) {
   .Bottombar i {
-    font-size: 20px;
+    font-size: 35px;
   }
   p{
     margin: 0;

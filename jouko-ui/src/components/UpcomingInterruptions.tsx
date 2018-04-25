@@ -38,6 +38,19 @@ export class UpcomingInterruption
     }
 
     return (
+      <div className="UpcomingInterruptionsContainer">
+        <div className="UpcomingInterruptionsHead">
+          {this.props.deviceName}
+        </div>
+        <div className="UpcomingInterruptionsBody">
+          <b>From: </b>{startdate} klo {starttime}<br/>
+          <b>To: </b>{enddate} klo {endtime}
+          <div className="UpcomingInterruptionsButton">
+            {button}
+          </div>
+        </div>
+      </div>
+      /*
         <tr>
           <td id="column1">
             {this.props.deviceName}
@@ -49,6 +62,8 @@ export class UpcomingInterruption
             {button}
           </td>
         </tr>
+        */
+
     );
   }
 }
@@ -139,8 +154,9 @@ export class UpcomingInterruptions
     return (
       <div className="UpcomingInterruptions">
         <h1 className="App-title">TULEVAT KATKOT</h1>
-        <br/>
-        <table><tbody>{rows}</tbody></table>
+        <div className="UpcomingInterruptionsContent">
+          {rows}
+        </div>
       </div>
     );
   }
