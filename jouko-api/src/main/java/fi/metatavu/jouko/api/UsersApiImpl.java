@@ -86,7 +86,7 @@ public class UsersApiImpl implements UsersApi {
                        .entity("User " + userId + " not found")
                        .build();
       } else {
-        entities = deviceController.listByUser(user, firstResult, maxResults)
+        entities = deviceController.listByUser(user, firstResult, maxResults);
       }
     }
       
