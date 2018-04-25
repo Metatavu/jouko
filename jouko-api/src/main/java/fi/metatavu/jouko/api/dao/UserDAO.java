@@ -13,7 +13,7 @@ import fi.metatavu.jouko.api.model.UserEntity;
 import fi.metatavu.jouko.api.model.UserEntity_;
 
 @Dependent
-public class UserDAO extends AbstractDAO<DeviceEntity> {
+public class UserDAO extends AbstractDAO<UserEntity> {
   
   public UserEntity findByKeycloakId(String keycloakId) {
     EntityManager em = getEntityManager();

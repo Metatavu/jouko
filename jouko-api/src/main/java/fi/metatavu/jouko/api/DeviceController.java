@@ -16,6 +16,7 @@ import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity;
 import fi.metatavu.jouko.api.model.GprsMessageEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.api.model.MeasurementType;
+import fi.metatavu.jouko.api.model.UserEntity;
 
 @Dependent
 public class DeviceController {
@@ -34,6 +35,14 @@ public class DeviceController {
       Integer maxResults
   ) {
     return deviceDAO.listAll(firstResult, maxResults);
+  }
+
+  public List<DeviceEntity> listByUser(
+      UserEntity user,
+      Integer firstResult,
+      Integer maxResults
+  ) {
+    return deviceDAO.listByUser(user, firstResult, maxResults);
   }
   
   public List<DeviceEntity> listByInterruption(InterruptionEntity interruption) {

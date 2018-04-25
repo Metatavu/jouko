@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response.Status;
 import fi.metatavu.jouko.api.device.DeviceCommunicator;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
+import fi.metatavu.jouko.api.model.UserEntity;
 import fi.metatavu.jouko.server.rest.UsersApi;
 import fi.metatavu.jouko.server.rest.model.Device;
 import fi.metatavu.jouko.server.rest.model.DevicePowerConsumption;
@@ -31,6 +32,9 @@ public class UsersApiImpl implements UsersApi {
   
   @Inject
   private DeviceCommunicator deviceCommunicator;
+  
+  @Inject
+  private UserController userController;
   
   private Device deviceFromEntity(DeviceEntity entity) {
     Device result = new Device();
@@ -72,7 +76,20 @@ public class UsersApiImpl implements UsersApi {
       Long userId,
       Integer firstResult,
       Integer maxResults) throws Exception {
-    List<DeviceEntity> entities = deviceController.listAll(firstResult, maxResults);
+    List<DeviceEntity> entities;
+    if (userId == null) {
+      entities = deviceController.listAll(firstResult, maxResults);
+    } else {
+      UserEntity user = userController.findUserById(userId);
+      if (user == null) {
+        return Response.status(Status.NOT_FOUND)
+                       .entity("User " + userId + " not found")
+                       .build();
+      } else {
+        entities = deviceController.listByUser(user, firstResult, maxResults)
+      }
+    }
+      
     List<Device> devices = entities.stream()
                                    .map(this::deviceFromEntity)
                                    .collect(Collectors.toList());

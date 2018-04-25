@@ -15,4 +15,9 @@ public class UserController {
   public UserEntity findUserByKeycloakId(String keycloakId) {
     return userDAO.findByKeycloakId(keycloakId);
   }
+
+  public UserEntity findUserById(Long id) {
+    return userDAO.findById(id);
+  }
+
 }
