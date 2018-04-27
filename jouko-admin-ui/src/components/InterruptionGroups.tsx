@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import { NavLink } from 'react-router-dom';
 import { format as formatDate } from 'date-fns';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
+import { BeatLoader } from 'react-spinners';
 
 interface InterruptionGroupProps {
     interruptiongroupId: number;
@@ -32,6 +33,7 @@ export class InterruptionGroup
 
 interface InterruptionGroupsState {
     rowProps: InterruptionGroupProps[];
+    loading: boolean;
 }
 
 export class InterruptionGroups
@@ -39,7 +41,7 @@ export class InterruptionGroups
 
     constructor(props: InterruptionGroupProps) {
         super(props);
-        this.state = {rowProps: []};
+        this.state = {rowProps: [], loading: true};
     }
 
     componentDidMount() {
@@ -62,7 +64,7 @@ export class InterruptionGroups
             });
         }
 
-        this.setState({rowProps: _.take(rowProps, 100)});
+        this.setState({rowProps: _.take(rowProps, 100), loading: false});
     }
     render() {
         const rows = this.state.rowProps.map(rowProp => {
@@ -80,6 +82,12 @@ export class InterruptionGroups
                         <button className="btn">New Interruptiongroup</button>
                     </NavLink>
                 </h1>
+                <div className="sweet-loading">
+                    <BeatLoader
+                        color={'#30C4C9'}
+                        loading={this.state.loading}
+                    />
+                </div>
                 <table>
                     <thead className="InterruptionsgroupHead">
                     <tr>
