@@ -4,48 +4,113 @@ import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const logo = require('../logo.svg');
+let classes1: string;
+let classes2: string;
+let classes3: string;
 
 enum State {
+    OPEN,
     CLOSED,
-    OPEN
+    START
 }
 
 interface NavigationState {
     state: State;
+    currentmenu: string;
 }
 
 export class Navigation extends React.Component<{}, NavigationState> {
 
     constructor(props: {}) {
         super(props);
-        this.state = {state: State.CLOSED};
+        this.state = {state: State.START, currentmenu: ''};
     }
-
-    onMenuClick() {
+    onMenuClick(menu: string) {
         switch (this.state.state) {
-            case State.CLOSED:
-                this.setState({state: State.OPEN});
-                break;
             case State.OPEN:
-                this.setState({state: State.CLOSED});
+                this.setState({state: State.CLOSED, currentmenu: menu});
+                break;
+            case State.CLOSED:
+                this.setState({state: State.OPEN, currentmenu: menu});
+                break;
+            case State.START:
+                this.setState({state: State.OPEN, currentmenu: menu});
                 break;
             default:
-                this.setState({state: State.OPEN});
+                this.setState({state: State.START, currentmenu: menu});
                 break;
         }
     }
 
     render() {
-        let classes: string;
         switch (this.state.state) {
-            case State.CLOSED:
-                classes = 'DropdownNavigation';
-                break;
             case State.OPEN:
-                classes = 'DropdownNavigation open';
+                if (this.state.currentmenu === 'Interruptiongroups') {
+                    if (classes1 === 'DropdownNavigation open') {
+                        classes1 = 'DropdownNavigation';
+                    } else {
+                        classes1 = 'DropdownNavigation open';
+                    }
+                    classes2 = 'DropdownNavigation';
+                    classes3 = 'DropdownNavigation';
+                }
+                if (this.state.currentmenu === 'User') {
+                    classes1 = 'DropdownNavigation';
+                    if (classes2 === 'DropdownNavigation open') {
+                        classes2 = 'DropdownNavigation';
+                    } else {
+                        classes2 = 'DropdownNavigation open';
+                    }
+                    classes3 = 'DropdownNavigation';
+                }
+                if (this.state.currentmenu === 'Device') {
+                    classes1 = 'DropdownNavigation';
+                    classes2 = 'DropdownNavigation';
+                    if (classes3 === 'DropdownNavigation open') {
+                        classes3 = 'DropdownNavigation';
+                    } else {
+                        classes3 = 'DropdownNavigation open';
+                    }
+                }
+                break;
+            case State.CLOSED:
+                if (this.state.currentmenu === 'Interruptiongroups') {
+                    if (classes1 === 'DropdownNavigation open') {
+                        classes1 = 'DropdownNavigation';
+                    } else {
+                        classes1 = 'DropdownNavigation open';
+                    }
+                    classes2 = 'DropdownNavigation';
+                    classes3 = 'DropdownNavigation';
+                }
+                if (this.state.currentmenu === 'User') {
+                    classes1 = 'DropdownNavigation';
+                    if (classes2 === 'DropdownNavigation open') {
+                        classes2 = 'DropdownNavigation';
+                    } else {
+                        classes2 = 'DropdownNavigation open';
+                    }
+                    classes3 = 'DropdownNavigation';
+                }
+                if (this.state.currentmenu === 'Device') {
+                    classes1 = 'DropdownNavigation';
+                    classes2 = 'DropdownNavigation';
+                    if (classes3 === 'DropdownNavigation open') {
+                        classes3 = 'DropdownNavigation';
+                    } else {
+                        classes3 = 'DropdownNavigation open';
+                    }
+                }
+                break;
+            case State.START:
+                classes1 = 'DropdownNavigation';
+                classes2 = 'DropdownNavigation';
+                classes3 = 'DropdownNavigation';
                 break;
             default:
-                classes = 'DropdownNavigation';
+                classes1 = 'DropdownNavigation';
+                classes2 = 'DropdownNavigation';
+                classes3 = 'DropdownNavigation';
                 break;
         }
         return (
@@ -57,10 +122,10 @@ export class Navigation extends React.Component<{}, NavigationState> {
                         </NavLink>
                     </li>
                     <li>
-                        <a onClick={() => this.onMenuClick()}>Interruptiongroups
+                        <a onClick={() => this.onMenuClick('Interruptiongroups')}>Interruptiongroups
                         <i className="fa fa-caret-down"/>
                         </a>
-                        <div className={classes}>
+                        <div className={classes1}>
                             <li>
                                 <NavLink to="/InterruptionGroups">All Interruptiongroups</NavLink>
                             </li>
@@ -70,10 +135,10 @@ export class Navigation extends React.Component<{}, NavigationState> {
                         </div>
                     </li>
                     <li>
-                        <a onClick={() => this.onMenuClick()}>User
+                        <a onClick={() => this.onMenuClick('User')}>User
                         <i className="fa fa-caret-down"/>
                         </a>
-                        <div className={classes}>
+                        <div className={classes2}>
                             <li>
                                 <NavLink to="/User">All Users</NavLink>
                             </li>
@@ -83,10 +148,10 @@ export class Navigation extends React.Component<{}, NavigationState> {
                         </div>
                     </li>
                     <li>
-                        <a onClick={() => this.onMenuClick()}>Device
+                        <a onClick={() => this.onMenuClick('Device')}>Device
                         <i className="fa fa-caret-down"/>
                         </a>
-                        <div className={classes}>
+                        <div className={classes3}>
                             <li>
                                 <NavLink to="/Device">All Devices</NavLink>
                             </li>
@@ -96,10 +161,29 @@ export class Navigation extends React.Component<{}, NavigationState> {
                         </div>
                     </li>
                     <li>
-                        <NavLink to="/">Menu5</NavLink>
+                        <a onClick={() => this.onMenuClick('Menu5')}>Menu5
+                            <i className="fa fa-caret-down"/>
+                        </a>
                     </li>
                     <li>
-                        <NavLink to="/">Menu6</NavLink>
+                        <a onClick={() => this.onMenuClick('Menu6')}>Menu6
+                            <i className="fa fa-caret-down"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a onClick={() => this.onMenuClick('Menu7')}>Menu7
+                            <i className="fa fa-caret-down"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a onClick={() => this.onMenuClick('Menu8')}>Menu8
+                            <i className="fa fa-caret-down"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a onClick={() => this.onMenuClick('Menu9')}>Menu9
+                            <i className="fa fa-caret-down"/>
+                        </a>
                     </li>
                 </ul>
             </div>

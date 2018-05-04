@@ -7,21 +7,23 @@ export function Topbar () {
     return (
         <ul className="Topbar">
             <li>
-                <NavLink to="/">Logout</NavLink>
+                <NavLink to="/">
+                <i className="fa fa-sign-out fa-fh" />
+                </NavLink>
             </li>
             <li>
-                <NavLink to="/">Topbar4</NavLink>
+                <NavLink to="/">
+                    <i className="fa fa fa-envelope fa-fh"/>
+                </NavLink>
             </li>
             <li>
-                <NavLink to="/">Topbar3</NavLink>
+                <NavLink to="/">
+                    <i className="fa fa-cogs fa-fh"/>
+                </NavLink>
             </li>
             <li>
-                <NavLink to="/">Topbar2</NavLink>
+                <input type="text" name="search" placeholder="Search..." className="inputSearch"/>
             </li>
-            <li>
-                <NavLink to="/">Topbar1</NavLink>
-            </li>
-
         </ul>
     );
 }

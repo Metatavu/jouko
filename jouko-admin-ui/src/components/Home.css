@@ -1,4 +1,15 @@
 .HomeContainer{
-    padding-left: 25rem;
+    margin-left: 22rem;
     padding-top: 5rem;
+}
+
+@media only screen and (min-width: 769px) {
+    .HomeChart{
+        width: 65%;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .HomeChart{
+        width: 80%;
+    }
 }

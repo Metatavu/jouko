@@ -54,10 +54,10 @@
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
-.DropdownNavigation{
+
+.DropdownNavigation {
     display: none;
 }
-
-.DropdownNavigation.open {
+.DropdownNavigation.open  {
     display: block;
 }

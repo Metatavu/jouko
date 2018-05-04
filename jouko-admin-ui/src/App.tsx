@@ -29,8 +29,8 @@ class App extends React.Component {
         <BrowserRouter>
             <div>
                 <div className="Navigationbar">
-                    <Topbar />
                     <Navigation />
+                    <Topbar />
                 </div>
                 <div className="HomeContainer">
                     <Route path="/" exact={true} component={Home}/>
