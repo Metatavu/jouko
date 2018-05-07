@@ -9,6 +9,7 @@ import { User } from './components/User';
 import { Home } from './components/Home';
 import { Settings } from './components/Settings';
 import { Statistics } from './components/Statistics';
+import { StatisticsSummary } from './components/StatisticsSummary';
 import { NavLink } from 'react-router-dom';
 import * as Keycloak from 'keycloak-js';
 import { UsersApi } from 'jouko-ts-client';
@@ -21,6 +22,9 @@ interface AppState {
   username?: string;
   keycloakId?: string;
   userId?: number;
+  email?: string;
+  firstname?: string;
+  lastname?: string;
 }
 class App extends React.Component<{}, AppState> {
   constructor(props: {}) {
@@ -32,7 +36,7 @@ class App extends React.Component<{}, AppState> {
     const kc = Keycloak(
       {
         url: 'http://localhost:9080/auth/',
-        realm: 'metatavu-realm',
+        realm: 'jouko-realm',
         clientId: 'jouko',
       }
     );
@@ -47,17 +51,25 @@ class App extends React.Component<{}, AppState> {
   }
   // tslint:disable-next-line:no-any
   async fetchUsers(kc: any) {
+
     // tslint:disable-next-line:no-any
     const keycloakId = (kc.idTokenParsed as any).sub;
     const usersApi = new UsersApi(
       undefined,
       'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
     const user = await usersApi.getUserByKeycloakId(keycloakId);
+    console.log(kc);
     if (user) {
       this.setState({
         keycloakInstance : kc,
         // tslint:disable-next-line:no-any
-        username: (kc.idTokenParsed as any).name,
+        username: (kc.idTokenParsed as any).preferred_username,
+        // tslint:disable-next-line:no-any
+        email: (kc.idTokenParsed as any).email,
+        // tslint:disable-next-line:no-any
+        firstname: (kc.idTokenParsed as any).given_name,
+        // tslint:disable-next-line:no-any
+        lastname: (kc.idTokenParsed as any).family_name,
         // tslint:disable-next-line:no-any
         keycloakId: (kc.idTokenParsed as any).sub,
         userId: user.id});
@@ -90,7 +102,7 @@ class App extends React.Component<{}, AppState> {
           <div className="App-Block1">
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">JOUKO - kotiapp</h1>
-            <h1>Kirjautuneena: {this.state.username} </h1>
+            <h1>Kirjautuneena: {this.state.lastname} {this.state.firstname} </h1>
           </div>
         <Route
           path="/"
@@ -99,8 +111,20 @@ class App extends React.Component<{}, AppState> {
             <Home currentUserId={this.state.userId as number}/>
           )}
         />
-        <Route path="/User" component={User} />
+        <Route
+          path="/User"
+          exact={true}
+          render={props => (
+            <User
+              username={this.state.username as string}
+              firstname={this.state.firstname as string}
+              lastname={this.state.lastname as string}
+              email={this.state.email as string}
+            />
+          )}
+        />
         <Route path="/Settings" component={Settings} />
+        <Route path="/StatisticsSummary" component={StatisticsSummary} />
         <Route
           path="/Statistics/:id"
           render={props => (

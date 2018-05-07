@@ -6,6 +6,7 @@ import { addMinutes, addHours, addDays, subMinutes, subHours, subDays } from 'da
 import { format as formatDate } from 'date-fns';
 import * as _ from 'lodash';
 import { BeatLoader } from 'react-spinners';
+import '../App.css';
 
 interface ChartProps {
   deviceId: number;
@@ -102,7 +103,15 @@ export class Statistics
     const hourChart = this.state.rowProps.map(prop => {
       return (
         <div key={prop.deviceId.toString()}>
-
+          <div className="StatisticsFilter">
+            <select>
+              <option>Select Statistic... </option>
+              <option value="/StatisticsSummary">All Statistics </option>
+              <option value="/Statistics/1">Device1</option>
+              <option value="/Statistics/2">Device2</option>
+              <option value="/Statistics/3">Device3</option>
+            </select>
+          </div>
           <h1>Statistics | 1 h</h1>
           <Bar
             data={

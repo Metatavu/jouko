@@ -12,6 +12,7 @@ interface PowerUsageSummaryProps {
 }
 
 const deviceImage = require('../img/device.JPG');
+
 export class PowerUsageSummary
   extends React.Component<PowerUsageSummaryProps> {
 
@@ -91,6 +92,17 @@ export class PowerUsageSummaries
         <h1>TEHONKULUTUS</h1>
         <div className="PowerUsageSummaryContent">
           {rows}
+          <div className="PowerUsageSummaryCard">
+            <NavLink to={'/StatisticsSummary'}>
+              <img src={deviceImage} width="100%" className="PowerUsageSummaryCardImage"/>
+            </NavLink>
+            <div className="PowerUsageSummaryContainer">
+              <NavLink to={'/StatisticsSummary'}>
+                <h4>Kooste (Kaikki)</h4>
+                <p>Show all</p>
+              </NavLink>
+            </div>
+          </div>
         </div>
       </div>
 
