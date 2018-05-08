@@ -226,4 +226,24 @@
         onDelete="CASCADE"
         onUpdate="NO ACTION" />
   </changeSet>
+
+  <changeSet author="Ilmo Euro" id="20180508-load-factor-power-goal">
+    <addColumn tableName="InterruptionGroup">
+      <column
+          name="overbookingFactor"
+          type="DOUBLE"
+          defaultValue="100.0">
+        <constraints nullable="false" />
+      </column>
+    </addColumn>
+
+    <addColumn tableName="InterruptionGroup">
+      <column
+          name="powerSavingGoalInWatts"
+          type="INTEGER"
+          defaultValue="0">
+        <constraints nullable="false" />
+      </column>
+    </addColumn>
+  </changeSet>
 </databaseChangeLog>

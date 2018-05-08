@@ -2,7 +2,6 @@ syntax = "proto2";
 
 package fi.metatavu.jouko.api.device;
 
-
 message Katkot {
 	message Katko {
 		required int64 katkoID = 1;
@@ -14,17 +13,21 @@ message Katkot {
 	repeated Katko katkot = 1;
 }
 
+
 message Katkonestot {
 	message Katkonesto {
 		required int64 katkoID = 1;
 	}
-
 
 	repeated Katkonesto katkonestot = 1;
 }
 
 message AikasynkLaitteelle {
 	required int64 erotus = 1;
+}
+
+message VersioKysely {
+	required bool versioKysely = 1;
 }
 
 message SbUpdateStart {
@@ -41,17 +44,21 @@ message SbUpdateStop {
 	required int32 numFiles = 2;
 }
 
-message Mittaus {
-	required int32 laiteID = 1;
-	required int64 aika = 2;
-	required int32 vaihe1KA = 3;
-	required int32 vaihe2KA = 4;
-	required int32 vaihe3KA = 5;
-	required bool releOhjaus = 6;
+message Mittaukset {
+	repeated int32 keskiarvot = 1; // L1,L2,L3,L1,L2...
+	optional int32 pituusMinuutteina = 2; // by default 30
+	required int64 aika = 3;
+	required int64 laiteID = 4;
+	required int32 releOhjaukset = 5; // bitfield for relay usage, LSB first
+}
+
+message VersioVastaus {
+	required int64 versio = 1;
 }
 
 message AikasynkLaitteelta {
 	required int64 laiteaika = 1;
+	optional int32 syy = 2;
 }
 
 message ViestiLaitteelle {
@@ -62,12 +69,14 @@ message ViestiLaitteelle {
 		SbUpdateStart sbUpdateStart = 4;
 		SbUpdatePart sbUpdatePart = 5;
 		SbUpdateStop sbUpdateStop = 6;
+		VersioKysely versioKysely = 7;
 	}
 }
 
 message ViestiLaitteelta {
 	oneof viesti {
-		Mittaus mittaus = 1;
+		Mittaukset mittaukset = 1;
 		AikasynkLaitteelta aikasynkLaitteelta = 2;
+		VersioVastaus versioVastaus = 3;
 	}
 }

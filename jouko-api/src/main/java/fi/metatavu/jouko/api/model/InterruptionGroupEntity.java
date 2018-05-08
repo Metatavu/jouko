@@ -25,6 +25,14 @@ public class InterruptionGroupEntity {
   @NotNull
   private OffsetDateTime endTime;
   
+  @Column(nullable = false)
+  @NotNull
+  private double overbookingFactor;
+  
+  @Column(nullable = false)
+  @NotNull
+  private int powerSavingGoalInWatts;
+  
   public InterruptionGroupEntity() {
   }
 
@@ -61,4 +69,21 @@ public class InterruptionGroupEntity {
   public void setEndTime(OffsetDateTime endTime) {
     this.endTime = endTime;
   }
+
+  public double getOverbookingFactor() {
+    return overbookingFactor;
+  }
+
+  public void setOverbookingFactor(double overbookingFactor) {
+    this.overbookingFactor = overbookingFactor;
+  }
+
+  public int getPowerSavingGoalInWatts() {
+    return powerSavingGoalInWatts;
+  }
+
+  public void setPowerSavingGoalInWatts(int powerSavingGoalInWatts) {
+    this.powerSavingGoalInWatts = powerSavingGoalInWatts;
+  }
+  
 }
