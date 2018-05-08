@@ -1,4 +1,5 @@
-/*################################################ General App Setting #################################################*/
+
+/*############################## General App Setting ##############################*/
 .wrapper {
   text-align: center;
   margin-bottom: 150px;  /* Add a top margin to avoid content overlay with bottom menu */
@@ -16,8 +17,8 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-/*##################################################### Navigation bar #####################################################*/
 /*########################## Navigationbar ##########################*/
+/*########## Navigationbar ##########*/
 .Navigationbar {
   height: 75px;
   top: 0;
@@ -35,7 +36,7 @@
   width: 50%;
   float: right;
 }
-/*########################## Menu ##########################*/
+/*########## Menu ##########*/
 .overlay.open {
   transform: translate(0, 0);
 }
@@ -134,7 +135,7 @@
     overflow-x: hidden;
   }
 }
-/*######################### Logout ########################*/
+/*########## Logout ##########*/
 .Logout i{
   margin-top: 15px;
   margin-right: 15px;
@@ -142,8 +143,8 @@
   font-size: 40px;
   color: #0a242d;
 }
-/*##################################################### App-Blocks #####################################################*/
-/*########################## App-Block1 ##########################*/
+/*########################## App-Blocks ##########################*/
+/*########## App-Block1 ##########*/
 .App-Block1 {
   height: 100%;
   margin-top:100px;
@@ -151,7 +152,7 @@
   padding-bottom: 50px;
   color: #0a242d;
 }
-/*########################## UpcomingInterruptions ##########################*/
+/*########## UpcomingInterruptions ##########*/
 .UpcomingInterruptions {
   background-image: url("./img/background_dark.jpg");
   background-size: cover;
@@ -226,7 +227,7 @@
 .UpcomingInterruptionsButton{
   padding-top: 25px;
 }
-/*########################## PowerUsageSummary ##########################*/
+/*########## PowerUsageSummary ##########*/
 .PowerUsageSummary {
   color: #222222;
   width: 100%;
@@ -240,14 +241,14 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  width: 80%;
+  width: 90%;
   padding-top: 50px;
   margin: auto;
 }
 @media only screen and (max-width: 568px) {
   .PowerUsageSummaryCard {
     /* Add shadows to create the "card" effect */
-    width: 90% !important;
+    width: 100% !important;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     margin-left:1.5%;
@@ -258,7 +259,7 @@
 @media only screen and (min-width: 569px) {
   .PowerUsageSummaryCard {
     /* Add shadows to create the "card" effect */
-    width: 40%;
+    width: 45%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     margin-left:1.5%;
@@ -266,7 +267,6 @@
     margin-bottom: 35px;
   }
 }
-
 @media only screen and (min-width: 769px) {
   .PowerUsageSummaryCard {
     width: 20% !important;
@@ -281,7 +281,7 @@
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 .PowerUsageSummaryCard:hover .PowerUsageSummaryCardImage{
-  opacity: 0.3;
+  opacity: 0.65;
   transition: 1s;
 }
 .PowerUsageSummaryContainer {
@@ -294,8 +294,8 @@
 .PowerUsageSummaryContainer a{
   text-decoration: none;
 }
-  /*##################################################### Buttons #####################################################*/
-/*########################## Normal Button ##########################*/
+/*########################## Buttons ##########################*/
+/*########## Normal Button ##########*/
 .btn{
   background: transparent;
   border-radius: 28px;
@@ -311,7 +311,7 @@
   background: #0a242d;
   color: #ffffff;
 }
-/*########################## Buttons with arrows ##########################*/
+/*########## Buttons with arrows ##########*/
 .btn2{
   background: #fff;
   border-radius: 28px;
@@ -325,7 +325,7 @@
   z-index: 5;
   font-size: 16px;
 }
-/*########################## Cancelled Button ##########################*/
+/*########## Cancelled Button ##########*/
 .btn3{
   background: transparent;
   border-radius: 28px;
@@ -336,17 +336,17 @@
   padding: 10px 20px 10px 20px;
   text-decoration: none;
 }
-/*##################################################### Statistics #####################################################*/
+/*########################## Statistics ##########################*/
 .Statistics{
     padding-bottom: 100px;
     margin: auto;
     width: 50%;
 }
-/*##################################################### Loader #####################################################*/
+/*########################## Loader ##########################*/
 .sweet-loading{
   margin-top: 50px;
 }
-/*##################################################### User Settings #####################################################*/
+/*########################## User Settings ##########################*/
 .UserSettings{
   max-width: 70%;
   margin: 10px auto;
@@ -355,15 +355,9 @@
   font-size: 18px;
   margin-bottom: 100px;
 }
-.UserSettings h1{
-  background: #21898c;
-  padding: 20px 0;
-  font-size: 140%;
-  font-weight: 300;
-  text-align: center;
-  color: #fff;
+.UserSettings p{
+  text-align: left;
 }
-
 .UserSettings input[type="text"],
 .UserSettings input[type="date"],
 .UserSettings input[type="datetime"],
@@ -385,10 +379,11 @@
   -moz-box-sizing: border-box;
   width: 100%;
   background: #fff;
-  margin-bottom: 4%;
+  margin-bottom: 2%;
   border: 1px solid #ccc;
-  padding: 3%;
+  padding: 2%;
   color: #555;
+  font-size: 17px;
 }
 .UserSettings input[type="text"]:focus,
 .UserSettings input[type="date"]:focus,
@@ -399,11 +394,15 @@
 .UserSettings input[type="time"]:focus,
 .UserSettings input[type="url"]:focus,
 .UserSettings textarea:focus,
-.UserSettings select:focus
-{
+.UserSettings select:focus{
   box-shadow: 0 0 5px #21898c;
-  padding: 3%;
+  padding: 2%;
   border: 1px solid #21898c;
+}
+.UserSettings input[type="text"]:disabled {
+  background: #dddddd;
+  border: 1px solid #dddddd;
+  color: #626262;
 }
 
 .UserSettings input[type="submit"],
@@ -412,8 +411,9 @@
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  width: 49%;
-  padding: 3%;
+  width: 49.5%;
+  padding: 2%;
+  margin: 0;
   background: #21898c;
   border-bottom: 2px solid #186264;
   border-top-style: none;
@@ -422,9 +422,97 @@
   color: #fff;
   font-size: 18px;
 }
+.UserSettings input[type="reset"]{
+  margin-right: 0.5%;
+  font-size: 20px;
+}
+.UserSettings input[type="submit"]{
+  margin-left: 0.5%;
+  font-size: 20px;
+}
 .UserSettings input[type="submit"]:hover,
 .UserSettings input[type="reset"]:hover,
 .UserSettings input[type="button"]:hover{
   background: #269ca0;
 }
+/*########################## Statistics Summary ##########################*/
+.StatisticsSummaryContainer{
+  width: 100%;
+  margin: auto;
+}
+/*########## Statistics Filter ##########*/
+/*
+.StatisticsFilter{
+  height: auto;
+  width: 100%;
+  text-align: right;
+  background-color: #f6f6f6;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.StatisticsFilter select {
+  font-size: 110%;
+  padding: 10px;
+  margin-right: 25px;
+}
+*/
+/*########## Device ##########*/
+.DeviceInterruption {
+  padding-top: 50px;
+  padding-bottom: 100px;
+}
+.DeviceInterruptionTitle{
+  background-color: #f6f6f6;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.DeviceInterruptionTitle h3{
+  margin-top: 0;
+}
+.DeviceInterruptionCharts{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+
+@media only screen and (max-width: 568px) {
+  .DeviceInterruptionChart{
+    width: 90%;
+  }
+}
+@media only screen and (min-width: 569px) {
+  .DeviceInterruptionChart{
+    width: 45%;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .DeviceInterruptionChart{
+    width: 33.33%;
+  }
+}
+/*########## Building ##########*/
+.BuildingInterruption {
+  padding-top: 50px;
+  padding-bottom: 100px;
+}
+.BuildingInterruptionTitle{
+  background-color: #f6f6f6;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.BuildingInterruptionTitle h3{
+  margin-top: 0;
+}
+.BuildingInterruptionCharts {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+.BuildingInterruptionChart{
+  width: 33.33%;
+}
+/*########################## ... ##########################*/
+/*########## ... ##########*/
 

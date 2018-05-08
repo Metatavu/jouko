@@ -32,8 +32,7 @@ export interface InterruptionGroupTableProps {
   rowProps: InterruptionGroupTableRowProps[];
 }
 
-export class InterruptionGroupsTable
-    extends React.Component<InterruptionGroupTableProps> {
+export class InterruptionGroupsTable extends React.Component<InterruptionGroupTableProps> {
   constructor(props: InterruptionGroupTableProps) {
     super(props);
   }

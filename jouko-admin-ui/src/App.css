@@ -1,0 +1,150 @@
+.btn{
+    background: transparent;
+    border-radius: 28px;
+    border: 2px solid #9dc3d6;
+    color: #2db7b7;
+    transition: 0.5s;
+    font-size: 22px;
+    font-weight: 400;
+    padding: 10px 20px 10px 20px;
+    margin-left: 25px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn:hover{
+    background: #2db7b7;
+    border-radius: 28px;
+    border: 2px solid #2db7b7;
+    color: #fff;
+    transition: 0.5s;
+    font-size: 22px;
+    font-weight: 400;
+    padding: 10px 20px 10px 20px;
+    margin-left: 25px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*##################################################### User Settings #####################################################*/
+.new-item-form{
+    width: 75%;
+    padding-top: 25px;
+    background: #ffffff;
+    font-size: 18px;
+}
+
+.new-item-form input[type="text"],
+.new-item-form input[type="date"],
+.new-item-form input[type="datetime"],
+.new-item-form input[type="email"],
+.new-item-form input[type="number"],
+.new-item-form input[type="search"],
+.new-item-form input[type="time"],
+.new-item-form input[type="url"],
+.new-item-form textarea,
+.new-item-form select
+{
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    color: #202020;
+}
+.new-item-form input[type="text"]:focus,
+.new-item-form input[type="date"]:focus,
+.new-item-form input[type="datetime"]:focus,
+.new-item-form input[type="email"]:focus,
+.new-item-form input[type="number"]:focus,
+.new-item-form input[type="search"]:focus,
+.new-item-form input[type="time"]:focus,
+.new-item-form input[type="url"]:focus,
+.new-item-form textarea:focus,
+.new-item-form select:focus
+{
+    box-shadow: 0 0 5px #2db7b7;
+    padding: 15px;
+    border: 1px solid #2db7b7;
+}
+
+.new-item-form input[type="submit"],
+.new-item-form input[type="button"]{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 150px;
+    float: left;
+    padding: 15px;
+    background: #2db7b7;
+    border: 2px solid #238e8e;
+    color: #fff;
+    font-size: 18px;
+    margin-top: 25px;
+}
+.new-item-form input[type="reset"]{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 150px;
+    float: left;
+    margin-right: 25px;
+    padding: 15px;
+    background: #fff;
+    border: 2px solid #2db7b7;
+    color: #2db7b7;
+    font-size: 18px;
+    margin-top: 25px;
+}
+.new-item-form input[type="submit"]:hover,
+.new-item-form input[type="button"]:hover{
+    background: #28a3a3;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.new-item-form input[type="reset"]:hover{
+    background: #28a3a3;
+    color: #fff;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.new-item-form p{
+    font-size: 16px;
+    color: #3e3e3e;
+}
+    /*##################################################### User Settings #####################################################*/
+table {
+    margin-top: 50px;
+    border-collapse: collapse;
+    width: 75%;
+}
+td, th {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+tr:nth-child(even){
+    background-color: #f0f0f0;
+}
+
+thead {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #2db7b7;
+    color: white;
+    font-size: larger;
+}
+tr{
+    text-align: left;
+}
+/*##################################################### Loader #####################################################*/
+.sweet-loading{
+    margin-top: 50px;
+}
