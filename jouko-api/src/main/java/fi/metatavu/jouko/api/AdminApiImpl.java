@@ -37,6 +37,8 @@ public class AdminApiImpl implements AdminApi {
     result.setStartTime(entity.getStartTime());
     result.setEndTime(entity.getEndTime());
     result.setId(entity.getId());
+    result.setOverbookingFactor(entity.getOverbookingFactor());
+    result.setPowerSavingGoalInWatts((long)entity.getPowerSavingGoalInWatts());
     return result;
   }
 
