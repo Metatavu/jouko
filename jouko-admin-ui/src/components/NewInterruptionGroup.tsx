@@ -12,6 +12,8 @@ interface NewInterruptionGroupState {
     startDate: string;
     startTime: string;
     duration: string;
+    powerSavingGoalInWatts: number;
+    overbookingFactor: number;
 }
 
 export class NewInterruptionGroup
@@ -23,11 +25,16 @@ export class NewInterruptionGroup
             startDate: '',
             startTime: '',
             duration: '',
+            powerSavingGoalInWatts: 0,
+            overbookingFactor: 0,
+
         };
         this.handleInterruptionGroupIdChange = this.handleInterruptionGroupIdChange.bind(this);
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleStartTimeChange = this.handleStartTimeChange.bind(this);
         this.handleDurationChange = this.handleDurationChange.bind(this);
+        this.handlePowerSavingGoalInWattsChange = this.handleDurationChange.bind(this);
+        this.handleOverbookingFactorChange = this.handleDurationChange.bind(this);
     }
     handleInterruptionGroupIdChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({interruptionGroupId: event.currentTarget.valueAsNumber});
@@ -40,6 +47,12 @@ export class NewInterruptionGroup
     }
     handleDurationChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({duration: event.currentTarget.value});
+    }
+    handlePowerSavingGoalInWattsChange(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({powerSavingGoalInWatts: event.currentTarget.valueAsNumber});
+    }
+    handleOverbookingFactorChange(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({overbookingFactor: event.currentTarget.valueAsNumber});
     }
 
     handleSubmit(event: React.FormEvent<HTMLInputElement>) {
@@ -58,7 +71,9 @@ export class NewInterruptionGroup
             {
                 id: 0,
                 startTime: starttime.toISOString(),
-                endTime: endtime.toISOString()
+                endTime: endtime.toISOString(),
+                powerSavingGoalInWatts: this.state.powerSavingGoalInWatts,
+                overbookingFactor: this.state.overbookingFactor
             });
 
         event.preventDefault();
@@ -77,6 +92,7 @@ export class NewInterruptionGroup
                     <input
                         type="text"
                         name="interruptionGroupId"
+                        disabled={true}
                         value={this.state.interruptionGroupId}
                         onChange={this.handleInterruptionGroupIdChange}
                     />
@@ -88,7 +104,7 @@ export class NewInterruptionGroup
                         value={this.state.startDate}
                         onChange={this.handleStartDateChange}
                     />
-                    <p>Time:</p>
+                    <p>Time: (HH:MM)</p>
                     <input
                         type="time"
                         name="starttime"
@@ -96,13 +112,28 @@ export class NewInterruptionGroup
                         value={this.state.startTime}
                         onChange={this.handleStartTimeChange}
                     />
-                    <p>Duration:</p>
+                    <p>Duration: (HH:MM)</p>
                     <input
                         type="time"
                         name="duration"
-                        placeholder="Duration"
+                        placeholder="HH:MM"
                         value={this.state.duration}
                         onChange={this.handleDurationChange}
+                    />
+                    <p>Amount of energy to be saved (kW)</p>
+                    <input
+                        type="number"
+                        name="powerSavingGoalInWatts"
+                        value={this.state.powerSavingGoalInWatts}
+                        onChange={this.handlePowerSavingGoalInWattsChange}
+                    />
+                    <p>Overbooking: (in %)</p>
+                    <input
+                        type="number"
+                        name="overbookingFactor"
+                        placeholder="5 %"
+                        value={this.state.overbookingFactor}
+                        onChange={this.handleOverbookingFactorChange}
                     />
                     <input type="reset" value="Cancel" />
                     <input type="submit" value="Create" onClick={(event) => this.handleSubmit(event)}/>

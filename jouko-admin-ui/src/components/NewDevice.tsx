@@ -2,15 +2,22 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 // import { DeviceApi } from 'jouko-ts-client';
+import { InterruptionGroupsApi } from 'jouko-ts-client';
+import * as _ from 'lodash';
 
 interface NewDeviceProps {
     createNewUser(): void;
+}
+interface NewDevicesProps {
+    interruptiongroupId: number;
+    starttime: string;
 }
 interface NewDeviceState {
     deviceId: number;
     deviceName: string;
     userId: number;
     controllerId: number;
+    rowProps: NewDevicesProps[];
 }
 
 export class NewDevice
@@ -21,7 +28,8 @@ export class NewDevice
             deviceId: 0,
             deviceName: '',
             userId: 5,
-            controllerId: 6
+            controllerId: 6,
+            rowProps: []
         };
         this.handleDeviceIdChange = this.handleDeviceIdChange.bind(this);
         this.handleDeviceNameChange = this.handleDeviceNameChange.bind(this);
@@ -60,7 +68,46 @@ export class NewDevice
         event.preventDefault();
         alert('Device created');
     }
+
+    componentDidMount() {
+        this.fetchNewDevices();
+    }
+    async fetchNewDevices() {
+        const interruptionGroupsApi = new InterruptionGroupsApi(
+            undefined,
+            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+        const interruptionGroups = await interruptionGroupsApi.listInterruptionGroups(0, 1000);
+        const rowProps: NewDevicesProps[] = [];
+        for (const interruptionGroup of interruptionGroups) {
+            rowProps.push({
+                interruptiongroupId: interruptionGroup.id,
+                starttime: interruptionGroup.startTime,
+            });
+        }
+        this.setState({rowProps: _.take(rowProps, 100)});
+    }
+
     render() {
+        const controllerOption = this.state.rowProps.map(rowProp => {
+            return (
+                <option
+                    key={rowProp.interruptiongroupId.toString()}
+                    onChange={this.handleControllerIdChange}
+                >
+                    {rowProp.interruptiongroupId.toString()}
+                </option>
+            );
+        });
+        const userOption = this.state.rowProps.map(rowProp => {
+            return (
+                <option
+                    key={rowProp.interruptiongroupId.toString()}
+                    onChange={this.handleUserIdChange}
+                >
+                    {rowProp.starttime.toString()}
+                </option>
+            );
+        });
         return (
             <div className="">
                 <h1>New Device
@@ -73,6 +120,7 @@ export class NewDevice
                     <input
                         type="text"
                         name="deviceId"
+                        disabled={true}
                         value={this.state.deviceId}
                         onChange={this.handleDeviceIdChange}
                     />
@@ -85,6 +133,8 @@ export class NewDevice
                     />
                     <p>User ID:</p>
                     <select name="userId">
+                        {userOption}
+                        {/*
                         <option
                             value={this.state.userId}
                             onChange={this.handleUserIdChange}
@@ -100,9 +150,12 @@ export class NewDevice
                             onChange={this.handleUserIdChange}
                         >User3
                         </option>
+                        */}
                     </select>
                     <p>Controller ID:</p>
                     <select name="controllerId">
+                        {controllerOption}
+                        {/*
                         <option
                             value={this.state.controllerId}
                             onChange={this.handleControllerIdChange}
@@ -118,6 +171,7 @@ export class NewDevice
                             onChange={this.handleControllerIdChange}
                         >Controller3
                         </option>
+                        */}
                     </select>
                     <input type="reset" value="Cancel" />
                     <input type="submit" value="Create"  onClick={(event) => this.handleSubmit(event)} />

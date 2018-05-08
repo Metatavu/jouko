@@ -22,6 +22,11 @@ export function Topbar () {
                 </NavLink>
             </li>
             <li>
+                <NavLink to="/">
+                    <i className="fa fa-home fa-fh"/>
+                </NavLink>
+            </li>
+            <li>
                 <input type="text" name="search" placeholder="Search..." className="inputSearch"/>
             </li>
         </ul>

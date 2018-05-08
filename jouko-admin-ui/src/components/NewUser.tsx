@@ -93,6 +93,7 @@ export class NewUser
                     <input
                         type="text"
                         name="userId"
+                        disabled={true}
                         value={this.state.userId}
                         onChange={this.handleUserIdChange}
                     />

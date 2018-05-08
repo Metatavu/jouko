@@ -23,21 +23,21 @@ export class Device extends React.Component {
                     <tbody className="DeviceBody">
                     <tr>
                         <th>1</th>
-                        <th>Test1</th>
-                        <th>Test1</th>
-                        <th>Test1</th>
+                        <th>Device1</th>
+                        <th>User1</th>
+                        <th>Controller1</th>
                     </tr>
                     <tr>
                         <th>2</th>
-                        <th>Test2</th>
-                        <th>Test2</th>
-                        <th>Test2</th>
+                        <th>Device2</th>
+                        <th>User2</th>
+                        <th>Controller2</th>
                     </tr>
                     <tr>
                         <th>3</th>
-                        <th>Test3</th>
-                        <th>Test3</th>
-                        <th>Test3</th>
+                        <th>Device3</th>
+                        <th>User3</th>
+                        <th>Controller3</th>
                     </tr>
                     </tbody>
                 </table>

@@ -1,12 +1,13 @@
 import * as React from 'react';
 import './Home.css';
-import { Line } from 'react-chartjs-2';
+import { Line, Pie } from 'react-chartjs-2';
+import { NavLink } from 'react-router-dom';
 
 const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['November', 'December', 'January', 'February', 'March', 'April', 'May'],
     datasets: [
         {
-            label: '',
+            label: 'Power Consumption',
             fill: false,
             lineTension: 0.1,
             backgroundColor: 'rgba(75,192,192,0.4)',
@@ -28,18 +29,88 @@ const data = {
         }
     ]
 };
+const data2 = {
+    labels: [
+        'Interruptions',
+        'Power Consumption'
+    ],
+    datasets: [{
+        data: [50, 1500],
+        backgroundColor: [
+            '#c4c930',
+            '#269ca0'
+        ],
+        hoverBackgroundColor: [
+            '#c4c930',
+            '#269ca0'
+        ]
+    }]
+};
 
 export class Home extends React.Component {
     render() {
         return(
             <div className="HomeContent">
-                <h1>Welcome to the Admin Panel!</h1>
-                <hr/>
+                <h1>Hello, Admin-User!</h1>
                 <div className="HomeChart">
-                    <Line
-                        data={data}
-                    />
+                    <div className="HomeChart1">
+                        <h3>Power consumption of the last months:</h3>
+                        <Line
+                            data={data}
+                        />
+                    </div>
+                    <div className="HomeChart2">
+                        <Pie data={data2} />
+                    </div>
                 </div>
+                <br/>
+                <hr/>
+                <br/>
+                <div className="ExampleContainer">
+                    <div className="ExampleContainer1">
+                        <NavLink to="/NewInterruptionGroup"><h4>New Interruptiongroup</h4></NavLink>
+                    </div>
+                    <div className="ExampleContainer1">
+                        <NavLink to="/NewUser"><h4>New User</h4></NavLink>
+                    </div>
+                    <div className="ExampleContainer1">
+                        <NavLink to="/NewDevice"><h4>New Device</h4></NavLink>
+                    </div>
+                </div>
+                <hr/>
+                {/*
+                <div className="HomeText">
+                    <h2>Lorem Ipsum!</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet,
+                        consetetur sadipscing elitr,
+                        sed diam nonumy eirmod tempor
+                        invidunt ut labore et dolore
+                        magna aliquyam erat, sed diam
+                        voluptua. At vero eos et accusam
+                        et justo duo dolores et ea rebum.
+                        Stet clita kasd gubergren, no sea
+                        takimata sanctus est Lorem ipsum
+                        dolor sit amet. Lorem ipsum dolor
+                        sit amet, consetetur sadipscing
+                        elitr, sed diam nonumy eirmod tempor
+                        invidunt ut labore et dolore magna
+                        aliquyam erat, sed diam voluptua.
+                        At vero eos et accusam et justo duo
+                        dolores et ea rebum. Stet clita kasd
+                        gubergren, no sea takimata sanctus
+                        est Lorem ipsum dolor sit amet.
+                        Lorem ipsum dolor sit amet, consetetur
+                        sadipscing elitr, sed diam nonumy
+                        eirmod tempor invidunt ut labore et
+                        dolore magna aliquyam erat, sed diam
+                        voluptua. At vero eos et accusam et
+                        justo duo dolores et ea rebum. Stet
+                        clita kasd gubergren, no sea takimata
+                        sanctus est Lorem ipsum dolor sit amet.
+                    </p>
+                </div>
+                */}
             </div>
         );
     }

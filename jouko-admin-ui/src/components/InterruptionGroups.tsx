@@ -10,6 +10,8 @@ interface InterruptionGroupProps {
     interruptiongroupId: number;
     starttime: string;
     endttime: string;
+    powerSavingGoalInWatts: number;
+    overbookingFactor: number;
 }
 
 export class InterruptionGroup
@@ -21,11 +23,15 @@ export class InterruptionGroup
         let starttime = formatDate(this.props.starttime, 'H.mm');
         let enddate = formatDate(this.props.endttime, 'dddd DD. MMMM YYYY');
         let endtime = formatDate(this.props.endttime, 'HH.mm');
+        let powerSavingGoalInWatts = this.props.powerSavingGoalInWatts;
+        let overbookingFactor = this.props.overbookingFactor;
         return (
             <tr>
                 <th>{interruptiongroupId}</th>
                 <th>{startdate} klo {starttime}</th>
                 <th>{enddate} klo {endtime}</th>
+                <th>{powerSavingGoalInWatts} kW</th>
+                <th>{overbookingFactor} %</th>
             </tr>
         );
     }
@@ -60,7 +66,9 @@ export class InterruptionGroups
             rowProps.push({
                 interruptiongroupId: interruptionGroup.id,
                 starttime: interruptionGroup.startTime,
-                endttime: interruptionGroup.endTime
+                endttime: interruptionGroup.endTime,
+                powerSavingGoalInWatts: interruptionGroup.powerSavingGoalInWatts,
+                overbookingFactor: interruptionGroup.overbookingFactor
             });
         }
 
@@ -94,6 +102,8 @@ export class InterruptionGroups
                         <th>ID</th>
                         <th>Starttime</th>
                         <th>Endtime</th>
+                        <th>Power Saved [kW]</th>
+                        <th>Overbooking [%]</th>
                     </tr>
                     </thead>
                     <tbody className="InterruptionsgroupBody">

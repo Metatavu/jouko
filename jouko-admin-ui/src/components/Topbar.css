@@ -6,7 +6,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    width: calc(100% - 20rem);
+    width: calc(100% - 17rem);
     background-color: #fff;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
     float: right;
@@ -26,9 +26,7 @@
 }
 
 /* Change the link color to #111 (black) on hover */
-.Topbar li a:hover {
-    background-color: #ededed;
-}
+
 /* Search bar */
 
 .inputSearch {
