@@ -90,33 +90,31 @@ export class StatisticsSummary
           </div>
           */}
           <div className="DeviceInterruptionTitle">
-            <h3>Amount of interruptions compared to the measured overall consumption of the device</h3>
-            <p>(This uses real data gathered by Jouko)</p>
+            <h2>Amount of interruptions compared to the measured overall consumption of the device</h2>
           </div>
           <div className="DeviceInterruption">
             <div className="DeviceInterruptionCharts">
               <div className="DeviceInterruptionChart">
-                <h4>Device 1</h4>
+                <h4>Device 1 | Total Saving: 100</h4>
                 <Pie data={device1} />
               </div>
               <div className="DeviceInterruptionChart">
-                <h4>Device 2</h4>
+                <h4>Device 2 | Total Saving: 150</h4>
                 <Pie data={device2} />
               </div>
               <div className="DeviceInterruptionChart">
-                <h4>Device 3</h4>
+                <h4>Device 3 | Total Saving: 120</h4>
                 <Pie data={device3} />
               </div>
             </div>
           </div>
           <div className="BuildingInterruptionTitle">
-            <h3>Amount of interruptions compared to overall consumption of the building</h3>
-            <p>(This uses imaginary data "from el. Companies")</p>
+            <h2>Amount of interruptions compared to overall consumption of the building</h2>
           </div>
           <div className="BuildingInterruption">
             <div className="BuildingInterruptionCharts">
               <div className="BuildingInterruptionChart">
-                <h4>Building</h4>
+                <h4>Building | Total Saving: 470</h4>
                 <Pie data={building} />
               </div>
             </div>

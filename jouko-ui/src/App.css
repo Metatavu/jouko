@@ -281,7 +281,7 @@
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 .PowerUsageSummaryCard:hover .PowerUsageSummaryCardImage{
-  opacity: 0.3;
+  opacity: 0.65;
   transition: 1s;
 }
 .PowerUsageSummaryContainer {
@@ -491,7 +491,6 @@
   .DeviceInterruptionChart{
     width: 33.33%;
   }
-
 }
 /*########## Building ##########*/
 .BuildingInterruption {
