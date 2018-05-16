@@ -22,11 +22,33 @@ export class UpcomingInterruption
 
     if (!this.props.cancelled) {
       button = (
+        <button
+          className="btn2"
+          onClick={() => {
+            if (confirm('Are you sure that you want to cancel this interruption?')) {
+              this.props.cancelInterruption();
+            }
+          }}
+
+        >
+          ESTÄ KATKO
+        </button>
+
+      );
+
+    } else {
+      button = <button className="btn3" >CANCELLED</button>;
+    }
+      /*
+      <button onClick={() => (this.props.cancelInterruption())}>Yes</button> + '' + <button>No</button>
+
+      button = (
         <button className="btn2" onClick={() => (this.props.cancelInterruption())}>
         ESTÄ KATKO</button>);
     } else {
       button = <button className="btn3" >CANCELLED</button>;
     }
+    */
 
     let startdate = formatDate(this.props.startTime, 'dd DD.MM.YYYY');
     let starttime = formatDate(this.props.startTime, 'H.mm');
