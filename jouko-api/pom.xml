@@ -110,6 +110,9 @@
               <processors>
                 <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
               </processors>
+              <additionalSourceDirectories>
+                <directory>${basedir}/target/generated-sources/protobuf/java</directory>
+              </additionalSourceDirectories>
             </configuration>
           </execution>
         </executions>
