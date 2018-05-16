@@ -2,6 +2,7 @@
     margin-left: 20rem;
     padding-top: 5rem;
     margin-bottom: 5rem;
+    width: 75%;
 }
 .HomeContent{
     width: calc(100% - 2rem)

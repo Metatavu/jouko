@@ -131,7 +131,7 @@ export class NewDevice
                         value={this.state.deviceName}
                         onChange={this.handleDeviceNameChange}
                     />
-                    <p>User ID:</p>
+                    <p>User:</p>
                     <select name="userId">
                         {userOption}
                         {/*
@@ -152,7 +152,7 @@ export class NewDevice
                         </option>
                         */}
                     </select>
-                    <p>Controller ID:</p>
+                    <p>Controller:</p>
                     <select name="controllerId">
                         {controllerOption}
                         {/*

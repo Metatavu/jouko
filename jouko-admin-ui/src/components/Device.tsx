@@ -16,8 +16,8 @@ export class Device extends React.Component {
                     <tr>
                         <th>ID</th>
                         <th>Device Name</th>
-                        <th>User ID</th>
-                        <th>Controller ID</th>
+                        <th>User</th>
+                        <th>Controller</th>
                     </tr>
                     </thead>
                     <tbody className="DeviceBody">

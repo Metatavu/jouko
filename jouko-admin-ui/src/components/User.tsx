@@ -12,7 +12,7 @@ export class User extends React.Component {
                     </NavLink>
                 </h1>
                 <table>
-                    <thead className="InterruptionsgroupHead">
+                    <thead>
                     <tr>
                         <th>ID</th>
                         <th>Keycloak ID</th>
@@ -22,7 +22,7 @@ export class User extends React.Component {
                         <th>Email</th>
                     </tr>
                     </thead>
-                    <tbody className="InterruptionsgroupBody">
+                    <tbody>
                     <tr>
                         <th>1</th>
                         <th>KeycloakId1</th>

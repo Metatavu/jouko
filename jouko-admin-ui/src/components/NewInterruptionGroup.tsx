@@ -12,8 +12,8 @@ interface NewInterruptionGroupState {
     startDate: string;
     startTime: string;
     duration: string;
-    powerSavingGoalInWatts: number;
-    overbookingFactor: number;
+    powerSavingGoalInWatts?: number;
+    overbookingFactor?: number;
 }
 
 export class NewInterruptionGroup
@@ -26,8 +26,7 @@ export class NewInterruptionGroup
             startTime: '',
             duration: '',
             powerSavingGoalInWatts: 0,
-            overbookingFactor: 0,
-
+            overbookingFactor: 0
         };
         this.handleInterruptionGroupIdChange = this.handleInterruptionGroupIdChange.bind(this);
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
@@ -122,17 +121,14 @@ export class NewInterruptionGroup
                     />
                     <p>Amount of energy to be saved (kW)</p>
                     <input
-                        type="number"
+                        type="text"
                         name="powerSavingGoalInWatts"
-                        value={this.state.powerSavingGoalInWatts}
                         onChange={this.handlePowerSavingGoalInWattsChange}
                     />
                     <p>Overbooking: (in %)</p>
                     <input
-                        type="number"
+                        type="text"
                         name="overbookingFactor"
-                        placeholder="5 %"
-                        value={this.state.overbookingFactor}
                         onChange={this.handleOverbookingFactorChange}
                     />
                     <input type="reset" value="Cancel" />

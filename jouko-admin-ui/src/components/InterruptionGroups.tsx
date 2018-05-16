@@ -23,6 +23,8 @@ export class InterruptionGroup
         let starttime = formatDate(this.props.starttime, 'H.mm');
         let enddate = formatDate(this.props.endttime, 'dddd DD. MMMM YYYY');
         let endtime = formatDate(this.props.endttime, 'HH.mm');
+        // let powerSavingGoalInWatts = 0;
+        // let overbookingFactor = 0;
         let powerSavingGoalInWatts = this.props.powerSavingGoalInWatts;
         let overbookingFactor = this.props.overbookingFactor;
         return (
@@ -67,8 +69,10 @@ export class InterruptionGroups
                 interruptiongroupId: interruptionGroup.id,
                 starttime: interruptionGroup.startTime,
                 endttime: interruptionGroup.endTime,
-                powerSavingGoalInWatts: interruptionGroup.powerSavingGoalInWatts,
-                overbookingFactor: interruptionGroup.overbookingFactor
+                powerSavingGoalInWatts: 10,
+                overbookingFactor: 40
+                // powerSavingGoalInWatts: this.powerSavingGoalInWatts,
+                // overbookingFactor: interruptionGroup.overbookingFactor
             });
         }
 
@@ -98,13 +102,13 @@ export class InterruptionGroups
                 </div>
                 <table>
                     <thead className="InterruptionsgroupHead">
-                    <tr>
-                        <th>ID</th>
-                        <th>Starttime</th>
-                        <th>Endtime</th>
-                        <th>Power Saved [kW]</th>
-                        <th>Overbooking [%]</th>
-                    </tr>
+                        <tr>
+                            <th>ID</th>
+                            <th>Starttime</th>
+                            <th>Endtime</th>
+                            <th>Power Saved [kW]</th>
+                            <th>Overbooking [%]</th>
+                        </tr>
                     </thead>
                     <tbody className="InterruptionsgroupBody">
                         {rows}

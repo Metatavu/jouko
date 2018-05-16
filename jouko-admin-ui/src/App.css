@@ -28,7 +28,7 @@
 /*############################## Forms ##############################*/
 /*######### New Item Form #########*/
 .new-item-form{
-    width: 75%;
+    width: 100%;
     padding-top: 25px;
     background: #ffffff;
     font-size: 18px;
@@ -55,7 +55,7 @@
     -moz-box-sizing: border-box;
     width: 100%;
     background: #fff;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     padding: 15px;
     color: #202020;
@@ -108,13 +108,26 @@ input[type="text"]:disabled {
     font-size: 18px;
     margin-top: 25px;
 }
+.btn-add{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    float: left;
+    padding: 15px;
+    background: #fff;
+    border: 2px solid #2db7b7;
+    color: #2db7b7;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
 .new-item-form input[type="submit"]:hover,
 .new-item-form input[type="button"]:hover{
     background: #28a3a3;
     transition: 0.5s;
     cursor: pointer;
 }
-.new-item-form input[type="reset"]:hover{
+.new-item-form input[type="reset"]:hover, .btn-add:hover{
     background: #28a3a3;
     color: #fff;
     transition: 0.5s;
@@ -125,19 +138,27 @@ input[type="text"]:disabled {
     color: #3e3e3e;
 }
 /*############################## Show All Table ##############################*/
+.UserDevice{
+    margin-top: 0;
+}
 table {
     margin-top: 50px;
     border-collapse: collapse;
-    width: 75%;
+    width: 100%;
 }
 td, th {
     border: 1px solid #ddd;
     padding: 10px;
+    text-align: left;
 }
 tr:nth-child(even){
     background-color: #f0f0f0;
 }
-
+.UserDeviceHead{
+    color: #2db7b7;
+    background-color: white;
+    font-size: inherit;
+}
 thead {
     padding-top: 12px;
     padding-bottom: 12px;
