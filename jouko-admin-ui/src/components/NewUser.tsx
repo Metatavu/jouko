@@ -22,7 +22,6 @@ interface DevicesProps {
     controller: number;
 }
 interface NewUserState {
-    userId: number;
     keycloakId: string;
     firstname: string;
     lastname: string;
@@ -38,7 +37,6 @@ export class NewUser
     constructor(props: NewUserProps) {
         super(props);
         this.state = {
-            userId: 0,
             keycloakId: '',
             firstname: '',
             lastname: '',
@@ -48,7 +46,6 @@ export class NewUser
             devices: [],
             controllers: []
         };
-        this.handleUserIdChange = this.handleUserIdChange.bind(this);
         this.handleKeycloakIdChange = this.handleKeycloakIdChange.bind(this);
         this.handleFirstnameChange = this.handleFirstnameChange.bind(this);
         this.handleLastnameChange = this.handleLastnameChange.bind(this);
@@ -56,9 +53,7 @@ export class NewUser
         this.handleControllerIdChange = this.handleControllerIdChange.bind(this);
         this.handleAddDevice = this.handleAddDevice.bind(this);
     }
-    handleUserIdChange(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({userId: event.currentTarget.valueAsNumber});
-    }
+
     handleKeycloakIdChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({keycloakId: event.currentTarget.value});
     }
@@ -88,17 +83,9 @@ export class NewUser
         if (confirm('This device will be deleted!')) {
             const array = this.state.devices;
             const startIndex = Number(index);
-            const newarray = array.splice(startIndex, 1);
-            console.log(startIndex);
-            console.log('this device is deleted: ' + newarray);
-            console.log(newarray);
-            console.log(array);
-
+            array.splice(startIndex, 1);
         }
-
         this.forceUpdate();
-            // event.preventDefault();
-            // alert('Device deleted!');
     }
     handleSubmit(event: React.FormEvent<HTMLInputElement>) {
         console.log(this.state.keycloakId);
@@ -184,6 +171,7 @@ export class NewUser
                     </NavLink>
                 </h1>
                 <form className="new-item-form">
+                    {/*
                     <p>UserID:</p>
                     <input
                         type="text"
@@ -192,6 +180,7 @@ export class NewUser
                         value={this.state.userId}
                         onChange={this.handleUserIdChange}
                     />
+                    */}
                     <p>Keycloak ID:</p>
                     <input
                         type="text"

@@ -14,8 +14,6 @@ export class User extends React.Component {
                 <table>
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Keycloak ID</th>
                         <th>Username</th>
                         <th>Firstname</th>
                         <th>Lastname</th>
@@ -24,24 +22,18 @@ export class User extends React.Component {
                     </thead>
                     <tbody>
                     <tr>
-                        <th>1</th>
-                        <th>KeycloakId1</th>
                         <th>Username1</th>
                         <th>Firstname1</th>
                         <th>Lastname1</th>
                         <th>Email1</th>
                     </tr>
                     <tr>
-                        <th>2</th>
-                        <th>KeycloakId2</th>
                         <th>Username2</th>
                         <th>Firstname2</th>
                         <th>Lastname2</th>
                         <th>Email2</th>
                     </tr>
                     <tr>
-                        <th>3</th>
-                        <th>KeycloakId3</th>
                         <th>Username3</th>
                         <th>Firstname3</th>
                         <th>Lastname3</th>

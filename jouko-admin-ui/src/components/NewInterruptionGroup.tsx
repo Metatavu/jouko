@@ -8,7 +8,6 @@ interface NewInterruptionGroupProps {
     createNewInterruptionGroup(): void;
 }
 interface NewInterruptionGroupState {
-    interruptionGroupId: number;
     startDate: string;
     startTime: string;
     duration: string;
@@ -21,22 +20,17 @@ export class NewInterruptionGroup
     constructor(props: NewInterruptionGroupProps) {
         super(props);
         this.state = {
-            interruptionGroupId: 0,
             startDate: '',
             startTime: '',
             duration: '',
             // powerSavingGoalInWatts: 0,
             // overbookingFactor: 0
         };
-        this.handleInterruptionGroupIdChange = this.handleInterruptionGroupIdChange.bind(this);
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleStartTimeChange = this.handleStartTimeChange.bind(this);
         this.handleDurationChange = this.handleDurationChange.bind(this);
         // this.handlePowerSavingGoalInWattsChange = this.handleDurationChange.bind(this);
         // this.handleOverbookingFactorChange = this.handleDurationChange.bind(this);
-    }
-    handleInterruptionGroupIdChange(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({interruptionGroupId: event.currentTarget.valueAsNumber});
     }
     handleStartDateChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({startDate: event.currentTarget.value});
@@ -89,14 +83,14 @@ export class NewInterruptionGroup
                     </NavLink>
                 </h1>
                 <form className="new-item-form">
+                    {/*
                     <p>Interruptionsgroup ID:</p>
                     <input
                         type="text"
                         name="interruptionGroupId"
                         disabled={true}
-                        value={this.state.interruptionGroupId}
-                        onChange={this.handleInterruptionGroupIdChange}
                     />
+                    */}
                     <p>Date:</p>
                     <input
                         type="date"

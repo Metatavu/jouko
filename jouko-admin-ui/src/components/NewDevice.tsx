@@ -13,7 +13,6 @@ interface NewDevicesProps {
     starttime: string;
 }
 interface NewDeviceState {
-    deviceId: number;
     deviceName: string;
     userId: number;
     controllerId: number;
@@ -25,19 +24,14 @@ export class NewDevice
     constructor(props: NewDeviceProps) {
         super(props);
         this.state = {
-            deviceId: 0,
             deviceName: '',
             userId: 5,
             controllerId: 6,
             rowProps: []
         };
-        this.handleDeviceIdChange = this.handleDeviceIdChange.bind(this);
         this.handleDeviceNameChange = this.handleDeviceNameChange.bind(this);
         this.handleUserIdChange = this.handleUserIdChange.bind(this);
         this.handleControllerIdChange = this.handleControllerIdChange.bind(this);
-    }
-    handleDeviceIdChange(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({deviceId: event.currentTarget.valueAsNumber});
     }
     handleDeviceNameChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({deviceName: event.currentTarget.value});
@@ -49,7 +43,6 @@ export class NewDevice
         this.setState({controllerId: event.currentTarget.index});
     }
     handleSubmit(event: React.FormEvent<HTMLInputElement>) {
-        console.log(this.state.deviceId);
         console.log(this.state.deviceName);
         console.log(this.state.userId);
         console.log(this.state.controllerId);
@@ -116,6 +109,7 @@ export class NewDevice
                     </NavLink>
                 </h1>
                 <form className="new-item-form">
+                    {/*
                     <p>Device ID:</p>
                     <input
                         type="text"
@@ -124,6 +118,7 @@ export class NewDevice
                         value={this.state.deviceId}
                         onChange={this.handleDeviceIdChange}
                     />
+                    */}
                     <p>Devicename:</p>
                     <input
                         type="text"

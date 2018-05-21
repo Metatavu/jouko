@@ -18,7 +18,6 @@ export class InterruptionGroup
     extends React.Component<InterruptionGroupProps> {
 
     render() {
-        let interruptiongroupId = this.props.interruptiongroupId;
         let startdate = formatDate(this.props.starttime, 'dddd DD. MMMM YYYY');
         let starttime = formatDate(this.props.starttime, 'H.mm');
         let enddate = formatDate(this.props.endttime, 'dddd DD. MMMM YYYY');
@@ -29,7 +28,6 @@ export class InterruptionGroup
         // let overbookingFactor = this.props.overbookingFactor;
         return (
             <tr>
-                <th>{interruptiongroupId}</th>
                 <th>{startdate} klo {starttime}</th>
                 <th>{enddate} klo {endtime}</th>
                 <th>0 kW</th>
@@ -103,7 +101,6 @@ export class InterruptionGroups
                 <table>
                     <thead className="InterruptionsgroupHead">
                         <tr>
-                            <th>ID</th>
                             <th>Starttime</th>
                             <th>Endtime</th>
                             <th>Power Saved [kW]</th>
