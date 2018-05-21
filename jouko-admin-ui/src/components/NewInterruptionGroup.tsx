@@ -12,8 +12,8 @@ interface NewInterruptionGroupState {
     startDate: string;
     startTime: string;
     duration: string;
-    powerSavingGoalInWatts?: number;
-    overbookingFactor?: number;
+   // powerSavingGoalInWatts?: number;
+   // overbookingFactor?: number;
 }
 
 export class NewInterruptionGroup
@@ -25,15 +25,15 @@ export class NewInterruptionGroup
             startDate: '',
             startTime: '',
             duration: '',
-            powerSavingGoalInWatts: 0,
-            overbookingFactor: 0
+            // powerSavingGoalInWatts: 0,
+            // overbookingFactor: 0
         };
         this.handleInterruptionGroupIdChange = this.handleInterruptionGroupIdChange.bind(this);
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleStartTimeChange = this.handleStartTimeChange.bind(this);
         this.handleDurationChange = this.handleDurationChange.bind(this);
-        this.handlePowerSavingGoalInWattsChange = this.handleDurationChange.bind(this);
-        this.handleOverbookingFactorChange = this.handleDurationChange.bind(this);
+        // this.handlePowerSavingGoalInWattsChange = this.handleDurationChange.bind(this);
+        // this.handleOverbookingFactorChange = this.handleDurationChange.bind(this);
     }
     handleInterruptionGroupIdChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({interruptionGroupId: event.currentTarget.valueAsNumber});
@@ -47,12 +47,14 @@ export class NewInterruptionGroup
     handleDurationChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({duration: event.currentTarget.value});
     }
+    /*
     handlePowerSavingGoalInWattsChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({powerSavingGoalInWatts: event.currentTarget.valueAsNumber});
     }
     handleOverbookingFactorChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({overbookingFactor: event.currentTarget.valueAsNumber});
     }
+    */
 
     handleSubmit(event: React.FormEvent<HTMLInputElement>) {
         let interruptionStartDate = this.state.startDate;
@@ -71,8 +73,8 @@ export class NewInterruptionGroup
                 id: 0,
                 startTime: starttime.toISOString(),
                 endTime: endtime.toISOString(),
-                powerSavingGoalInWatts: this.state.powerSavingGoalInWatts,
-                overbookingFactor: this.state.overbookingFactor
+                // powerSavingGoalInWatts: this.state.powerSavingGoalInWatts,
+                // overbookingFactor: this.state.overbookingFactor
             });
 
         event.preventDefault();
@@ -123,16 +125,16 @@ export class NewInterruptionGroup
                     <input
                         type="text"
                         name="powerSavingGoalInWatts"
-                        onChange={this.handlePowerSavingGoalInWattsChange}
                     />
                     <p>Overbooking: (in %)</p>
                     <input
                         type="text"
                         name="overbookingFactor"
-                        onChange={this.handleOverbookingFactorChange}
                     />
-                    <input type="reset" value="Cancel" />
-                    <input type="submit" value="Create" onClick={(event) => this.handleSubmit(event)}/>
+                    <div className="ActionField">
+                        <input type="reset" value="Cancel" />
+                        <input type="submit" value="Create User" onClick={(event) => this.handleSubmit(event)}/>
+                    </div>
                 </form>
             </div>
         );

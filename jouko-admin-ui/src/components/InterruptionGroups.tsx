@@ -10,8 +10,8 @@ interface InterruptionGroupProps {
     interruptiongroupId: number;
     starttime: string;
     endttime: string;
-    powerSavingGoalInWatts: number;
-    overbookingFactor: number;
+    // powerSavingGoalInWatts: number;
+    // overbookingFactor: number;
 }
 
 export class InterruptionGroup
@@ -25,15 +25,15 @@ export class InterruptionGroup
         let endtime = formatDate(this.props.endttime, 'HH.mm');
         // let powerSavingGoalInWatts = 0;
         // let overbookingFactor = 0;
-        let powerSavingGoalInWatts = this.props.powerSavingGoalInWatts;
-        let overbookingFactor = this.props.overbookingFactor;
+        // let powerSavingGoalInWatts = this.props.powerSavingGoalInWatts;
+        // let overbookingFactor = this.props.overbookingFactor;
         return (
             <tr>
                 <th>{interruptiongroupId}</th>
                 <th>{startdate} klo {starttime}</th>
                 <th>{enddate} klo {endtime}</th>
-                <th>{powerSavingGoalInWatts} kW</th>
-                <th>{overbookingFactor} %</th>
+                <th>0 kW</th>
+                <th>0 %</th>
             </tr>
         );
     }
@@ -69,8 +69,8 @@ export class InterruptionGroups
                 interruptiongroupId: interruptionGroup.id,
                 starttime: interruptionGroup.startTime,
                 endttime: interruptionGroup.endTime,
-                powerSavingGoalInWatts: 10,
-                overbookingFactor: 40
+                // powerSavingGoalInWatts: 10,
+                // overbookingFactor: 40
                 // powerSavingGoalInWatts: this.powerSavingGoalInWatts,
                 // overbookingFactor: interruptionGroup.overbookingFactor
             });

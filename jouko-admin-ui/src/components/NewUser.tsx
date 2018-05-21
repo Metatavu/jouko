@@ -2,7 +2,7 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
-import { Device } from './Device';
+// import { Device } from './Device';
 import * as _ from 'lodash';
 // import { UserApi } from 'jouko-ts-client';
 
@@ -13,15 +13,24 @@ interface NewUsersProps {
     interruptiongroupId: number;
     starttime: string;
 }
+interface ControllersProps {
+    devicename: string;
+    controller: number;
+}
+interface DevicesProps {
+    devicename: string;
+    controller: number;
+}
 interface NewUserState {
     userId: number;
     keycloakId: string;
     firstname: string;
     lastname: string;
-    deviceId: number;
     deviceName: string;
     controllerId: number;
     rowProps: NewUsersProps[];
+    devices: DevicesProps[];
+    controllers: ControllersProps[];
 }
 
 export class NewUser
@@ -33,18 +42,19 @@ export class NewUser
             keycloakId: '',
             firstname: '',
             lastname: '',
-            deviceId: 0,
             deviceName: '',
-            controllerId: 6,
-            rowProps: []
+            controllerId: 1,
+            rowProps: [],
+            devices: [],
+            controllers: []
         };
         this.handleUserIdChange = this.handleUserIdChange.bind(this);
         this.handleKeycloakIdChange = this.handleKeycloakIdChange.bind(this);
         this.handleFirstnameChange = this.handleFirstnameChange.bind(this);
         this.handleLastnameChange = this.handleLastnameChange.bind(this);
-        this.handleDeviceIdChange = this.handleDeviceIdChange.bind(this);
         this.handleDeviceNameChange = this.handleDeviceNameChange.bind(this);
         this.handleControllerIdChange = this.handleControllerIdChange.bind(this);
+        this.handleAddDevice = this.handleAddDevice.bind(this);
     }
     handleUserIdChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({userId: event.currentTarget.valueAsNumber});
@@ -58,22 +68,43 @@ export class NewUser
     handleLastnameChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({lastname: event.currentTarget.value});
     }
-    handleDeviceIdChange(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({deviceId: event.currentTarget.valueAsNumber});
-    }
     handleDeviceNameChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({deviceName: event.currentTarget.value});
     }
-    handleControllerIdChange(event: React.FormEvent<HTMLOptionElement>) {
-        this.setState({controllerId: event.currentTarget.index});
+    handleControllerIdChange(event: React.FormEvent<HTMLSelectElement>) {
+        this.setState({controllerId: Number(event.currentTarget.value)});
+    }
+    handleAddDevice(event: React.FormEvent<HTMLInputElement>) {
+        const devices: DevicesProps[] = this.state.devices;
+        devices.push({
+            devicename: this.state.deviceName,
+            controller: this.state.controllerId
+        });
+        this.setState({devices: _.take(devices, 100)});
+        event.preventDefault();
+        alert('Device added!');
+    }
+    handleDeleteDevice(event: React.FormEvent<HTMLDivElement>, index: number) {
+        if (confirm('This device will be deleted!')) {
+            const array = this.state.devices;
+            const startIndex = Number(index);
+            const newarray = array.splice(startIndex, 1);
+            console.log(startIndex);
+            console.log('this device is deleted: ' + newarray);
+            console.log(newarray);
+            console.log(array);
+
+        }
+
+        this.forceUpdate();
+            // event.preventDefault();
+            // alert('Device deleted!');
     }
     handleSubmit(event: React.FormEvent<HTMLInputElement>) {
-        let firstname = this.state.firstname;
-        let lastname = this.state.lastname;
-        const fullName = lastname + ' ' + firstname;
-        console.log(this.state.userId);
         console.log(this.state.keycloakId);
-        console.log(fullName);
+        console.log(this.state.firstname);
+        console.log(this.state.lastname);
+        console.log(this.state.deviceName);
         {/*
         const userApi = new UserApi(
             undefined,
@@ -82,7 +113,9 @@ export class NewUser
             {
                 id: 0,
                 keycloakId: this.state.keycloakId,
-                name: fullName
+                firstname: this.state.firstname,
+                lastname: this.state.lastname,
+                deviceName: this.state.deviceName
             });
         */}
         event.preventDefault();
@@ -90,9 +123,9 @@ export class NewUser
     }
 
     componentDidMount() {
-        this.fetchNewDevices();
+        this.fetchControllerAndDevices();
     }
-    async fetchNewDevices() {
+    async fetchControllerAndDevices() {
         const interruptionGroupsApi = new InterruptionGroupsApi(
             undefined,
             'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
@@ -101,7 +134,7 @@ export class NewUser
         for (const interruptionGroup of interruptionGroups) {
             rowProps.push({
                 interruptiongroupId: interruptionGroup.id,
-                starttime: interruptionGroup.startTime,
+                starttime: interruptionGroup.startTime
             });
         }
         this.setState({rowProps: _.take(rowProps, 100)});
@@ -112,12 +145,28 @@ export class NewUser
             return (
                 <option
                     key={rowProp.interruptiongroupId.toString()}
-                    onChange={this.handleControllerIdChange}
                 >
-                    {rowProp.interruptiongroupId.toString()}
+                    {rowProp.starttime.toString()}
                 </option>
             );
         });
+        //
+        const usersDevices = this.state.devices.map((devices, index) => {
+            return (
+                <tr key={index.toString()}>
+                    <th>
+                        <div
+                            onClick={(event) => this.handleDeleteDevice(event, index)}
+                        >
+                            <i className="fa fa-trash fa-fh"/>
+                        </div>
+                    </th>
+                    <th>{devices.devicename}</th>
+                    <th>{devices.controller}</th>
+                </tr>
+            );
+        });
+        {/*
         const deviceRows = this.state.rowProps.map(rowProp => {
             return (
                 <Device
@@ -126,6 +175,7 @@ export class NewUser
                 />
             );
         });
+        */}
         return (
             <div className="">
                 <h1>New User
@@ -167,27 +217,24 @@ export class NewUser
                     <table className="UserDevice">
                         <thead className="UserDeviceHead">
                         <tr>
-                            <th>ID</th>
+                            <th/>
                             <th>Device Name</th>
-                            <th>Controller ID</th>
+                            <th>Controller</th>
                         </tr>
                         </thead>
                         <tbody className="UserDeviceBody">
-                            {deviceRows}
-                            <th>ID 1</th>
-                            <th>Device Name 1</th>
-                            <th>Controller ID 1</th>
+                            {usersDevices}
                         </tbody>
                     </table>
                     <table>
-                        <thead className="DeviceHead">
+                        <thead>
                             <tr>
                                 <th>Device Name</th>
-                                <th>Controller ID</th>
+                                <th>Controller</th>
                                 <th/>
                             </tr>
                         </thead>
-                        <tbody className="DeviceBody">
+                        <tbody>
                             <tr>
                                 <th>
                                     <input
@@ -198,19 +245,42 @@ export class NewUser
                                     />
                                 </th>
                                 <th>
-                                    <select name="controllerId">
-                                        {controllerOption}
+                                    <select
+                                        name="controllerId"
+                                        onChange={this.handleControllerIdChange}
+                                    >
+                                        // {controllerOption}
+                                        <option
+                                            value={1}
+                                        >
+                                            1
+                                        </option>
+                                        <option
+                                            value={2}
+                                        >
+                                            2
+                                        </option>
+                                        <option
+                                            value={3}
+                                        >
+                                            3
+                                        </option>
                                     </select>
                                 </th>
                                 <th>
-                                    <button className="btn-add">
-                                        Add Device
-                                    </button>
+                                    <input
+                                        type="submit"
+                                        className="btn-add"
+                                        value="Add Device"
+                                        onClick={(event) => this.handleAddDevice(event)}
+                                    />
                                 </th>
                             </tr>
                         </tbody>
-                        <input type="reset" value="Cancel" />
-                        <input type="submit" value="Create User" onClick={(event) => this.handleSubmit(event)}/>
+                        <div className="ActionField">
+                            <input type="reset" value="Cancel" />
+                            <input type="submit" value="Create User" onClick={(event) => this.handleSubmit(event)}/>
+                        </div>
                     </table>
                     </form>
             </div>

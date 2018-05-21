@@ -92,7 +92,6 @@ input[type="text"]:disabled {
     border: 2px solid #238e8e;
     color: #fff;
     font-size: 18px;
-    margin-top: 25px;
 }
 .new-item-form input[type="reset"]{
     box-sizing: border-box;
@@ -106,15 +105,14 @@ input[type="text"]:disabled {
     border: 2px solid #2db7b7;
     color: #2db7b7;
     font-size: 18px;
-    margin-top: 25px;
 }
 .btn-add{
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    width: 100%;
+    width: 100% !important;
     float: left;
-    padding: 15px;
+    padding: 13.75px;
     background: #fff;
     border: 2px solid #2db7b7;
     color: #2db7b7;
@@ -159,6 +157,9 @@ tr:nth-child(even){
     background-color: white;
     font-size: inherit;
 }
+.ActionField{
+    margin-top: 25px;
+}
 thead {
     padding-top: 12px;
     padding-bottom: 12px;
@@ -167,10 +168,21 @@ thead {
     color: white;
     font-size: larger;
 }
+.UserDeviceHead th:first-child{
+    width: 5%;
+}
+.UserDeviceBody th:first-child{
+    width: 5%;
+    text-align: center;
+}
 tr{
     text-align: left;
 }
 /*############################## Loader ##############################*/
 .sweet-loading{
     margin-top: 50px;
+}
+
+.fa-trash{
+    color: #b01817;
 }
