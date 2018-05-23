@@ -268,7 +268,7 @@ export class NewUser
                         </tbody>
                         <div className="ActionField">
                             <input type="reset" value="Cancel" />
-                            <input type="submit" value="Create User" onClick={(event) => this.handleSubmit(event)}/>
+                            <input type="submit" value="Create" onClick={(event) => this.handleSubmit(event)}/>
                         </div>
                     </table>
                     </form>

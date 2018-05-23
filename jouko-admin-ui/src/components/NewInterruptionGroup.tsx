@@ -130,7 +130,7 @@ export class NewInterruptionGroup
                     />
                     <div className="ActionField">
                         <input type="reset" value="Cancel" />
-                        <input type="submit" value="Create Interruption" onClick={(event) => this.handleSubmit(event)}/>
+                        <input type="submit" value="Create" onClick={(event) => this.handleSubmit(event)}/>
                     </div>
                 </form>
             </div>
