@@ -10,8 +10,8 @@ interface InterruptionGroupProps {
     interruptiongroupId: number;
     starttime: string;
     endttime: string;
-    // powerSavingGoalInWatts: number;
-    // overbookingFactor: number;
+    powerSavingGoalInWatts: number;
+    overbookingFactor: number;
 }
 
 export class InterruptionGroup
@@ -22,16 +22,14 @@ export class InterruptionGroup
         let starttime = formatDate(this.props.starttime, 'H.mm');
         let enddate = formatDate(this.props.endttime, 'dddd DD. MMMM YYYY');
         let endtime = formatDate(this.props.endttime, 'HH.mm');
-        // let powerSavingGoalInWatts = 0;
-        // let overbookingFactor = 0;
-        // let powerSavingGoalInWatts = this.props.powerSavingGoalInWatts;
-        // let overbookingFactor = this.props.overbookingFactor;
+        let powerSavingGoalInWatts = this.props.powerSavingGoalInWatts;
+        let overbookingFactor = this.props.overbookingFactor;
         return (
             <tr>
                 <th>{startdate} klo {starttime}</th>
                 <th>{enddate} klo {endtime}</th>
-                <th>0 kW</th>
-                <th>0 %</th>
+                <th>{powerSavingGoalInWatts} kW</th>
+                <th>{overbookingFactor} %</th>
             </tr>
         );
     }
@@ -49,11 +47,9 @@ export class InterruptionGroups
         super(props);
         this.state = {rowProps: [], loading: true};
     }
-
     componentDidMount() {
         this.fetchInterruptionGroups();
     }
-
     async fetchInterruptionGroups() {
         const interruptionGroupsApi = new InterruptionGroupsApi(
             undefined,
@@ -67,10 +63,8 @@ export class InterruptionGroups
                 interruptiongroupId: interruptionGroup.id,
                 starttime: interruptionGroup.startTime,
                 endttime: interruptionGroup.endTime,
-                // powerSavingGoalInWatts: 10,
-                // overbookingFactor: 40
-                // powerSavingGoalInWatts: this.powerSavingGoalInWatts,
-                // overbookingFactor: interruptionGroup.overbookingFactor
+                powerSavingGoalInWatts: Number(interruptionGroup.powerSavingGoalInWatts),
+                overbookingFactor: Number(interruptionGroup.overbookingFactor)
             });
         }
 
