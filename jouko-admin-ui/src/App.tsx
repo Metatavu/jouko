@@ -4,13 +4,16 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Topbar } from './components/Topbar';
 import { Navigation } from './components/Navigation';
-import { InterruptionGroups } from './components/InterruptionGroups';
-import { NewInterruptionGroup } from './components/NewInterruptionGroup';
 import { Home } from './components/Home';
-import { User } from './components/User';
-import { Device } from './components/Device';
-import { NewUser } from './components/NewUser';
+import { ListDevice } from './components/ListDevice';
+import { ListInterruptionGroups } from './components/ListInterruptionGroups';
+import { ListUser } from './components/ListUser';
 import { NewDevice } from './components/NewDevice';
+import { NewInterruptionGroup } from './components/NewInterruptionGroup';
+import { NewUser } from './components/NewUser';
+import { EditDevice } from './components/EditDevice';
+import { EditInterruptionGroup } from './components/EditInterruptionGroup';
+import { EditUser } from './components/EditUser';
 import * as Keycloak from 'keycloak-js';
 import { UsersApi } from 'jouko-ts-client';
 
@@ -91,13 +94,34 @@ class App extends React.Component<{}, AppState> {
                       <Topbar logout={() => this.logout()}/>
                   </div>
                   <div className="HomeContainer">
-                      <Route path="/" exact={true} component={Home}/>
-                      <Route path="/InterruptionGroups" component={InterruptionGroups}/>
-                      <Route path="/User" component={User}/>
-                      <Route path="/Device" component={Device}/>
+                      <Route
+                          path="/"
+                          exact={true}
+                          render={props => (
+                              <Home
+                                  currentUserId={this.state.userId as number}
+                                  firstName={this.state.firstname as string}
+                                  lastName={this.state.lastname as string}
+                              />
+                          )}
+                      />
+                      <Route path="/ListInterruptionGroups" component={ListInterruptionGroups}/>
+                      <Route path="/ListUser" component={ListUser}/>
+                      <Route path="/ListDevice" component={ListDevice}/>
                       <Route path="/NewInterruptionGroup" component={NewInterruptionGroup}/>
                       <Route path="/NewUser" component={NewUser}/>
                       <Route path="/NewDevice" component={NewDevice}/>
+                      <Route
+                          path="/EditInterruptionGroup/"
+                          render={props => (
+                              <EditInterruptionGroup
+                                  interruptionGroupId={props.match.params.id as number}
+                                  currentUserId={this.state.userId as number}
+                              />
+                          )}
+                      />
+                      <Route path="/EditUser" component={EditUser}/>
+                      <Route path="/EditDevice" component={EditDevice}/>
                   </div>
               </div>
           );

@@ -127,7 +127,7 @@ export class Navigation extends React.Component<{}, NavigationState> {
                         </a>
                         <div className={classes1}>
                             <li>
-                                <NavLink to="/InterruptionGroups">All Interruptiongroups</NavLink>
+                                <NavLink to="/ListInterruptionGroups">All Interruptiongroups</NavLink>
                             </li>
                             <li>
                                 <NavLink to="/NewInterruptionGroup">New Interruptiongroup</NavLink>
@@ -140,7 +140,7 @@ export class Navigation extends React.Component<{}, NavigationState> {
                         </a>
                         <div className={classes2}>
                             <li>
-                                <NavLink to="/User">All Users</NavLink>
+                                <NavLink to="/ListUser">All Users</NavLink>
                             </li>
                             <li>
                                 <NavLink to="/NewUser">New User</NavLink>
@@ -153,7 +153,7 @@ export class Navigation extends React.Component<{}, NavigationState> {
                         </a>
                         <div className={classes3}>
                             <li>
-                                <NavLink to="/Device">All Devices</NavLink>
+                                <NavLink to="/ListDevice">All Devices</NavLink>
                             </li>
                             <li>
                                 <NavLink to="/NewDevice">New Device</NavLink>

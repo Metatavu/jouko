@@ -3,6 +3,12 @@ import './Home.css';
 import { Line, Pie } from 'react-chartjs-2';
 import { NavLink } from 'react-router-dom';
 
+interface  HomeProps {
+    currentUserId: number;
+    firstName: string;
+    lastName: string;
+}
+
 const data = {
     labels: ['November', 'December', 'January', 'February', 'March', 'April', 'May'],
     datasets: [
@@ -47,7 +53,7 @@ const data2 = {
     }]
 };
 
-export class Home extends React.Component {
+export class Home extends React.Component<HomeProps> {
     render() {
         return(
             <div className="HomeContent">

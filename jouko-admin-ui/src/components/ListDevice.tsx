@@ -1,0 +1,100 @@
+import * as React from 'react';
+import '../App.css';
+import { NavLink } from 'react-router-dom';
+
+export class ListDevice extends React.Component {
+    handleDeleteDevice(event: React.FormEvent<HTMLDivElement>) {
+        if (confirm('This device will be deleted!')) {
+            {/*
+            const array = this.state.devices;
+            const startIndex = Number(index);
+            array.splice(startIndex, 1);
+            */}
+        }
+        this.forceUpdate();
+    }
+    handleEditDevice(event: React.FormEvent<HTMLDivElement>) {
+        alert('Edit Device');
+    }
+    render() {
+        return (
+            <div className="">
+                <h1>All Devices
+                    <NavLink to="/NewDevice">
+                        <button className="btn">New Device</button>
+                    </NavLink>
+                </h1>
+                <table className="All">
+                    <thead className="DeviceHead">
+                    <tr>
+                        <th/>
+                        <th/>
+                        <th>Device Name</th>
+                        <th>User</th>
+                        <th>Controller</th>
+                    </tr>
+                    </thead>
+                    <tbody className="DeviceBody">
+                    <tr>
+                        <th>
+                            <div
+                                onClick={(event) => this.handleDeleteDevice(event)}
+                            >
+                                <i className="fa fa-trash fa-fh"/>
+                            </div>
+                        </th>
+                        <th>
+                            <div
+                                onClick={(event) => this.handleEditDevice(event)}
+                            >
+                                <i className="fa fa-edit fa-fh"/>
+                            </div>
+                        </th>
+                        <th>Device1</th>
+                        <th>User1</th>
+                        <th>Controller1</th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <div
+                                onClick={(event) => this.handleDeleteDevice(event)}
+                            >
+                                <i className="fa fa-trash fa-fh"/>
+                            </div>
+                        </th>
+                        <th>
+                            <div
+                                onClick={(event) => this.handleEditDevice(event)}
+                            >
+                                <i className="fa fa-edit fa-fh"/>
+                            </div>
+                        </th>
+                        <th>Device2</th>
+                        <th>User2</th>
+                        <th>Controller2</th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <div
+                                onClick={(event) => this.handleDeleteDevice(event)}
+                            >
+                                <i className="fa fa-trash fa-fh"/>
+                            </div>
+                        </th>
+                        <th>
+                            <div
+                                onClick={(event) => this.handleEditDevice(event)}
+                            >
+                                <i className="fa fa-edit fa-fh"/>
+                            </div>
+                        </th>
+                        <th>Device3</th>
+                        <th>User3</th>
+                        <th>Controller3</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        );
+    }
+}

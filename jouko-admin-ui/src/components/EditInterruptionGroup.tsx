@@ -4,10 +4,11 @@ import { NavLink } from 'react-router-dom';
 import { parse as parseDate, addMinutes, addHours } from 'date-fns';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
 
-interface NewInterruptionGroupProps {
-    createNewInterruptionGroup(): void;
+interface EditInterruptionGroupProps {
+    interruptionGroupId: number;
+    currentUserId: number;
 }
-interface NewInterruptionGroupState {
+interface EditInterruptionGroupState {
     startDate: string;
     startTime: string;
     duration: string;
@@ -15,9 +16,9 @@ interface NewInterruptionGroupState {
     overbookingFactor: number;
 }
 
-export class NewInterruptionGroup
-    extends React.Component<NewInterruptionGroupProps, NewInterruptionGroupState> {
-    constructor(props: NewInterruptionGroupProps) {
+export class EditInterruptionGroup
+    extends React.Component<EditInterruptionGroupProps, EditInterruptionGroupState> {
+    constructor(props: EditInterruptionGroupProps) {
         super(props);
         this.state = {
             startDate: '',
@@ -59,13 +60,6 @@ export class NewInterruptionGroup
         endtime = addHours(endtime, interruptionDurationHour);
         let powerSavingGoalInWatts = this.state.powerSavingGoalInWatts;
         let overbookingFactor = this.state.overbookingFactor;
-        // console.log('###############################');
-        // console.log(typeof powerSavingGoalInWatts);
-        // console.log(powerSavingGoalInWatts);
-        // console.log('_______________________________');
-        // console.log(typeof overbookingFactor);
-        // console.log(overbookingFactor);
-        // console.log('###############################');
         const interruptionGroupsApi = new InterruptionGroupsApi(
             undefined,
             'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
@@ -83,12 +77,12 @@ export class NewInterruptionGroup
     render() {
         return (
             <div className="">
-                <h1>New Interruptiongroup
+                <h1>Edit Interruptiongroup
                     <NavLink to="/ListInterruptiongroups">
                         <button className="btn">Show all</button>
                     </NavLink>
                 </h1>
-                <form className="new-item-form">
+                <form className="edit-item-form">
                     {/*
                     <p>Interruptionsgroup ID:</p>
                     <input
@@ -137,7 +131,7 @@ export class NewInterruptionGroup
                     />
                     <div className="ActionField">
                         <input type="reset" value="Cancel" />
-                        <input type="submit" value="Create" onClick={(event) => this.handleSubmit(event)}/>
+                        <input type="submit" value="Edit" onClick={(event) => this.handleSubmit(event)}/>
                     </div>
                 </form>
             </div>

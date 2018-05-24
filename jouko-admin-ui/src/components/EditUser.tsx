@@ -6,10 +6,10 @@ import { InterruptionGroupsApi } from 'jouko-ts-client';
 import * as _ from 'lodash';
 // import { UserApi } from 'jouko-ts-client';
 
-interface NewUserProps {
-    createNewUser(): void;
+interface EditUserProps {
+    editUser(): void;
 }
-interface NewUsersProps {
+interface EditUsersProps {
     interruptiongroupId: number;
     starttime: string;
 }
@@ -21,20 +21,20 @@ interface DevicesProps {
     devicename: string;
     controller: number;
 }
-interface NewUserState {
+interface EditUserState {
     keycloakId: string;
     firstname: string;
     lastname: string;
     deviceName: string;
     controllerId: number;
-    rowProps: NewUsersProps[];
+    rowProps: EditUsersProps[];
     devices: DevicesProps[];
     controllers: ControllersProps[];
 }
 
-export class NewUser
-    extends React.Component<NewUserProps, NewUserState> {
-    constructor(props: NewUserProps) {
+export class EditUser
+    extends React.Component<EditUserProps, EditUserState> {
+    constructor(props: EditUserProps) {
         super(props);
         this.state = {
             keycloakId: '',
@@ -117,7 +117,7 @@ export class NewUser
             undefined,
             'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
         const interruptionGroups = await interruptionGroupsApi.listInterruptionGroups(0, 1000);
-        const rowProps: NewUsersProps[] = [];
+        const rowProps: EditUsersProps[] = [];
         for (const interruptionGroup of interruptionGroups) {
             rowProps.push({
                 interruptiongroupId: interruptionGroup.id,
@@ -165,12 +165,12 @@ export class NewUser
         */}
         return (
             <div className="">
-                <h1>New User
+                <h1>Edit User
                     <NavLink to="/ListUser">
                         <button className="btn">Show all</button>
                     </NavLink>
                 </h1>
-                <form className="new-item-form">
+                <form className="edit-item-form">
                     {/*
                     <p>UserID:</p>
                     <input
@@ -268,7 +268,7 @@ export class NewUser
                         </tbody>
                         <div className="ActionField">
                             <input type="reset" value="Cancel" />
-                            <input type="submit" value="Create" onClick={(event) => this.handleSubmit(event)}/>
+                            <input type="submit" value="Edit" onClick={(event) => this.handleSubmit(event)}/>
                         </div>
                     </table>
                     </form>

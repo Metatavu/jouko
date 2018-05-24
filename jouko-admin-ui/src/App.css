@@ -175,6 +175,13 @@ thead {
     width: 5%;
     text-align: center;
 }
+
+.All th:first-child, .All th:nth-child(2){
+    width: 2.5%;
+    text-align: center;
+    font-size: 20px;
+}
+
 tr{
     text-align: left;
 }
@@ -185,4 +192,9 @@ tr{
 
 .fa-trash{
     color: #b01817;
+    cursor: pointer;
+}
+.fa-edit{
+    color: #28a3a3;
+    cursor: pointer;
 }

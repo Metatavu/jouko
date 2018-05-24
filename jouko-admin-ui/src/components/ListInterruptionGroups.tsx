@@ -16,7 +16,19 @@ interface InterruptionGroupProps {
 
 export class InterruptionGroup
     extends React.Component<InterruptionGroupProps> {
-
+    handleDeleteInterruptionGroup(event: React.FormEvent<HTMLDivElement>) {
+        if (confirm('This interruptiongroup will be deleted!')) {
+            {/*
+            const array = this.state.devices;
+            const startIndex = Number(index);
+            array.splice(startIndex, 1);
+            */}
+        }
+        this.forceUpdate();
+    }
+    handleEditInterruptionGroup(event: React.FormEvent<HTMLDivElement>) {
+        alert('Edit InterruptionGroup');
+    }
     render() {
         let startdate = formatDate(this.props.starttime, 'dddd DD. MMMM YYYY');
         let starttime = formatDate(this.props.starttime, 'H.mm');
@@ -26,6 +38,20 @@ export class InterruptionGroup
         let overbookingFactor = this.props.overbookingFactor;
         return (
             <tr>
+                <th>
+                    <div
+                        onClick={(event) => this.handleDeleteInterruptionGroup(event)}
+                    >
+                        <i className="fa fa-trash fa-fh"/>
+                    </div>
+                </th>
+                <th>
+                    <div
+                        onClick={(event) => this.handleEditInterruptionGroup(event)}
+                    >
+                        <i className="fa fa-edit fa-fh"/>
+                    </div>
+                </th>
                 <th>{startdate} klo {starttime}</th>
                 <th>{enddate} klo {endtime}</th>
                 <th>{powerSavingGoalInWatts} kW</th>
@@ -40,7 +66,7 @@ interface InterruptionGroupsState {
     loading: boolean;
 }
 
-export class InterruptionGroups
+export class ListInterruptionGroups
     extends React.Component<InterruptionGroupProps, InterruptionGroupsState> {
 
     constructor(props: InterruptionGroupProps) {
@@ -92,9 +118,11 @@ export class InterruptionGroups
                         loading={this.state.loading}
                     />
                 </div>
-                <table>
+                <table className="All">
                     <thead className="InterruptionsgroupHead">
                         <tr>
+                            <th/>
+                            <th/>
                             <th>Starttime</th>
                             <th>Endtime</th>
                             <th>Power Saved [kW]</th>

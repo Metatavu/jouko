@@ -5,23 +5,23 @@ import { NavLink } from 'react-router-dom';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
 import * as _ from 'lodash';
 
-interface NewDeviceProps {
-    createNewUser(): void;
+interface EditDeviceProps {
+    editUser(): void;
 }
-interface NewDevicesProps {
+interface EditDevicesProps {
     interruptiongroupId: number;
     starttime: string;
 }
-interface NewDeviceState {
+interface EditDeviceState {
     deviceName: string;
     userId: number;
     controllerId: number;
-    rowProps: NewDevicesProps[];
+    rowProps: EditDevicesProps[];
 }
 
-export class NewDevice
-    extends React.Component<NewDeviceProps, NewDeviceState> {
-    constructor(props: NewDeviceProps) {
+export class EditDevice
+    extends React.Component<EditDeviceProps, EditDeviceState> {
+    constructor(props: EditDeviceProps) {
         super(props);
         this.state = {
             deviceName: '',
@@ -63,14 +63,14 @@ export class NewDevice
     }
 
     componentDidMount() {
-        this.fetchNewDevices();
+        this.fetchEditDevices();
     }
-    async fetchNewDevices() {
+    async fetchEditDevices() {
         const interruptionGroupsApi = new InterruptionGroupsApi(
             undefined,
             'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
         const interruptionGroups = await interruptionGroupsApi.listInterruptionGroups(0, 1000);
-        const rowProps: NewDevicesProps[] = [];
+        const rowProps: EditDevicesProps[] = [];
         for (const interruptionGroup of interruptionGroups) {
             rowProps.push({
                 interruptiongroupId: interruptionGroup.id,
@@ -103,12 +103,12 @@ export class NewDevice
         });
         return (
             <div className="">
-                <h1>New Device
+                <h1>Edit Device
                     <NavLink to="/ListDevice">
                         <button className="btn">Show all</button>
                     </NavLink>
                 </h1>
-                <form className="new-item-form">
+                <form className="edit-item-form">
                     {/*
                     <p>Device ID:</p>
                     <input
@@ -129,48 +129,14 @@ export class NewDevice
                     <p>User:</p>
                     <select name="userId">
                         {userOption}
-                        {/*
-                        <option
-                            value={this.state.userId}
-                            onChange={this.handleUserIdChange}
-                        >User1
-                        </option>
-                        <option
-                            value={this.state.userId}
-                            onChange={this.handleUserIdChange}
-                        >User2
-                        </option>
-                        <option
-                            value={this.state.userId}
-                            onChange={this.handleUserIdChange}
-                        >User3
-                        </option>
-                        */}
                     </select>
                     <p>Controller:</p>
                     <select name="controllerId">
                         {controllerOption}
-                        {/*
-                        <option
-                            value={this.state.controllerId}
-                            onChange={this.handleControllerIdChange}
-                        >Controller1
-                        </option>
-                        <option
-                            value={this.state.controllerId}
-                            onChange={this.handleControllerIdChange}
-                        >Controller2
-                        </option>
-                        <option
-                            value={this.state.controllerId}
-                            onChange={this.handleControllerIdChange}
-                        >Controller3
-                        </option>
-                        */}
                     </select>
                     <div className="ActionField">
                         <input type="reset" value="Cancel" />
-                        <input type="submit" value="Create" onClick={(event) => this.handleSubmit(event)}/>
+                        <input type="submit" value="Edit" onClick={(event) => this.handleSubmit(event)}/>
                     </div>
                 </form>
             </div>
