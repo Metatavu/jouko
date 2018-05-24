@@ -63,8 +63,8 @@ export class InterruptionGroups
                 interruptiongroupId: interruptionGroup.id,
                 starttime: interruptionGroup.startTime,
                 endttime: interruptionGroup.endTime,
-                powerSavingGoalInWatts: Number(interruptionGroup.powerSavingGoalInWatts),
-                overbookingFactor: Number(interruptionGroup.overbookingFactor)
+                powerSavingGoalInWatts: interruptionGroup.powerSavingGoalInWatts || 0.0,
+                overbookingFactor: interruptionGroup.overbookingFactor || 0.0
             });
         }
 

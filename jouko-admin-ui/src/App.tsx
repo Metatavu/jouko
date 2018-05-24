@@ -11,39 +11,104 @@ import { User } from './components/User';
 import { Device } from './components/Device';
 import { NewUser } from './components/NewUser';
 import { NewDevice } from './components/NewDevice';
+import * as Keycloak from 'keycloak-js';
+import { UsersApi } from 'jouko-ts-client';
 
-class App extends React.Component {
+interface AppState {
+    keycloakInstance?: Keycloak.KeycloakInstance;
+    username?: string;
+    keycloakId?: string;
+    userId?: number;
+    email?: string;
+    firstname?: string;
+    lastname?: string;
+}
+
+class App extends React.Component<{}, AppState> {
+    constructor(props: {}) {
+        super(props);
+        this.state = {};
+    }
+    componentDidMount() {
+        const kc = Keycloak(
+            {
+                url: 'http://localhost:9080/auth/',
+                realm: 'master',
+                clientId: 'admin-jouko'
+            }
+        );
+        kc.init({ onLoad: 'login-required' })
+            .success(() => {
+                    this.fetchAdmin(kc);
+                    // tslint:disable-next-line:no-any
+                    // console.log(kc.idTokenParsed as any);
+                }
+            )
+            .error((e) => {console.log(e); } );
+    }
+    // tslint:disable-next-line:no-any
+    async fetchAdmin(kc: any) {
+
+        // tslint:disable-next-line:no-any
+        const keycloakId = (kc.idTokenParsed as any).sub;
+        const usersApi = new UsersApi(
+            undefined,
+            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+        const user = await usersApi.getUserByKeycloakId(keycloakId);
+        console.log(kc);
+        if (user) {
+            this.setState({
+                keycloakInstance : kc,
+                // tslint:disable-next-line:no-any
+                username: (kc.idTokenParsed as any).preferred_username,
+                // tslint:disable-next-line:no-any
+                email: (kc.idTokenParsed as any).email,
+                // tslint:disable-next-line:no-any
+                firstname: (kc.idTokenParsed as any).given_name,
+                // tslint:disable-next-line:no-any
+                lastname: (kc.idTokenParsed as any).family_name,
+                // tslint:disable-next-line:no-any
+                keycloakId: (kc.idTokenParsed as any).sub,
+                userId: user.id});
+        }
+    }
+    logout() {
+        if (this.state.keycloakInstance) {
+            this.state.keycloakInstance.logout();
+        }
+    }
+
   public render() {
-    return (
-        /*
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
-      */
-        <BrowserRouter>
-            <div>
-                <div className="Navigationbar">
-                    <Navigation />
-                    <Topbar />
-                </div>
-                <div className="HomeContainer">
-                    <Route path="/" exact={true} component={Home}/>
-                    <Route path="/InterruptionGroups" component={InterruptionGroups} />
-                    <Route path="/User" component={User} />
-                    <Route path="/Device" component={Device} />
-                    <Route path="/NewInterruptionGroup" component={NewInterruptionGroup} />
-                    <Route path="/NewUser" component={NewUser} />
-                    <Route path="/NewDevice" component={NewDevice} />
-                </div>
-            </div>
-        </BrowserRouter>
-    );
+      let content;
+      if (!this.state.keycloakInstance) {
+          content = '';
+      } else {
+          content = (
+
+              <div>
+                  <div className="Navigationbar">
+                      <Navigation/>
+                      <Topbar logout={() => this.logout()}/>
+                  </div>
+                  <div className="HomeContainer">
+                      <Route path="/" exact={true} component={Home}/>
+                      <Route path="/InterruptionGroups" component={InterruptionGroups}/>
+                      <Route path="/User" component={User}/>
+                      <Route path="/Device" component={Device}/>
+                      <Route path="/NewInterruptionGroup" component={NewInterruptionGroup}/>
+                      <Route path="/NewUser" component={NewUser}/>
+                      <Route path="/NewDevice" component={NewDevice}/>
+                  </div>
+              </div>
+          );
+      }
+      return (
+          <BrowserRouter>
+              <div className="wrapper">
+                  {content}
+              </div>
+          </BrowserRouter>
+      );
   }
 }
 

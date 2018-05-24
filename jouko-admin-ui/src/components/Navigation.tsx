@@ -160,6 +160,7 @@ export class Navigation extends React.Component<{}, NavigationState> {
                             </li>
                         </div>
                     </li>
+                    {/*
                     <li>
                         <a onClick={() => this.onMenuClick('Menu5')}>Menu5
                             <i className="fa fa-caret-down"/>
@@ -185,6 +186,7 @@ export class Navigation extends React.Component<{}, NavigationState> {
                             <i className="fa fa-caret-down"/>
                         </a>
                     </li>
+                    */}
                 </ul>
             </div>
         );
