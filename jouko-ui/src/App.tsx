@@ -124,11 +124,21 @@ class App extends React.Component<{}, AppState> {
           )}
         />
         <Route path="/Settings" component={Settings} />
-        <Route path="/StatisticsSummary" component={StatisticsSummary} />
+        <Route
+          path="/StatisticsSummary/"
+          render={props => (
+            <StatisticsSummary
+              currentUserId={this.state.userId as number}
+            />
+          )}
+        />
         <Route
           path="/Statistics/:id"
           render={props => (
-            <Statistics deviceId={props.match.params.id as number}/>
+            <Statistics
+              deviceId={props.match.params.id as number}
+              currentUserId={this.state.userId as number}
+            />
           )}
         />
         <Route

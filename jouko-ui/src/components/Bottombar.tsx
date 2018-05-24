@@ -19,17 +19,19 @@ export function Bottombar () {
                 </NavLink>
             </li>
             <li>
-                <NavLink to="/StatisticsSummary">
+                <NavLink to="/StatisticsSummary" onClick={() => window.scrollTo(0, 0)}>
                   <i className="fa fa-line-chart fa-line-chart"/>
                   <p>Statistics</p>
                 </NavLink>
             </li>
+            {/*
             <li>
                 <NavLink to="/Settings">
                   <i className="fa fa-cogs fa-cogs" />
                   <p>Settings</p>
                 </NavLink>
             </li>
+            */}
         </ul>
     );
 }

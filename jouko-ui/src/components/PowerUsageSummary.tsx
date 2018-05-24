@@ -97,7 +97,7 @@ export class PowerUsageSummaries
               <img src={deviceImage} width="100%" className="PowerUsageSummaryCardImage"/>
             </NavLink>
             <div className="PowerUsageSummaryContainer">
-              <NavLink to={'/StatisticsSummary'}>
+              <NavLink to={'/StatisticsSummary'} onClick={() => window.scrollTo(0, 0)}>
                 <h4>Kooste (Kaikki)</h4>
                 <p>Show all</p>
               </NavLink>

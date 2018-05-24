@@ -441,12 +441,11 @@
   margin: auto;
 }
 /*########## Statistics Filter ##########*/
-/*
+
 .StatisticsFilter{
   height: auto;
   width: 100%;
   text-align: right;
-  background-color: #f6f6f6;
   padding-top: 25px;
   padding-bottom: 25px;
 }
@@ -456,7 +455,7 @@
   padding: 10px;
   margin-right: 25px;
 }
-*/
+
 /*########## Device ##########*/
 .DeviceInterruption {
   padding-top: 50px;

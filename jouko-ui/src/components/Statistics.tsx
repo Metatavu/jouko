@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Line } from 'react-chartjs-2';
-import { DevicesApi,  } from 'jouko-ts-client';
+import { DevicesApi } from 'jouko-ts-client';
 import { addMinutes, addHours, addDays, subMinutes, subHours, subDays } from 'date-fns';
 import { format as formatDate } from 'date-fns';
 import * as _ from 'lodash';
@@ -17,13 +17,20 @@ interface ChartProps {
   daysLabels: string[];
   daysData: number[];
 }
+interface AllDevicesProps {
+  deviceId: number;
+  name: String;
+}
+
 interface StatisticsState {
+  allDevices: AllDevicesProps[];
   rowProps: ChartProps[];
   loading: boolean;
 }
 
 interface StatisticsProps {
   deviceId: number;
+  currentUserId: number;
 }
 
 export class Statistics
@@ -31,7 +38,7 @@ export class Statistics
 
   constructor(props: StatisticsProps) {
     super(props);
-    this.state = {rowProps: [], loading: true};
+    this.state = {rowProps: [], allDevices: [], loading: true};
   }
 
   componentDidMount() {
@@ -44,6 +51,7 @@ export class Statistics
       'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
 
     const rowProps: ChartProps[] = [];
+    const allDevices: AllDevicesProps[] = [];
     let lastHour = subMinutes(new Date(), 60);
     let last24Hour = subHours(new Date(), 24);
     let lastDays = subDays(new Date(), 30);
@@ -54,6 +62,14 @@ export class Statistics
     const hoursData = [];
     const daysLabels = [];
     const daysData = [];
+
+    const devices = await devicesApi.listDevices(this.props.currentUserId, 0, 1000);
+    for (const device of devices) {
+      allDevices.push({
+        deviceId: device.id,
+        name: device.name,
+      });
+    }
 
     for ( let i = 0; i < 12; i++) {
       let startTime = addMinutes(lastHour, i * 5);
@@ -96,23 +112,31 @@ export class Statistics
       daysLabels: daysLabels,
       daysData: daysData
     });
-    this.setState({rowProps: _.take(rowProps, 40), loading: false});
+    this.setState({allDevices: _.take(allDevices, 40), rowProps: _.take(rowProps, 40), loading: false});
   }
-
+  onUrlSelected(event: React.FormEvent<HTMLOptionElement>) {
+    const url = event.currentTarget.value;
+    console.log(url);
+    console.log(typeof url);
+    location.replace(url);
+  }
   render() {
+    const filterOptions = this.state.allDevices.map(device => {
+      return (
+        <option
+          key={device.deviceId.toString()}
+          value={`/Statistics/${device.deviceId.toString()}`}
+          onClick={this.onUrlSelected}
+        >
+          {device.deviceId.toString()} | {device.name.toString()}
+        </option>
+      );
+    });
     const hourChart = this.state.rowProps.map(prop => {
       return (
         <div key={prop.deviceId.toString()}>
-          <div className="StatisticsFilter">
-            <select>
-              <option>Select Statistic... </option>
-              <option value="/StatisticsSummary">All Statistics </option>
-              <option value="/Statistics/1">Device1</option>
-              <option value="/Statistics/2">Device2</option>
-              <option value="/Statistics/3">Device3</option>
-            </select>
-          </div>
-          <h1>Statistics | 1 h</h1>
+          <h1>Current Device: {prop.deviceId.toString()}</h1>
+          <h2>Statistics | 1 h</h2>
           <Bar
             data={
               {
@@ -131,7 +155,7 @@ export class Statistics
               }
             }
           />
-          <h1>Statistics | 24h</h1>
+          <h2>Statistics | 24h</h2>
           <Bar
             data={
               {
@@ -150,7 +174,7 @@ export class Statistics
               }
             }
           />
-          <h1>Statistics | 30 days</h1>
+          <h2>Statistics | 30 days</h2>
           <Line
             data={
             {
@@ -186,14 +210,28 @@ export class Statistics
       );
     });
     return (
-      <div className="Statistics">
+      <div>
+        <div className="StatisticsFilter">
+          <select>
+            <option>Select Statistics ...</option>
+            <option
+              value="/StatisticsSummary"
+              onClick={this.onUrlSelected}
+            >
+              All Statistics
+            </option>
+            {filterOptions}
+          </select>
+        </div>
         <div className="sweet-loading">
           <BeatLoader
             color={'#30C4C9'}
             loading={this.state.loading}
           />
         </div>
-        {hourChart}
+        <div className="Statistics">
+          {hourChart}
+        </div>
       </div>
     );
   }

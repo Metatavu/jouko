@@ -7,7 +7,8 @@
 }
 .Bottombar ul li {
   float: left;
-  width: 25%;
+  /* width: 25%; */
+  width: 33.33%;
 }
 .Bottombar ul li a {
   display: block;
