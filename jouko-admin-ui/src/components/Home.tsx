@@ -4,9 +4,7 @@ import { Line, Pie } from 'react-chartjs-2';
 import { NavLink } from 'react-router-dom';
 
 interface  HomeProps {
-    currentUserId: number;
     firstName: string;
-    lastName: string;
 }
 
 const data = {
@@ -57,7 +55,7 @@ export class Home extends React.Component<HomeProps> {
     render() {
         return(
             <div className="HomeContent">
-                <h1>Hello, Admin-User!</h1>
+                <h1>Hello, {this.props.firstName}</h1>
                 <div className="HomeChart">
                     <div className="HomeChart1">
                         <h3>Power consumption of the last months:</h3>

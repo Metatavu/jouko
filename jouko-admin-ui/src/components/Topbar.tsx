@@ -24,12 +24,7 @@ export class Topbar
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/">
-                        <i className="fa fa fa-envelope fa-fh"/>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/">
+                    <NavLink to="/AdminUserSettings">
                         <i className="fa fa-cogs fa-fh"/>
                     </NavLink>
                 </li>

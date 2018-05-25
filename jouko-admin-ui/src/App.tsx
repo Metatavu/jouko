@@ -5,6 +5,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { Topbar } from './components/Topbar';
 import { Navigation } from './components/Navigation';
 import { Home } from './components/Home';
+import { AdminUserSettings } from './components/AdminUserSettings';
 import { ListDevice } from './components/ListDevice';
 import { ListInterruptionGroups } from './components/ListInterruptionGroups';
 import { ListUser } from './components/ListUser';
@@ -100,9 +101,20 @@ class App extends React.Component<{}, AppState> {
                           exact={true}
                           render={props => (
                               <Home
-                                  currentUserId={this.state.userId as number}
                                   firstName={this.state.firstname as string}
-                                  lastName={this.state.lastname as string}
+                              />
+                          )}
+                      />
+                      <Route
+                          path="/AdminUserSettings"
+                          render={props => (
+                              <AdminUserSettings
+                                  userId={this.state.userId as number}
+                                  username={this.state.username as string}
+                                  keycloakId={this.state.keycloakId as string}
+                                  email={this.state.email as string}
+                                  firstname={this.state.firstname as string}
+                                  lastname={this.state.lastname as string}
                               />
                           )}
                       />
