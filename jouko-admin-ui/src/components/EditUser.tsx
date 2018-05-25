@@ -23,9 +23,11 @@ interface DevicesProps {
     controller: number;
 }
 interface EditUserState {
+    userId: number;
     keycloakId: string;
     firstname: string;
     lastname: string;
+    email: string;
     deviceName: string;
     controllerId: number;
     rowProps: EditUsersProps[];
@@ -38,9 +40,11 @@ export class EditUser
     constructor(props: EditUserProps) {
         super(props);
         this.state = {
+            userId: 0,
             keycloakId: '',
             firstname: '',
             lastname: '',
+            email: '',
             deviceName: '',
             controllerId: 1,
             rowProps: [],
@@ -50,6 +54,7 @@ export class EditUser
         this.handleKeycloakIdChange = this.handleKeycloakIdChange.bind(this);
         this.handleFirstnameChange = this.handleFirstnameChange.bind(this);
         this.handleLastnameChange = this.handleLastnameChange.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleDeviceNameChange = this.handleDeviceNameChange.bind(this);
         this.handleControllerIdChange = this.handleControllerIdChange.bind(this);
         this.handleAddDevice = this.handleAddDevice.bind(this);
@@ -63,6 +68,9 @@ export class EditUser
     }
     handleLastnameChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({lastname: event.currentTarget.value});
+    }
+    handleEmailChange(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({email: event.currentTarget.value});
     }
     handleDeviceNameChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({deviceName: event.currentTarget.value});
@@ -172,20 +180,18 @@ export class EditUser
                     </NavLink>
                 </h1>
                 <form className="edit-item-form">
-                    {/*
                     <p>UserID:</p>
                     <input
                         type="text"
                         name="userId"
                         disabled={true}
                         value={this.state.userId}
-                        onChange={this.handleUserIdChange}
                     />
-                    */}
                     <p>Keycloak ID:</p>
                     <input
                         type="text"
                         name="keycloakId"
+                        disabled={true}
                         value={this.state.keycloakId}
                         onChange={this.handleKeycloakIdChange}
                     />
@@ -202,6 +208,13 @@ export class EditUser
                         name="lastname"
                         value={this.state.lastname}
                         onChange={this.handleLastnameChange}
+                    />
+                    <p>Email:</p>
+                    <input
+                        type="text"
+                        name="email"
+                        value={this.state.email}
+                        onChange={this.handleEmailChange}
                     />
                     <p>Devices:</p>
                     <table className="UserDevice">

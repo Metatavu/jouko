@@ -14,6 +14,7 @@ import { NewUser } from './components/NewUser';
 import { EditDevice } from './components/EditDevice';
 import { EditInterruptionGroup } from './components/EditInterruptionGroup';
 import { EditUser } from './components/EditUser';
+import { ShowUser } from './components/ShowUser';
 import * as Keycloak from 'keycloak-js';
 import { UsersApi } from 'jouko-ts-client';
 
@@ -134,6 +135,15 @@ class App extends React.Component<{}, AppState> {
                           render={props => (
                               <EditDevice
                                   deviceId={props.match.params.id as number}
+                                  currentUserId={this.state.userId as number}
+                              />
+                          )}
+                      />
+                      <Route
+                          path="/ShowUser/"
+                          render={props => (
+                              <ShowUser
+                                  userId={props.match.params.id as number}
                                   currentUserId={this.state.userId as number}
                               />
                           )}

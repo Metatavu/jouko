@@ -18,11 +18,11 @@ export class InterruptionGroup
     extends React.Component<InterruptionGroupProps> {
     handleDeleteInterruptionGroup(event: React.FormEvent<HTMLDivElement>) {
         if (confirm('This interruptiongroup will be deleted!')) {
-            {/*
-            const array = this.state.devices;
-            const startIndex = Number(index);
-            array.splice(startIndex, 1);
-            */}
+            console.log(this.props.interruptiongroupId);
+            console.log(this.props.starttime);
+            console.log(this.props.endttime);
+            console.log(this.props.powerSavingGoalInWatts);
+            console.log(this.props.overbookingFactor);
         }
         this.forceUpdate();
     }

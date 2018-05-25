@@ -4,16 +4,20 @@ import { NavLink } from 'react-router-dom';
 
 interface DeviceProps {
     deviceId: number;
+    deviceName: string;
+    firstname: string;
+    lastname: string;
+    controllerId: number;
 }
 
 export class ListDevice extends React.Component<DeviceProps> {
     handleDeleteDevice(event: React.FormEvent<HTMLDivElement>) {
         if (confirm('This device will be deleted!')) {
-            {/*
-            const array = this.state.devices;
-            const startIndex = Number(index);
-            array.splice(startIndex, 1);
-            */}
+            console.log(this.props.deviceId);
+            console.log(this.props.deviceName);
+            console.log(this.props.firstname);
+            console.log(this.props.lastname);
+            console.log(this.props.controllerId);
         }
         this.forceUpdate();
     }

@@ -168,7 +168,7 @@ input[type="text"]:disabled {
     color: #3e3e3e;
 }
 /*############################## Show All Table ##############################*/
-.UserDevice{
+.UserDevice, .ShowUserDevice{
     margin-top: 0;
 }
 table {
@@ -184,7 +184,7 @@ td, th {
 tr:nth-child(even){
     background-color: #f0f0f0;
 }
-.UserDeviceHead{
+.UserDeviceHead, .ShowUserDeviceHead{
     color: #2db7b7;
     background-color: white;
     font-size: inherit;
@@ -201,14 +201,20 @@ thead {
     font-size: larger;
 }
 .UserDeviceHead th:first-child{
-    width: 5%;
+    width: 2.5%;
 }
 .UserDeviceBody th:first-child{
-    width: 5%;
+    width: 2.5%;
     text-align: center;
 }
 
 .All th:first-child, .All th:nth-child(2){
+    width: 2.5%;
+    text-align: center;
+    font-size: 20px;
+}
+
+.AllUser th:nth-child(1), .AllUser th:nth-child(2), .AllUser th:nth-child(6){
     width: 2.5%;
     text-align: center;
     font-size: 20px;
@@ -221,12 +227,18 @@ tr{
 .sweet-loading{
     margin-top: 50px;
 }
-
+/*############################## Icons ##############################*/
 .fa-trash{
     color: #b01817;
     cursor: pointer;
 }
-.fa-edit{
+.fa-edit {
     color: #28a3a3;
     cursor: pointer;
+}
+table a i {
+    color: #28a3a3;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
 }

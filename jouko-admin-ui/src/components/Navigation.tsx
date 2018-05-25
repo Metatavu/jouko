@@ -34,10 +34,10 @@ export class Navigation extends React.Component<{}, NavigationState> {
                 this.setState({state: State.OPEN, currentmenu: menu});
                 break;
             case State.START:
-                this.setState({state: State.OPEN, currentmenu: menu});
+                this.setState({state: State.OPEN, currentmenu: ''});
                 break;
             default:
-                this.setState({state: State.START, currentmenu: menu});
+                this.setState({state: State.START, currentmenu: ''});
                 break;
         }
     }
@@ -122,10 +122,14 @@ export class Navigation extends React.Component<{}, NavigationState> {
                         </NavLink>
                     </li>
                     <li>
+                        {/*
                         <a onClick={() => this.onMenuClick('Interruptiongroups')}>Interruptiongroups
                         <i className="fa fa-caret-down"/>
                         </a>
-                        <div className={classes1}>
+                        */}
+                        <NavLink to="/ListInterruptionGroups">Interruptiongroups</NavLink>
+                        {/* <div className={classes1}> */}
+                        <div>
                             <li>
                                 <NavLink to="/ListInterruptionGroups">All Interruptiongroups</NavLink>
                             </li>
@@ -135,10 +139,14 @@ export class Navigation extends React.Component<{}, NavigationState> {
                         </div>
                     </li>
                     <li>
+                        {/*
                         <a onClick={() => this.onMenuClick('User')}>User
                         <i className="fa fa-caret-down"/>
                         </a>
-                        <div className={classes2}>
+                        */}
+                        <NavLink to="/ListUser">User</NavLink>
+                        {/* <div className={classes2}> */}
+                        <div>
                             <li>
                                 <NavLink to="/ListUser">All Users</NavLink>
                             </li>
@@ -148,10 +156,14 @@ export class Navigation extends React.Component<{}, NavigationState> {
                         </div>
                     </li>
                     <li>
+                        {/*
                         <a onClick={() => this.onMenuClick('Device')}>Device
                         <i className="fa fa-caret-down"/>
                         </a>
-                        <div className={classes3}>
+                        */}
+                        <NavLink to="/ListDevice">Device</NavLink>
+                        {/* <div className={classes3}> */}
+                        <div>
                             <li>
                                 <NavLink to="/ListDevice">All Devices</NavLink>
                             </li>

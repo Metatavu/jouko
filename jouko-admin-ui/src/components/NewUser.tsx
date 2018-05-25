@@ -22,6 +22,7 @@ interface NewUserState {
     keycloakId: string;
     firstname: string;
     lastname: string;
+    email: string;
     deviceName: string;
     controllerId: number;
     rowProps: NewUsersProps[];
@@ -37,6 +38,7 @@ export class NewUser
             keycloakId: '',
             firstname: '',
             lastname: '',
+            email: '',
             deviceName: '',
             controllerId: 1,
             rowProps: [],
@@ -46,9 +48,12 @@ export class NewUser
         this.handleKeycloakIdChange = this.handleKeycloakIdChange.bind(this);
         this.handleFirstnameChange = this.handleFirstnameChange.bind(this);
         this.handleLastnameChange = this.handleLastnameChange.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleDeviceNameChange = this.handleDeviceNameChange.bind(this);
         this.handleControllerIdChange = this.handleControllerIdChange.bind(this);
         this.handleAddDevice = this.handleAddDevice.bind(this);
+        this.handleDeleteDevice = this.handleDeleteDevice.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleKeycloakIdChange(event: React.FormEvent<HTMLInputElement>) {
@@ -59,6 +64,9 @@ export class NewUser
     }
     handleLastnameChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({lastname: event.currentTarget.value});
+    }
+    handleEmailChange(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({email: event.currentTarget.value});
     }
     handleDeviceNameChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({deviceName: event.currentTarget.value});
@@ -88,7 +96,13 @@ export class NewUser
         console.log(this.state.keycloakId);
         console.log(this.state.firstname);
         console.log(this.state.lastname);
+        console.log(this.state.email);
+        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxx');
         console.log(this.state.deviceName);
+        console.log(this.state.keycloakId);
+        console.log(this.state.firstname);
+        console.log(this.state.lastname);
+        console.log(this.state.controllerId);
         {/*
         const userApi = new UserApi(
             undefined,
@@ -198,6 +212,13 @@ export class NewUser
                         name="lastname"
                         value={this.state.lastname}
                         onChange={this.handleLastnameChange}
+                    />
+                    <p>Email:</p>
+                    <input
+                        type="email"
+                        name="email"
+                        value={this.state.email}
+                        onChange={this.handleEmailChange}
                     />
                     <p>Devices:</p>
                     <table className="UserDevice">

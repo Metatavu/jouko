@@ -4,17 +4,21 @@ import { NavLink } from 'react-router-dom';
 
 interface UserProps {
     userId: number;
+    keycloakId: string;
+    username: string;
+    firstname: string;
+    lastname: string;
+    email: string;
 }
 
 export class ListUser extends React.Component<UserProps> {
     handleDeleteUser(event: React.FormEvent<HTMLDivElement>) {
         if (confirm('This user will be deleted!')) {
-            {/*
-            const array = this.state.devices;
-            const startIndex = Number(index);
-            array.splice(startIndex, 1);
-            */
-            }
+            console.log(this.props.userId);
+            console.log(this.props.keycloakId);
+            console.log(this.props.username);
+            console.log(this.props.firstname);
+            console.log(this.props.lastname);
         }
         this.forceUpdate();
     }
@@ -26,7 +30,7 @@ export class ListUser extends React.Component<UserProps> {
                         <button className="btn">New User</button>
                     </NavLink>
                 </h1>
-                <table className="All">
+                <table className="AllUser">
                     <thead>
                     <tr>
                         <th/>
@@ -34,7 +38,7 @@ export class ListUser extends React.Component<UserProps> {
                         <th>Username</th>
                         <th>Firstname</th>
                         <th>Lastname</th>
-                        <th>Email</th>
+                        <th/>
                     </tr>
                     </thead>
                     <tbody>
@@ -56,7 +60,13 @@ export class ListUser extends React.Component<UserProps> {
                         <th>Username1</th>
                         <th>Firstname1</th>
                         <th>Lastname1</th>
-                        <th>Email1</th>
+                        <th>
+                            <div>
+                                <NavLink to={`/ShowUser/${this.props.userId}`}>
+                                    <i className="fa fa-arrow-circle-right fa-fh"/>
+                                </NavLink>
+                            </div>
+                        </th>
                     </tr>
                     <tr>
                         <th>
@@ -76,7 +86,13 @@ export class ListUser extends React.Component<UserProps> {
                         <th>Username2</th>
                         <th>Firstname2</th>
                         <th>Lastname2</th>
-                        <th>Email2</th>
+                        <th>
+                            <div>
+                                <NavLink to={`/ShowUser/${this.props.userId}`}>
+                                    <i className="fa fa-arrow-circle-right fa-fh"/>
+                                </NavLink>
+                            </div>
+                        </th>
                     </tr>
                     <tr>
                         <th>
@@ -96,7 +112,13 @@ export class ListUser extends React.Component<UserProps> {
                         <th>Username3</th>
                         <th>Firstname3</th>
                         <th>Lastname3</th>
-                        <th>Email3</th>
+                        <th>
+                            <div>
+                                <NavLink to={`/ShowUser/${this.props.userId}`}>
+                                    <i className="fa fa-arrow-circle-right fa-fh"/>
+                                </NavLink>
+                            </div>
+                        </th>
                     </tr>
                     </tbody>
                 </table>
