@@ -2,7 +2,11 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 
-export class ListUser extends React.Component {
+interface UserProps {
+    userId: number;
+}
+
+export class ListUser extends React.Component<UserProps> {
     handleDeleteUser(event: React.FormEvent<HTMLDivElement>) {
         if (confirm('This user will be deleted!')) {
             {/*
@@ -13,9 +17,6 @@ export class ListUser extends React.Component {
             }
         }
         this.forceUpdate();
-    }
-    handleEditUser(event: React.FormEvent<HTMLDivElement>) {
-        alert('Edit User');
     }
     render() {
         return (
@@ -46,10 +47,10 @@ export class ListUser extends React.Component {
                             </div>
                         </th>
                         <th>
-                            <div
-                                onClick={(event) => this.handleEditUser(event)}
-                            >
-                                <i className="fa fa-edit fa-fh"/>
+                            <div>
+                                <NavLink to={`/EditUser/${this.props.userId}`}>
+                                    <i className="fa fa-edit fa-fh"/>
+                                </NavLink>
                             </div>
                         </th>
                         <th>Username1</th>
@@ -66,10 +67,10 @@ export class ListUser extends React.Component {
                             </div>
                         </th>
                         <th>
-                            <div
-                                onClick={(event) => this.handleEditUser(event)}
-                            >
-                                <i className="fa fa-edit fa-fh"/>
+                            <div>
+                                <NavLink to={`/EditUser/${this.props.userId}`}>
+                                    <i className="fa fa-edit fa-fh"/>
+                                </NavLink>
                             </div>
                         </th>
                         <th>Username2</th>
@@ -86,10 +87,10 @@ export class ListUser extends React.Component {
                             </div>
                         </th>
                         <th>
-                            <div
-                                onClick={(event) => this.handleEditUser(event)}
-                            >
-                                <i className="fa fa-edit fa-fh"/>
+                            <div>
+                                <NavLink to={`/EditUser/${this.props.userId}`}>
+                                    <i className="fa fa-edit fa-fh"/>
+                                </NavLink>
                             </div>
                         </th>
                         <th>Username3</th>

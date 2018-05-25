@@ -5,9 +5,6 @@ import { NavLink } from 'react-router-dom';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
 import * as _ from 'lodash';
 
-interface NewDeviceProps {
-    createNewUser(): void;
-}
 interface NewDevicesProps {
     interruptiongroupId: number;
     starttime: string;
@@ -20,8 +17,8 @@ interface NewDeviceState {
 }
 
 export class NewDevice
-    extends React.Component<NewDeviceProps, NewDeviceState> {
-    constructor(props: NewDeviceProps) {
+    extends React.Component<{}, NewDeviceState> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             deviceName: '',

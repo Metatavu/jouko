@@ -7,7 +7,8 @@ import * as _ from 'lodash';
 // import { UserApi } from 'jouko-ts-client';
 
 interface EditUserProps {
-    editUser(): void;
+    userId: number;
+    currentUserId: number;
 }
 interface EditUsersProps {
     interruptiongroupId: number;

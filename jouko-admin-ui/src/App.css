@@ -26,14 +26,13 @@
     cursor: pointer;
 }
 /*############################## Forms ##############################*/
-/*######### New Item Form #########*/
-.new-item-form{
+/*######### New/Edit Item Form #########*/
+.new-item-form, .edit-item-form {
     width: 100%;
     padding-top: 25px;
     background: #ffffff;
     font-size: 18px;
 }
-
 .new-item-form input[type="text"],
 .new-item-form input[type="date"],
 .new-item-form input[type="datetime"],
@@ -43,7 +42,17 @@
 .new-item-form input[type="time"],
 .new-item-form input[type="url"],
 .new-item-form textarea,
-.new-item-form select
+.new-item-form select,
+.edit-item-form input[type="text"],
+.edit-item-form input[type="date"],
+.edit-item-form input[type="datetime"],
+.edit-item-form input[type="email"],
+.edit-item-form input[type="number"],
+.edit-item-form input[type="search"],
+.edit-item-form input[type="time"],
+.edit-item-form input[type="url"],
+.edit-item-form textarea,
+.edit-item-form select
 {
     -webkit-transition: all 0.30s ease-in-out;
     -moz-transition: all 0.30s ease-in-out;
@@ -69,7 +78,17 @@
 .new-item-form input[type="time"]:focus,
 .new-item-form input[type="url"]:focus,
 .new-item-form textarea:focus,
-.new-item-form select:focus
+.new-item-form select:focus,
+.edit-item-form input[type="text"]:focus,
+.edit-item-form input[type="date"]:focus,
+.edit-item-form input[type="datetime"]:focus,
+.edit-item-form input[type="email"]:focus,
+.edit-item-form input[type="number"]:focus,
+.edit-item-form input[type="search"]:focus,
+.edit-item-form input[type="time"]:focus,
+.edit-item-form input[type="url"]:focus,
+.edit-item-form textarea:focus,
+.edit-item-form select:focus
 {
     box-shadow: 0 0 5px #2db7b7;
     padding: 15px;
@@ -81,7 +100,10 @@ input[type="text"]:disabled {
     color: #626262;
 }
 .new-item-form input[type="submit"],
-.new-item-form input[type="button"]{
+.new-item-form input[type="button"],
+.edit-item-form input[type="submit"],
+.edit-item-form input[type="button"]
+{
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -92,8 +114,11 @@ input[type="text"]:disabled {
     border: 2px solid #238e8e;
     color: #fff;
     font-size: 18px;
+    cursor: pointer;
 }
-.new-item-form input[type="reset"]{
+.new-item-form input[type="reset"],
+.edit-item-form input[type="reset"]
+{
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -120,18 +145,25 @@ input[type="text"]:disabled {
     margin-bottom: 10px;
 }
 .new-item-form input[type="submit"]:hover,
-.new-item-form input[type="button"]:hover{
+.new-item-form input[type="button"]:hover
+.edit-item-form input[type="submit"]:hover,
+.edit-item-form input[type="button"]:hover
+{
     background: #28a3a3;
     transition: 0.5s;
     cursor: pointer;
 }
-.new-item-form input[type="reset"]:hover, .btn-add:hover{
+.new-item-form input[type="reset"]:hover,
+.edit-item-form input[type="reset"]:hover,
+.btn-add:hover
+{
     background: #28a3a3;
     color: #fff;
     transition: 0.5s;
     cursor: pointer;
 }
-.new-item-form p{
+.new-item-form p,
+.edit-item-form p{
     font-size: 16px;
     color: #3e3e3e;
 }

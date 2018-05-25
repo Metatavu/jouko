@@ -6,9 +6,6 @@ import { InterruptionGroupsApi } from 'jouko-ts-client';
 import * as _ from 'lodash';
 // import { UserApi } from 'jouko-ts-client';
 
-interface NewUserProps {
-    createNewUser(): void;
-}
 interface NewUsersProps {
     interruptiongroupId: number;
     starttime: string;
@@ -33,8 +30,8 @@ interface NewUserState {
 }
 
 export class NewUser
-    extends React.Component<NewUserProps, NewUserState> {
-    constructor(props: NewUserProps) {
+    extends React.Component<{}, NewUserState> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             keycloakId: '',

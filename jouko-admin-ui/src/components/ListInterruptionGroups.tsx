@@ -26,9 +26,6 @@ export class InterruptionGroup
         }
         this.forceUpdate();
     }
-    handleEditInterruptionGroup(event: React.FormEvent<HTMLDivElement>) {
-        alert('Edit InterruptionGroup');
-    }
     render() {
         let startdate = formatDate(this.props.starttime, 'dddd DD. MMMM YYYY');
         let starttime = formatDate(this.props.starttime, 'H.mm');
@@ -46,10 +43,10 @@ export class InterruptionGroup
                     </div>
                 </th>
                 <th>
-                    <div
-                        onClick={(event) => this.handleEditInterruptionGroup(event)}
-                    >
-                        <i className="fa fa-edit fa-fh"/>
+                    <div>
+                        <NavLink to={`/EditInterruptionGroup/${this.props.interruptiongroupId}`}>
+                            <i className="fa fa-edit fa-fh"/>
+                        </NavLink>
                     </div>
                 </th>
                 <th>{startdate} klo {starttime}</th>

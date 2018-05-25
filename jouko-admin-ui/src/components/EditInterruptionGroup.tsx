@@ -93,25 +93,22 @@ export class EditInterruptionGroup
                     */}
                     <p>Date:</p>
                     <input
-                        type="date"
+                        type="text"
                         name="date"
-                        placeholder="Date"
                         value={this.state.startDate}
                         onChange={this.handleStartDateChange}
                     />
                     <p>Time: (HH:MM)</p>
                     <input
-                        type="time"
+                        type="text"
                         name="starttime"
-                        placeholder="Starttime"
                         value={this.state.startTime}
                         onChange={this.handleStartTimeChange}
                     />
                     <p>Duration: (HH:MM)</p>
                     <input
-                        type="time"
+                        type="text"
                         name="duration"
-                        placeholder="HH:MM"
                         value={this.state.duration}
                         onChange={this.handleDurationChange}
                     />

@@ -120,8 +120,24 @@ class App extends React.Component<{}, AppState> {
                               />
                           )}
                       />
-                      <Route path="/EditUser" component={EditUser}/>
-                      <Route path="/EditDevice" component={EditDevice}/>
+                      <Route
+                          path="/EditUser/"
+                          render={props => (
+                              <EditUser
+                                  userId={props.match.params.id as number}
+                                  currentUserId={this.state.userId as number}
+                              />
+                          )}
+                      />
+                      <Route
+                          path="/EditDevice/"
+                          render={props => (
+                              <EditDevice
+                                  deviceId={props.match.params.id as number}
+                                  currentUserId={this.state.userId as number}
+                              />
+                          )}
+                      />
                   </div>
               </div>
           );

@@ -6,8 +6,10 @@ import { InterruptionGroupsApi } from 'jouko-ts-client';
 import * as _ from 'lodash';
 
 interface EditDeviceProps {
-    editUser(): void;
+    deviceId: number;
+    currentUserId: number;
 }
+
 interface EditDevicesProps {
     interruptiongroupId: number;
     starttime: string;

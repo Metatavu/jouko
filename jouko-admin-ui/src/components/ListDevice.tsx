@@ -2,7 +2,11 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 
-export class ListDevice extends React.Component {
+interface DeviceProps {
+    deviceId: number;
+}
+
+export class ListDevice extends React.Component<DeviceProps> {
     handleDeleteDevice(event: React.FormEvent<HTMLDivElement>) {
         if (confirm('This device will be deleted!')) {
             {/*
@@ -12,9 +16,6 @@ export class ListDevice extends React.Component {
             */}
         }
         this.forceUpdate();
-    }
-    handleEditDevice(event: React.FormEvent<HTMLDivElement>) {
-        alert('Edit Device');
     }
     render() {
         return (
@@ -44,10 +45,10 @@ export class ListDevice extends React.Component {
                             </div>
                         </th>
                         <th>
-                            <div
-                                onClick={(event) => this.handleEditDevice(event)}
-                            >
-                                <i className="fa fa-edit fa-fh"/>
+                            <div>
+                                <NavLink to={`/EditDevice/${this.props.deviceId}`}>
+                                    <i className="fa fa-edit fa-fh"/>
+                                </NavLink>
                             </div>
                         </th>
                         <th>Device1</th>
@@ -63,10 +64,10 @@ export class ListDevice extends React.Component {
                             </div>
                         </th>
                         <th>
-                            <div
-                                onClick={(event) => this.handleEditDevice(event)}
-                            >
-                                <i className="fa fa-edit fa-fh"/>
+                            <div>
+                                <NavLink to={`/EditDevice/${this.props.deviceId}`}>
+                                    <i className="fa fa-edit fa-fh"/>
+                                </NavLink>
                             </div>
                         </th>
                         <th>Device2</th>
@@ -82,10 +83,10 @@ export class ListDevice extends React.Component {
                             </div>
                         </th>
                         <th>
-                            <div
-                                onClick={(event) => this.handleEditDevice(event)}
-                            >
-                                <i className="fa fa-edit fa-fh"/>
+                            <div>
+                                <NavLink to={`/EditDevice/${this.props.deviceId}`}>
+                                    <i className="fa fa-edit fa-fh"/>
+                                </NavLink>
                             </div>
                         </th>
                         <th>Device3</th>

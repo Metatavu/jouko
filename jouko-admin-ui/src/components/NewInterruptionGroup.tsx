@@ -4,9 +4,6 @@ import { NavLink } from 'react-router-dom';
 import { parse as parseDate, addMinutes, addHours } from 'date-fns';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
 
-interface NewInterruptionGroupProps {
-    createNewInterruptionGroup(): void;
-}
 interface NewInterruptionGroupState {
     startDate: string;
     startTime: string;
@@ -16,8 +13,8 @@ interface NewInterruptionGroupState {
 }
 
 export class NewInterruptionGroup
-    extends React.Component<NewInterruptionGroupProps, NewInterruptionGroupState> {
-    constructor(props: NewInterruptionGroupProps) {
+    extends React.Component<{}, NewInterruptionGroupState> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             startDate: '',
