@@ -6,7 +6,10 @@ import { InterruptionGroupsApi } from 'jouko-ts-client';
 
 interface EditInterruptionGroupProps {
     interruptionGroupId: number;
-    currentUserId: number;
+    starttime: string;
+    endtime: string;
+    powerSavingGoalInWatts: number;
+    overbookingFactor: number;
 }
 interface EditInterruptionGroupState {
     startDate: string;
@@ -82,6 +85,12 @@ export class EditInterruptionGroup
                         <button className="btn">Show all</button>
                     </NavLink>
                 </h1>
+                <h3>Props:</h3>
+                <p>{this.props.interruptionGroupId}</p>
+                <p>{this.props.starttime}</p>
+                <p>{this.props.endtime}</p>
+                <p>{this.props.powerSavingGoalInWatts}</p>
+                <p>{this.props.overbookingFactor}</p>
                 <form className="edit-item-form">
                     {/*
                     <p>Interruptionsgroup ID:</p>

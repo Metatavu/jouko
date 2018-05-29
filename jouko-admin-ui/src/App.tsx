@@ -13,11 +13,11 @@ import { NewDevice } from './components/NewDevice';
 import { NewInterruptionGroup } from './components/NewInterruptionGroup';
 import { NewUser } from './components/NewUser';
 import { EditDevice } from './components/EditDevice';
-import { EditInterruptionGroup } from './components/EditInterruptionGroup';
 import { EditUser } from './components/EditUser';
 import { ShowUser } from './components/ShowUser';
 import * as Keycloak from 'keycloak-js';
 import { UsersApi } from 'jouko-ts-client';
+import { EditInterruptionGroup } from './components/EditInterruptionGroup';
 
 interface AppState {
     keycloakInstance?: Keycloak.KeycloakInstance;
@@ -27,12 +27,23 @@ interface AppState {
     email?: string;
     firstname?: string;
     lastname?: string;
+    interruptionGroupId: number;
+    starttime: string;
+    endtime: string;
+    powerSavingGoalInWatts: number;
+    overbookingFactor: number;
 }
 
 class App extends React.Component<{}, AppState> {
     constructor(props: {}) {
         super(props);
-        this.state = {};
+        this.state = {
+            interruptionGroupId: 0,
+            starttime: '',
+            endtime: '',
+            powerSavingGoalInWatts: 0,
+            overbookingFactor: 0,
+        };
     }
     componentDidMount() {
         const kc = Keycloak(
@@ -125,14 +136,33 @@ class App extends React.Component<{}, AppState> {
                       <Route path="/NewUser" component={NewUser}/>
                       <Route path="/NewDevice" component={NewDevice}/>
                       <Route
-                          path="/EditInterruptionGroup/"
+                          path={`/EditInterruptionGroup/1`}
                           render={props => (
                               <EditInterruptionGroup
-                                  interruptionGroupId={props.match.params.id as number}
-                                  currentUserId={this.state.userId as number}
+                                  interruptionGroupId={1}
+                                  starttime={'starttime'}
+                                  endtime={'endtime'}
+                                  powerSavingGoalInWatts={25}
+                                  overbookingFactor={75}
                               />
                           )}
                       />
+                      {/*
+                      <Route path="/EditInterruptionGroup" component={EditInterruptionGroup}/>
+
+                      <Route
+                          path={`/EditInterruptionGroup/1`}
+                          render={props => (
+                              <EditInterruptionGroup
+                                  interruptionGroupId={this.state.userId as number}
+                                  starttime={this.state.username as string}
+                                  endtime={this.state.keycloakId as string}
+                                  powerSavingGoalInWatts={this.state.userId as number}
+                                  overbookingFactor={this.state.userId as number}
+                              />
+                          )}
+                      />
+                      */}
                       <Route
                           path="/EditUser/"
                           render={props => (

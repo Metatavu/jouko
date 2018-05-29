@@ -229,15 +229,15 @@ export class EditUser
                             {usersDevices}
                         </tbody>
                     </table>
-                    <table>
-                        <thead>
+                    <table className="NewUserDevice">
+                        <thead className="NewUserDeviceHead">
                             <tr>
                                 <th>Device Name</th>
                                 <th>Controller</th>
                                 <th/>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="NewUserDeviceBody">
                             <tr>
                                 <th>
                                     <input

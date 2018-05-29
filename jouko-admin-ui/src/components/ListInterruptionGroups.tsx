@@ -13,9 +13,28 @@ interface InterruptionGroupProps {
     powerSavingGoalInWatts: number;
     overbookingFactor: number;
 }
+interface InterruptionGroupState {
+    interruptiongroupId: number;
+    starttime: string;
+    endttime: string;
+    powerSavingGoalInWatts: number;
+    overbookingFactor: number;
+}
 
 export class InterruptionGroup
-    extends React.Component<InterruptionGroupProps> {
+    extends React.Component<InterruptionGroupProps, InterruptionGroupState> {
+
+    constructor(props: InterruptionGroupProps) {
+        super(props);
+        this.state = {
+            interruptiongroupId: this.props.interruptiongroupId,
+            starttime: this.props.starttime,
+            endttime: this.props.endttime,
+            powerSavingGoalInWatts: this.props.powerSavingGoalInWatts,
+            overbookingFactor: this.props.overbookingFactor
+        };
+    }
+
     handleDeleteInterruptionGroup(event: React.FormEvent<HTMLDivElement>) {
         if (confirm('This interruptiongroup will be deleted!')) {
             console.log(this.props.interruptiongroupId);
@@ -33,6 +52,7 @@ export class InterruptionGroup
         let endtime = formatDate(this.props.endttime, 'HH.mm');
         let powerSavingGoalInWatts = this.props.powerSavingGoalInWatts;
         let overbookingFactor = this.props.overbookingFactor;
+
         return (
             <tr>
                 <th>
@@ -43,11 +63,23 @@ export class InterruptionGroup
                     </div>
                 </th>
                 <th>
-                    <div>
-                        <NavLink to={`/EditInterruptionGroup/${this.props.interruptiongroupId}`}>
-                            <i className="fa fa-edit fa-fh"/>
-                        </NavLink>
-                    </div>
+                    <NavLink to={`/EditInterruptionGroup/${this.props.interruptiongroupId}`}>
+                        <i className="fa fa-edit fa-fh"/>
+                    </NavLink>
+                        {/*
+                        <Route
+                            path={`/EditInterruptionGroup/1`}
+                            render={props => (
+                                <EditInterruptionGroup
+                                    interruptionGroupId={this.state.interruptiongroupId as number}
+                                    starttime={this.state.starttime as string}
+                                    endtime={this.state.endttime as string}
+                                    powerSavingGoalInWatts={this.state.powerSavingGoalInWatts as number}
+                                    overbookingFactor={this.state.overbookingFactor as number}
+                                />
+                            )}
+                        />
+                        */}
                 </th>
                 <th>{startdate} klo {starttime}</th>
                 <th>{enddate} klo {endtime}</th>
@@ -68,7 +100,10 @@ export class ListInterruptionGroups
 
     constructor(props: InterruptionGroupProps) {
         super(props);
-        this.state = {rowProps: [], loading: true};
+        this.state = {
+            rowProps: [],
+            loading: true
+        };
     }
     componentDidMount() {
         this.fetchInterruptionGroups();

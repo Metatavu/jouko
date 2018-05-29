@@ -176,6 +176,7 @@ table {
     margin-top: 50px;
     border-collapse: collapse;
     width: 100%;
+    table-layout: fixed;
 }
 td, th {
     border: 1px solid #ddd;
@@ -185,7 +186,7 @@ td, th {
 tr:nth-child(even){
     background-color: #f0f0f0;
 }
-.UserDeviceHead, .ShowUserDeviceHead{
+.UserDeviceHead, .NewUserDevice, .ShowUserDeviceHead{
     color: #2db7b7;
     background-color: white;
     font-size: inherit;
@@ -206,6 +207,13 @@ thead {
 }
 .UserDeviceBody th:first-child{
     width: 2.5%;
+    text-align: center;
+}
+.NewUserDeviceHead th:last-child{
+    width: 10%;
+}
+.NewUserDeviceBody th:last-child{
+    width: 10%;
     text-align: center;
 }
 
