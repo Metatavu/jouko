@@ -10,9 +10,7 @@ const unitedKingdom = require('../flags/United_Kingdom.png');
 
 export class FlagBar
     extends React.Component {
-
     render() {
-
         return (
             <ul className="FlagBar">
                 <li>

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { _ } from '../i18n';
 
 interface  AdminUserSettingsProps {
     userId: number;
@@ -43,52 +44,36 @@ export class AdminUserSettings extends React.Component<AdminUserSettingsProps, A
     }
     handleSubmit(event: React.FormEvent<HTMLInputElement>) {
     event.preventDefault();
-    alert('Admin data successfully changed!');
+    alert(_('alertAdminDataChanged'));
     }
     render() {
         return(
             <div>
-                <h1>Admin-User data</h1>
+                <h1>{_('adminUserData')}</h1>
                 <div className="edit-item-form">
                     <form>
-                        {/*
-                        <p>User ID:</p>
-                        <input
-                            type="text"
-                            name="userId"
-                            value={this.state.userId}
-                            disabled={true}
-                        />
-                        <p>Keycloak ID:</p>
-                        <input
-                            type="text"
-                            name="username"
-                            placeholder={this.state.keycloakId}
-                            disabled={true}
-                        />
-                        */}
-                        <p>Username:</p>
+                        <p>{_('username')}:</p>
                         <input
                             type="text"
                             name="username"
                             placeholder={this.state.username}
                             disabled={true}
                         />
-                        <p>Email:</p>
+                        <p>{_('email')}:</p>
                         <input
                             type="email"
                             name="email"
                             value={this.state.email}
                             onChange={this.handleEmailChange}
                         />
-                        <p>Firstname:</p>
+                        <p>{_('firstname')}:</p>
                         <input
                             type="text"
                             name="firstName"
                             value={this.state.firstname}
                             onChange={this.handleFirstnameChange}
                         />
-                        <p>Lastname:</p>
+                        <p>{_('lastname')}:</p>
                         <input
                             type="text"
                             name="lastName"
@@ -96,8 +81,8 @@ export class AdminUserSettings extends React.Component<AdminUserSettingsProps, A
                             onChange={this.handleLastnameChange}
                         />
                         <div className="ActionField">
-                            <input type="reset" value="Cancel" />
-                            <input type="submit" value="Edit" onClick={(event) => this.handleSubmit(event)}/>
+                            <input type="reset" value={_('cancel')} />
+                            <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
                         </div>
                     </form>
                 </div>

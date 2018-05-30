@@ -2,10 +2,110 @@ let language = 'fi';
 
 const messages = {
   'hello': {
-    'fi': 'Hei,',
-    'en': 'Hello, ',
-    'de': 'Hallo,',
-    'sv': 'Hallå,'
+    'fi': 'Hei',
+    'en': 'Hello',
+    'de': 'Hallo',
+    'sv': 'Hallå'
+  },
+  'sortBy': {
+      'fi': '',
+      'en': 'Sort by',
+      'de': 'Sortieren nach',
+      'sv': ''
+  },
+  'searchFor': {
+      'fi': '',
+      'en': 'Search for',
+      'de': 'Suche nach',
+      'sv': ''
+  },
+  'in': {
+      'fi': '',
+      'en': 'in',
+      'de': 'in',
+      'sv': ''
+  },
+  'editDevice': {
+      'fi': '',
+      'en': 'Edit Device',
+      'de': 'Gerät bearbeiten',
+      'sv': ''
+  },
+  'editUser': {
+      'fi': '',
+      'en': 'Edit User',
+      'de': 'Benutzer bearbeiten',
+      'sv': ''
+  },
+  'editInterruptiongroup': {
+      'fi': '',
+      'en': 'Edit Interruptiongroup',
+      'de': 'Unterbrechung bearbeiten',
+      'sv': ''
+  },
+  'showAll': {
+      'fi': '',
+      'en': 'Show all',
+      'de': 'Alle anzeigen',
+      'sv': ''
+  },
+  'alertDeviceChanged': {
+      'fi': '',
+      'en': 'Device successfully changed',
+      'de': 'Gerät erfolgreich geändert',
+      'sv': ''
+  },
+  'alertInterruptiongroupChanged': {
+    'fi': '',
+    'en': 'Interruptiongroup successfully changed',
+    'de': 'Unterbrechung erfolgreich geändert',
+    'sv': ''
+  },
+  'alertUserChanged': {
+      'fi': '',
+      'en': 'Device successfully changed',
+      'de': 'Gerät erfolgreich geändert',
+      'sv': ''
+  },
+  'alertDeviceCreated': {
+      'fi': '',
+      'en': 'Device successfully created',
+      'de': 'Gerät erfolgreich hinzugefügt',
+      'sv': ''
+  },
+  'alertInterruptiongroupCreated': {
+      'fi': '',
+      'en': 'Interruptiongroup successfully created',
+      'de': 'Unterbrechung erfolgreich hinzugefügt',
+      'sv': ''
+  },
+  'alertUserCreated': {
+      'fi': '',
+      'en': 'User successfully created',
+      'de': 'Benutzer erfolgreich hinzugefügt',
+      'sv': ''
+  },
+  'searchForHint1': {
+      'fi': '',
+      'en': '* Search for dates and times like this YYYY-MM-DD or HH:MM',
+      'de': 'Suchen Sie nach einem Datum oder einer Uhrzeigt in diesem Format: YYYY-MM-DD oder HH:MM',
+      'sv': ''
+  },
+  'searchForHint2': {
+      'fi': '',
+      'en': 'Do not include \'%\' or \'kW\' when searching in ' +
+      'column \'Power Saved [kW]\' or \'Overbooking [%]\'. ' +
+      'You also don\'t need any wildcards like \'*\' or \'?\'.',
+      'de': 'Geben Sie bei Ihrer Suche in den ' +
+      'Spalten \'Ersparte Energiemenge [kW] oder \'Überbuchung ' +
+      '[%] kein \'%\' oder \'kW\' ein.',
+      'sv': ''
+  },
+  'alertAdminDataChanged': {
+      'fi': '',
+      'en': 'Admin data successfully changed!',
+      'de': 'Admin-Benutzerdaten erfolgreich geändert!',
+      'sv': ''
   },
   'powerConsumptionLastMonths': {
     'fi': 'Viime kuukausien tehonkulutus',
@@ -241,29 +341,17 @@ const messages = {
     'de': 'User-ID',
     'sv': 'användar ID'
   },
-  'sortBy': {
-    'fi': '',
-    'en': 'Sort by:',
-    'de': 'Sortieren nach',
-    'sv': ''
+  'highLow': {
+      'fi': '',
+      'en': 'Descending',
+      'de': 'Absteigend',
+      'sv': ''
   },
-  'searchFor': {
-    'fi': '',
-    'en': 'Search for * in *',
-    'de': 'Suche nach * in *',
-    'sv': ''
-  },
-  'searchForHint1': {
-    'fi': '',
-    'en': '* Search for dates and times like this YYYY-MM-DD or HH:MM',
-    'de': 'Suchen Sie nach einem Datum oder einer Uhrzeigt in diesem Format: YYYY-MM-DD oder HH:MM',
-    'sv': ''
-  },
-  'searchForHint2': {
-    'fi': '',
-    'en': 'Do not include % or kW when searching in column Power Saved [kW] or Overbooking [%]. You also don\'t need any wildcards like * or ?.',
-    'de': 'Geben Sie bei Ihrer Suche in den Spalten \'Ersparte Energiemenge [kW] oder \'Überbuchung [%] kein \'%\' oder \'kW\' ein.',
-    'sv': ''
+  'lowHigh': {
+      'fi': '',
+      'en': 'Ascending',
+      'de': 'Aufsteigend',
+      'sv': ''
   }
 };
 

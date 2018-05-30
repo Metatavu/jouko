@@ -3,6 +3,7 @@ import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { parse as parseDate, addMinutes, addHours } from 'date-fns';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
+import { _ } from '../i18n';
 
 interface NewInterruptionGroupState {
     startDate: string;
@@ -11,7 +12,6 @@ interface NewInterruptionGroupState {
     powerSavingGoalInWatts: number;
     overbookingFactor: number;
 }
-
 export class NewInterruptionGroup
     extends React.Component<{}, NewInterruptionGroupState> {
     constructor(props: {}) {
@@ -68,26 +68,18 @@ export class NewInterruptionGroup
                 overbookingFactor: overbookingFactor
             });
         event.preventDefault();
-        alert('Interruptiongroup created');
+        alert(_('alertInterruptiongroupCreated'));
     }
     render() {
         return (
             <div className="">
-                <h1>New Interruptiongroup
+                <h1>{_('newInterruptionGroups')}
                     <NavLink to="/ListInterruptiongroups">
-                        <button className="btn">Show all</button>
+                        <button className="btn">{_('showAll')}</button>
                     </NavLink>
                 </h1>
                 <form className="new-item-form">
-                    {/*
-                    <p>Interruptionsgroup ID:</p>
-                    <input
-                        type="text"
-                        name="interruptionGroupId"
-                        disabled={true}
-                    />
-                    */}
-                    <p>Date:</p>
+                    <p>{_('date')}:</p>
                     <input
                         type="date"
                         name="date"
@@ -95,7 +87,7 @@ export class NewInterruptionGroup
                         value={this.state.startDate}
                         onChange={this.handleStartDateChange}
                     />
-                    <p>Time: (HH:MM)</p>
+                    <p>{_('time')}</p>
                     <input
                         type="time"
                         name="starttime"
@@ -103,7 +95,7 @@ export class NewInterruptionGroup
                         value={this.state.startTime}
                         onChange={this.handleStartTimeChange}
                     />
-                    <p>Duration: (HH:MM)</p>
+                    <p>{_('duration')}</p>
                     <input
                         type="time"
                         name="duration"
@@ -111,14 +103,14 @@ export class NewInterruptionGroup
                         value={this.state.duration}
                         onChange={this.handleDurationChange}
                     />
-                    <p>Amount of energy to be saved (kW)</p>
+                    <p>{_('powerToBeSaved')}</p>
                     <input
                         type="number"
                         name="powerSavingGoalInWatts"
                         value={this.state.powerSavingGoalInWatts}
                         onChange={this.handlePowerSavingGoalInWattsChange}
                     />
-                    <p>Overbooking: (in %)</p>
+                    <p>{_('overbooking')}</p>
                     <input
                         type="number"
                         name="overbookingFactor"
@@ -126,8 +118,8 @@ export class NewInterruptionGroup
                         onChange={this.handleOverbookingFactorChange}
                     />
                     <div className="ActionField">
-                        <input type="reset" value="Cancel" />
-                        <input type="submit" value="Create" onClick={(event) => this.handleSubmit(event)}/>
+                        <input type="reset" value={_('cancel')} />
+                        <input type="submit" value={_('create')} onClick={(event) => this.handleSubmit(event)}/>
                     </div>
                 </form>
             </div>

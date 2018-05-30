@@ -2,9 +2,8 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
-// import { Device } from './Device';
 import { take } from 'lodash';
-// import { UserApi } from 'jouko-ts-client';
+import { _ } from '../i18n';
 
 interface EditUserProps {
     userId: number;
@@ -101,21 +100,8 @@ export class EditUser
         console.log(this.state.firstname);
         console.log(this.state.lastname);
         console.log(this.state.deviceName);
-        {/*
-        const userApi = new UserApi(
-            undefined,
-            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
-        userApi.createNewUser(
-            {
-                id: 0,
-                keycloakId: this.state.keycloakId,
-                firstname: this.state.firstname,
-                lastname: this.state.lastname,
-                deviceName: this.state.deviceName
-            });
-        */}
         event.preventDefault();
-        alert('User created');
+        alert(_('alertUserChanged'));
     }
 
     componentDidMount() {
@@ -146,7 +132,6 @@ export class EditUser
                 </option>
             );
         });
-        //
         const usersDevices = this.state.devices.map((devices, index) => {
             return (
                 <tr key={index.toString()}>
@@ -162,32 +147,22 @@ export class EditUser
                 </tr>
             );
         });
-        {/*
-        const deviceRows = this.state.rowProps.map(rowProp => {
-            return (
-                <Device
-                    key={rowProp.interruptiongroupId.toString()}
-                    {...rowProp}
-                />
-            );
-        });
-        */}
         return (
             <div className="">
-                <h1>Edit User
+                <h1>{_('editUser')}
                     <NavLink to="/ListUser">
-                        <button className="btn">Show all</button>
+                        <button className="btn">{_('showAll')}</button>
                     </NavLink>
                 </h1>
                 <form className="edit-item-form">
-                    <p>UserID:</p>
+                    <p>{_('userId')}:</p>
                     <input
                         type="text"
                         name="userId"
                         disabled={true}
                         value={this.state.userId}
                     />
-                    <p>Keycloak ID:</p>
+                    <p>{_('keycloakId')}:</p>
                     <input
                         type="text"
                         name="keycloakId"
@@ -195,34 +170,34 @@ export class EditUser
                         value={this.state.keycloakId}
                         onChange={this.handleKeycloakIdChange}
                     />
-                    <p>Firstname:</p>
+                    <p>{_('firstname')}:</p>
                     <input
                         type="text"
                         name="firstname"
                         value={this.state.firstname}
                         onChange={this.handleFirstnameChange}
                     />
-                    <p>Lastname:</p>
+                    <p>{_('lastname')}:</p>
                     <input
                         type="text"
                         name="lastname"
                         value={this.state.lastname}
                         onChange={this.handleLastnameChange}
                     />
-                    <p>Email:</p>
+                    <p>{_('email')}:</p>
                     <input
                         type="text"
                         name="email"
                         value={this.state.email}
                         onChange={this.handleEmailChange}
                     />
-                    <p>Devices:</p>
+                    <p>{_('devices')}:</p>
                     <table className="UserDevice">
                         <thead className="UserDeviceHead">
                         <tr>
                             <th/>
-                            <th>Device Name</th>
-                            <th>Controller</th>
+                            <th>{_('deviceName')}</th>
+                            <th>{_('controllerDevice')}</th>
                         </tr>
                         </thead>
                         <tbody className="UserDeviceBody">
@@ -232,8 +207,8 @@ export class EditUser
                     <table className="NewUserDevice">
                         <thead className="NewUserDeviceHead">
                             <tr>
-                                <th>Device Name</th>
-                                <th>Controller</th>
+                                <th>{_('deviceName')}</th>
+                                <th>{_('controllerDevice')}</th>
                                 <th/>
                             </tr>
                         </thead>
@@ -274,15 +249,15 @@ export class EditUser
                                     <input
                                         type="submit"
                                         className="btn-add"
-                                        value="Add Device"
+                                        value={_('addDevice')}
                                         onClick={(event) => this.handleAddDevice(event)}
                                     />
                                 </th>
                             </tr>
                         </tbody>
                         <div className="ActionField">
-                            <input type="reset" value="Cancel" />
-                            <input type="submit" value="Edit" onClick={(event) => this.handleSubmit(event)}/>
+                            <input type="reset" value={_('cancel')} />
+                            <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
                         </div>
                     </table>
                     </form>

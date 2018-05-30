@@ -1,5 +1,5 @@
 /* ################################# Navigation ################################# */
-.Navigation{
+.Navigation {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -11,7 +11,6 @@
     top: 0;
     overflow: auto;
 }
-
 .Navigation li a {
     display: block;
     color: white;
@@ -26,20 +25,18 @@
 .Navigation .Home a:hover {
     background-color: transparent;
 }
-
 .fa-caret-down {
     float: right;
     padding-right: 8px;
 }
 /* ################################# Dropdown ################################# */
-
 .Navigation li li a {
      display: block;
      color: white;
      text-align: left;
      padding: 10px 45px;
      text-decoration: none;
- }
+}
 .Navigation li li a:hover {
     background-color: rgba(17,17,17,0.25);
 }
@@ -54,7 +51,6 @@
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
-
 .DropdownNavigation {
     display: none;
 }

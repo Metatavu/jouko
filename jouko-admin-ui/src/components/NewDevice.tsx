@@ -1,9 +1,9 @@
 import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
-// import { DeviceApi } from 'jouko-ts-client';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
 import { take } from 'lodash';
+import { _ } from '../i18n';
 
 interface NewDevicesProps {
     interruptiongroupId: number;
@@ -43,20 +43,8 @@ export class NewDevice
         console.log(this.state.deviceName);
         console.log(this.state.userId);
         console.log(this.state.controllerId);
-        {/*
-        const deviceApi = new DeviceApi(
-            undefined,
-            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
-        deviceApi.createDevice(
-            {
-                deviceId: 0,
-                deviceName: deviceName,
-                userId: userId,
-                controllerId: controllerId
-            });
-        */}
         event.preventDefault();
-        alert('Device created');
+        alert(_('alertDeviceCreated'));
     }
 
     componentDidMount() {
@@ -100,74 +88,30 @@ export class NewDevice
         });
         return (
             <div className="">
-                <h1>New Device
+                <h1>{_('newDevice')}
                     <NavLink to="/ListDevice">
-                        <button className="btn">Show all</button>
+                        <button className="btn">{_('showAll')}</button>
                     </NavLink>
                 </h1>
                 <form className="new-item-form">
-                    {/*
-                    <p>Device ID:</p>
-                    <input
-                        type="text"
-                        name="deviceId"
-                        disabled={true}
-                        value={this.state.deviceId}
-                        onChange={this.handleDeviceIdChange}
-                    />
-                    */}
-                    <p>Devicename:</p>
+                    <p>{_('deviceName')}:</p>
                     <input
                         type="text"
                         name="deviceName"
                         value={this.state.deviceName}
                         onChange={this.handleDeviceNameChange}
                     />
-                    <p>User:</p>
+                    <p>{_('user')}:</p>
                     <select name="userId">
                         {userOption}
-                        {/*
-                        <option
-                            value={this.state.userId}
-                            onChange={this.handleUserIdChange}
-                        >User1
-                        </option>
-                        <option
-                            value={this.state.userId}
-                            onChange={this.handleUserIdChange}
-                        >User2
-                        </option>
-                        <option
-                            value={this.state.userId}
-                            onChange={this.handleUserIdChange}
-                        >User3
-                        </option>
-                        */}
                     </select>
-                    <p>Controller:</p>
+                    <p>{_('controllerDevice')}:</p>
                     <select name="controllerId">
                         {controllerOption}
-                        {/*
-                        <option
-                            value={this.state.controllerId}
-                            onChange={this.handleControllerIdChange}
-                        >Controller1
-                        </option>
-                        <option
-                            value={this.state.controllerId}
-                            onChange={this.handleControllerIdChange}
-                        >Controller2
-                        </option>
-                        <option
-                            value={this.state.controllerId}
-                            onChange={this.handleControllerIdChange}
-                        >Controller3
-                        </option>
-                        */}
                     </select>
                     <div className="ActionField">
-                        <input type="reset" value="Cancel" />
-                        <input type="submit" value="Create" onClick={(event) => this.handleSubmit(event)}/>
+                        <input type="reset" value={_('cancel')} />
+                        <input type="submit" value={_('create')} onClick={(event) => this.handleSubmit(event)}/>
                     </div>
                 </form>
             </div>

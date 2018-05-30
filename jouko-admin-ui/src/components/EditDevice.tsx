@@ -1,7 +1,7 @@
 import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
-// import { DeviceApi } from 'jouko-ts-client';
+import { _ } from '../i18n';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
 import { take } from 'lodash';
 
@@ -48,20 +48,8 @@ export class EditDevice
         console.log(this.state.deviceName);
         console.log(this.state.userId);
         console.log(this.state.controllerId);
-        {/*
-        const deviceApi = new DeviceApi(
-            undefined,
-            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
-        deviceApi.createDevice(
-            {
-                deviceId: 0,
-                deviceName: deviceName,
-                userId: userId,
-                controllerId: controllerId
-            });
-        */}
         event.preventDefault();
-        alert('Device created');
+        alert(_('alertDeviceChanged')!);
     }
 
     componentDidMount() {
@@ -105,40 +93,30 @@ export class EditDevice
         });
         return (
             <div className="">
-                <h1>Edit Device
+                <h1>{_('editDevice')}
                     <NavLink to="/ListDevice">
-                        <button className="btn">Show all</button>
+                        <button className="btn">{_('showAll')}</button>
                     </NavLink>
                 </h1>
                 <form className="edit-item-form">
-                    {/*
-                    <p>Device ID:</p>
-                    <input
-                        type="text"
-                        name="deviceId"
-                        disabled={true}
-                        value={this.state.deviceId}
-                        onChange={this.handleDeviceIdChange}
-                    />
-                    */}
-                    <p>Devicename:</p>
+                    <p>{_('deviceName')}:</p>
                     <input
                         type="text"
                         name="deviceName"
                         value={this.state.deviceName}
                         onChange={this.handleDeviceNameChange}
                     />
-                    <p>User:</p>
+                    <p>{_('user')}:</p>
                     <select name="userId">
                         {userOption}
                     </select>
-                    <p>Controller:</p>
+                    <p>{_('controllerDevice')}:</p>
                     <select name="controllerId">
                         {controllerOption}
                     </select>
                     <div className="ActionField">
-                        <input type="reset" value="Cancel" />
-                        <input type="submit" value="Edit" onClick={(event) => this.handleSubmit(event)}/>
+                        <input type="reset" value={_('cancel')} />
+                        <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
                     </div>
                 </form>
             </div>

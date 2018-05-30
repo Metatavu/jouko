@@ -2,117 +2,12 @@ import '../App.tsx';
 import './Navigation.css';
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
+import { _ } from '../i18n';
 
 const logo = require('../logo.svg');
-let classes1: string;
-let classes2: string;
-let classes3: string;
 
-enum State {
-    OPEN,
-    CLOSED,
-    START
-}
-
-interface NavigationState {
-    state: State;
-    currentmenu: string;
-}
-
-export class Navigation extends React.Component<{}, NavigationState> {
-
-    constructor(props: {}) {
-        super(props);
-        this.state = {state: State.START, currentmenu: ''};
-    }
-    onMenuClick(menu: string) {
-        switch (this.state.state) {
-            case State.OPEN:
-                this.setState({state: State.CLOSED, currentmenu: menu});
-                break;
-            case State.CLOSED:
-                this.setState({state: State.OPEN, currentmenu: menu});
-                break;
-            case State.START:
-                this.setState({state: State.OPEN, currentmenu: ''});
-                break;
-            default:
-                this.setState({state: State.START, currentmenu: ''});
-                break;
-        }
-    }
-
+export class Navigation extends React.Component {
     render() {
-        switch (this.state.state) {
-            case State.OPEN:
-                if (this.state.currentmenu === 'Interruptiongroups') {
-                    if (classes1 === 'DropdownNavigation open') {
-                        classes1 = 'DropdownNavigation';
-                    } else {
-                        classes1 = 'DropdownNavigation open';
-                    }
-                    classes2 = 'DropdownNavigation';
-                    classes3 = 'DropdownNavigation';
-                }
-                if (this.state.currentmenu === 'User') {
-                    classes1 = 'DropdownNavigation';
-                    if (classes2 === 'DropdownNavigation open') {
-                        classes2 = 'DropdownNavigation';
-                    } else {
-                        classes2 = 'DropdownNavigation open';
-                    }
-                    classes3 = 'DropdownNavigation';
-                }
-                if (this.state.currentmenu === 'Device') {
-                    classes1 = 'DropdownNavigation';
-                    classes2 = 'DropdownNavigation';
-                    if (classes3 === 'DropdownNavigation open') {
-                        classes3 = 'DropdownNavigation';
-                    } else {
-                        classes3 = 'DropdownNavigation open';
-                    }
-                }
-                break;
-            case State.CLOSED:
-                if (this.state.currentmenu === 'Interruptiongroups') {
-                    if (classes1 === 'DropdownNavigation open') {
-                        classes1 = 'DropdownNavigation';
-                    } else {
-                        classes1 = 'DropdownNavigation open';
-                    }
-                    classes2 = 'DropdownNavigation';
-                    classes3 = 'DropdownNavigation';
-                }
-                if (this.state.currentmenu === 'User') {
-                    classes1 = 'DropdownNavigation';
-                    if (classes2 === 'DropdownNavigation open') {
-                        classes2 = 'DropdownNavigation';
-                    } else {
-                        classes2 = 'DropdownNavigation open';
-                    }
-                    classes3 = 'DropdownNavigation';
-                }
-                if (this.state.currentmenu === 'Device') {
-                    classes1 = 'DropdownNavigation';
-                    classes2 = 'DropdownNavigation';
-                    if (classes3 === 'DropdownNavigation open') {
-                        classes3 = 'DropdownNavigation';
-                    } else {
-                        classes3 = 'DropdownNavigation open';
-                    }
-                }
-                break;
-            case State.START:
-                classes1 = 'DropdownNavigation';
-                classes2 = 'DropdownNavigation';
-                classes3 = 'DropdownNavigation';
-                break;
-            default:
-                classes1 = 'DropdownNavigation';
-                classes2 = 'DropdownNavigation';
-                classes3 = 'DropdownNavigation';
-                break;
-        }
         return (
             <div>
                 <ul className="Navigation">
@@ -122,83 +17,39 @@ export class Navigation extends React.Component<{}, NavigationState> {
                         </NavLink>
                     </li>
                     <li>
-                        {/*
-                        <a onClick={() => this.onMenuClick('Interruptiongroups')}>Interruptiongroups
-                        <i className="fa fa-caret-down"/>
-                        </a>
-                        */}
-                        <NavLink to="/ListInterruptionGroups">Interruptiongroups</NavLink>
-                        {/* <div className={classes1}> */}
+                        <NavLink to="/ListInterruptionGroups">{_('interruptionGroups')}</NavLink>
                         <div>
                             <li>
-                                <NavLink to="/ListInterruptionGroups">All Interruptiongroups</NavLink>
+                                <NavLink to="/ListInterruptionGroups">{_('allInterruptionGroups')}</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/NewInterruptionGroup">New Interruptiongroup</NavLink>
+                                <NavLink to="/NewInterruptionGroup">{_('newInterruptionGroups')}</NavLink>
                             </li>
                         </div>
                     </li>
                     <li>
-                        {/*
-                        <a onClick={() => this.onMenuClick('User')}>User
-                        <i className="fa fa-caret-down"/>
-                        </a>
-                        */}
-                        <NavLink to="/ListUser">User</NavLink>
-                        {/* <div className={classes2}> */}
+                        <NavLink to="/ListUser">{_('user')}</NavLink>
                         <div>
                             <li>
-                                <NavLink to="/ListUser">All Users</NavLink>
+                                <NavLink to="/ListUser">{_('allUsers')}</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/NewUser">New User</NavLink>
+                                <NavLink to="/NewUser">{_('newUser')}</NavLink>
                             </li>
                         </div>
                     </li>
                     <li>
-                        {/*
-                        <a onClick={() => this.onMenuClick('Device')}>Device
-                        <i className="fa fa-caret-down"/>
-                        </a>
-                        */}
-                        <NavLink to="/ListDevice">Device</NavLink>
-                        {/* <div className={classes3}> */}
+
+                        <NavLink to="/ListDevice">{_('device')}</NavLink>
                         <div>
                             <li>
-                                <NavLink to="/ListDevice">All Devices</NavLink>
+                                <NavLink to="/ListDevice">{_('allDevices')}</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/NewDevice">New Device</NavLink>
+                                <NavLink to="/NewDevice">{_('newDevice')}</NavLink>
                             </li>
                         </div>
                     </li>
-                    {/*
-                    <li>
-                        <a onClick={() => this.onMenuClick('Menu5')}>Menu5
-                            <i className="fa fa-caret-down"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a onClick={() => this.onMenuClick('Menu6')}>Menu6
-                            <i className="fa fa-caret-down"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a onClick={() => this.onMenuClick('Menu7')}>Menu7
-                            <i className="fa fa-caret-down"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a onClick={() => this.onMenuClick('Menu8')}>Menu8
-                            <i className="fa fa-caret-down"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a onClick={() => this.onMenuClick('Menu9')}>Menu9
-                            <i className="fa fa-caret-down"/>
-                        </a>
-                    </li>
-                    */}
                 </ul>
             </div>
         );

@@ -2,6 +2,7 @@ import * as React from 'react';
 import '../App.tsx';
 import './Topbar.css';
 import { NavLink } from 'react-router-dom';
+import { _ } from '../i18n';
 
 interface TopbarProps {
     logout(): void;
@@ -34,7 +35,12 @@ export class Topbar
                     </NavLink>
                 </li>
                 <li>
-                    <input type="text" name="search" placeholder="Search..." className="inputSearch"/>
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder={_('search')}
+                        className="inputSearch"
+                    />
                 </li>
             </ul>
         );

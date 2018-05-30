@@ -2,6 +2,7 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
+import { _ } from '../i18n';
 
 interface DeviceProps {
     deviceId: number;
@@ -10,10 +11,9 @@ interface DeviceProps {
     lastname: string;
     controllerId: number;
 }
-
 export class ListDevice extends React.Component<DeviceProps> {
     handleDeleteDevice(event: React.FormEvent<HTMLDivElement>) {
-        if (confirm('This device will be deleted!')) {
+        if (confirm(_('confirmDeleteDevice'))) {
             console.log(this.props.deviceId);
             console.log(this.props.deviceName);
             console.log(this.props.firstname);
@@ -23,23 +23,23 @@ export class ListDevice extends React.Component<DeviceProps> {
         this.forceUpdate();
     }
     sortById(event: React.FormEvent<HTMLOptionElement>) {
-        alert('Sort by ID');
+        alert(_('sortBy'));
     }
     sortByDeviceName(event: React.FormEvent<HTMLOptionElement>) {
-        alert('Sort by Device Name');
+        alert(_('sortBy'));
     }
     sortByUser(event: React.FormEvent<HTMLOptionElement>) {
-        alert('Sort by User');
+        alert(_('sortBy'));
     }
     sortByController(event: React.FormEvent<HTMLOptionElement>) {
-        alert('Sort by Controller');
+        alert(_('sortBy'));
     }
     render() {
         return (
             <div className="">
-                <h1>All Devices
+                <h1>{_('allDevices')}
                     <NavLink to="/NewDevice">
-                        <button className="btn">New Device</button>
+                        <button className="btn">{_('newDevice')}</button>
                     </NavLink>
                 </h1>
                 <div className="sweet-loading">
@@ -49,12 +49,12 @@ export class ListDevice extends React.Component<DeviceProps> {
                     />
                 </div>
                 <div className="SearchFilter">
-                    <p>Sort by:
+                    <p>{_('sortBy')}:
                     <select>
                         <option onClick={this.sortById}>ID</option>
-                        <option onClick={this.sortByDeviceName}>Device Name</option>
-                        <option onClick={this.sortByUser}>User</option>
-                        <option onClick={this.sortByController}>Controller</option>
+                        <option onClick={this.sortByDeviceName}>{_('deviceName')}</option>
+                        <option onClick={this.sortByUser}>{_('user')}</option>
+                        <option onClick={this.sortByController}>{_('controllerDevice')}</option>
                     </select>
                     </p>
                 </div>
@@ -64,9 +64,9 @@ export class ListDevice extends React.Component<DeviceProps> {
                         <th/>
                         <th/>
                         <th>ID</th>
-                        <th>Device Name</th>
-                        <th>User</th>
-                        <th>Controller</th>
+                        <th>{_('deviceName')}</th>
+                        <th>{_('user')}</th>
+                        <th>{_('controllerDevice')}</th>
                     </tr>
                     </thead>
                     <tbody className="DeviceBody">

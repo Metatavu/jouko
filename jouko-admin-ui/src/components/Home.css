@@ -1,22 +1,22 @@
-.HomeContainer{
+.HomeContainer {
     margin-left: 20rem;
     padding-top: 5rem;
     margin-bottom: 5rem;
     width: 75%;
 }
-.HomeContent{
+.HomeContent {
     width: calc(100% - 4rem)
 }
-hr{
+hr {
     color: #fefefe;
 }
-.HomeText{
+.HomeText {
     width: 85%;
     text-align: center;
     margin: auto;
     padding-top: 50px;
 }
-.HomeChart{
+.HomeChart {
     width: 100%;
     display: flex;
     flex-flow: row wrap;
@@ -24,10 +24,10 @@ hr{
 }
 
 @media only screen and (min-width: 769px) {
-    .HomeChart1{
+    .HomeChart1 {
         width: 55%;
     }
-    .HomeChart2{
+    .HomeChart2 {
         width: 45%;
         margin: auto;
     }
@@ -36,10 +36,10 @@ hr{
     }
 }
 @media only screen and (max-width: 768px) {
-    .HomeChart1{
+    .HomeChart1 {
         width: 90%;
     }
-    .HomeChart2{
+    .HomeChart2 {
         width: 90%;
         margin: auto;
     }
@@ -48,13 +48,13 @@ hr{
     }
 }
 
-.ExampleContainer{
+.ExampleContainer {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
     padding-top: 50px;
 }
-.ExampleContainer1{
+.ExampleContainer1 {
     text-align: center;
     box-shadow: 0 0 6px 0 rgba(0,0,0,0.9);
     border-radius: 10px;
@@ -63,14 +63,14 @@ hr{
     margin-right:1.5%;
     margin-bottom: 60px;
 }
-.ExampleContainer1:hover{
+.ExampleContainer1:hover {
     box-shadow: 0 0 6px 0 #269ca0;
 }
-.ExampleContainer1 a{
+.ExampleContainer1 a {
     text-decoration: none;
     color: inherit;
 }
-.ExampleContainer1 h4{
+.ExampleContainer1 h4 {
     padding-left: 25px;
     padding-right: 25px;
     padding-top: 45px;

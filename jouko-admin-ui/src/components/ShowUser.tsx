@@ -1,6 +1,7 @@
 import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
+import { _ } from '../i18n';
 
 interface ShowUserProps {
     userId: number;
@@ -66,28 +67,28 @@ export class ShowUser
                     </NavLink>
                 </h1>
                 <form className="edit-item-form">
-                    <p>UserID:</p>
+                    <p>{_('userId')}:</p>
                     <input
                         type="text"
                         name="userId"
                         disabled={true}
                         value={this.props.userId}
                     />
-                    <p>Keycloak ID:</p>
+                    <p>{_('keykloakId')}:</p>
                     <input
                         type="text"
                         name="keycloakId"
                         disabled={true}
                         value={this.state.keycloakId}
                     />
-                    <p>Firstname:</p>
+                    <p>{_('firstname')}:</p>
                     <input
                         type="text"
                         name="firstname"
                         disabled={true}
                         value={this.state.firstname}
                     />
-                    <p>Lastname:</p>
+                    <p>{_('lastname')}:</p>
                     <input
                         type="text"
                         name="lastname"

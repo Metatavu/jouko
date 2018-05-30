@@ -2,6 +2,7 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
+import { _ } from '../i18n';
 
 interface UserProps {
     userId: number;
@@ -14,7 +15,7 @@ interface UserProps {
 
 export class ListUser extends React.Component<UserProps> {
     handleDeleteUser(event: React.FormEvent<HTMLDivElement>) {
-        if (confirm('This user will be deleted!')) {
+        if (confirm(_('confirmDeleteUser'))) {
             console.log(this.props.userId);
             console.log(this.props.keycloakId);
             console.log(this.props.username);
@@ -24,24 +25,24 @@ export class ListUser extends React.Component<UserProps> {
         this.forceUpdate();
     }
     sortById(event: React.FormEvent<HTMLOptionElement>) {
-        alert('Sort by ID');
+        alert(_('sortBy'));
     }
     sortByUsername(event: React.FormEvent<HTMLOptionElement>) {
-        alert('Sort by Username');
+        alert(_('sortBy'));
     }
     sortByFirstname(event: React.FormEvent<HTMLOptionElement>) {
-        alert('Sort by Firstname');
+        alert(_('sortBy'));
     }
     sortByLastname(event: React.FormEvent<HTMLOptionElement>) {
-        alert('Sort by Lastname');
+        alert(_('sortBy'));
     }
 
     render() {
         return (
             <div className="">
-                <h1>All Users
+                <h1>{_('allUsers')}
                     <NavLink to="/NewUser">
-                        <button className="btn">New User</button>
+                        <button className="btn">{_('newUser')}</button>
                     </NavLink>
                 </h1>
                 <div className="sweet-loading">
@@ -51,12 +52,12 @@ export class ListUser extends React.Component<UserProps> {
                     />
                 </div>
                 <div className="SearchFilter">
-                    <p>Sort by:
+                    <p>{_('sortBy')}
                     <select>
                         <option onClick={this.sortById}>ID</option>
-                        <option onClick={this.sortByUsername}>Username</option>
-                        <option onClick={this.sortByFirstname}>Firstname</option>
-                        <option onClick={this.sortByLastname}>Lastname</option>
+                        <option onClick={this.sortByUsername}>{_('username')}</option>
+                        <option onClick={this.sortByFirstname}>{_('firstname')}</option>
+                        <option onClick={this.sortByLastname}>{_('lastname')}</option>
                     </select>
                     </p>
                 </div>
@@ -66,9 +67,9 @@ export class ListUser extends React.Component<UserProps> {
                         <th/>
                         <th/>
                         <th>ID</th>
-                        <th>Username</th>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
+                        <th>{_('username')}</th>
+                        <th>{_('firstname')}</th>
+                        <th>{_('lastname')}</th>
                         <th/>
                     </tr>
                     </thead>

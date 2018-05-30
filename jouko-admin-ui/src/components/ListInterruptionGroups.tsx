@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { format as formatDate, parse as parseDate } from 'date-fns';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
 import { BeatLoader } from 'react-spinners';
+import { _ } from '../i18n';
 
 interface InterruptionGroupProps {
     interruptiongroupId: number;
@@ -36,7 +37,7 @@ export class InterruptionGroup
     }
 
     handleDeleteInterruptionGroup(event: React.FormEvent<HTMLDivElement>) {
-        if (confirm('This interruptiongroup will be deleted!')) {
+        if (confirm(_('confirmDeleteInterruptionGroup'))) {
             console.log(this.props.interruptiongroupId);
             console.log(this.props.starttime);
             console.log(this.props.endttime);
@@ -245,9 +246,9 @@ export class ListInterruptionGroups
 
         return (
             <div className="">
-                <h1>All Interruptiongroups
+                <h1>{_('allInterruptionGroups')}
                     <NavLink to="/NewInterruptionGroup">
-                        <button className="btn">New Interruptiongroup</button>
+                        <button className="btn">{_('newInterruptionGroups')}</button>
                     </NavLink>
                 </h1>
                 <div className="sweet-loading">
@@ -257,22 +258,22 @@ export class ListInterruptionGroups
                     />
                 </div>
                 <div className="SearchFilter">
-                    <p>Sort by:
+                    <p>{_('sortBy')}:
                     <select>
-                        <option onClick={this.sortByIdASC}>ID low -> high</option>
-                        <option onClick={this.sortByIdDESC}>ID high -> low</option>
-                        <option onClick={this.sortByStarttimeASC}>Starttime low -> high</option>
-                        <option onClick={this.sortByStarttimeDESC}>Starttime high -> low</option>
-                        <option onClick={this.sortByEndtimeASC}>Endtime low -> high</option>
-                        <option onClick={this.sortByEndtimeDESC}>Endtime high -> low</option>
-                        <option onClick={this.sortByPowerSavedASC}>Power Saved [kW] low -> high</option>
-                        <option onClick={this.sortByPowerSavedDESC}>Power Saved [kW] high -> low</option>
-                        <option onClick={this.sortByOverbookingASC}>Overbooking [%] low -> high</option>
-                        <option onClick={this.sortByOverbookingDESC}>Overbooking [%] high -> low</option>
+                        <option onClick={this.sortByIdASC}>ID {_('lowHigh')}</option>
+                        <option onClick={this.sortByIdDESC}>ID {_('highLow')}</option>
+                        <option onClick={this.sortByStarttimeASC}>{_('starttime')} {_('lowHigh')}</option>
+                        <option onClick={this.sortByStarttimeDESC}>{_('starttime')} {_('highLow')}</option>
+                        <option onClick={this.sortByEndtimeASC}>{_('endtime')} {_('lowHigh')}</option>
+                        <option onClick={this.sortByEndtimeDESC}>{_('endtime')} {_('highLow')}</option>
+                        <option onClick={this.sortByPowerSavedASC}>{_('powerSaved')} {_('lowHigh')}</option>
+                        <option onClick={this.sortByPowerSavedDESC}>{_('powerSaved')} {_('highLow')}</option>
+                        <option onClick={this.sortByOverbookingASC}>{_('overbooking')} {_('lowHigh')}</option>
+                        <option onClick={this.sortByOverbookingDESC}>{_('overbooking')} {_('highLow')}</option>
                     </select>
                     </p>
                     <p>
-                        Search for *
+                        {_('searchFor')}:
                         <input
                             type="text"
                             name="search"
@@ -280,25 +281,24 @@ export class ListInterruptionGroups
                             className="SearchInput"
                             onChange={this.search}
                         />
-                        in
+                        {_('in')}:
                         <select>
                             <option value="id" onClick={this.searchColumn}>ID</option>
-                            <option value="startTime" onClick={this.searchColumn}>Starttime</option>
-                            <option value="endTime" onClick={this.searchColumn}>Endtime</option>
+                            <option value="startTime" onClick={this.searchColumn}>{_('starttime')}</option>
+                            <option value="endTime" onClick={this.searchColumn}>{_('endtime')}</option>
                             <option
                                 value="powerSavingGoalInWatts"
                                 onClick={this.searchColumn}
-                            >Power Saved [kW]
+                            >{_('powerSaved')}
                             </option>
-                            <option value="overbookingFactor" onClick={this.searchColumn}>Overbooking [%]</option>
+                            <option value="overbookingFactor" onClick={this.searchColumn}>{_('overbooking')}</option>
                         </select>
                     </p>
                     <p className="SearchNote">
-                        * Search for dates and times like this YYYY-MM-DD or HH:MM
+                        {_('searchForHint1')}
                     </p>
                     <p className="SearchNote">
-                        Do not include '%' or 'kW' when searching in column 'Power Saved [kW]' or 'Overbooking [%]'.
-                        You also don't need any wildcards like '*' or '?'.
+                        {_('searchForHint2')}
                     </p>
                 </div>
                 <table className="All">
@@ -307,10 +307,10 @@ export class ListInterruptionGroups
                             <th/>
                             <th/>
                             <th>ID</th>
-                            <th>Starttime</th>
-                            <th>Endtime</th>
-                            <th>Power Saved [kW]</th>
-                            <th>Overbooking [%]</th>
+                            <th>{_('starttime')}</th>
+                            <th>{_('endtime')}</th>
+                            <th>{_('powerSaved')}</th>
+                            <th>{_('overbooking')}</th>
                         </tr>
                     </thead>
                     <tbody className="InterruptionsgroupBody">

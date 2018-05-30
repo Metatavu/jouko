@@ -1,13 +1,13 @@
-.FlagBar{
+.FlagBar {
     right: 0;
     position: fixed;
     top: 40%;
     text-decoration: none;
     list-style-type: none;
 }
-.FlagBar li{
+.FlagBar li {
    margin-top: 10px;
 }
-.FlagBar img{
+.FlagBar img {
    border: 1px solid #ededed;
 }
