@@ -49,14 +49,14 @@ export class ListDevice extends React.Component<DeviceProps> {
                     />
                 </div>
                 <div className="SearchFilter">
-                    Sort by:
+                    <p>Sort by:
                     <select>
                         <option onClick={this.sortById}>ID</option>
                         <option onClick={this.sortByDeviceName}>Device Name</option>
                         <option onClick={this.sortByUser}>User</option>
                         <option onClick={this.sortByController}>Controller</option>
                     </select>
-                    <br/>
+                    </p>
                 </div>
                 <table className="All">
                     <thead className="DeviceHead">

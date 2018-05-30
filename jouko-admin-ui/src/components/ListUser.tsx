@@ -51,14 +51,14 @@ export class ListUser extends React.Component<UserProps> {
                     />
                 </div>
                 <div className="SearchFilter">
-                    Sort by:
+                    <p>Sort by:
                     <select>
                         <option onClick={this.sortById}>ID</option>
                         <option onClick={this.sortByUsername}>Username</option>
                         <option onClick={this.sortByFirstname}>Firstname</option>
                         <option onClick={this.sortByLastname}>Lastname</option>
                     </select>
-                    <br/>
+                    </p>
                 </div>
                 <table className="AllUser">
                     <thead>

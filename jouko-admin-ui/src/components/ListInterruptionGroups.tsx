@@ -85,6 +85,8 @@ interface InterruptionGroupsState {
     loading: boolean;
     sortingElement: string;
     sortingDirection: string;
+    searchTerm: string;
+    searchColumn: string;
 }
 
 export class ListInterruptionGroups
@@ -97,6 +99,8 @@ export class ListInterruptionGroups
             loading: true,
             sortingElement: 'interruptiongroupId',
             sortingDirection: 'ASC',
+            searchTerm: '',
+            searchColumn: 'id',
         };
         this.sortByIdASC = this.sortByIdASC.bind(this);
         this.sortByStarttimeASC = this.sortByStarttimeASC.bind(this);
@@ -108,6 +112,8 @@ export class ListInterruptionGroups
         this.sortByEndtimeDESC = this.sortByEndtimeDESC.bind(this);
         this.sortByPowerSavedDESC = this.sortByPowerSavedDESC.bind(this);
         this.sortByOverbookingDESC = this.sortByOverbookingDESC.bind(this);
+        this.search = this.search.bind(this);
+        this.searchColumn = this.searchColumn.bind(this);
     }
     sortByIdASC(event: React.FormEvent<HTMLOptionElement>) {
         this.setState({
@@ -179,6 +185,14 @@ export class ListInterruptionGroups
         });
         this.fetchInterruptionGroups();
     }
+    search(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({searchTerm: event.currentTarget.value});
+        this.fetchInterruptionGroups();
+    }
+    searchColumn(event: React.FormEvent<HTMLOptionElement>) {
+        this.setState({searchColumn: event.currentTarget.value});
+        this.fetchInterruptionGroups();
+    }
 
     componentDidMount() {
         this.fetchInterruptionGroups();
@@ -192,13 +206,16 @@ export class ListInterruptionGroups
         const rowProps: InterruptionGroupProps[] = [];
 
         for (const interruptionGroup of interruptionGroups) {
-            rowProps.push({
-                interruptiongroupId: interruptionGroup.id,
-                starttime: parseDate(interruptionGroup.startTime),
-                endttime: parseDate(interruptionGroup.endTime),
-                powerSavingGoalInWatts: interruptionGroup.powerSavingGoalInWatts || 0.0,
-                overbookingFactor: interruptionGroup.overbookingFactor || 0.0
-            });
+            const searchColumn = this.state.searchColumn.toString();
+            if (interruptionGroup[searchColumn].toString().match(this.state.searchTerm )) {
+                rowProps.push({
+                    interruptiongroupId: interruptionGroup.id,
+                    starttime: parseDate(interruptionGroup.startTime),
+                    endttime: parseDate(interruptionGroup.endTime),
+                    powerSavingGoalInWatts: interruptionGroup.powerSavingGoalInWatts || 0.0,
+                    overbookingFactor: interruptionGroup.overbookingFactor || 0.0
+                });
+            }
         }
         if (this.state.sortingDirection === 'ASC') {
             rowProps.sort((a, b) => {
@@ -253,6 +270,34 @@ export class ListInterruptionGroups
                         <option onClick={this.sortByOverbookingASC}>Overbooking [%] low -> high</option>
                         <option onClick={this.sortByOverbookingDESC}>Overbooking [%] high -> low</option>
                     </select>
+                    </p>
+                    <p>
+                        Search for *
+                        <input
+                            type="text"
+                            name="search"
+                            placeholder="Search..."
+                            className="SearchInput"
+                            onChange={this.search}
+                        />
+                        in
+                        <select>
+                            <option value="id" onClick={this.searchColumn}>ID</option>
+                            <option value="startTime" onClick={this.searchColumn}>Starttime</option>
+                            <option value="endTime" onClick={this.searchColumn}>Endtime</option>
+                            <option
+                                value="powerSavingGoalInWatts"
+                                onClick={this.searchColumn}
+                            >Power Saved [kW]
+                            </option>
+                            <option value="overbookingFactor" onClick={this.searchColumn}>Overbooking [%]</option>
+                        </select>
+                    </p>
+                    <p className="SearchNote">
+                        * Search for dates like this: YYYY-MM-DD
+                    </p>
+                    <p className="SearchNote">
+                         Do not include '%' or 'kW' when searching in column 'Power Saved [kW]' or 'Overbooking [%]'
                     </p>
                 </div>
                 <table className="All">

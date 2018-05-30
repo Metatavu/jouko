@@ -266,11 +266,26 @@ table a i {
     height: 100%;
     border: 1px solid #ededed;
     font-size: 110%;
+    padding-bottom: 25px;
 }
 .SearchFilter p{
-    padding: 25px;
+    margin-left: 25px;
+    padding-top: 25px;
+}
+.SearchNote{
+    font-size: 80%;
+    color: #7f7f7f;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
 }
 .SearchFilter select {
     padding: 10px;
     margin-left: 25px;
+    margin-right: 25px;
+}
+.SearchInput {
+    padding: 10px;
+    margin-left: 25px;
+    margin-right: 25px;
 }
