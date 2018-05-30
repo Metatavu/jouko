@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { PowerUsageSummaries } from './PowerUsageSummary';
 import { UpcomingInterruptions } from './UpcomingInterruptions';
+import { PowerUsageSummaries } from './PowerUsageSummary';
 
 interface  HomeProps {
   currentUserId: number;

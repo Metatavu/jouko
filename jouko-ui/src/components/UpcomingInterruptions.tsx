@@ -3,6 +3,7 @@ import { InterruptionsApi, DevicesApi } from 'jouko-ts-client';
 import { addYears, format as formatDate, parse as parseDate } from 'date-fns';
 import { take } from 'lodash';
 import '../App.css';
+import { _ } from '../i18n';
 
 interface UpcomingInterruptionProps {
   id: number;
@@ -25,19 +26,19 @@ export class UpcomingInterruption
         <button
           className="btn2"
           onClick={() => {
-            if (confirm('Are you sure that you want to cancel this interruption?')) {
+            if (confirm(_('confirmCancelInterruption'))) {
               this.props.cancelInterruption();
             }
           }}
 
         >
-          ESTÄ KATKO
+          {_('preventInterruptions')}
         </button>
 
       );
 
     } else {
-      button = <button className="btn3" >CANCELLED</button>;
+      button = <button className="btn3" >{_('cancelled')}</button>;
     }
 
     let startdate = formatDate(this.props.startTime, 'dd DD.MM.YYYY');
@@ -62,20 +63,6 @@ export class UpcomingInterruption
           </div>
         </div>
       </div>
-      /*
-        <tr>
-          <td id="column1">
-            {this.props.deviceName}
-          </td>
-          <td id="column2">
-            {startdate} klo {starttime} - {enddate} klo {endtime}
-          </td>
-          <td id="column3">
-            {button}
-          </td>
-        </tr>
-        */
-
     );
   }
 }
@@ -165,7 +152,7 @@ export class UpcomingInterruptions
 
     return (
       <div className="UpcomingInterruptions">
-        <h1 className="App-title">TULEVAT KATKOT</h1>
+        <h1 className="App-title">{_('incomingInterruptions')}</h1>
         <div className="UpcomingInterruptionsContent">
           {rows}
         </div>

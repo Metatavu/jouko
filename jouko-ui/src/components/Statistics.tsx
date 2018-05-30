@@ -7,6 +7,7 @@ import { format as formatDate } from 'date-fns';
 import { take } from 'lodash';
 import { BeatLoader } from 'react-spinners';
 import '../App.css';
+import { _ } from '../i18n';
 
 interface ChartProps {
   deviceId: number;
@@ -135,15 +136,15 @@ export class Statistics
     const hourChart = this.state.rowProps.map(prop => {
       return (
         <div key={prop.deviceId.toString()}>
-          <h1>Current Device: {prop.deviceId.toString()}</h1>
-          <h2>Statistics | 1 h</h2>
+          <h1>{_('device')}: {prop.deviceId.toString()}</h1>
+          <h2>{_('statistics')} | {_('1hour')}</h2>
           <Bar
             data={
               {
                 labels: prop.hourLabels,
                 datasets: [
                   {
-                    label: '1 hour',
+                    label: _('1hour'),
                     backgroundColor: 'rgba(48,196,201,0.2)',
                     borderColor: 'rgba(48,196,201,1)',
                     borderWidth: 1,
@@ -155,14 +156,14 @@ export class Statistics
               }
             }
           />
-          <h2>Statistics | 24h</h2>
+          <h2>{_('statistics')} | {_('24hours')}</h2>
           <Bar
             data={
               {
                 labels: prop.hoursLabels,
                 datasets: [
                   {
-                    label: '24 hours',
+                    label: _('24hours'),
                     backgroundColor: 'rgba(48,196,201,0.2)',
                     borderColor: 'rgba(48,196,201,1)',
                     borderWidth: 1,
@@ -174,14 +175,14 @@ export class Statistics
               }
             }
           />
-          <h2>Statistics | 30 days</h2>
+          <h2>{_('statistics')} | {_('30days')}</h2>
           <Line
             data={
             {
               labels: prop.daysLabels,
               datasets: [
                 {
-                  label: '30 days',
+                  label: _('30days'),
                   fill: false,
                   lineTension: 0.1,
                   borderWidth: 1,
@@ -213,12 +214,12 @@ export class Statistics
       <div>
         <div className="StatisticsFilter">
           <select>
-            <option>Select Statistics ...</option>
+            <option>{_('selectStatistics')}...</option>
             <option
               value="/StatisticsSummary"
               onClick={this.onUrlSelected}
             >
-              All Statistics
+              {_('allStatistics')}
             </option>
             {filterOptions}
           </select>

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { _ } from '../i18n';
 
 interface  UserProps {
   username: string;
@@ -37,55 +38,35 @@ export class User extends React.Component<UserProps, UserState> {
   }
 
   handleSubmit(event: React.FormEvent<HTMLInputElement>) {
-    {/*
-    let interruptionStartDate = this.state.startDate;
-    let interruptionStartTime = this.state.startTime;
-    const starttime = parseDate(interruptionStartDate + 'T' + interruptionStartTime);
-    let interruptionDuration = this.state.duration;
-    let interruptionDurationHour = Number(interruptionDuration.split(':')[0]);
-    let interruptionDurationMinutes = Number(interruptionDuration.split(':')[1]);
-    let endtime = addMinutes(starttime, interruptionDurationMinutes);
-    endtime = addHours(endtime, interruptionDurationHour);
-    const interruptionGroupsApi = new InterruptionGroupsApi(
-      undefined,
-      'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
-    interruptionGroupsApi.createInterruptionGroup(
-      {
-        id: 0,
-        startTime: starttime.toISOString(),
-        endTime: endtime.toISOString()
-      });
-      */}
-
     event.preventDefault();
-    alert('User successfully changed!');
+    alert(_('alertUserDataChanged'));
   }
    render() {
     return(
       <div className="UserSettings">
         <form>
-          <p>Username:</p>
+          <p>{_('username')}:</p>
           <input
             type="text"
             name="username"
             placeholder={this.state.username}
             disabled={true}
           />
-          <p>Email:</p>
+          <p>{_('email')}:</p>
           <input
             type="email"
             name="email"
             value={this.state.email}
             onChange={this.handleEmailChange}
           />
-          <p>Firstname:</p>
+          <p>{_('firstname')}:</p>
           <input
             type="text"
             name="firstName"
             value={this.state.firstname}
             onChange={this.handleFirstnameChange}
           />
-          <p>Lastname:</p>
+          <p>{_('lastname')}:</p>
           <input
             type="text"
             name="lastName"
@@ -94,11 +75,11 @@ export class User extends React.Component<UserProps, UserState> {
           />
           <input
             type="reset"
-            value="Cancel"
+            value={_('cancel')}
           />
           <input
             type="submit"
-            value="Save"
+            value={_('save')}
             onClick={(event) => this.handleSubmit(event)}
           />
         </form>

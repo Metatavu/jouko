@@ -1,6 +1,7 @@
 import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
+import { _ } from '../i18n';
 
 enum State {
   CLOSED,
@@ -57,16 +58,16 @@ export class Header
         </div>
         <div className={classes}>
           <ul>
-            <li><NavLink to="/"><i className="fa fa-home fa-fw"/>Home</NavLink></li>
-            <li><NavLink to="/User"><i className="fa fa-user fa-fw"/>User</NavLink></li>
+            <li><NavLink to="/"><i className="fa fa-home fa-fw"/>{_('home')}</NavLink></li>
+            <li><NavLink to="/User"><i className="fa fa-user fa-fw"/>{_('user')}</NavLink></li>
             <li><NavLink to="/StatisticsSummary" onClick={() => window.scrollTo(0, 0)}>
-              <i className="fa fa-line-chart fa-fw"/>Statistics
+              <i className="fa fa-line-chart fa-fw"/>{_('statistics')}
             </NavLink></li>
             {/*
             <li><NavLink to="/Settings"><i className="fa fa-cogs fa-fw"/>Settings</NavLink></li>
             */}
             <li><NavLink to="/" onClick={() => this.props.logout()}>
-              <i className="fa fa-sign-out fa-fw" />Logout</NavLink></li>
+              <i className="fa fa-sign-out fa-fw" />{_('logout')}</NavLink></li>
           </ul>
         </div>
       </div>

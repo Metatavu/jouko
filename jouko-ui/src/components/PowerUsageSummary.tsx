@@ -4,6 +4,7 @@ import { DevicesApi } from 'jouko-ts-client';
 import { format as formatDate, subHours } from 'date-fns';
 import { NavLink } from 'react-router-dom';
 import '../App.css';
+import { _ } from '../i18n';
 
 interface PowerUsageSummaryProps {
   deviceId: number;
@@ -89,7 +90,7 @@ export class PowerUsageSummaries
 
     return (
       <div>
-        <h1>TEHONKULUTUS</h1>
+        <h1>{_('powerConsumption')}</h1>
         <div className="PowerUsageSummaryContent">
           {rows}
           <div className="PowerUsageSummaryCard">
@@ -98,8 +99,8 @@ export class PowerUsageSummaries
             </NavLink>
             <div className="PowerUsageSummaryContainer">
               <NavLink to={'/StatisticsSummary'} onClick={() => window.scrollTo(0, 0)}>
-                <h4>Kooste (Kaikki)</h4>
-                <p>Show all</p>
+                <h4>{_('preventInterruptions')}</h4>
+                <p/>
               </NavLink>
             </div>
           </div>

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Bottombar.css';
 import '../App.tsx';
+import { _ } from '../i18n';
 
 export function Bottombar () {
     return (
@@ -9,29 +10,21 @@ export function Bottombar () {
             <li>
                 <NavLink to="/User">
                   <i className="fa fa-user fa-user"/>
-                  <p>User</p>
+                  <p>{_('user')}</p>
                 </NavLink>
             </li>
             <li>
                 <NavLink to="/">
                   <i className="fa fa-home fa-home"/>
-                  <p>Home</p>
+                  <p>{_('home')}</p>
                 </NavLink>
             </li>
             <li>
                 <NavLink to="/StatisticsSummary" onClick={() => window.scrollTo(0, 0)}>
                   <i className="fa fa-line-chart fa-line-chart"/>
-                  <p>Statistics</p>
+                  <p>{_('statistics')}</p>
                 </NavLink>
             </li>
-            {/*
-            <li>
-                <NavLink to="/Settings">
-                  <i className="fa fa-cogs fa-cogs" />
-                  <p>Settings</p>
-                </NavLink>
-            </li>
-            */}
         </ul>
     );
 }

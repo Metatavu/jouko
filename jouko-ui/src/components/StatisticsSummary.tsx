@@ -3,11 +3,12 @@ import { Pie } from 'react-chartjs-2';
 import { DevicesApi  } from 'jouko-ts-client';
 import { take } from 'lodash';
 import { BeatLoader } from 'react-spinners';
+import { _ } from '../i18n';
 
 const device1 = {
   labels: [
-    'Interruptions',
-    'Power Consumption'
+    _('interruptions'),
+    _('powerConsumption')
   ],
   datasets: [{
     data: [5, 300],
@@ -24,8 +25,8 @@ const device1 = {
 
 const device2 = {
   labels: [
-    'Interruptions',
-    'Power Consumption'
+    _('interruptions'),
+    _('powerConsumption')
   ],
   datasets: [{
     data: [10, 400],
@@ -42,8 +43,8 @@ const device2 = {
 
 const device3 = {
   labels: [
-    'Interruptions',
-    'Power Consumption'
+    _('interruptions'),
+    _('powerConsumption')
   ],
   datasets: [{
     data: [6, 500],
@@ -60,8 +61,8 @@ const device3 = {
 
 const building = {
   labels: [
-    'Interruptions',
-    'Power Consumption'
+    _('interruptions'),
+    _('powerConsumption')
   ],
   datasets: [{
     data: [50, 1500],
@@ -139,31 +140,31 @@ export class StatisticsSummary
     const statisticsSummary = (
       <div>
         <div className="DeviceInterruptionTitle">
-          <h2>Amount of interruptions compared to the measured overall consumption of the device</h2>
+          <h2>{_('totalEnergy')}</h2>
         </div>
         <div className="DeviceInterruption">
           <div className="DeviceInterruptionCharts">
             <div className="DeviceInterruptionChart">
-              <h4>Device 1 | Total Saving: 100</h4>
+              <h4>{_('device')} 1 | {_('totalSaving')}: 100</h4>
               <Pie data={device1} />
             </div>
             <div className="DeviceInterruptionChart">
-              <h4>Device 2 | Total Saving: 150</h4>
+              <h4>{_('device')} 2 | {_('totalSaving')}: 150</h4>
               <Pie data={device2} />
             </div>
             <div className="DeviceInterruptionChart">
-              <h4>Device 3 | Total Saving: 120</h4>
+              <h4>{_('device')} 3 | {_('totalSaving')}: 120</h4>
               <Pie data={device3} />
             </div>
           </div>
         </div>
         <div className="BuildingInterruptionTitle">
-          <h2>Amount of interruptions compared to overall consumption of the building</h2>
+          <h2>{_('buildingEnergy')}</h2>
         </div>
         <div className="BuildingInterruption">
           <div className="BuildingInterruptionCharts">
             <div className="BuildingInterruptionChart">
-              <h4>Building | Total Saving: 470</h4>
+              <h4>{_('building')} | {_('totalSaving')}: 470</h4>
               <Pie data={building} />
             </div>
           </div>
