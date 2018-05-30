@@ -46,6 +46,7 @@ export class InterruptionGroup
         this.forceUpdate();
     }
     render() {
+        let interruptiongroupId = this.props.interruptiongroupId;
         let startdate = formatDate(this.props.starttime, 'dddd DD. MMMM YYYY');
         let starttime = formatDate(this.props.starttime, 'H.mm');
         let enddate = formatDate(this.props.endttime, 'dddd DD. MMMM YYYY');
@@ -63,24 +64,13 @@ export class InterruptionGroup
                     </div>
                 </th>
                 <th>
-                    <NavLink to={`/EditInterruptionGroup/${this.props.interruptiongroupId}`}>
+                    <NavLink
+                        to={`/EditInterruptionGroup/${this.props.interruptiongroupId}`}
+                    >
                         <i className="fa fa-edit fa-fh"/>
                     </NavLink>
-                        {/*
-                        <Route
-                            path={`/EditInterruptionGroup/1`}
-                            render={props => (
-                                <EditInterruptionGroup
-                                    interruptionGroupId={this.state.interruptiongroupId as number}
-                                    starttime={this.state.starttime as string}
-                                    endtime={this.state.endttime as string}
-                                    powerSavingGoalInWatts={this.state.powerSavingGoalInWatts as number}
-                                    overbookingFactor={this.state.overbookingFactor as number}
-                                />
-                            )}
-                        />
-                        */}
                 </th>
+                <th>{interruptiongroupId}</th>
                 <th>{startdate} klo {starttime}</th>
                 <th>{enddate} klo {endtime}</th>
                 <th>{powerSavingGoalInWatts} kW</th>
@@ -137,6 +127,7 @@ export class ListInterruptionGroups
                 />
             );
         });
+
         return (
             <div className="">
                 <h1>All Interruptiongroups
@@ -155,6 +146,7 @@ export class ListInterruptionGroups
                         <tr>
                             <th/>
                             <th/>
+                            <th>ID</th>
                             <th>Starttime</th>
                             <th>Endtime</th>
                             <th>Power Saved [kW]</th>

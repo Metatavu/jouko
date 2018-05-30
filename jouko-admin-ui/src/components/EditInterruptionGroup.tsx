@@ -6,12 +6,9 @@ import { InterruptionGroupsApi } from 'jouko-ts-client';
 
 interface EditInterruptionGroupProps {
     interruptionGroupId: number;
-    starttime: string;
-    endtime: string;
-    powerSavingGoalInWatts: number;
-    overbookingFactor: number;
 }
 interface EditInterruptionGroupState {
+    interruptionGroupId: number;
     startDate: string;
     startTime: string;
     duration: string;
@@ -24,6 +21,7 @@ export class EditInterruptionGroup
     constructor(props: EditInterruptionGroupProps) {
         super(props);
         this.state = {
+            interruptionGroupId: this.props.interruptionGroupId,
             startDate: '',
             startTime: '',
             duration: '',
@@ -86,11 +84,7 @@ export class EditInterruptionGroup
                     </NavLink>
                 </h1>
                 <h3>Props:</h3>
-                <p>{this.props.interruptionGroupId}</p>
-                <p>{this.props.starttime}</p>
-                <p>{this.props.endtime}</p>
-                <p>{this.props.powerSavingGoalInWatts}</p>
-                <p>{this.props.overbookingFactor}</p>
+                <p>Id: {this.state.interruptionGroupId}</p>
                 <form className="edit-item-form">
                     {/*
                     <p>Interruptionsgroup ID:</p>

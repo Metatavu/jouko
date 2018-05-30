@@ -35,6 +35,7 @@ export class ListUser extends React.Component<UserProps> {
                     <tr>
                         <th/>
                         <th/>
+                        <th>ID</th>
                         <th>Username</th>
                         <th>Firstname</th>
                         <th>Lastname</th>
@@ -57,6 +58,7 @@ export class ListUser extends React.Component<UserProps> {
                                 </NavLink>
                             </div>
                         </th>
+                        <th>1</th>
                         <th>Username1</th>
                         <th>Firstname1</th>
                         <th>Lastname1</th>
@@ -83,6 +85,7 @@ export class ListUser extends React.Component<UserProps> {
                                 </NavLink>
                             </div>
                         </th>
+                        <th>2</th>
                         <th>Username2</th>
                         <th>Firstname2</th>
                         <th>Lastname2</th>
@@ -109,6 +112,7 @@ export class ListUser extends React.Component<UserProps> {
                                 </NavLink>
                             </div>
                         </th>
+                        <th>3</th>
                         <th>Username3</th>
                         <th>Firstname3</th>
                         <th>Lastname3</th>

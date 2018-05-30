@@ -202,31 +202,39 @@ thead {
     color: white;
     font-size: larger;
 }
-.UserDeviceHead th:first-child{
-    width: 2.5%;
+.UserDeviceHead th:first-child, .ShowUserDeviceHead th:first-child {
+    width: 25px;
 }
-.UserDeviceBody th:first-child{
-    width: 2.5%;
+.UserDeviceBody th:first-child, .ShowUserDeviceHead th:first-child{
+    width: 25px;
     text-align: center;
 }
 .NewUserDeviceHead th:last-child{
-    width: 10%;
+    width: auto;
 }
 .NewUserDeviceBody th:last-child{
-    width: 10%;
+    width: auto;
     text-align: center;
 }
 
-.All th:first-child, .All th:nth-child(2){
-    width: 2.5%;
+.All th:first-child, .All th:nth-child(2) {
+    width: 25px;
     text-align: center;
     font-size: 20px;
 }
+.All th:nth-child(3){
+    width: 25px;
+    text-align: center;
+}
 
-.AllUser th:nth-child(1), .AllUser th:nth-child(2), .AllUser th:nth-child(6){
-    width: 2.5%;
+.AllUser th:nth-child(1), .AllUser th:nth-child(2), .AllUser th:nth-child(7){
+    width: 25px;
     text-align: center;
     font-size: 20px;
+}
+.AllUser th:nth-child(3) {
+    width: 25px;
+    text-align: center;
 }
 
 tr{

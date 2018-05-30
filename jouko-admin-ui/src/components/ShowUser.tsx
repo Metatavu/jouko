@@ -7,10 +7,12 @@ interface ShowUserProps {
     currentUserId: number;
 }
 interface ControllersProps {
+    deviceId: number;
     devicename: string;
     controller: number;
 }
 interface DevicesProps {
+    deviceId: number;
     devicename: string;
     controller: number;
 }
@@ -47,6 +49,7 @@ export class ShowUser
         const usersDevices = this.state.devices.map((devices, index) => {
             return (
                 <tr key={index.toString()}>
+                    <th>{devices.deviceId}</th>
                     <th>{devices.devicename}</th>
                     <th>{devices.controller}</th>
                 </tr>
@@ -102,6 +105,7 @@ export class ShowUser
                     <table className="ShowUserDevice">
                         <thead className="ShowUserDeviceHead">
                         <tr>
+                            <th>ID</th>
                             <th>Device Name</th>
                             <th>Controller</th>
                         </tr>

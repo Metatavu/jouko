@@ -34,6 +34,7 @@ export class ListDevice extends React.Component<DeviceProps> {
                     <tr>
                         <th/>
                         <th/>
+                        <th>ID</th>
                         <th>Device Name</th>
                         <th>User</th>
                         <th>Controller</th>
@@ -55,6 +56,7 @@ export class ListDevice extends React.Component<DeviceProps> {
                                 </NavLink>
                             </div>
                         </th>
+                        <th>1</th>
                         <th>Device1</th>
                         <th>User1</th>
                         <th>Controller1</th>
@@ -74,6 +76,7 @@ export class ListDevice extends React.Component<DeviceProps> {
                                 </NavLink>
                             </div>
                         </th>
+                        <th>2</th>
                         <th>Device2</th>
                         <th>User2</th>
                         <th>Controller2</th>
@@ -93,6 +96,7 @@ export class ListDevice extends React.Component<DeviceProps> {
                                 </NavLink>
                             </div>
                         </th>
+                        <th>3</th>
                         <th>Device3</th>
                         <th>User3</th>
                         <th>Controller3</th>

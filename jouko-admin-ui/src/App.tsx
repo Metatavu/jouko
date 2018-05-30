@@ -136,33 +136,13 @@ class App extends React.Component<{}, AppState> {
                       <Route path="/NewUser" component={NewUser}/>
                       <Route path="/NewDevice" component={NewDevice}/>
                       <Route
-                          path={`/EditInterruptionGroup/1`}
+                          path="/EditInterruptionGroup/"
                           render={props => (
                               <EditInterruptionGroup
-                                  interruptionGroupId={1}
-                                  starttime={'starttime'}
-                                  endtime={'endtime'}
-                                  powerSavingGoalInWatts={25}
-                                  overbookingFactor={75}
+                                  interruptionGroupId={props.match.params.id as number}
                               />
                           )}
                       />
-                      {/*
-                      <Route path="/EditInterruptionGroup" component={EditInterruptionGroup}/>
-
-                      <Route
-                          path={`/EditInterruptionGroup/1`}
-                          render={props => (
-                              <EditInterruptionGroup
-                                  interruptionGroupId={this.state.userId as number}
-                                  starttime={this.state.username as string}
-                                  endtime={this.state.keycloakId as string}
-                                  powerSavingGoalInWatts={this.state.userId as number}
-                                  overbookingFactor={this.state.userId as number}
-                              />
-                          )}
-                      />
-                      */}
                       <Route
                           path="/EditUser/"
                           render={props => (
