@@ -3,7 +3,7 @@ import '../App.css';
 import { NavLink } from 'react-router-dom';
 // import { DeviceApi } from 'jouko-ts-client';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
-import * as _ from 'lodash';
+import { take } from 'lodash';
 
 interface EditDeviceProps {
     deviceId: number;
@@ -79,7 +79,7 @@ export class EditDevice
                 starttime: interruptionGroup.startTime,
             });
         }
-        this.setState({rowProps: _.take(rowProps, 100)});
+        this.setState({rowProps: take(rowProps, 100)});
     }
 
     render() {

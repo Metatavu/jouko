@@ -3,7 +3,7 @@ import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
 // import { Device } from './Device';
-import * as _ from 'lodash';
+import { take } from 'lodash';
 // import { UserApi } from 'jouko-ts-client';
 
 interface EditUserProps {
@@ -84,7 +84,7 @@ export class EditUser
             devicename: this.state.deviceName,
             controller: this.state.controllerId
         });
-        this.setState({devices: _.take(devices, 100)});
+        this.setState({devices: take(devices, 100)});
         event.preventDefault();
         alert('Device added!');
     }
@@ -133,7 +133,7 @@ export class EditUser
                 starttime: interruptionGroup.startTime
             });
         }
-        this.setState({rowProps: _.take(rowProps, 100)});
+        this.setState({rowProps: take(rowProps, 100)});
     }
 
     render() {

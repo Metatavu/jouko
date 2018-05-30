@@ -1,6 +1,6 @@
 import * as React from 'react';
 import '../App.css';
-import * as _ from 'lodash';
+import { take } from 'lodash';
 import { NavLink } from 'react-router-dom';
 import { format as formatDate, parse as parseDate } from 'date-fns';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
@@ -229,7 +229,7 @@ export class ListInterruptionGroups
             });
         }
         this.setState({
-            rowProps: _.take(rowProps, 100),
+            rowProps: take(rowProps, 100),
             loading: false
         });
     }
@@ -294,10 +294,11 @@ export class ListInterruptionGroups
                         </select>
                     </p>
                     <p className="SearchNote">
-                        * Search for dates like this: YYYY-MM-DD
+                        * Search for dates and times like this YYYY-MM-DD or HH:MM
                     </p>
                     <p className="SearchNote">
-                         Do not include '%' or 'kW' when searching in column 'Power Saved [kW]' or 'Overbooking [%]'
+                        Do not include '%' or 'kW' when searching in column 'Power Saved [kW]' or 'Overbooking [%]'.
+                        You also don't need any wildcards like '*' or '?'.
                     </p>
                 </div>
                 <table className="All">

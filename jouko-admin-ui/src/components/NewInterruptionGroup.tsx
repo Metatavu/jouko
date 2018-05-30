@@ -56,13 +56,6 @@ export class NewInterruptionGroup
         endtime = addHours(endtime, interruptionDurationHour);
         let powerSavingGoalInWatts = this.state.powerSavingGoalInWatts;
         let overbookingFactor = this.state.overbookingFactor;
-        // console.log('###############################');
-        // console.log(typeof powerSavingGoalInWatts);
-        // console.log(powerSavingGoalInWatts);
-        // console.log('_______________________________');
-        // console.log(typeof overbookingFactor);
-        // console.log(overbookingFactor);
-        // console.log('###############################');
         const interruptionGroupsApi = new InterruptionGroupsApi(
             undefined,
             'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
