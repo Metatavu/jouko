@@ -14,13 +14,26 @@
 .Topbar li {
     float: right;
 }
+
 .Topbar li a {
     display: block;
     color: #333;
     text-align: center;
-    padding: 14px 16px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-right: 16px;
     text-decoration: none;
     font-size: 20px;
+}
+.TopbarElement1 li a {
+    display: block;
+    color: #333;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 10px;
+    text-decoration: none;
+    font-size: 10px;
 }
 .inputSearch {
     width: 130px;

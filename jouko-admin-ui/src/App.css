@@ -266,7 +266,7 @@ table a i {
     height: 100%;
     border: 1px solid #ededed;
     font-size: 110%;
-    padding: 5%;
+    padding: 25px;
 
 }
 .SearchFilter select {

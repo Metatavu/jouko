@@ -3,6 +3,7 @@ import './App.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Topbar } from './components/Topbar';
+import { FlagBar } from './components/FlagBar';
 import { Navigation } from './components/Navigation';
 import { Home } from './components/Home';
 import { AdminUserSettings } from './components/AdminUserSettings';
@@ -105,6 +106,7 @@ class App extends React.Component<{}, AppState> {
                   <div className="Navigationbar">
                       <Navigation/>
                       <Topbar logout={() => this.logout()}/>
+                      <FlagBar/>
                   </div>
                   <div className="HomeContainer">
                       <Route
