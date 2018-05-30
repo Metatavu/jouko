@@ -1,6 +1,7 @@
 import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
+import { BeatLoader } from 'react-spinners';
 
 interface DeviceProps {
     deviceId: number;
@@ -21,6 +22,18 @@ export class ListDevice extends React.Component<DeviceProps> {
         }
         this.forceUpdate();
     }
+    sortById(event: React.FormEvent<HTMLOptionElement>) {
+        alert('Sort by ID');
+    }
+    sortByDeviceName(event: React.FormEvent<HTMLOptionElement>) {
+        alert('Sort by Device Name');
+    }
+    sortByUser(event: React.FormEvent<HTMLOptionElement>) {
+        alert('Sort by User');
+    }
+    sortByController(event: React.FormEvent<HTMLOptionElement>) {
+        alert('Sort by Controller');
+    }
     render() {
         return (
             <div className="">
@@ -29,6 +42,22 @@ export class ListDevice extends React.Component<DeviceProps> {
                         <button className="btn">New Device</button>
                     </NavLink>
                 </h1>
+                <div className="sweet-loading">
+                    <BeatLoader
+                        color={'#30C4C9'}
+                        loading={false}
+                    />
+                </div>
+                <div className="SearchFilter">
+                    Sort by:
+                    <select>
+                        <option onClick={this.sortById}>ID</option>
+                        <option onClick={this.sortByDeviceName}>Device Name</option>
+                        <option onClick={this.sortByUser}>User</option>
+                        <option onClick={this.sortByController}>Controller</option>
+                    </select>
+                    <br/>
+                </div>
                 <table className="All">
                     <thead className="DeviceHead">
                     <tr>

@@ -259,3 +259,17 @@ table a i {
     text-decoration: none;
     text-align: center;
 }
+
+/*############################## Icons ##############################*/
+.SearchFilter{
+    width:100%;
+    height: 100%;
+    border: 1px solid #ededed;
+    font-size: 110%;
+    padding: 5%;
+
+}
+.SearchFilter select {
+    padding: 10px;
+    margin-left: 25px;
+}

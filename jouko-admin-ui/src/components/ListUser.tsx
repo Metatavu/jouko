@@ -1,6 +1,7 @@
 import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
+import { BeatLoader } from 'react-spinners';
 
 interface UserProps {
     userId: number;
@@ -22,6 +23,19 @@ export class ListUser extends React.Component<UserProps> {
         }
         this.forceUpdate();
     }
+    sortById(event: React.FormEvent<HTMLOptionElement>) {
+        alert('Sort by ID');
+    }
+    sortByUsername(event: React.FormEvent<HTMLOptionElement>) {
+        alert('Sort by Username');
+    }
+    sortByFirstname(event: React.FormEvent<HTMLOptionElement>) {
+        alert('Sort by Firstname');
+    }
+    sortByLastname(event: React.FormEvent<HTMLOptionElement>) {
+        alert('Sort by Lastname');
+    }
+
     render() {
         return (
             <div className="">
@@ -30,6 +44,22 @@ export class ListUser extends React.Component<UserProps> {
                         <button className="btn">New User</button>
                     </NavLink>
                 </h1>
+                <div className="sweet-loading">
+                    <BeatLoader
+                        color={'#30C4C9'}
+                        loading={false}
+                    />
+                </div>
+                <div className="SearchFilter">
+                    Sort by:
+                    <select>
+                        <option onClick={this.sortById}>ID</option>
+                        <option onClick={this.sortByUsername}>Username</option>
+                        <option onClick={this.sortByFirstname}>Firstname</option>
+                        <option onClick={this.sortByLastname}>Lastname</option>
+                    </select>
+                    <br/>
+                </div>
                 <table className="AllUser">
                     <thead>
                     <tr>
