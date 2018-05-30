@@ -1,4 +1,4 @@
-let language = 'fi';
+let language = localStorage.getItem('language') || 'fi';
 
 const messages = {
   'appname': {
@@ -171,6 +171,7 @@ export function getLanguage() {
 
 export function setLanguage(lang: string) {
   language = lang;
+  localStorage.setItem('language', lang);
 }
 
 export function _(identifier: string): string {
