@@ -5,7 +5,7 @@
     width: 75%;
 }
 .HomeContent{
-    width: calc(100% - 2rem)
+    width: calc(100% - 4rem)
 }
 hr{
     color: #fefefe;
