@@ -14,6 +14,7 @@ import { NavLink } from 'react-router-dom';
 import * as Keycloak from 'keycloak-js';
 import { UsersApi } from 'jouko-ts-client';
 import { PowerUsageSummaries } from './components/PowerUsageSummary';
+import { _ } from './i18n';
 
 const logo = require('./logo.svg');
 
@@ -101,7 +102,7 @@ class App extends React.Component<{}, AppState> {
           </div>
           <div className="App-Block1">
             <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">JOUKO - kotiapp</h1>
+            <h1 className="App-title">JOUKO - {_('appname')}</h1>
             <h1>Kirjautuneena: {this.state.lastname} {this.state.firstname} </h1>
           </div>
         <Route
