@@ -6,6 +6,12 @@ const messages = {
     'en': 'Home-app',
     'de': 'Home-App',
     'sv': 'Hem-app'
+  },
+  'signed': {
+    'fi': 'Kirjautuneena',
+    'en': 'Signed in',
+    'de': 'Angemeldet',
+    'sv': 'Inloggad'
   }
 };
 

@@ -1,0 +1,13 @@
+.FlagBar{
+    right: 0;
+    position: fixed;
+    top: 40%;
+    text-decoration: none;
+    list-style-type: none;
+}
+.FlagBar li{
+   margin-top: 10px;
+}
+.FlagBar img{
+   border: 1px solid #ededed;
+}
