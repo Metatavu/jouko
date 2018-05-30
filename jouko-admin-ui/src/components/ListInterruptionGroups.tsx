@@ -240,7 +240,7 @@ export class ListInterruptionGroups
                     />
                 </div>
                 <div className="SearchFilter">
-                    Sort by:
+                    <p>Sort by:
                     <select>
                         <option onClick={this.sortByIdASC}>ID low -> high</option>
                         <option onClick={this.sortByIdDESC}>ID high -> low</option>
@@ -253,7 +253,7 @@ export class ListInterruptionGroups
                         <option onClick={this.sortByOverbookingASC}>Overbooking [%] low -> high</option>
                         <option onClick={this.sortByOverbookingDESC}>Overbooking [%] high -> low</option>
                     </select>
-                    <br/>
+                    </p>
                 </div>
                 <table className="All">
                     <thead className="InterruptionsgroupHead">
