@@ -240,7 +240,7 @@
 .PowerUsageSummaryContent{
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 90%;
   padding-top: 50px;
   margin: auto;
@@ -269,7 +269,7 @@
 }
 @media only screen and (min-width: 769px) {
   .PowerUsageSummaryCard {
-    width: 20% !important;
+    width: 17% !important;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     margin-left:1.5%;

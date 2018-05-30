@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2';
 import { DevicesApi } from 'jouko-ts-client';
 import { addMinutes, addHours, addDays, subMinutes, subHours, subDays } from 'date-fns';
 import { format as formatDate } from 'date-fns';
-import * as _ from 'lodash';
+import { take } from 'lodash';
 import { BeatLoader } from 'react-spinners';
 import '../App.css';
 
@@ -112,7 +112,7 @@ export class Statistics
       daysLabels: daysLabels,
       daysData: daysData
     });
-    this.setState({allDevices: _.take(allDevices, 40), rowProps: _.take(rowProps, 40), loading: false});
+    this.setState({allDevices: take(allDevices, 40), rowProps: take(rowProps, 40), loading: false});
   }
   onUrlSelected(event: React.FormEvent<HTMLOptionElement>) {
     const url = event.currentTarget.value;

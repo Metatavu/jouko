@@ -4,6 +4,7 @@ const messages = {
   'appname': {
     'fi': 'Koti-app',
     'en': 'Home-app',
+    'de': 'Home-App',
     'sv': 'Hem-app'
   }
 };

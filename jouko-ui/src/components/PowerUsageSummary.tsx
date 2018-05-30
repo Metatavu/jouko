@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as _ from 'lodash';
+import { take } from 'lodash';
 import { DevicesApi } from 'jouko-ts-client';
 import { format as formatDate, subHours } from 'date-fns';
 import { NavLink } from 'react-router-dom';
@@ -72,7 +72,7 @@ export class PowerUsageSummaries
         });
     }
 
-    this.setState({rowProps: _.take(rowProps, 40)});
+    this.setState({rowProps: take(rowProps, 40)});
   }
 
   render() {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Pie } from 'react-chartjs-2';
 import { DevicesApi  } from 'jouko-ts-client';
-import * as _ from 'lodash';
+import { take } from 'lodash';
 import { BeatLoader } from 'react-spinners';
 
 const device1 = {
@@ -115,7 +115,7 @@ export class StatisticsSummary
         name: device.name,
       });
     }
-    this.setState({allDevices: _.take(allDevices, 40), loading: false});
+    this.setState({allDevices: take(allDevices, 40), loading: false});
   }
   onUrlSelected(event: React.FormEvent<HTMLOptionElement>) {
     const url = event.currentTarget.value;

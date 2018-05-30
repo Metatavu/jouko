@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { InterruptionsApi, DevicesApi } from 'jouko-ts-client';
 import { addYears, format as formatDate, parse as parseDate } from 'date-fns';
-import * as _ from 'lodash';
+import { take } from 'lodash';
 import '../App.css';
 
 interface UpcomingInterruptionProps {
@@ -150,7 +150,7 @@ export class UpcomingInterruptions
     rowProps.sort((a, b) => {
       return b.startTime.getTime() - a.startTime.getTime();
     });
-    this.setState({rowProps: _.take(rowProps, 5)});
+    this.setState({rowProps: take(rowProps, 6)});
   }
 
   render() {
