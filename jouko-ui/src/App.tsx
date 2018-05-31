@@ -13,9 +13,8 @@ import { NavLink } from 'react-router-dom';
 import * as Keycloak from 'keycloak-js';
 import { UsersApi } from 'jouko-ts-client';
 import { PowerUsageSummaries } from './components/PowerUsageSummary';
-import { _ } from './i18n';
 import { FlagBar } from './components/FlagBar';
-const logo = require('./logo.svg');
+import { WelcomeBox } from './components/WelcomeBox';
 
 interface AppState {
   keycloakInstance?: Keycloak.KeycloakInstance;
@@ -75,13 +74,11 @@ class App extends React.Component<{}, AppState> {
         userId: user.id});
     }
   }
-
   logout() {
     if (this.state.keycloakInstance) {
       this.state.keycloakInstance.logout();
     }
   }
-
   render() {
     let content;
     if (!this.state.keycloakInstance) {
@@ -100,18 +97,18 @@ class App extends React.Component<{}, AppState> {
               </NavLink>
             </div>
           </div>
-          <div className="App-Block1">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">JOUKO - {_('appname')}</h1>
-            <h1>{_('signed')}: {this.state.lastname} {this.state.firstname} </h1>
-          </div>
         <Route
           path="/"
           exact={true}
           render={props => (
-            <Home currentUserId={this.state.userId as number}/>
+            <Home
+              currentUserId={this.state.userId as number}
+              firstname={this.state.firstname as string}
+              lastname={this.state.lastname as string}
+            />
           )}
         />
+        <Route path="/FlagBar" component={FlagBar}/>
         <Route
           path="/User"
           exact={true}
@@ -125,10 +122,22 @@ class App extends React.Component<{}, AppState> {
           )}
         />
         <Route
+          path="/WelcomeBox"
+          exact={true}
+          render={props => (
+            <WelcomeBox
+              firstname={this.state.firstname as string}
+              lastname={this.state.lastname as string}
+            />
+          )}
+        />
+        <Route
           path="/StatisticsSummary/"
           render={props => (
             <StatisticsSummary
               currentUserId={this.state.userId as number}
+              firstname={this.state.firstname as string}
+              lastname={this.state.lastname as string}
             />
           )}
         />
