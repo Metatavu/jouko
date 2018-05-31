@@ -29,7 +29,7 @@ const messages = {
     'fi': 'Kaikki tilastot',
     'en': 'All Statistics',
     'de': 'Alle Statistiken',
-    'sv': 'all statistik'
+    'sv': 'All statistik'
   },
   'appname': {
     'fi': 'Koti-app',
@@ -95,13 +95,13 @@ const messages = {
     'fi': 'Tulevat katkot',
     'en': 'Incoming interruptions',
     'de': 'Bevorstehende Unterbrechungen',
-    'sv': 'inkommande avbrott'
+    'sv': 'Inkommande avbrott'
   },
   'interruptions': {
     'fi': 'Katkot',
     'en': 'Interruptions',
     'de': 'Unterbrechung',
-    'sv': 'avbrott'
+    'sv': 'Avbrott'
   },
   'lastname': {
     'fi': 'Sukunimi',
@@ -161,7 +161,7 @@ const messages = {
     'fi': 'Kokonaissäästö',
     'en': 'Total saving',
     'de': 'Gesamteinsparnis',
-    'sv': 'total besparing'
+    'sv': 'Total besparing'
   },
   'user': {
     'fi': 'Käyttäjä',
