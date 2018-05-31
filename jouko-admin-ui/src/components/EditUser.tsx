@@ -85,10 +85,10 @@ export class EditUser
         });
         this.setState({devices: take(devices, 100)});
         event.preventDefault();
-        alert('Device added!');
+        alert(_('alertDeviceCreated'));
     }
     handleDeleteDevice(event: React.FormEvent<HTMLDivElement>, index: number) {
-        if (confirm('This device will be deleted!')) {
+        if (confirm(_('confirmDeleteDevice'))) {
             const array = this.state.devices;
             const startIndex = Number(index);
             array.splice(startIndex, 1);
