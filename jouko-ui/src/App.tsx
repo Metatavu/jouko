@@ -7,7 +7,6 @@ import { Bottombar } from './components/Bottombar';
 import { UpcomingInterruptions } from './components/UpcomingInterruptions';
 import { User } from './components/User';
 import { Home } from './components/Home';
-import { Settings } from './components/Settings';
 import { Statistics } from './components/Statistics';
 import { StatisticsSummary } from './components/StatisticsSummary';
 import { NavLink } from 'react-router-dom';
@@ -16,7 +15,6 @@ import { UsersApi } from 'jouko-ts-client';
 import { PowerUsageSummaries } from './components/PowerUsageSummary';
 import { _ } from './i18n';
 import { FlagBar } from './components/FlagBar';
-
 const logo = require('./logo.svg');
 
 interface AppState {
@@ -126,7 +124,6 @@ class App extends React.Component<{}, AppState> {
             />
           )}
         />
-        <Route path="/Settings" component={Settings} />
         <Route
           path="/StatisticsSummary/"
           render={props => (

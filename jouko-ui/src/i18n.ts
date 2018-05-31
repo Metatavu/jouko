@@ -7,11 +7,23 @@ const messages = {
     'de': 'Home-App',
     'sv': 'Hem-app'
   },
+  'alertUserDataChanged': {
+    'fi': 'Tiedot päivitetty onnistuneesti!',
+    'en': 'User data successfully changed!',
+    'de': 'Benutzerdaten erfolgreich geändert!',
+    'sv': 'Användardata ändras framgångsrikt!'
+  },
   'signed': {
     'fi': 'Kirjautuneena',
     'en': 'Signed in',
     'de': 'Angemeldet',
     'sv': 'Inloggad'
+  },
+  'device': {
+    'fi': 'Laite',
+    'en': 'Device',
+    'de': 'Gerät',
+    'sv': 'Enhet'
   },
   'incomingInterruptions': {
     'fi': 'Tulevat katkot',
