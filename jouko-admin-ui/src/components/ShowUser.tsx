@@ -58,12 +58,12 @@ export class ShowUser
         });
         return (
             <div className="">
-                <h1>User: {this.state.firstname} {this.state.lastname}
+                <h1>{_('user')}: {this.state.firstname} {this.state.lastname}
                     <NavLink to={`/EditUser/${this.props.userId}`}>
-                        <button className="btn">Edit</button>
+                        <button className="btn">{_('edit')}</button>
                     </NavLink>
                     <NavLink to="/ListUser">
-                        <button className="btn">Show all</button>
+                        <button className="btn">{_('showAll')}</button>
                     </NavLink>
                 </h1>
                 <form className="edit-item-form">
@@ -74,7 +74,7 @@ export class ShowUser
                         disabled={true}
                         value={this.props.userId}
                     />
-                    <p>{_('keykloakId')}:</p>
+                    <p>{_('keycloakId')}:</p>
                     <input
                         type="text"
                         name="keycloakId"
@@ -95,20 +95,20 @@ export class ShowUser
                         disabled={true}
                         value={this.state.lastname}
                     />
-                    <p>Email:</p>
+                    <p>{_('email')}:</p>
                     <input
                         type="text"
                         name="email"
                         disabled={true}
                         value={this.state.email}
                     />
-                    <p>Devices:</p>
+                    <p>{_('devices')}:</p>
                     <table className="ShowUserDevice">
                         <thead className="ShowUserDeviceHead">
                         <tr>
                             <th>ID</th>
-                            <th>Device Name</th>
-                            <th>Controller</th>
+                            <th>{_('deviceName')}</th>
+                            <th>{_('controllerDevice')}</th>
                         </tr>
                         </thead>
                         <tbody className="ShowUserDeviceBody">
