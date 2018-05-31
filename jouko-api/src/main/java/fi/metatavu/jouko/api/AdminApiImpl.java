@@ -47,7 +47,9 @@ public class AdminApiImpl implements AdminApi {
       throws Exception {
     InterruptionGroupEntity group = interruptionController.createInterruptionGroup(
         body.getStartTime(),
-        body.getEndTime());
+        body.getEndTime(),
+        body.getOverbookingFactor(),
+        (int)((long)body.getPowerSavingGoalInWatts()));
     
     List<DeviceEntity> devices = deviceController.listAll(null, null);
     

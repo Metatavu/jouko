@@ -1,6 +1,5 @@
 package fi.metatavu.jouko.api;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -62,8 +61,13 @@ public class InterruptionController {
   
   public InterruptionGroupEntity createInterruptionGroup(
       OffsetDateTime startTime,
-      OffsetDateTime endTime) {
-    return interruptionGroupDAO.create(startTime, endTime);
+      OffsetDateTime endTime,
+      double overbookingFactor,
+      int powerSavingGoalInWatts) {
+    return interruptionGroupDAO.create(startTime,
+                                       endTime,
+                                       overbookingFactor,
+                                       powerSavingGoalInWatts);
   }
   
   public InterruptionEntity createInterruption(
