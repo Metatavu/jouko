@@ -89,7 +89,7 @@ const messages = {
         'fi': 'Tämä katkoryhmä poistetaan!',
         'en': 'This interruptiongroup will be deleted!',
         'de': 'Diese Unterbrechung wird gelöscht!',
-        'sv': 'Detta interruptiongroup kommer att tas bort!'
+        'sv': 'Detta avbrottsgrupper kommer att tas bort!'
     },
     'confirmDeleteUser': {
         'fi': 'Tämä käyttäjä poistetaan!',
@@ -327,7 +327,7 @@ const messages = {
         'fi': 'Kytkinlaite',
         'en': 'Switching device',
         'de': 'Schaltvorrichtung',
-        'sv': 'omkopplingsanordning'
+        'sv': 'Omkopplingsanordning'
     },
     'time': {
         'fi': 'Aika (TT:MM)',
