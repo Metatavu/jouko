@@ -59,13 +59,13 @@ const messages = {
         'fi': 'Kaikki laitteet',
         'en': 'All Devices',
         'de': 'Alle Geräte',
-        'sv': 'alla enheter'
+        'sv': 'Alla enheter'
     },
     'allInterruptionGroups': {
         'fi': 'Kaikki katkoryhmät',
         'en': 'All Interruptiongroups',
         'de': 'Alle Unterbrechungsgruppen',
-        'sv': 'Alla Avbrott grupper'
+        'sv': 'Alla avbrott grupper'
     },
     'allUsers': {
         'fi': 'Kaikki käyttäjät',
@@ -101,7 +101,7 @@ const messages = {
         'fi': 'Ohjauslaite',
         'en': 'Controller device',
         'de': 'Steuervorrichtung',
-        'sv': 'styranordning'
+        'sv': 'Styranordning'
     },
     'create': {
         'fi': 'Luo',
@@ -119,7 +119,7 @@ const messages = {
         'fi': 'Laite',
         'en': 'Device',
         'de': 'Gerät',
-        'sv': 'anordning'
+        'sv': 'Anordning'
     },
     'deviceName': {
         'fi': 'Laitteen nimi',
@@ -131,7 +131,7 @@ const messages = {
         'fi': 'Laitteet',
         'en': 'Devices',
         'de': 'Geräte',
-        'sv': 'enheter'
+        'sv': 'Enheter'
     },
     'duration': {
         'fi': 'Kesto (TT:MM)',
@@ -203,13 +203,13 @@ const messages = {
         'fi': 'Katkoryhmät',
         'en': 'Interruption groups',
         'de': 'Unterbrechungsgruppen',
-        'sv': 'avbrottsgrupper'
+        'sv': 'Avbrottsgrupper'
     },
     'interruptions': {
         'fi': 'Katkot',
         'en': 'Interruptions',
         'de': 'Unterbrechungen',
-        'sv': 'avbrott'
+        'sv': 'Avbrott'
     },
     'keycloakId': {
         'fi': 'Keycloak-tunnus',
@@ -233,13 +233,13 @@ const messages = {
         'fi': 'Uusi laite',
         'en': 'New Device',
         'de': 'Neues Gerät',
-        'sv': 'ny enhet'
+        'sv': 'Ny enhet'
     },
     'newInterruptionGroups': {
         'fi': 'Uusi katkoryhmä',
         'en': 'New Interruptiongroups',
         'de': 'Neue Unterbrechungsgruppe',
-        'sv': 'Nya Avbrott grupper'
+        'sv': 'Nya avbrott grupper'
     },
     'newUser': {
         'fi': 'Uusi käyttäjä',
@@ -345,7 +345,7 @@ const messages = {
         'fi': 'Käyttäjätunniste',
         'en': 'User ID',
         'de': 'User-ID',
-        'sv': 'användar ID'
+        'sv': 'Användar ID'
     },
     'username': {
         'fi': 'Käyttäjänimi',
