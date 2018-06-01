@@ -40,6 +40,8 @@ public class UsersApiImpl implements UsersApi {
     Device result = new Device();
     result.setId(entity.getId());
     result.setName(entity.getName());
+    result.setControllerId(entity.getController().getId());
+    result.setUserId(entity.getUser().getId());
     return result;
   }
 

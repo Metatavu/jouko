@@ -15,6 +15,7 @@ import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
 import fi.metatavu.jouko.server.rest.AdminApi;
+import fi.metatavu.jouko.server.rest.model.Device;
 import fi.metatavu.jouko.server.rest.model.InterruptionGroup;
 
 @Stateless
@@ -29,8 +30,14 @@ public class AdminApiImpl implements AdminApi {
   @Inject
   private DeviceCommunicator deviceCommunicator;
   
-  @Inject
-  private Logger logger;
+  private Device deviceFromEntity(DeviceEntity entity) {
+    Device result = new Device();
+    result.setId(entity.getId());
+    result.setName(entity.getName());
+    result.setControllerId(entity.getController().getId());
+    result.setUserId(entity.getUser().getId());
+    return result;
+  }
   
   public InterruptionGroup interruptionGroupFromEntity(InterruptionGroupEntity entity) {
     InterruptionGroup result = new InterruptionGroup();
@@ -105,6 +112,16 @@ public class AdminApiImpl implements AdminApi {
         body.getStartTime(),
         body.getEndTime());
     return Response.ok(body).build();
+  }
+
+  @Override
+  public Response listAllDevices(Integer firstResult, Integer maxResults)
+      throws Exception {
+    List<DeviceEntity> entities = deviceController.listAll(firstResult, maxResults);
+    List<Device> devices = entities.stream()
+                                   .map(this::deviceFromEntity)
+                                   .collect(Collectors.toList());
+    return Response.ok(devices).build();
   }
   
 }
