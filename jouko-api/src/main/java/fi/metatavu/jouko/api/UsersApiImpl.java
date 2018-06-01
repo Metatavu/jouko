@@ -79,17 +79,13 @@ public class UsersApiImpl implements UsersApi {
       Integer firstResult,
       Integer maxResults) throws Exception {
     List<DeviceEntity> entities;
-    if (userId == null) {
-      entities = deviceController.listAll(firstResult, maxResults);
+    UserEntity user = userController.findUserById(userId);
+    if (user == null) {
+      return Response.status(Status.NOT_FOUND)
+                     .entity("User " + userId + " not found")
+                     .build();
     } else {
-      UserEntity user = userController.findUserById(userId);
-      if (user == null) {
-        return Response.status(Status.NOT_FOUND)
-                       .entity("User " + userId + " not found")
-                       .build();
-      } else {
-        entities = deviceController.listByUser(user, firstResult, maxResults);
-      }
+      entities = deviceController.listByUser(user, firstResult, maxResults);
     }
       
     List<Device> devices = entities.stream()
