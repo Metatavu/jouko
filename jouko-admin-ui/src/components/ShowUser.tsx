@@ -2,15 +2,15 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { _ } from '../i18n';
+import { DevicesApi } from 'jouko-ts-client';
+import { take } from 'lodash';
 
 interface ShowUserProps {
     userId: number;
-    currentUserId: number;
 }
 interface ControllersProps {
     deviceId: number;
     devicename: string;
-    controller: number;
 }
 interface DevicesProps {
     deviceId: number;
@@ -45,6 +45,26 @@ export class ShowUser
             controllers: []
         };
     }
+    componentDidMount() {
+        this.fetchUsersDevices();
+    }
+    async fetchUsersDevices() {
+        const usersDevicesApi = new DevicesApi(
+            undefined,
+            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+        const usersDevices = await usersDevicesApi.listDevices(5, 0, 1000);
+
+        const devices: DevicesProps[] = [];
+
+        for (const usersDevice of usersDevices) {
+            devices.push({
+                deviceId: usersDevice.id,
+                devicename: usersDevice.name,
+                controller: usersDevice.id
+            });
+        }
+        this.setState({devices: take(devices, 100)});
+    }
 
     render() {
         const usersDevices = this.state.devices.map((devices, index) => {
@@ -71,8 +91,7 @@ export class ShowUser
                     <input
                         type="text"
                         name="userId"
-                        disabled={true}
-                        value={this.props.userId}
+                        value={Number(this.props.userId)}
                     />
                     <p>{_('keycloakId')}:</p>
                     <input

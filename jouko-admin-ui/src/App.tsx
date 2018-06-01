@@ -168,7 +168,6 @@ class App extends React.Component<{}, AppState> {
                           render={props => (
                               <ShowUser
                                   userId={props.match.params.id as number}
-                                  currentUserId={this.state.userId as number}
                               />
                           )}
                       />

@@ -123,7 +123,7 @@ const messages = {
     },
     'deviceName': {
         'fi': 'Laitteen nimi',
-        'en': 'Device Name',
+        'en': 'Device name',
         'de': 'Gerätename',
         'sv': 'Enhetsnamn'
     },
@@ -189,8 +189,8 @@ const messages = {
     },
     'highLow': {
         'fi': '',
-        'en': 'Descending',
-        'de': 'Absteigend',
+        'en': 'descending',
+        'de': 'absteigend',
         'sv': ''
     },
     'in': {
@@ -225,8 +225,8 @@ const messages = {
     },
     'lowHigh': {
         'fi': '',
-        'en': 'Ascending',
-        'de': 'Aufsteigend',
+        'en': 'ascending',
+        'de': 'aufsteigend',
         'sv': ''
     },
     'newDevice': {
@@ -246,6 +246,32 @@ const messages = {
         'en': 'New User',
         'de': 'Neuer Benutzer',
         'sv': 'Ny användare'
+    },
+    'noEditInterruptiongroupPossible1': {
+        'fi': '',
+        'en': 'Unfortunately, you cannot edit this interruption group. ' +
+        'You may, however, delete them. Please have a look at the ',
+        'de': 'Leider können Sie diese Unterbrechungsgruppe nicht bearbeiten. ' +
+        'Sie können sie jedoch löschen. Bitte werfen Sie einen Blick auf die ',
+        'sv': ''
+    },
+    'noEditInterruptiongroupPossible2': {
+        'fi': '',
+        'en': 'overview',
+        'de': 'Übersicht',
+        'sv': ''
+    },
+    'noEditInterruptiongroupPossible3': {
+        'fi': '',
+        'en': ' or create a new interruption group ',
+        'de': ' oder erstellen Sie eine neue Unterbrechungsgruppe ',
+        'sv': ''
+    },
+    'noEditInterruptiongroupPossible4': {
+        'fi': '',
+        'en': 'here.',
+        'de': 'hier.',
+        'sv': ''
     },
     'overbooking': {
         'fi': 'Ylibuukkaus [%]',

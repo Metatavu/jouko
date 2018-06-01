@@ -277,7 +277,7 @@ export class ListInterruptionGroups
                         <input
                             type="text"
                             name="search"
-                            placeholder="Search..."
+                            placeholder={_('search')}
                             className="SearchInput"
                             onChange={this.search}
                         />
