@@ -99,6 +99,13 @@ export class EditDevice
                     </NavLink>
                 </h1>
                 <form className="edit-item-form">
+                    <p>ID:</p>
+                    <input
+                        type="text"
+                        name="deviceId"
+                        value={this.props.deviceId}
+                        disabled={true}
+                    />
                     <p>{_('deviceName')}:</p>
                     <input
                         type="text"

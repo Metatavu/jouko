@@ -1,12 +1,22 @@
 import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
-import { parse as parseDate, addMinutes, addHours } from 'date-fns';
-import { InterruptionGroupsApi } from 'jouko-ts-client';
+// import { parse as parseDate } from 'date-fns';
+// import { addMinutes, addHours } from 'date-fns';
+import { format as formatDate } from 'date-fns';
+import { InterruptionsApi } from 'jouko-ts-client';
 import { _ } from '../i18n';
+import { take } from 'lodash';
 
-interface EditInterruptionGroupProps {
+interface InterruptionGroupProps {
     interruptionGroupId: number;
+}
+interface InterruptionProps {
+    interruptionGroupId: number;
+    startTime: string;
+    endTime: string;
+    powerSavingGoalInWatts: number;
+    overbookingFactor: number;
 }
 interface EditInterruptionGroupState {
     interruptionGroupId: number;
@@ -15,11 +25,12 @@ interface EditInterruptionGroupState {
     duration: string;
     powerSavingGoalInWatts: number;
     overbookingFactor: number;
+    interruption: InterruptionProps[];
 }
 
 export class EditInterruptionGroup
-    extends React.Component<EditInterruptionGroupProps, EditInterruptionGroupState> {
-    constructor(props: EditInterruptionGroupProps) {
+    extends React.Component<InterruptionGroupProps, EditInterruptionGroupState> {
+    constructor(props: InterruptionGroupProps) {
         super(props);
         this.state = {
             interruptionGroupId: this.props.interruptionGroupId,
@@ -27,7 +38,8 @@ export class EditInterruptionGroup
             startTime: '',
             duration: '',
             powerSavingGoalInWatts: 0,
-            overbookingFactor: 0
+            overbookingFactor: 0,
+            interruption: []
         };
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleStartTimeChange = this.handleStartTimeChange.bind(this);
@@ -35,6 +47,27 @@ export class EditInterruptionGroup
         this.handlePowerSavingGoalInWattsChange = this.handlePowerSavingGoalInWattsChange.bind(this);
         this.handleOverbookingFactorChange = this.handleOverbookingFactorChange.bind(this);
     }
+    componentDidMount() {
+        this.fetchSingleInterruption();
+    }
+    async fetchSingleInterruption() {
+        const interruptionsApi = new InterruptionsApi(
+            undefined,
+            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+        const interruptions = await interruptionsApi.retrieveInterruptionGroup(Number(this.props.interruptionGroupId));
+
+        const interruption: InterruptionProps[] = [];
+        interruption.push({
+            interruptionGroupId: interruptions.id,
+            startTime: interruptions.startTime,
+            endTime: interruptions.endTime,
+            powerSavingGoalInWatts: interruptions.powerSavingGoalInWatts || 0.0,
+            overbookingFactor: interruptions.overbookingFactor || 0.0
+        });
+
+        this.setState({interruption: take(interruption, 100)});
+    }
+
     handleStartDateChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({startDate: event.currentTarget.value});
     }
@@ -52,6 +85,7 @@ export class EditInterruptionGroup
     }
 
     handleSubmit(event: React.FormEvent<HTMLInputElement>) {
+        {/*
         let interruptionStartDate = this.state.startDate;
         let interruptionStartTime = this.state.startTime;
         const starttime = parseDate(interruptionStartDate + 'T' + interruptionStartTime);
@@ -62,7 +96,7 @@ export class EditInterruptionGroup
         endtime = addHours(endtime, interruptionDurationHour);
         let powerSavingGoalInWatts = this.state.powerSavingGoalInWatts;
         let overbookingFactor = this.state.overbookingFactor;
-        const interruptionGroupsApi = new InterruptionGroupsApi(
+        const interruptionGroupsApi = new InterruptionsApi(
             undefined,
             'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
         interruptionGroupsApi.createInterruptionGroup(
@@ -73,10 +107,52 @@ export class EditInterruptionGroup
                 powerSavingGoalInWatts: powerSavingGoalInWatts,
                 overbookingFactor: overbookingFactor
             });
+            */}
         event.preventDefault();
         alert(_('alertInterruptiongroupChanged'));
     }
     render() {
+        const editForm = this.state.interruption.map((interruption, index) => {
+            return (
+                <form className="edit-item-form" key={index.toString()}>
+                    <p>ID:</p>
+                    <input
+                        type="text"
+                        name="id"
+                        value={interruption.interruptionGroupId}
+                        disabled={true}
+                    />
+                    <p>{_('starttime')}</p>
+                    <input
+                        type="text"
+                        name="starttime"
+                        value={formatDate(interruption.startTime, 'dddd DD. MMMM YYYY | HH:MM')}
+                        disabled={true}
+                    />
+                    <p>{_('endtime')}</p>
+                    <input
+                        type="text"
+                        name="endttime"
+                        value={formatDate(interruption.endTime, 'dddd DD. MMMM YYYY | HH:MM')}
+                        disabled={true}
+                    />
+                    <p>{_('powerToBeSaved')}</p>
+                    <input
+                        type="text"
+                        name="powerSavingGoalInWatts"
+                        value={`${interruption.powerSavingGoalInWatts} kW`}
+                        disabled={true}
+                    />
+                    <p>{_('overbooking')}</p>
+                    <input
+                        type="text"
+                        name="overbookingFactor"
+                        value={`${interruption.overbookingFactor} %`}
+                        disabled={true}
+                    />
+                </form>
+            );
+        });
         return (
             <div className="">
                 <h1>{_('editInterruptiongroup')}
@@ -102,13 +178,14 @@ export class EditInterruptionGroup
                         </h3>
                     </div>
                 </div>
+                {editForm}
                 {/*
-                <form className="edit-item-form">
+                <form className="edit-item-form" key={index.toString()}>
                     <p>{_('date')}:</p>
                     <input
                         type="text"
                         name="date"
-                        value={this.state.startDate}
+                        value={interruption.id}
                         onChange={this.handleStartDateChange}
                     />
                     <p>{_('time')}</p>

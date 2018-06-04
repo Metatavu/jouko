@@ -138,15 +138,15 @@ class App extends React.Component<{}, AppState> {
                       <Route path="/NewUser" component={NewUser}/>
                       <Route path="/NewDevice" component={NewDevice}/>
                       <Route
-                          path="/EditInterruptionGroup/"
+                          path="/EditInterruptionGroup/:interruptionGroupId"
                           render={props => (
                               <EditInterruptionGroup
-                                  interruptionGroupId={props.match.params.id as number}
+                                  interruptionGroupId={props.match.params.interruptionGroupId as number}
                               />
                           )}
                       />
                       <Route
-                          path="/EditUser/"
+                          path="/EditUser/:userId"
                           render={props => (
                               <EditUser
                                   userId={props.match.params.id as number}
@@ -155,10 +155,10 @@ class App extends React.Component<{}, AppState> {
                           )}
                       />
                       <Route
-                          path="/EditDevice/"
+                          path="/EditDevice/:deviceId"
                           render={props => (
                               <EditDevice
-                                  deviceId={props.match.params.id as number}
+                                  deviceId={props.match.params.deviceId as number}
                                   currentUserId={this.state.userId as number}
                               />
                           )}

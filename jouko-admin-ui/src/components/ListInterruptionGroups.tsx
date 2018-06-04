@@ -72,8 +72,8 @@ export class InterruptionGroup
                     </NavLink>
                 </th>
                 <th>{interruptiongroupId}</th>
-                <th>{startdate} klo {starttime}</th>
-                <th>{enddate} klo {endtime}</th>
+                <th>{startdate} | {starttime}</th>
+                <th>{enddate} | {endtime}</th>
                 <th>{powerSavingGoalInWatts} kW</th>
                 <th>{overbookingFactor} %</th>
             </tr>

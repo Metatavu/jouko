@@ -1,4 +1,4 @@
-let language = localStorage.getItem('language') || 'en';
+let language = localStorage.getItem('language') || 'fi';
 
 const messages = {
     'addDevice': {
@@ -14,46 +14,46 @@ const messages = {
         'sv': 'Admin-användardata'
     },
     'alertAdminDataChanged': {
-        'fi': '',
+        'fi': 'Hallinnoijan tiedot muuttuivat onnistuneesti!',
         'en': 'Admin data successfully changed!',
         'de': 'Admin-Benutzerdaten erfolgreich geändert!',
-        'sv': ''
+        'sv': 'Admin-användardata har ändrats framgångsrikt!'
     },
     'alertDeviceChanged': {
-        'fi': '',
+        'fi': 'Laite on onnistuneesti muuttunut!',
         'en': 'Device successfully changed!',
         'de': 'Gerät erfolgreich geändert!',
-        'sv': ''
+        'sv': 'Enheten har ändrats framgångsrikt!'
     },
     'alertDeviceCreated': {
-        'fi': '',
+        'fi': 'Laite on luotu!',
         'en': 'Device successfully created!',
         'de': 'Gerät erfolgreich hinzugefügt!',
-        'sv': ''
+        'sv': 'Enheten har lagts till framgångsrikt!'
     },
     'alertInterruptiongroupChanged': {
-        'fi': '',
+        'fi': 'Keskeytysryhmä on onnistuneesti muuttunut!',
         'en': 'Interruptiongroup successfully changed!',
         'de': 'Unterbrechung erfolgreich geändert!',
-        'sv': ''
+        'sv': 'Avbrottsgrupper har ändrats framgångsrikt!'
     },
     'alertInterruptiongroupCreated': {
-        'fi': '',
+        'fi': 'Keskeytys onnistuneesti luoto!',
         'en': 'Interruptiongroup successfully created!',
         'de': 'Unterbrechung erfolgreich hinzugefügt!',
-        'sv': ''
+        'sv': 'Avbrottsgrupper har lagt till till framgångsrikt!'
     },
     'alertUserChanged': {
-        'fi': '',
+        'fi': 'Käyttäjä on muuttunut onnistuneesti!',
         'en': 'User successfully changed!',
         'de': 'Benutzer erfolgreich geändert!',
-        'sv': ''
+        'sv': 'Användaren har ändrats framgångsrikt!'
     },
     'alertUserCreated': {
-        'fi': '',
+        'fi': 'Käyttäjä on onnistuneesti luoto!',
         'en': 'User successfully created!',
         'de': 'Benutzer erfolgreich hinzugefügt!',
-        'sv': ''
+        'sv': 'Användaren har lagts till framgångsrikt!'
     },
     'allDevices': {
         'fi': 'Kaikki laitteet',
@@ -146,22 +146,22 @@ const messages = {
         'sv': 'Redigera'
     },
     'editDevice': {
-        'fi': '',
+        'fi': 'Muokkaa laitetta',
         'en': 'Edit Device',
         'de': 'Gerät bearbeiten',
-        'sv': ''
+        'sv': 'Redigera Enhet'
     },
     'editInterruptiongroup': {
-        'fi': '',
+        'fi': 'Muokka katkoviiva',
         'en': 'Edit Interruptiongroup',
         'de': 'Unterbrechung bearbeiten',
-        'sv': ''
+        'sv': 'Redigera avbrottsgrupper'
     },
     'editUser': {
-        'fi': '',
+        'fi': 'Muokkaa käyttäjä',
         'en': 'Edit User',
         'de': 'Benutzer bearbeiten',
-        'sv': ''
+        'sv': 'Redigera användare'
     },
     'email': {
         'fi': 'Sähköposti',
@@ -188,16 +188,16 @@ const messages = {
         'sv': 'Hallå'
     },
     'highLow': {
-        'fi': '',
+        'fi': 'aleneva',
         'en': 'descending',
         'de': 'absteigend',
-        'sv': ''
+        'sv': 'fallande'
     },
     'in': {
-        'fi': '',
+        'fi': 'sisään',
         'en': 'in',
         'de': 'in',
-        'sv': ''
+        'sv': 'i'
     },
     'interruptionGroups': {
         'fi': 'Katkoryhmät',
@@ -224,10 +224,10 @@ const messages = {
         'sv': 'Efternamn'
     },
     'lowHigh': {
-        'fi': '',
+        'fi': 'nuoseva',
         'en': 'ascending',
         'de': 'aufsteigend',
-        'sv': ''
+        'sv': 'stigande'
     },
     'newDevice': {
         'fi': 'Uusi laite',
@@ -248,30 +248,30 @@ const messages = {
         'sv': 'Ny användare'
     },
     'noEditInterruptiongroupPossible1': {
-        'fi': '',
+        'fi': 'Valitettavasti et voi muokata tätä katkoryhmä. Voit kuitenkin poistaa ne. Katso ',
         'en': 'Unfortunately, you cannot edit this interruption group. ' +
         'You may, however, delete them. Please have a look at the ',
         'de': 'Leider können Sie diese Unterbrechungsgruppe nicht bearbeiten. ' +
         'Sie können sie jedoch löschen. Bitte werfen Sie einen Blick auf die ',
-        'sv': ''
+        'sv': 'Tyvärr kan du inte redigera den här avbrytargruppen. Du kan dock radera dem. Titta på '
     },
     'noEditInterruptiongroupPossible2': {
-        'fi': '',
+        'fi': 'yleiskatsaus',
         'en': 'overview',
         'de': 'Übersicht',
-        'sv': ''
+        'sv': 'översikten'
     },
     'noEditInterruptiongroupPossible3': {
-        'fi': '',
+        'fi': ' tai luo uusi keskeytysryhmä ',
         'en': ' or create a new interruption group ',
         'de': ' oder erstellen Sie eine neue Unterbrechungsgruppe ',
-        'sv': ''
+        'sv': ' eller skapa en ny avbrottsgrupp'
     },
     'noEditInterruptiongroupPossible4': {
-        'fi': '',
+        'fi': 'tähän.',
         'en': 'here.',
         'de': 'hier.',
-        'sv': ''
+        'sv': 'här.'
     },
     'overbooking': {
         'fi': 'Ylibuukkaus [%]',
@@ -310,38 +310,42 @@ const messages = {
         'sv': 'Sök...'
     },
     'searchFor': {
-        'fi': '',
+        'fi': 'Etsiminen',
         'en': 'Search for',
         'de': 'Suche nach',
-        'sv': ''
+        'sv': 'Sök efter'
     },
     'searchForHint1': {
-        'fi': '',
+        'fi': '* Etsi päivämäärät ja kellonajat näin: YYYY-MM-DD tai HH:MM',
         'en': '* Search for dates and times like this YYYY-MM-DD or HH:MM',
-        'de': 'Suchen Sie nach einem Datum oder einer Uhrzeigt in diesem Format: YYYY-MM-DD oder HH:MM',
-        'sv': ''
+        'de': '* Suchen Sie nach einem Datum oder einer Uhrzeigt in diesem Format: YYYY-MM-DD oder HH:MM',
+        'sv': '* Sök efter datum och tider så här: YYYY-MM-DD och HH:MM'
     },
     'searchForHint2': {
-        'fi': '',
+        'fi': 'Eivät sisällä \'%\' tai \'kW\' etsittäessä sarakkeessa \'Tehonsäästö ' +
+        '[kW]\' tai \'Ylibuukkaus [%]\'. Sinun ei myöskään tarvitse yleismerkkejä, ' +
+        'kuten \'*\' tai \'?\'.',
         'en': 'Do not include \'%\' or \'kW\' when searching in ' +
         'column \'Power Saved [kW]\' or \'Overbooking [%]\'. ' +
         'You also don\'t need any wildcards like \'*\' or \'?\'.',
         'de': 'Geben Sie bei Ihrer Suche in den ' +
         'Spalten \'Ersparte Energiemenge [kW] oder \'Überbuchung ' +
         '[%] kein \'%\' oder \'kW\' ein.',
-        'sv': ''
+        'sv': 'Inkludera inte \'%\' och \'kW\' när du söker i ' +
+        'kolumn \'Effekt sparade [kW]\' eller \'Överbokning [%]\'. ' +
+        'Du behöver inte heller några wildcard som "*" eller "?".'
     },
     'showAll': {
-        'fi': '',
+        'fi': 'Näytä kaikki',
         'en': 'Show all',
         'de': 'Alle anzeigen',
-        'sv': ''
+        'sv': 'Visa allt'
     },
     'sortBy': {
-      'fi': '',
+      'fi': 'Lajittele',
       'en': 'Sort by',
       'de': 'Sortieren nach',
-      'sv': ''
+      'sv': 'Sortera efter'
     },
     'starttime': {
         'fi': 'Alkuaika',

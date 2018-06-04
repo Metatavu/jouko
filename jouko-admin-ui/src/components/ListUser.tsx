@@ -3,8 +3,8 @@ import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
 import { _ } from '../i18n';
-import { take } from 'lodash';
-import { UsersApi } from 'jouko-ts-client';
+// import { take } from 'lodash';
+// import { UsersApi } from 'jouko-ts-client';
 
 interface UserProps {
     userId: number;
@@ -122,6 +122,7 @@ export class ListUser extends
         this.fetchAllUsers();
     }
     async fetchAllUsers() {
+        {/*
         const allUsersApi = new UsersApi(
             undefined,
             'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
@@ -166,6 +167,7 @@ export class ListUser extends
             }
         }
         this.setState({users: take(users, 100)});
+        */}
     }
 
     render() {

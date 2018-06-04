@@ -146,7 +146,7 @@ input[type="text"]:disabled {
     margin-bottom: 10px;
 }
 .new-item-form input[type="submit"]:hover,
-.new-item-form input[type="button"]:hover
+.new-item-form input[type="button"]:hover,
 .edit-item-form input[type="submit"]:hover,
 .edit-item-form input[type="button"]:hover
 {
@@ -298,7 +298,7 @@ table a i {
     color: #134e50;
     border-radius: 10px;
     border: 3px solid #134e50;
-    width: 50%;
+    width: 65%;
     display: flex;
     flex-flow: row wrap;
 }
