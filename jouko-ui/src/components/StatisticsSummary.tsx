@@ -4,7 +4,6 @@ import { DevicesApi  } from 'jouko-ts-client';
 import { take } from 'lodash';
 import { BeatLoader } from 'react-spinners';
 import { _ } from '../i18n';
-import { WelcomeBox } from './WelcomeBox';
 
 const device1 = {
   labels: [
@@ -142,10 +141,6 @@ export class StatisticsSummary
     });
     const statisticsSummary = (
       <div>
-        <WelcomeBox
-          firstname={this.props.firstname as string}
-          lastname={this.props.lastname as string}
-        />
         <div className="DeviceInterruptionTitle">
           <h2>{_('totalEnergy')}</h2>
         </div>

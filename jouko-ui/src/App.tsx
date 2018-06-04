@@ -97,14 +97,16 @@ class App extends React.Component<{}, AppState> {
               </NavLink>
             </div>
           </div>
+          <WelcomeBox
+            firstname={this.state.firstname as string}
+            lastname={this.state.lastname as string}
+          />
         <Route
           path="/"
           exact={true}
           render={props => (
             <Home
               currentUserId={this.state.userId as number}
-              firstname={this.state.firstname as string}
-              lastname={this.state.lastname as string}
             />
           )}
         />
