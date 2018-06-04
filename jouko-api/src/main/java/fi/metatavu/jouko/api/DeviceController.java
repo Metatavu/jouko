@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
+import fi.metatavu.jouko.api.dao.ControllerDAO;
 import fi.metatavu.jouko.api.dao.DeviceDAO;
 import fi.metatavu.jouko.api.dao.GprsMessageDAO;
 import fi.metatavu.jouko.api.dao.PowerMeasurementDAO;
@@ -30,6 +31,9 @@ public class DeviceController {
   @Inject
   private GprsMessageDAO gprsMessageDAO;
   
+  @Inject
+  private ControllerDAO controllerDAO;
+  
   public List<DeviceEntity> listAll(
       Integer firstResult,
       Integer maxResults
@@ -52,7 +56,26 @@ public class DeviceController {
   public DeviceEntity findById(Long deviceId) {
     return deviceDAO.findById(deviceId);
   }
-
+  
+  public ControllerEntity findControllerByEui(String eui) {
+    return controllerDAO.findByEui(eui);
+  }
+  
+  public DevicePowerMeasurementEntity addPowerMeasurement(
+      DeviceEntity device,
+      double measurementValue,
+      MeasurementType measurementType,
+      OffsetDateTime startTime,
+      OffsetDateTime endTime
+  ) {
+    return powerMeasurementDAO.create(
+        device,
+        measurementValue,
+        measurementType,
+        startTime,
+        endTime);
+  }
+      
   public double averageConsumptionInWatts(DeviceEntity device, OffsetDateTime fromTime, OffsetDateTime toTime) {
     // TODO handle different measurement durations
     // TODO do in database
@@ -112,8 +135,21 @@ public class DeviceController {
                          .map(GprsMessageEntity::getContent)
                          .collect(Collectors.toList());
   }
+
+  public List<String> getQueuedGprsMessagesForController(
+      ControllerEntity controller
+  ) {
+    return gprsMessageDAO.listByController(controller)
+                         .stream()
+                         .map(GprsMessageEntity::getContent)
+                         .collect(Collectors.toList());
+  }
   
   public void clearGprsMessages() {
     gprsMessageDAO.clear();
+  }
+
+  public void clearGprsMessagesForController(ControllerEntity controller) {
+    gprsMessageDAO.clearControllerMessages(controller);
   }
 }

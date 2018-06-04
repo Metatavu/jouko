@@ -12,9 +12,30 @@ import javax.persistence.criteria.Root;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity;
 import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity_;
+import fi.metatavu.jouko.api.model.MeasurementType;
 
 @Dependent
 public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntity> {
+  
+  public DevicePowerMeasurementEntity create(
+      DeviceEntity device,
+      double measurementValue,
+      MeasurementType measurementType,
+      OffsetDateTime startTime,
+      OffsetDateTime endTime
+  ) {
+    DevicePowerMeasurementEntity entity = new DevicePowerMeasurementEntity(
+        null,
+        device,
+        measurementValue,
+        measurementType,
+        startTime,
+        endTime
+    );
+    getEntityManager().persist(entity);
+    return entity;
+  }
+  
   public List<DevicePowerMeasurementEntity> listByDeviceAndDate(
       DeviceEntity device,
       OffsetDateTime fromTime,

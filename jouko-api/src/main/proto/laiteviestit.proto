@@ -13,6 +13,7 @@ message Katkot {
 	repeated Katko katkot = 1;
 }
 
+
 message Katkonestot {
 	message Katkonesto {
 		required int64 katkoID = 1;
