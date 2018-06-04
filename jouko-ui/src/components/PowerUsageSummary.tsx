@@ -99,7 +99,7 @@ export class PowerUsageSummaries
             </NavLink>
             <div className="PowerUsageSummaryContainer">
               <NavLink to={'/StatisticsSummary'} onClick={() => window.scrollTo(0, 0)}>
-                <h4>{_('preventInterruptions')}</h4>
+                <h4>{_('allStatistics')}</h4>
                 <p/>
               </NavLink>
             </div>
