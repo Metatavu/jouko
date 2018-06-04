@@ -63,7 +63,7 @@ const messages = {
   },
   'confirmCancelInterruption': {
     'fi': 'Oletko varma että haluat peruttaa tämän katkon?',
-    'en': 'Are you sure that you want to prevent this interruption?',
+    'en': 'Are you sure that you want to cancel this interruption?',
     'de': 'Sind Sie sich sicher, dass Sie diese Unterbrechung verhindern wollen?',
     'sv': 'Är du säker på att du vill avbryta detta avbrott?'
   },
@@ -123,9 +123,9 @@ const messages = {
   },
   'preventInterruptions': {
     'fi': 'Estä katko',
-    'en': 'Prevent interruption',
+    'en': 'Cancel interruption',
     'de': 'Unterbrechung verhindern',
-    'sv': 'Förhindra avbrott'
+    'sv': 'Avbryt avbrott'
   },
   'save': {
     'fi': 'Tallenna',

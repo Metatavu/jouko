@@ -399,12 +399,13 @@
   padding: 2%;
   border: 1px solid #21898c;
 }
+{/*
 .UserSettings input[type="text"]:disabled {
   background: #dddddd;
   border: 1px solid #dddddd;
   color: #626262;
 }
-
+*/}
 .UserSettings input[type="submit"],
 .UserSettings input[type="reset"],
 .UserSettings input[type="button"]{

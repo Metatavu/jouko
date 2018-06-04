@@ -49,7 +49,7 @@ export class User extends React.Component<UserProps, UserState> {
           <input
             type="text"
             name="username"
-            placeholder={this.state.username}
+            value={this.state.username}
             disabled={true}
           />
           <p>{_('email')}:</p>
@@ -58,6 +58,7 @@ export class User extends React.Component<UserProps, UserState> {
             name="email"
             value={this.state.email}
             onChange={this.handleEmailChange}
+            disabled={true}
           />
           <p>{_('firstname')}:</p>
           <input
@@ -65,6 +66,7 @@ export class User extends React.Component<UserProps, UserState> {
             name="firstName"
             value={this.state.firstname}
             onChange={this.handleFirstnameChange}
+            disabled={true}
           />
           <p>{_('lastname')}:</p>
           <input
@@ -72,7 +74,9 @@ export class User extends React.Component<UserProps, UserState> {
             name="lastName"
             value={this.state.lastname}
             onChange={this.handleLastnameChange}
+            disabled={true}
           />
+          {/*
           <input
             type="reset"
             value={_('cancel')}
@@ -82,6 +86,7 @@ export class User extends React.Component<UserProps, UserState> {
             value={_('save')}
             onClick={(event) => this.handleSubmit(event)}
           />
+          */}
         </form>
     </div>
     );
