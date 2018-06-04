@@ -123,6 +123,7 @@ export class EditUser
     }
 
     render() {
+        {/*
         const controllerOption = this.state.rowProps.map(rowProp => {
             return (
                 <option
@@ -132,6 +133,7 @@ export class EditUser
                 </option>
             );
         });
+        */}
         const usersDevices = this.state.devices.map((devices, index) => {
             return (
                 <tr key={index.toString()}>
@@ -154,6 +156,24 @@ export class EditUser
                         <button className="btn">{_('showAll')}</button>
                     </NavLink>
                 </h1>
+                <br/><br/><br/>
+                <div className="InformationBox">
+                    <div className="InformationBoxIcon">
+                        <i className="fa fa-exclamation-triangle"/>
+                    </div>
+                    <div className="InformationBoxText">
+                        <h3>
+                            {_('noEditUserPossible1')}
+                            <NavLink to="/ListUser">
+                                {_('noEditUserPossible2')}
+                            </NavLink>
+                            {_('noEditUserPossible3')}
+                            <NavLink to="/NewUser">
+                                {_('noEditUserPossible4')}
+                            </NavLink>
+                        </h3>
+                    </div>
+                </div>
                 <form className="edit-item-form">
                     <p>{_('userId')}:</p>
                     <input
@@ -176,6 +196,7 @@ export class EditUser
                         name="firstname"
                         value={this.state.firstname}
                         onChange={this.handleFirstnameChange}
+                        disabled={true}
                     />
                     <p>{_('lastname')}:</p>
                     <input
@@ -183,6 +204,7 @@ export class EditUser
                         name="lastname"
                         value={this.state.lastname}
                         onChange={this.handleLastnameChange}
+                        disabled={true}
                     />
                     <p>{_('email')}:</p>
                     <input
@@ -190,6 +212,7 @@ export class EditUser
                         name="email"
                         value={this.state.email}
                         onChange={this.handleEmailChange}
+                        disabled={true}
                     />
                     <p>{_('devices')}:</p>
                     <table className="UserDevice">
@@ -204,6 +227,7 @@ export class EditUser
                             {usersDevices}
                         </tbody>
                     </table>
+                    {/*
                     <table className="NewUserDevice">
                         <thead className="NewUserDeviceHead">
                             <tr>
@@ -260,6 +284,7 @@ export class EditUser
                             <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
                         </div>
                     </table>
+                    */}
                     </form>
             </div>
         );

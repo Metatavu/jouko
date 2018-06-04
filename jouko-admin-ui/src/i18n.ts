@@ -247,13 +247,39 @@ const messages = {
         'de': 'Neuer Benutzer',
         'sv': 'Ny användare'
     },
+    'noEditDevicePossible1': {
+        'fi': 'Valitettavasti et voi muokata tätä laite. Voit kuitenkin poistaa laitteita. Katso ',
+        'en': 'Unfortunately, you cannot edit this device. ' +
+        'You may, however, delete devices. Please have a look at the ',
+        'de': 'Leider können Sie dieses Gerät nicht bearbeiten. ' +
+        'Sie können jedoch Geräte löschen. Bitte werfen Sie einen Blick auf die ',
+        'sv': 'Tyvärr kan du inte redigera den här enhet. Du kan dock radera enheter. Titta på '
+    },
+    'noEditDevicePossible2': {
+        'fi': 'yleiskatsaus',
+        'en': 'overview',
+        'de': 'Übersicht',
+        'sv': 'översikten'
+    },
+    'noEditDevicePossible3': {
+        'fi': ' tai luo uusi laite ',
+        'en': ' or create a new device ',
+        'de': ' oder erstellen Sie ein neues Gerät ',
+        'sv': ' eller skapa en ny enhet'
+    },
+    'noEditDevicePossible4': {
+        'fi': 'tähän.',
+        'en': 'here.',
+        'de': 'hier.',
+        'sv': 'här.'
+    },
     'noEditInterruptiongroupPossible1': {
-        'fi': 'Valitettavasti et voi muokata tätä katkoryhmä. Voit kuitenkin poistaa ne. Katso ',
+        'fi': 'Valitettavasti et voi muokata tätä katkoryhmä. Voit kuitenkin poistaa katkoryhmiä. Katso ',
         'en': 'Unfortunately, you cannot edit this interruption group. ' +
-        'You may, however, delete them. Please have a look at the ',
+        'You may, however, delete interruption groups. Please have a look at the ',
         'de': 'Leider können Sie diese Unterbrechungsgruppe nicht bearbeiten. ' +
-        'Sie können sie jedoch löschen. Bitte werfen Sie einen Blick auf die ',
-        'sv': 'Tyvärr kan du inte redigera den här avbrytargruppen. Du kan dock radera dem. Titta på '
+        'Sie können jedoch Unterbrechungsgruppen löschen. Bitte werfen Sie einen Blick auf die ',
+        'sv': 'Tyvärr kan du inte redigera den här avbrytargruppen. Du kan dock radera avbrytargrupper. Titta på '
     },
     'noEditInterruptiongroupPossible2': {
         'fi': 'yleiskatsaus',
@@ -268,6 +294,32 @@ const messages = {
         'sv': ' eller skapa en ny avbrottsgrupp'
     },
     'noEditInterruptiongroupPossible4': {
+        'fi': 'tähän.',
+        'en': 'here.',
+        'de': 'hier.',
+        'sv': 'här.'
+    },
+    'noEditUserPossible1': {
+        'fi': 'Valitettavasti et voi muokata tätä käyttäjä. Voit kuitenkin poistaa käyttäjiä. Katso ',
+        'en': 'Unfortunately, you cannot edit this user. ' +
+        'You may, however, delete users. Please have a look at the ',
+        'de': 'Leider können Sie diesen Benutzer nicht bearbeiten. ' +
+        'Sie können jedoch Benutzer löschen. Bitte werfen Sie einen Blick auf die ',
+        'sv': 'Tyvärr kan du inte redigera den här användare. Du kan dock radera användare. Titta på '
+    },
+    'noEditUserPossible2': {
+        'fi': 'yleiskatsaus',
+        'en': 'overview',
+        'de': 'Übersicht',
+        'sv': 'översikten'
+    },
+    'noEditUserPossible3': {
+        'fi': ' tai luo uusi käyttäjä ',
+        'en': ' or create a new user ',
+        'de': ' oder erstellen Sie einen neuen Benutzer ',
+        'sv': ' eller skapa en ny användare'
+    },
+    'noEditUserPossible4': {
         'fi': 'tähän.',
         'en': 'here.',
         'de': 'hier.',

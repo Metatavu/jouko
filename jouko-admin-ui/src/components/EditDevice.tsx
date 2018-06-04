@@ -27,8 +27,8 @@ export class EditDevice
         super(props);
         this.state = {
             deviceName: '',
-            userId: 5,
-            controllerId: 6,
+            userId: 0,
+            controllerId: 0,
             rowProps: []
         };
         this.handleDeviceNameChange = this.handleDeviceNameChange.bind(this);
@@ -71,6 +71,7 @@ export class EditDevice
     }
 
     render() {
+        {/*
         const controllerOption = this.state.rowProps.map(rowProp => {
             return (
                 <option
@@ -91,6 +92,7 @@ export class EditDevice
                 </option>
             );
         });
+        */}
         return (
             <div className="">
                 <h1>{_('editDevice')}
@@ -98,6 +100,24 @@ export class EditDevice
                         <button className="btn">{_('showAll')}</button>
                     </NavLink>
                 </h1>
+                <br/><br/><br/>
+                <div className="InformationBox">
+                    <div className="InformationBoxIcon">
+                        <i className="fa fa-exclamation-triangle"/>
+                    </div>
+                    <div className="InformationBoxText">
+                        <h3>
+                            {_('noEditDevicePossible1')}
+                            <NavLink to="/ListDevice">
+                                {_('noEditDevicePossible2')}
+                            </NavLink>
+                            {_('noEditDevicePossible3')}
+                            <NavLink to="/NewDevice">
+                                {_('noEditDevicePossible4')}
+                            </NavLink>
+                        </h3>
+                    </div>
+                </div>
                 <form className="edit-item-form">
                     <p>ID:</p>
                     <input
@@ -112,19 +132,28 @@ export class EditDevice
                         name="deviceName"
                         value={this.state.deviceName}
                         onChange={this.handleDeviceNameChange}
+                        disabled={true}
                     />
                     <p>{_('user')}:</p>
-                    <select name="userId">
-                        {userOption}
-                    </select>
+                    <input
+                        type="text"
+                        name="userId"
+                        value={this.state.userId}
+                        disabled={true}
+                    />
                     <p>{_('controllerDevice')}:</p>
-                    <select name="controllerId">
-                        {controllerOption}
-                    </select>
+                    <input
+                        type="text"
+                        name="controllerId"
+                        value={this.state.controllerId}
+                        disabled={true}
+                    />
+                    {/*
                     <div className="ActionField">
                         <input type="reset" value={_('cancel')} />
                         <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
                     </div>
+                    */}
                 </form>
             </div>
         );

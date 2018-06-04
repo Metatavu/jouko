@@ -56,34 +56,39 @@ export class AdminUserSettings extends React.Component<AdminUserSettingsProps, A
                         <input
                             type="text"
                             name="username"
-                            placeholder={this.state.username}
+                            value={this.props.username}
                             disabled={true}
                         />
                         <p>{_('email')}:</p>
                         <input
-                            type="email"
+                            type="text"
                             name="email"
-                            value={this.state.email}
+                            value={this.props.email}
                             onChange={this.handleEmailChange}
+                            disabled={true}
                         />
                         <p>{_('firstname')}:</p>
                         <input
                             type="text"
                             name="firstName"
-                            value={this.state.firstname}
+                            value={this.props.firstname}
                             onChange={this.handleFirstnameChange}
+                            disabled={true}
                         />
                         <p>{_('lastname')}:</p>
                         <input
                             type="text"
                             name="lastName"
-                            value={this.state.lastname}
+                            value={this.props.lastname}
                             onChange={this.handleLastnameChange}
+                            disabled={true}
                         />
+                        {/*
                         <div className="ActionField">
                             <input type="reset" value={_('cancel')} />
                             <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
                         </div>
+                        */}
                     </form>
                 </div>
             </div>
