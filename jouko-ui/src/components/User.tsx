@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { _ } from '../i18n';
+import { WelcomeBox } from './WelcomeBox';
 
 interface  UserProps {
   username: string;
@@ -44,6 +45,10 @@ export class User extends React.Component<UserProps, UserState> {
    render() {
     return(
       <div className="UserSettings">
+        <WelcomeBox
+          firstname={this.props.firstname as string}
+          lastname={this.props.lastname as string}
+        />
         <form>
           <p>{_('username')}:</p>
           <input
