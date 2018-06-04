@@ -1,4 +1,4 @@
-let language = localStorage.getItem('language') || 'en';
+let language = localStorage.getItem('language') || 'fi';
 
 const messages = {
   '1hour': {
