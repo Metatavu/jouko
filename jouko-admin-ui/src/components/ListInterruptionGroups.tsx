@@ -49,9 +49,9 @@ export class InterruptionGroup
     render() {
         let interruptiongroupId = this.props.interruptiongroupId;
         let startdate = formatDate(this.props.starttime, 'dddd DD. MMMM YYYY');
-        let starttime = formatDate(this.props.starttime, 'H.mm');
+        let starttime = formatDate(this.props.starttime, 'H:mm');
         let enddate = formatDate(this.props.endttime, 'dddd DD. MMMM YYYY');
-        let endtime = formatDate(this.props.endttime, 'HH.mm');
+        let endtime = formatDate(this.props.endttime, 'HH:mm');
         let powerSavingGoalInWatts = this.props.powerSavingGoalInWatts;
         let overbookingFactor = this.props.overbookingFactor;
 
