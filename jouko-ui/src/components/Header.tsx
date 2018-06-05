@@ -2,6 +2,12 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { _ } from '../i18n';
+import * as language from '../i18n';
+
+const finland = require('../flags/Finland.png');
+const germany = require('../flags/Germany.png');
+const sweden = require('../flags/Sweden.png');
+const unitedKingdom = require('../flags/United_Kingdom.png');
 
 enum State {
   CLOSED,
@@ -58,16 +64,47 @@ export class Header
         </div>
         <div className={classes}>
           <ul>
-            <li><NavLink to="/"><i className="fa fa-home fa-fw"/>{_('home')}</NavLink></li>
-            <li><NavLink to="/User"><i className="fa fa-user fa-fw"/>{_('user')}</NavLink></li>
-            <li><NavLink to="/StatisticsSummary" onClick={() => window.scrollTo(0, 0)}>
+            <li className="menuItems"><NavLink to="/"><i className="fa fa-home fa-fw"/>{_('home')}</NavLink></li>
+            <li className="menuItems"><NavLink to="/User"><i className="fa fa-user fa-fw"/>{_('user')}</NavLink></li>
+            <li className="menuItems"><NavLink to="/StatisticsSummary" onClick={() => window.scrollTo(0, 0)}>
               <i className="fa fa-line-chart fa-fw"/>{_('statistics')}
             </NavLink></li>
-            {/*
-            <li><NavLink to="/Settings"><i className="fa fa-cogs fa-fw"/>Settings</NavLink></li>
-            */}
-            <li><NavLink to="/" onClick={() => this.props.logout()}>
+            <li className="menuItems"><NavLink to="/" onClick={() => this.props.logout()}>
               <i className="fa fa-sign-out fa-fw" />{_('logout')}</NavLink></li>
+            <li className="flagBar">
+              <NavLink to={location.pathname}>
+                <img
+                  src={finland}
+                  className="flag"
+                  alt="flag-finland"
+                  onClick={() => language.setLanguage('fi')}
+                />
+              </NavLink>
+              <NavLink to={location.pathname}>
+                <img
+                  src={germany}
+                  className="flag"
+                  alt="flag-germany"
+                  onClick={() => language.setLanguage('de')}
+                />
+              </NavLink>
+              <NavLink to={location.pathname}>
+                <img
+                  src={sweden}
+                  className="flag"
+                  alt="flag-sweden"
+                  onClick={() => language.setLanguage('sv')}
+                />
+              </NavLink>
+              <NavLink to={location.pathname}>
+                <img
+                  src={unitedKingdom}
+                  className="flag"
+                  alt="flag-unitedKingdom"
+                  onClick={() => language.setLanguage('en')}
+                />
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>

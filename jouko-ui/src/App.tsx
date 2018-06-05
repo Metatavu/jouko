@@ -13,7 +13,6 @@ import { NavLink } from 'react-router-dom';
 import * as Keycloak from 'keycloak-js';
 import { UsersApi } from 'jouko-ts-client';
 import { PowerUsageSummaries } from './components/PowerUsageSummary';
-import { FlagBar } from './components/FlagBar';
 import { WelcomeBox } from './components/WelcomeBox';
 
 interface AppState {
@@ -90,7 +89,6 @@ class App extends React.Component<{}, AppState> {
             <div className="Navigation">
               <Header logout={() => this.logout()}/>
             </div>
-            <FlagBar/>
             <div className="Logout">
               <NavLink to="/" onClick={() => this.logout()}>
                 <i className="fa fa-sign-out"/>
@@ -110,7 +108,6 @@ class App extends React.Component<{}, AppState> {
             />
           )}
         />
-        <Route path="/FlagBar" component={FlagBar}/>
         <Route
           path="/User"
           exact={true}

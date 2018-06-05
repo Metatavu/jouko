@@ -40,6 +40,7 @@
 .overlay.open {
   transform: translate(0, 0);
 }
+
 @media only screen and (min-width: 769px) {
   .menu{
     cursor: pointer;
@@ -76,12 +77,18 @@
     z-index: 998;
   }
 }
-
+.flagBar a {
+  text-align: center;
+  padding: 4px;
+}
+.flagBar a:first-child{
+  padding-left: 13px;
+}
 .overlay ul li:hover {
   background-color: rgba(10,36,45,0.2);
   color: white;
 }
-.overlay ul a {
+.overlay ul .menuItems a {
   text-decoration: none;
   color: white;
   padding-left: 10px;
