@@ -11,7 +11,9 @@ import java.util.regex.Pattern;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.management.RuntimeErrorException;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -20,6 +22,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.codec.binary.Base64;
+import org.jboss.resteasy.util.Hex;
 import org.slf4j.Logger;
 
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -46,12 +49,30 @@ public class GprsApi {
   @Context
   private HttpServletRequest request;
   
-  private static final Pattern MESSAGE_PATTERN = Pattern.compile("{([^}]*)}");
+  private static final Pattern MESSAGE_PATTERN = Pattern.compile("\\{([^}]*)\\}");
   
   private static final Pattern AUTH_PATTERN = Pattern.compile("^Key ([a-zA-Z0-9]+)$");
   
+  private static class InvalidDeviceException extends Exception {
+    public InvalidDeviceException(String msg) {
+      super(msg);
+    }
+    
+    private static final long serialVersionUID = 8322806559664622171L;
+  }
+  
   @POST
-  @Path("/gprs/:eui")
+  @Path("/lora/")
+  public Response communicateWithLoraDevice(
+      @FormParam("payload") String payload
+  ) {
+    byte[] unhex = Hex.decodeHex(payload);
+    return null;
+  }
+      
+  
+  @POST
+  @Path("/gprs/{eui}")
   public Response communicateWithGprsDevice(
       @PathParam("eui") String eui,
       String content
@@ -64,6 +85,7 @@ public class GprsApi {
                      .build();
     }
     
+    /*
     String authHeader = request.getHeader("Authorization");
     if (authHeader == null) {
       return Response.status(Status.UNAUTHORIZED)
@@ -86,61 +108,12 @@ public class GprsApi {
                      .build();
     }
     
+    */
     Matcher messageMatcher = MESSAGE_PATTERN.matcher(content);
     List<String> messages = new ArrayList<>();
     try {
-      while (messageMatcher.find()) {
-        String base64 = messageMatcher.group(1);
-        byte[] bytes = Base64.decodeBase64(base64);
-        ViestiLaitteelta viestiLaitteelta = ViestiLaitteelta.parseFrom(bytes);
-        if (viestiLaitteelta.hasMittaukset()) {
-          Mittaukset mittaukset = viestiLaitteelta.getMittaukset();
-          
-          long deviceId = mittaukset.getLaiteID();
-          DeviceEntity device = deviceController.findById(deviceId);
-          if (device == null) {
-            logger.error("Invalid device ID: {}", deviceId);
-            return Response.status(400).entity("Invalid device ID").build();
-          }
-
-          Instant endTime = Instant.ofEpochSecond(mittaukset.getAika());
-          long measurementLength = mittaukset.getPituusMinuutteina();
-          int numMeasurements = mittaukset.getKeskiarvotCount();
-          
-          Instant time = endTime.minus(numMeasurements * measurementLength, ChronoUnit.MINUTES);
-          
-          for (int average : mittaukset.getKeskiarvotList()) {
-            deviceController.addPowerMeasurement(
-                device,
-                (double)average,
-                MeasurementType.AVERAGE,
-                time
-                  .atOffset(ZoneOffset.UTC),
-                time
-                  .plus(measurementLength, ChronoUnit.MINUTES)
-                  .atOffset(ZoneOffset.UTC));
-            time = time.plus(measurementLength, ChronoUnit.MINUTES);
-          }
-        } else if (viestiLaitteelta.hasAikasynkLaitteelta()) {
-          AikasynkLaitteelta sync = viestiLaitteelta.getAikasynkLaitteelta();
-          long deviceTime = sync.getLaiteaika();
-          long myTime = Instant.now().getEpochSecond();
-          
-          ViestiLaitteelle replyMessage = ViestiLaitteelle
-              .newBuilder()
-              .setAikasynkLaitteelle(
-                  AikasynkLaitteelle.newBuilder()
-                    .setErotus(deviceTime - myTime)
-                    .build())
-              .build();
-          
-          String replyMessageString = String.format("{%s}",
-              Base64.encodeBase64String(replyMessage.toByteArray()));
-          
-          messages.add(replyMessageString);
-        }
-      }
-    } catch (InvalidProtocolBufferException ex) {
+      unpackMessages(messageMatcher, messages);
+    } catch (InvalidProtocolBufferException | InvalidDeviceException ex) {
       return Response
           .status(400)
           .entity(String.format("Protobuf error: %s", ex.getMessage()))
@@ -151,5 +124,69 @@ public class GprsApi {
     deviceController.clearGprsMessagesForController(controller);
 
     return Response.ok(String.join(" ", messages)).build();
+  }
+
+
+  private void unpackMessages(Matcher messageMatcher, List<String> messages)
+      throws InvalidProtocolBufferException, InvalidDeviceException {
+    while (messageMatcher.find()) {
+      String base64 = messageMatcher.group(1);
+      byte[] bytes = Base64.decodeBase64(base64);
+      ViestiLaitteelta viestiLaitteelta = ViestiLaitteelta.parseFrom(bytes);
+      if (viestiLaitteelta.hasMittaukset()) {
+        Mittaukset mittaukset = viestiLaitteelta.getMittaukset();
+        
+        long deviceId = mittaukset.getLaiteID();
+        DeviceEntity device = deviceController.findById(deviceId);
+        if (device == null) {
+          logger.error("Invalid device ID: {}", deviceId);
+          throw new InvalidDeviceException(String.format("Invalid device ID: %s", deviceId));
+        }
+
+        Instant endTime = Instant.ofEpochSecond(mittaukset.getAika());
+        long measurementLength = mittaukset.getPituusMinuutteina();
+        if (measurementLength == 0) {
+          measurementLength = 5;
+        }
+        int numMeasurements = mittaukset.getKeskiarvotCount();
+        
+        Instant time = endTime.minus(numMeasurements * measurementLength, ChronoUnit.MINUTES);
+        
+        int phaseNumber = 0;
+        
+        for (int average : mittaukset.getKeskiarvotList()) {
+          deviceController.addPowerMeasurement(
+              device,
+              (double)average,
+              MeasurementType.AVERAGE,
+              time
+                .atOffset(ZoneOffset.UTC),
+              time
+                .plus(measurementLength, ChronoUnit.MINUTES)
+                .atOffset(ZoneOffset.UTC),
+              (phaseNumber++ % 3) + 1);
+          if ((phaseNumber % 3) == 0) {
+            time = time.plus(measurementLength, ChronoUnit.MINUTES);
+          }
+        }
+      } else if (viestiLaitteelta.hasAikasynkLaitteelta()) {
+        AikasynkLaitteelta sync = viestiLaitteelta.getAikasynkLaitteelta();
+        long deviceTime = sync.getLaiteaika();
+        long myTime = Instant.now().getEpochSecond();
+        
+        ViestiLaitteelle replyMessage = ViestiLaitteelle
+            .newBuilder()
+            .setAikasynkLaitteelle(
+                AikasynkLaitteelle.newBuilder()
+                  .setErotus(deviceTime - myTime)
+                  .build())
+            .build();
+        
+        String replyMessageString = String.format("{%s}",
+            Base64.encodeBase64String(replyMessage.toByteArray()));
+        
+        messages.add(replyMessageString);
+      }
+    }
   }
 }

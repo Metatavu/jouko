@@ -40,6 +40,10 @@ public class DevicePowerMeasurementEntity {
   @NotNull
   private OffsetDateTime endTime;
   
+  @Column(nullable = false)
+  @NotNull
+  private int phaseNumber;
+  
   public DevicePowerMeasurementEntity() {
   }
 
@@ -49,7 +53,8 @@ public class DevicePowerMeasurementEntity {
       Double measurementValue,
       MeasurementType measurementType,
       OffsetDateTime startTime,
-      OffsetDateTime endTime) {
+      OffsetDateTime endTime,
+      int phaseNumber) {
     super();
     this.id = id;
     this.device = device;
@@ -57,6 +62,7 @@ public class DevicePowerMeasurementEntity {
     this.measurementType = measurementType;
     this.startTime = startTime;
     this.endTime = endTime;
+    this.phaseNumber = phaseNumber;
   }
 
   public Long getId() {

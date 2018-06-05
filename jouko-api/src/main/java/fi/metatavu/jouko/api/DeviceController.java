@@ -66,14 +66,16 @@ public class DeviceController {
       double measurementValue,
       MeasurementType measurementType,
       OffsetDateTime startTime,
-      OffsetDateTime endTime
+      OffsetDateTime endTime,
+      int phaseNumber
   ) {
     return powerMeasurementDAO.create(
         device,
         measurementValue,
         measurementType,
         startTime,
-        endTime);
+        endTime,
+        phaseNumber);
   }
       
   public double averageConsumptionInWatts(DeviceEntity device, OffsetDateTime fromTime, OffsetDateTime toTime) {

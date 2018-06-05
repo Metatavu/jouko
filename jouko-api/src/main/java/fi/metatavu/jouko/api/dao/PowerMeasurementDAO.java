@@ -22,7 +22,8 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
       double measurementValue,
       MeasurementType measurementType,
       OffsetDateTime startTime,
-      OffsetDateTime endTime
+      OffsetDateTime endTime,
+      int phaseNumber
   ) {
     DevicePowerMeasurementEntity entity = new DevicePowerMeasurementEntity(
         null,
@@ -30,7 +31,8 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
         measurementValue,
         measurementType,
         startTime,
-        endTime
+        endTime,
+        phaseNumber
     );
     getEntityManager().persist(entity);
     return entity;
