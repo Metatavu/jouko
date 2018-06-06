@@ -56,28 +56,28 @@ const messages = {
         'sv': 'Användaren har lagts till framgångsrikt!'
     },
     'allControllerDevices': {
-        'fi': 'Kaikki ohjauslaite',
+        'fi': 'Kaikki Ohjauslaite',
         'en': 'All Controller Devices',
         'de': 'Alle Steuervorrichtungen',
-        'sv': 'Alla styranordning'
+        'sv': 'Alla Styranordning'
     },
     'allDevices': {
-        'fi': 'Kaikki laitteet',
+        'fi': 'Kaikki Laitteet',
         'en': 'All Devices',
         'de': 'Alle Geräte',
-        'sv': 'Alla enheter'
+        'sv': 'Alla Enheter'
     },
     'allInterruptionGroups': {
-        'fi': 'Kaikki katkoryhmät',
-        'en': 'All Interruptiongroups',
+        'fi': 'Kaikki Katkoryhmät',
+        'en': 'All Interruption Groups',
         'de': 'Alle Unterbrechungsgruppen',
-        'sv': 'Alla avbrott grupper'
+        'sv': 'Alla Avbrott Grupper'
     },
     'allUsers': {
-        'fi': 'Kaikki käyttäjät',
+        'fi': 'Kaikki Käyttäjät',
         'en': 'All Users',
         'de': 'Alle Benutzer',
-        'sv': 'Alla användare'
+        'sv': 'Alla Användare'
     },
     'cancel': {
         'fi': 'Peruuta',
@@ -266,22 +266,22 @@ const messages = {
         'sv': 'stigande'
     },
     'newControllerDevice': {
-        'fi': 'Uusi ohjauslaite',
+        'fi': 'Uusi Ohjauslaite',
         'en': 'New Controller Device',
         'de': 'Neue Steuervorrichtung',
-        'sv': 'Ny styranordning'
+        'sv': 'Ny Styranordning'
     },
     'newDevice': {
-        'fi': 'Uusi laite',
+        'fi': 'Uusi Laite',
         'en': 'New Device',
         'de': 'Neues Gerät',
-        'sv': 'Ny enhet'
+        'sv': 'Ny Enhet'
     },
     'newInterruptionGroups': {
-        'fi': 'Uusi katkoryhmä',
-        'en': 'New Interruptiongroups',
+        'fi': 'Uusi Katkoryhmä',
+        'en': 'New Interruption Group',
         'de': 'Neue Unterbrechungsgruppe',
-        'sv': 'Nya avbrott grupper'
+        'sv': 'Nya Avbrott Grupper'
     },
     'newUser': {
         'fi': 'Uusi käyttäjä',

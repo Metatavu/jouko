@@ -32,7 +32,7 @@ hr {
         margin: auto;
     }
     .ExampleContainer1 {
-        width: 25%;
+        width: 45%;
     }
 }
 @media only screen and (max-width: 768px) {
@@ -70,10 +70,15 @@ hr {
     text-decoration: none;
     color: inherit;
 }
-.ExampleContainer1 h4 {
+.ExampleContainer1 h3 {
     padding-left: 25px;
     padding-right: 25px;
-    padding-top: 45px;
+    padding-top: 25px;
     padding-bottom: 45px;
+    margin: 0;
+}
+.fa-server, .fa-user-o, .fa-tablet, .fa-hand-paper-o {
+    font-size: 50px;
+    padding-top: 45px;
     margin: 0;
 }

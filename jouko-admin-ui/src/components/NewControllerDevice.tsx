@@ -10,9 +10,9 @@ interface NewControllerDevicesProps {
     starttime: string;
 }
 interface NewControllerDeviceState {
-    deviceName: string;
-    userId: number;
-    controllerId: number;
+    eui: string;
+    key: string;
+    communicationChannel: string;
     rowProps: NewControllerDevicesProps[];
 }
 
@@ -21,36 +21,36 @@ export class NewControllerDevice
     constructor(props: {}) {
         super(props);
         this.state = {
-            deviceName: '',
-            userId: 5,
-            controllerId: 6,
+            eui: '',
+            key: '',
+            communicationChannel: '',
             rowProps: []
         };
-        this.handleDeviceNameChange = this.handleDeviceNameChange.bind(this);
-        this.handleUserIdChange = this.handleUserIdChange.bind(this);
-        this.handleControllerIdChange = this.handleControllerIdChange.bind(this);
+        this.handleEuiChange = this.handleEuiChange.bind(this);
+        this.handleKeyChange = this.handleKeyChange.bind(this);
+        this.handleCommunicationChannelChange = this.handleCommunicationChannelChange.bind(this);
     }
-    handleDeviceNameChange(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({deviceName: event.currentTarget.value});
+    handleEuiChange(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({eui: event.currentTarget.value});
     }
-    handleUserIdChange(event: React.FormEvent<HTMLOptionElement>) {
-        this.setState({userId: event.currentTarget.index});
+    handleKeyChange(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({key: event.currentTarget.value});
     }
-    handleControllerIdChange(event: React.FormEvent<HTMLOptionElement>) {
-        this.setState({controllerId: event.currentTarget.index});
+    handleCommunicationChannelChange(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({communicationChannel: event.currentTarget.value});
     }
     handleSubmit(event: React.FormEvent<HTMLInputElement>) {
-        console.log(this.state.deviceName);
-        console.log(this.state.userId);
-        console.log(this.state.controllerId);
+        console.log(this.state.eui);
+        console.log(this.state.key);
+        console.log(this.state.communicationChannel);
         event.preventDefault();
-        alert(_('alertDeviceCreated'));
+        alert(_('alertControllerDeviceCreated'));
     }
 
     componentDidMount() {
-        this.fetchNewDevices();
+        this.fetchNewControllerDevices();
     }
-    async fetchNewDevices() {
+    async fetchNewControllerDevices() {
         const interruptionGroupsApi = new InterruptionGroupsApi(
             undefined,
             'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
@@ -66,26 +66,6 @@ export class NewControllerDevice
     }
 
     render() {
-        const controllerOption = this.state.rowProps.map(rowProp => {
-            return (
-                <option
-                    key={rowProp.interruptiongroupId.toString()}
-                    onChange={this.handleControllerIdChange}
-                >
-                    {rowProp.interruptiongroupId.toString()}
-                </option>
-            );
-        });
-        const userOption = this.state.rowProps.map(rowProp => {
-            return (
-                <option
-                    key={rowProp.interruptiongroupId.toString()}
-                    onChange={this.handleUserIdChange}
-                >
-                    {rowProp.starttime.toString()}
-                </option>
-            );
-        });
         return (
             <div className="">
                 <h1>{_('newDevice')}
@@ -94,21 +74,27 @@ export class NewControllerDevice
                     </NavLink>
                 </h1>
                 <form className="new-item-form">
-                    <p>{_('deviceName')}:</p>
+                    <p>EUI:</p>
                     <input
                         type="text"
-                        name="deviceName"
-                        value={this.state.deviceName}
-                        onChange={this.handleDeviceNameChange}
+                        name="eui"
+                        value={this.state.eui}
+                        onChange={this.handleEuiChange}
                     />
-                    <p>{_('user')}:</p>
-                    <select name="userId">
-                        {userOption}
-                    </select>
-                    <p>{_('controllerDevice')}:</p>
-                    <select name="controllerId">
-                        {controllerOption}
-                    </select>
+                    <p>{_('key')}:</p>
+                    <input
+                        type="text"
+                        name="key"
+                        value={this.state.key}
+                        onChange={this.handleKeyChange}
+                    />
+                    <p>{_('communicationChannel')}:</p>
+                    <input
+                        type="text"
+                        name="eui"
+                        value={this.state.communicationChannel}
+                        onChange={this.handleCommunicationChannelChange}
+                    />
                     <div className="ActionField">
                         <input type="reset" value={_('cancel')} />
                         <input type="submit" value={_('create')} onClick={(event) => this.handleSubmit(event)}/>
