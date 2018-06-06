@@ -2,10 +2,13 @@ import * as React from 'react';
 import '../App.css';
 import { take } from 'lodash';
 import { NavLink } from 'react-router-dom';
-import { format as formatDate, parse as parseDate } from 'date-fns';
+import { addDays, format as formatDate, parse as parseDate } from 'date-fns';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
 import { BeatLoader } from 'react-spinners';
 import { _ } from '../i18n';
+
+// tslint:disable-next-line:no-any
+let searchbetween: any;
 
 interface InterruptionGroupProps {
     interruptiongroupId: number;
@@ -87,7 +90,11 @@ interface InterruptionGroupsState {
     sortingElement: string;
     sortingDirection: string;
     searchTerm: string;
+    searchBetweenA: string;
+    searchBetweenB: string;
     searchColumn: string;
+    disableSearch: boolean;
+    disableSearchBetween: boolean;
 }
 
 export class ListInterruptionGroups
@@ -101,7 +108,11 @@ export class ListInterruptionGroups
             sortingElement: 'interruptiongroupId',
             sortingDirection: 'ASC',
             searchTerm: '',
+            searchBetweenA: '',
+            searchBetweenB: '',
             searchColumn: 'id',
+            disableSearch: false,
+            disableSearchBetween: false,
         };
         this.sortByIdASC = this.sortByIdASC.bind(this);
         this.sortByStarttimeASC = this.sortByStarttimeASC.bind(this);
@@ -114,6 +125,8 @@ export class ListInterruptionGroups
         this.sortByPowerSavedDESC = this.sortByPowerSavedDESC.bind(this);
         this.sortByOverbookingDESC = this.sortByOverbookingDESC.bind(this);
         this.search = this.search.bind(this);
+        this.searchBetweenA = this.searchBetweenA.bind(this);
+        this.searchBetweenB = this.searchBetweenB.bind(this);
         this.searchColumn = this.searchColumn.bind(this);
     }
     sortByIdASC(event: React.FormEvent<HTMLOptionElement>) {
@@ -190,9 +203,129 @@ export class ListInterruptionGroups
         this.setState({searchTerm: event.currentTarget.value});
         this.fetchInterruptionGroups();
     }
+    searchBetweenA(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({searchBetweenA: event.currentTarget.value});
+        this.fetchInterruptionGroups();
+    }
+    searchBetweenB(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({searchBetweenB: event.currentTarget.value});
+        this.fetchInterruptionGroups();
+    }
     searchColumn(event: React.FormEvent<HTMLOptionElement>) {
         this.setState({searchColumn: event.currentTarget.value});
-        this.fetchInterruptionGroups();
+        if (event.currentTarget.value === 'startTime') {
+            searchbetween = (
+                <h5>Search between
+                    <input
+                        type="text"
+                        name="searchBetweenA"
+                        placeholder="2018-01-01"
+                        className="SearchBetweenA"
+                        onChange={this.searchBetweenA}
+                        disabled={this.state.disableSearchBetween}
+                        onInput={(ev) => this.setState({
+                            disableSearch: ((this.state.searchBetweenB !== '') && (ev.currentTarget.value !== ''))}
+                        )}
+                    /> and
+                    <input
+                        type="text"
+                        name="searchBetweenB"
+                        placeholder="2018-01-25"
+                        className="SearchBetweenB"
+                        onChange={this.searchBetweenB}
+                        disabled={this.state.disableSearchBetween}
+                        onInput={(ev) => this.setState({
+                            disableSearch: ((this.state.searchBetweenA !== '') && (ev.currentTarget.value !== ''))}
+                        )}
+                    />
+                </h5>
+            );
+        } else if (event.currentTarget.value === 'endTime') {
+            searchbetween = (
+                <h5>Search between
+                    <input
+                        type="text"
+                        name="searchBetweenA"
+                        placeholder="2018-01-01"
+                        className="SearchBetweenA"
+                        onChange={this.searchBetweenA}
+                        disabled={this.state.disableSearchBetween}
+                        onInput={(ev) => this.setState({
+                            disableSearch: ((this.state.searchBetweenB !== '') && (ev.currentTarget.value !== ''))}
+                        )}
+                    /> and
+                    <input
+                        type="text"
+                        name="searchBetweenB"
+                        placeholder="2018-01-25"
+                        className="SearchBetweenB"
+                        onChange={this.searchBetweenB}
+                        disabled={this.state.disableSearchBetween}
+                        onInput={(ev) => this.setState({
+                            disableSearch: ((this.state.searchBetweenA !== '') && (ev.currentTarget.value !== ''))}
+                        )}
+                    />
+                </h5>
+            );
+        }  else if (event.currentTarget.value === 'powerSavingGoalInWatts') {
+            searchbetween = (
+                <h5>Search between
+                    <input
+                        type="text"
+                        name="searchBetweenA"
+                        placeholder="0"
+                        className="SearchBetweenA"
+                        onChange={this.searchBetweenA}
+                        disabled={this.state.disableSearchBetween}
+                        onInput={(ev) => this.setState({
+                            disableSearch: ((this.state.searchBetweenB !== '') && (ev.currentTarget.value !== ''))}
+                        )}
+                    /> and
+                    <input
+                        type="text"
+                        name="searchBetweenB"
+                        placeholder="100"
+                        className="SearchBetweenB"
+                        onChange={this.searchBetweenB}
+                        disabled={this.state.disableSearchBetween}
+                        onInput={(ev) => this.setState({
+                            disableSearch: ((this.state.searchBetweenA !== '') && (ev.currentTarget.value !== ''))}
+                        )}
+                    />
+                </h5>
+            );
+        }  else if (event.currentTarget.value === 'overbookingFactor') {
+            searchbetween = (
+                <h5>Search between
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="0"
+                        className="SearchBetweenA"
+                        onChange={this.searchBetweenA}
+                        disabled={this.state.disableSearchBetween}
+                        onInput={(ev) => this.setState({
+                            disableSearch: ((this.state.searchBetweenB !== '') && (ev.currentTarget.value !== ''))}
+                        )}
+                    /> and
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="100"
+                        className="SearchBetweenB"
+                        onChange={this.searchBetweenB}
+                        disabled={this.state.disableSearchBetween}
+                        onInput={(ev) => this.setState({
+                            disableSearch: ((this.state.searchBetweenA !== '') && (ev.currentTarget.value !== ''))}
+                        )}
+                    />
+                </h5>
+            );
+        } else {
+            searchbetween = '';
+            this.fetchInterruptionGroups();
+        }
+
     }
 
     componentDidMount() {
@@ -209,13 +342,43 @@ export class ListInterruptionGroups
         for (const interruptionGroup of interruptionGroups) {
             const searchColumn = this.state.searchColumn.toString();
             if (interruptionGroup[searchColumn].toString().match(this.state.searchTerm )) {
-                rowProps.push({
-                    interruptiongroupId: interruptionGroup.id,
-                    starttime: parseDate(interruptionGroup.startTime),
-                    endttime: parseDate(interruptionGroup.endTime),
-                    powerSavingGoalInWatts: interruptionGroup.powerSavingGoalInWatts || 0.0,
-                    overbookingFactor: interruptionGroup.overbookingFactor || 0.0
-                });
+                let firstDate = parseDate(this.state.searchBetweenA);
+                let secondDate = parseDate(this.state.searchBetweenB);
+                if (this.state.searchBetweenA && this.state.searchBetweenB) {
+                    if (
+                        (searchColumn === 'startTime' || searchColumn === 'endTime') &&
+                        (parseDate(interruptionGroup[searchColumn]) >= firstDate) &&
+                        (parseDate(interruptionGroup[searchColumn]) <= parseDate(formatDate(addDays(secondDate, 1))))
+                    ) {
+                        rowProps.push({
+                            interruptiongroupId: interruptionGroup.id,
+                            starttime: parseDate(interruptionGroup.startTime),
+                            endttime: parseDate(interruptionGroup.endTime),
+                            powerSavingGoalInWatts: interruptionGroup.powerSavingGoalInWatts || 0.0,
+                            overbookingFactor: interruptionGroup.overbookingFactor || 0.0
+                        });
+                    } else if (
+                        (searchColumn === 'powerSavingGoalInWatts' || searchColumn === 'overbookingFactor') &&
+                        (Number(interruptionGroup[searchColumn]) >= Number(this.state.searchBetweenA)) &&
+                        (Number(interruptionGroup[searchColumn]) <= Number(this.state.searchBetweenB))
+                    ) {
+                        rowProps.push({
+                            interruptiongroupId: interruptionGroup.id,
+                            starttime: parseDate(interruptionGroup.startTime),
+                            endttime: parseDate(interruptionGroup.endTime),
+                            powerSavingGoalInWatts: interruptionGroup.powerSavingGoalInWatts || 0.0,
+                            overbookingFactor: interruptionGroup.overbookingFactor || 0.0
+                        });
+                    }
+                } else {
+                    rowProps.push({
+                        interruptiongroupId: interruptionGroup.id,
+                        starttime: parseDate(interruptionGroup.startTime),
+                        endttime: parseDate(interruptionGroup.endTime),
+                        powerSavingGoalInWatts: interruptionGroup.powerSavingGoalInWatts || 0.0,
+                        overbookingFactor: interruptionGroup.overbookingFactor || 0.0
+                    });
+                }
             }
         }
         if (this.state.sortingDirection === 'ASC') {
@@ -234,6 +397,7 @@ export class ListInterruptionGroups
             loading: false
         });
     }
+
     render() {
         const rows = this.state.rowProps.map(rowProp => {
             return (
@@ -243,7 +407,6 @@ export class ListInterruptionGroups
                 />
             );
         });
-
         return (
             <div className="">
                 <h1>{_('allInterruptionGroups')}
@@ -273,26 +436,39 @@ export class ListInterruptionGroups
                     </select>
                     </p>
                     <p>
-                        {_('searchFor')}:
-                        <input
-                            type="text"
-                            name="search"
-                            placeholder={_('search')}
-                            className="SearchInput"
-                            onChange={this.search}
-                        />
-                        {_('in')}:
-                        <select>
-                            <option value="id" onClick={this.searchColumn}>ID</option>
-                            <option value="startTime" onClick={this.searchColumn}>{_('starttime')}</option>
-                            <option value="endTime" onClick={this.searchColumn}>{_('endtime')}</option>
-                            <option
-                                value="powerSavingGoalInWatts"
-                                onClick={this.searchColumn}
-                            >{_('powerSaved')}
-                            </option>
-                            <option value="overbookingFactor" onClick={this.searchColumn}>{_('overbooking')}</option>
-                        </select>
+                            {_('searchFor')}:
+                            <input
+                                type="text"
+                                name="search"
+                                placeholder={_('search')}
+                                className="SearchInput"
+                                onChange={this.search}
+                                disabled={this.state.disableSearch}
+                                onInput={(ev) => this.setState({
+                                    disableSearch: false,
+                                    disableSearchBetween: ev.currentTarget.value !== ''}
+                                )}
+
+                            />
+                            {_('in')}:
+                            <select>
+                                <option value="id" onClick={this.searchColumn}>ID</option>
+                                <option value="startTime" onClick={this.searchColumn}>{_('starttime')}</option>
+                                <option value="endTime" onClick={this.searchColumn}>{_('endtime')}</option>
+                                <option
+                                    value="powerSavingGoalInWatts"
+                                    onClick={this.searchColumn}
+                                >
+                                    {_('powerSaved')}
+                                </option>
+                                <option
+                                    value="overbookingFactor"
+                                    onClick={this.searchColumn}
+                                >
+                                    {_('overbooking')}
+                                </option>
+                            </select>
+                        {searchbetween}
                     </p>
                     <p className="SearchNote">
                         {_('searchForHint1')}

@@ -95,13 +95,13 @@
     padding: 15px;
     border: 1px solid #2db7b7;
 }
-{/*
+
 input[type="text"]:disabled {
     background: #dddddd;
     border: 1px solid #dddddd;
     color: #626262;
 }
-*/}
+
 .new-item-form input[type="submit"],
 .new-item-form input[type="button"],
 .edit-item-form input[type="submit"],
@@ -285,7 +285,7 @@ table a i {
     margin-left: 25px;
     margin-right: 25px;
 }
-.SearchInput {
+.SearchInput, .SearchBetweenA, .SearchBetweenB {
     padding: 10px;
     margin-left: 25px;
     margin-right: 25px;
