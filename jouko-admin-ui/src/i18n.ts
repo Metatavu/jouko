@@ -55,6 +55,12 @@ const messages = {
         'de': 'Benutzer erfolgreich hinzugefügt!',
         'sv': 'Användaren har lagts till framgångsrikt!'
     },
+    'allControllerDevices': {
+        'fi': 'Kaikki ohjauslaite',
+        'en': 'All Controller Devices',
+        'de': 'Alle Steuervorrichtungen',
+        'sv': 'Alla styranordning'
+    },
     'allDevices': {
         'fi': 'Kaikki laitteet',
         'en': 'All Devices',
@@ -78,6 +84,24 @@ const messages = {
         'en': 'Cancel',
         'de': 'Abbrechen',
         'sv': 'Annullera'
+    },
+    'communicationChannel': {
+        'fi': 'Viestintäkanava',
+        'en': 'Communication Channel',
+        'de': 'Kommunikationskanal',
+        'sv': 'Kommunikationskanal '
+    },
+    'confirmControllerDeleteDevice': {
+        'fi': 'Tämä ohjauslaite poistetaan!',
+        'en': 'This controller device will be deleted!',
+        'de': 'Diese Steuervorrichtung wird gelöscht!',
+        'sv': 'Detta styranordning kommer att tas bort!'
+    },
+    'confirmDeleteControllerDevice': {
+        'fi': 'Tämä ohjauslaite poistetaan!',
+        'en': 'This controller device will be deleted!',
+        'de': 'Diese Steuervorrichtung wird gelöscht!',
+        'sv': 'Denna styranordning kommer att tas bort!'
     },
     'confirmDeleteDevice': {
         'fi': 'Tämä laite poistetaan!',
@@ -145,6 +169,12 @@ const messages = {
         'de': 'Bearbeiten',
         'sv': 'Redigera'
     },
+    'editControllerDevice': {
+        'fi': 'Muokkaa ohjauslaite',
+        'en': 'Edit Controller Device',
+        'de': 'Steuervorrichtung bearbeiten',
+        'sv': 'Redigera Styranordning'
+    },
     'editDevice': {
         'fi': 'Muokkaa laitetta',
         'en': 'Edit Device',
@@ -211,6 +241,12 @@ const messages = {
         'de': 'Unterbrechungen',
         'sv': 'Avbrott'
     },
+    'key': {
+        'fi': 'Avain',
+        'en': 'Key',
+        'de': 'Schlüssel',
+        'sv': 'Nyckel'
+    },
     'keycloakId': {
         'fi': 'Keycloak-tunnus',
         'en': 'Keycloak ID',
@@ -228,6 +264,12 @@ const messages = {
         'en': 'ascending',
         'de': 'aufsteigend',
         'sv': 'stigande'
+    },
+    'newControllerDevice': {
+        'fi': 'Uusi ohjauslaite',
+        'en': 'New Controller Device',
+        'de': 'Neue Steuervorrichtung',
+        'sv': 'Ny styranordning'
     },
     'newDevice': {
         'fi': 'Uusi laite',
@@ -247,6 +289,32 @@ const messages = {
         'de': 'Neuer Benutzer',
         'sv': 'Ny användare'
     },
+    'noEditControllerDevicePossible1': {
+        'fi': 'Valitettavasti et voi muokata tätä ohjauslaite. Voit kuitenkin poistaa ohjauslaitteet. Katso ',
+        'en': 'Unfortunately, you cannot edit this controller device. ' +
+        'You may, however, delete controller devices. Please have a look at the ',
+        'de': 'Leider können Sie diese Steuervorrichtung nicht bearbeiten. ' +
+        'Sie können jedoch Steuervorrichtungen löschen. Bitte werfen Sie einen Blick auf die ',
+        'sv': 'Tyvärr kan du inte redigera den här styranordning. Du kan dock radera styrenhetsanordningar. Titta på '
+    },
+    'noEditControllerDevicePossible2': {
+        'fi': 'yleiskatsaus',
+        'en': 'overview',
+        'de': 'Übersicht',
+        'sv': 'översikten'
+    },
+    'noEditControllerDevicePossible3': {
+        'fi': ' tai luo uusi ohjauslaite ',
+        'en': ' or create a new controller device ',
+        'de': ' oder erstellen Sie eine neue Steuervorrichtung ',
+        'sv': ' eller skapa en ny styranordning '
+    },
+    'noEditControllerDevicePossible4': {
+        'fi': 'tähän.',
+        'en': 'here.',
+        'de': 'hier.',
+        'sv': 'här.'
+    },
     'noEditDevicePossible1': {
         'fi': 'Valitettavasti et voi muokata tätä laite. Voit kuitenkin poistaa laitteita. Katso ',
         'en': 'Unfortunately, you cannot edit this device. ' +
@@ -265,7 +333,7 @@ const messages = {
         'fi': ' tai luo uusi laite ',
         'en': ' or create a new device ',
         'de': ' oder erstellen Sie ein neues Gerät ',
-        'sv': ' eller skapa en ny enhet'
+        'sv': ' eller skapa en ny enhet '
     },
     'noEditDevicePossible4': {
         'fi': 'tähän.',
@@ -291,7 +359,7 @@ const messages = {
         'fi': ' tai luo uusi keskeytysryhmä ',
         'en': ' or create a new interruption group ',
         'de': ' oder erstellen Sie eine neue Unterbrechungsgruppe ',
-        'sv': ' eller skapa en ny avbrottsgrupp'
+        'sv': ' eller skapa en ny avbrottsgrupp '
     },
     'noEditInterruptiongroupPossible4': {
         'fi': 'tähän.',
@@ -317,7 +385,7 @@ const messages = {
         'fi': ' tai luo uusi käyttäjä ',
         'en': ' or create a new user ',
         'de': ' oder erstellen Sie einen neuen Benutzer ',
-        'sv': ' eller skapa en ny användare'
+        'sv': ' eller skapa en ny användare '
     },
     'noEditUserPossible4': {
         'fi': 'tähän.',

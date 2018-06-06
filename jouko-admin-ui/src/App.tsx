@@ -3,16 +3,18 @@ import './App.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Topbar } from './components/Topbar';
-import { FlagBar } from './components/FlagBar';
 import { Navigation } from './components/Navigation';
 import { Home } from './components/Home';
 import { AdminUserSettings } from './components/AdminUserSettings';
+import { ListControllerDevice } from './components/ListControllerDevice';
 import { ListDevice } from './components/ListDevice';
 import { ListInterruptionGroups } from './components/ListInterruptionGroups';
 import { ListUser } from './components/ListUser';
+import { NewControllerDevice } from './components/NewControllerDevice';
 import { NewDevice } from './components/NewDevice';
 import { NewInterruptionGroup } from './components/NewInterruptionGroup';
 import { NewUser } from './components/NewUser';
+import { EditControllerDevice } from './components/EditControllerDevice';
 import { EditDevice } from './components/EditDevice';
 import { EditUser } from './components/EditUser';
 import { ShowUser } from './components/ShowUser';
@@ -106,7 +108,6 @@ class App extends React.Component<{}, AppState> {
                   <div className="Navigationbar">
                       <Navigation/>
                       <Topbar logout={() => this.logout()}/>
-                      <FlagBar/>
                   </div>
                   <div className="HomeContainer">
                       <Route
@@ -133,9 +134,11 @@ class App extends React.Component<{}, AppState> {
                       />
                       <Route path="/ListInterruptionGroups" component={ListInterruptionGroups}/>
                       <Route path="/ListUser" component={ListUser}/>
+                      <Route path="/ListControllerDevice" component={ListControllerDevice}/>
                       <Route path="/ListDevice" component={ListDevice}/>
                       <Route path="/NewInterruptionGroup" component={NewInterruptionGroup}/>
                       <Route path="/NewUser" component={NewUser}/>
+                      <Route path="/NewControllerDevice" component={NewControllerDevice}/>
                       <Route path="/NewDevice" component={NewDevice}/>
                       <Route
                           path="/EditInterruptionGroup/:interruptionGroupId"
@@ -150,6 +153,15 @@ class App extends React.Component<{}, AppState> {
                           render={props => (
                               <EditUser
                                   userId={props.match.params.id as number}
+                                  currentUserId={this.state.userId as number}
+                              />
+                          )}
+                      />
+                      <Route
+                          path="/EditControllerDevice/:controllerDeviceId"
+                          render={props => (
+                              <EditControllerDevice
+                                  controllerDeviceId={props.match.params.controllerDeviceId as number}
                                   currentUserId={this.state.userId as number}
                               />
                           )}

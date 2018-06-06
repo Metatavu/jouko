@@ -22,7 +22,7 @@
 .Navigation li a:hover {
     background-color: #111;
 }
-.Navigation .Home a:hover {
+.Navigation .Home a:hover, .FlagBarLi .FlagBar a:hover {
     background-color: transparent;
 }
 .fa-caret-down {
