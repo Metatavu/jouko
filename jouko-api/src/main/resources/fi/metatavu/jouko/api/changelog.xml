@@ -246,4 +246,15 @@
       </column>
     </addColumn>
   </changeSet>
+  
+  <changeSet author="Ilmo Euro" id="20180607-phase-number">
+    <addColumn tableName="DevicePowerMeasurement">
+      <column
+          name="phaseNumber"
+          type="INTEGER"
+          defaultValue="0">
+        <constraints nullable="false" />
+      </column>
+    </addColumn>
+  </changeSet>
 </databaseChangeLog>
