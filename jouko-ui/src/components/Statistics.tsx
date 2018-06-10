@@ -8,6 +8,7 @@ import { take } from 'lodash';
 import { BeatLoader } from 'react-spinners';
 import '../App.css';
 import { _ } from '../i18n';
+import { apiUrl } from '../config';
 
 interface ChartProps {
   deviceId: number;
@@ -49,7 +50,7 @@ export class Statistics
   async fetchStatistics() {
     const devicesApi = new DevicesApi(
       undefined,
-      'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+      apiUrl);
 
     const rowProps: ChartProps[] = [];
     const allDevices: AllDevicesProps[] = [];

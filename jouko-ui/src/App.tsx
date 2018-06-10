@@ -14,6 +14,7 @@ import * as Keycloak from 'keycloak-js';
 import { UsersApi } from 'jouko-ts-client';
 import { PowerUsageSummaries } from './components/PowerUsageSummary';
 import { WelcomeBox } from './components/WelcomeBox';
+import { apiUrl, authUrl } from './config';
 
 interface AppState {
   keycloakInstance?: Keycloak.KeycloakInstance;
@@ -33,7 +34,7 @@ class App extends React.Component<{}, AppState> {
   componentDidMount() {
     const kc = Keycloak(
       {
-        url: 'http://localhost:9080/auth/',
+        url: authUrl,
         realm: 'jouko-realm',
         clientId: 'jouko',
       }
@@ -54,7 +55,7 @@ class App extends React.Component<{}, AppState> {
     const keycloakId = (kc.idTokenParsed as any).sub;
     const usersApi = new UsersApi(
       undefined,
-      'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+      apiUrl);
     const user = await usersApi.getUserByKeycloakId(keycloakId);
     console.log(kc);
     if (user) {

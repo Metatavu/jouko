@@ -5,6 +5,7 @@ import { format as formatDate, subHours } from 'date-fns';
 import { NavLink } from 'react-router-dom';
 import '../App.css';
 import { _ } from '../i18n';
+import { apiUrl } from '../config';
 
 interface PowerUsageSummaryProps {
   deviceId: number;
@@ -56,7 +57,7 @@ export class PowerUsageSummaries
   async fetchPowerUsages() {
     const devicesApi = new DevicesApi(
       undefined,
-      'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+      apiUrl);
     const devices = await devicesApi.listDevices(this.props.currentUserId, 0, 1000);
 
     const rowProps: PowerUsageSummaryProps[] = [];

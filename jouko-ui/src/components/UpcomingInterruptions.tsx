@@ -4,6 +4,7 @@ import { addYears, format as formatDate, parse as parseDate } from 'date-fns';
 import { take } from 'lodash';
 import '../App.css';
 import { _ } from '../i18n';
+import { apiUrl } from '../config';
 
 interface UpcomingInterruptionProps {
   id: number;
@@ -90,7 +91,7 @@ export class UpcomingInterruptions
   async cancelInterruption(interruptionId: number) {
     const interruptionsApi = new InterruptionsApi(
       undefined,
-      'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+      apiUrl);
 
     await interruptionsApi.setInterruptionCancelled(this.props.currentUserId, interruptionId, {cancelled: true});
     await this.fetchInterruptions();
@@ -99,11 +100,11 @@ export class UpcomingInterruptions
   async fetchInterruptions() {
     const interruptionsApi = new InterruptionsApi(
       undefined,
-      'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+      apiUrl);
 
     const devicesApi = new DevicesApi(
       undefined,
-      'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+      apiUrl);
 
     const devices = await devicesApi.listDevices(this.props.currentUserId, 0, 1000);
 

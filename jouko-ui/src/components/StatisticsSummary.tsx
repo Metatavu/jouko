@@ -4,6 +4,7 @@ import { DevicesApi  } from 'jouko-ts-client';
 import { take } from 'lodash';
 import { BeatLoader } from 'react-spinners';
 import { _ } from '../i18n';
+import { apiUrl } from '../config';
 
 const device1 = {
   labels: [
@@ -107,7 +108,7 @@ export class StatisticsSummary
   async fetchDevices() {
     const devicesApi = new DevicesApi(
       undefined,
-      'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+      apiUrl);
 
     const allDevices: AllDevicesProps[] = [];
 
