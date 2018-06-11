@@ -6,5 +6,5 @@ export const apiUrl =
 
 export const authUrl =
   process.env.NODE_ENV === 'production'
-  ? 'http://jouko-auth.metatavu.io/auth/'
+  ? 'https://jouko-auth.metatavu.io/auth/'
   : 'http://localhost:9080/auth/';
