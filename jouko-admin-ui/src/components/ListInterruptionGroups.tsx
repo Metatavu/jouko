@@ -6,6 +6,7 @@ import { addDays, format as formatDate, parse as parseDate } from 'date-fns';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
 import { BeatLoader } from 'react-spinners';
 import { _ } from '../i18n';
+import { apiUrl } from '../config';
 
 // tslint:disable-next-line:no-any
 let searchbetween: any;
@@ -334,7 +335,7 @@ export class ListInterruptionGroups
     async fetchInterruptionGroups() {
         const interruptionGroupsApi = new InterruptionGroupsApi(
             undefined,
-            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+            apiUrl);
         const interruptionGroups = await interruptionGroupsApi.listInterruptionGroups(0, 1000);
 
         const rowProps: InterruptionGroupProps[] = [];

@@ -2,7 +2,7 @@
   "name": "jouko-ui",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://metatavu.fi/jouko",
+  "homepage": "https://jouko2018.metatavu.io/",
   "dependencies": {
     "@types/chart.js": "^2.7.14",
     "chart.js": "^2.7.2",

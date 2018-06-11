@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { parse as parseDate, addMinutes, addHours } from 'date-fns';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
 import { _ } from '../i18n';
+import { apiUrl } from '../config';
 
 interface NewInterruptionGroupState {
     startDate: string;
@@ -58,7 +59,7 @@ export class NewInterruptionGroup
         let overbookingFactor = this.state.overbookingFactor;
         const interruptionGroupsApi = new InterruptionGroupsApi(
             undefined,
-            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+            apiUrl);
         interruptionGroupsApi.createInterruptionGroup(
             {
                 id: 0,

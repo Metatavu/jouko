@@ -125,7 +125,7 @@ export class ListUser extends
         {/*
         const allUsersApi = new UsersApi(
             undefined,
-            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+            'http://127.0.0.1:8080/api-0.0.1-apiUrl/v1');
         const allUsers = await allUsersApi.listUsers(0, 1000);
         const users: UserProps[] = [];
         for (const user of allUsers) {

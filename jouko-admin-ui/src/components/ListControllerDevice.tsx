@@ -5,6 +5,7 @@ import { BeatLoader } from 'react-spinners';
 import { _ } from '../i18n';
 import { DevicesApi } from 'jouko-ts-client';
 import { take } from 'lodash';
+import { apiUrl } from '../config';
 
 interface ControllerDevicesProps {
     controllerDeviceId: number;
@@ -122,7 +123,7 @@ export class ListControllerDevice
     async fetchAllControllerDevices() {
         const allControllerDevicesApi = new DevicesApi(
             undefined,
-            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+            apiUrl);
         const allControllerDevices = await allControllerDevicesApi.listAllDevices(0, 1000);
         const controllerDevices: ControllerDevicesProps[] = [];
         for (const controllerDevice of allControllerDevices) {

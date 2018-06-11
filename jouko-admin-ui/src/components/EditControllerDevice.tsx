@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { _ } from '../i18n';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
 import { take } from 'lodash';
+import { apiUrl } from '../config';
 
 interface EditControllerDeviceProps {
     controllerDeviceId: number;
@@ -58,7 +59,7 @@ export class EditControllerDevice
     async fetchEditControllerDevices() {
         const interruptionGroupsApi = new InterruptionGroupsApi(
             undefined,
-            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+            apiUrl);
         const interruptionGroups = await interruptionGroupsApi.listInterruptionGroups(0, 1000);
         const rowProps: EditControllerDevicesProps[] = [];
         for (const interruptionGroup of interruptionGroups) {

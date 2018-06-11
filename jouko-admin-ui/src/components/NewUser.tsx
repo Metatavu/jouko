@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { InterruptionGroupsApi } from 'jouko-ts-client';
 import { take } from 'lodash';
 import { _ } from '../i18n';
+import { apiUrl } from '../config';
 
 interface NewUsersProps {
     interruptiongroupId: number;
@@ -110,7 +111,7 @@ export class NewUser
     async fetchControllerAndDevices() {
         const interruptionGroupsApi = new InterruptionGroupsApi(
             undefined,
-            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+            apiUrl);
         const interruptionGroups = await interruptionGroupsApi.listInterruptionGroups(0, 1000);
         const rowProps: NewUsersProps[] = [];
         for (const interruptionGroup of interruptionGroups) {

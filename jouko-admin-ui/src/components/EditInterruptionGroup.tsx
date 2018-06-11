@@ -7,6 +7,7 @@ import { format as formatDate } from 'date-fns';
 import { InterruptionsApi } from 'jouko-ts-client';
 import { _ } from '../i18n';
 import { take } from 'lodash';
+import { apiUrl } from '../config';
 
 interface InterruptionGroupProps {
     interruptionGroupId: number;
@@ -53,7 +54,7 @@ export class EditInterruptionGroup
     async fetchSingleInterruption() {
         const interruptionsApi = new InterruptionsApi(
             undefined,
-            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+            apiUrl);
         const interruptions = await interruptionsApi.retrieveInterruptionGroup(Number(this.props.interruptionGroupId));
 
         const interruption: InterruptionProps[] = [];
@@ -98,7 +99,7 @@ export class EditInterruptionGroup
         let overbookingFactor = this.state.overbookingFactor;
         const interruptionGroupsApi = new InterruptionsApi(
             undefined,
-            'http://127.0.0.1:8080/api-0.0.1-SNAPSHOT/v1');
+            'http://127.0.0.1:8080/api-0.0.1-apiUrl/v1');
         interruptionGroupsApi.createInterruptionGroup(
             {
                 id: 0,

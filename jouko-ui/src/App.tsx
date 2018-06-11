@@ -39,7 +39,10 @@ class App extends React.Component<{}, AppState> {
         clientId: 'jouko',
       }
     );
-    kc.init({ onLoad: 'login-required' })
+    kc.init({
+      checkLoginIframe: false,
+      onLoad: 'login-required'
+    })
       .success(() => {
       this.fetchUsers(kc);
       // tslint:disable-next-line:no-any
