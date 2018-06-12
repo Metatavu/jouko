@@ -145,7 +145,7 @@ export class Statistics
                 labels: prop.hourLabels,
                 datasets: [
                   {
-                    label: _('1hour'),
+                    label: _('1hourlegend'),
                     backgroundColor: 'rgba(48,196,201,0.2)',
                     borderColor: 'rgba(48,196,201,1)',
                     borderWidth: 1,
@@ -164,7 +164,7 @@ export class Statistics
                 labels: prop.hoursLabels,
                 datasets: [
                   {
-                    label: _('24hours'),
+                    label: _('24hourslegend'),
                     backgroundColor: 'rgba(48,196,201,0.2)',
                     borderColor: 'rgba(48,196,201,1)',
                     borderWidth: 1,
@@ -183,7 +183,7 @@ export class Statistics
               labels: prop.daysLabels,
               datasets: [
                 {
-                  label: _('30days'),
+                  label: _('30dayslegend'),
                   fill: false,
                   lineTension: 0.1,
                   borderWidth: 1,

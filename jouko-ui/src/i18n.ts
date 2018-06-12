@@ -1,6 +1,24 @@
 let language = localStorage.getItem('language') || 'fi';
 
 const messages = {
+  '1hourlegend': {
+    'fi': '5 min ka.',
+    'en': '1 hour',
+    'de': '1 Stunde',
+    'sv': '1 timme'
+  },
+  '24hourslegend': {
+    'fi': '1 h ka.',
+    'en': '24 hours',
+    'de': '24 Stunden',
+    'sv': '24 timmar'
+  },
+  '30dayslegend': {
+    'fi': '1 vrk ka.',
+    'en': '30 days',
+    'de': '30 Tage',
+    'sv': '30 dagar'
+  },
   '1hour': {
     'fi': '1 tunti',
     'en': '1 hour',

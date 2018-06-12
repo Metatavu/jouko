@@ -27,7 +27,7 @@ export class PowerUsageSummary
           <div className="PowerUsageSummaryContainer">
             <NavLink to={`/Statistics/${this.props.deviceId}`}>
               <h4>{this.props.name} </h4>
-              <p>{this.props.measurementvalue} Watt</p>
+              <p>{this.props.measurementvalue.toFixed(0)} W</p>
             </NavLink>
           </div>
         </div>
