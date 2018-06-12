@@ -2,6 +2,7 @@
   "name": "jouko-admin-ui",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://jouko2018admin.github.io/",
   "dependencies": {
     "@types/chart.js": "^2.7.15",
     "@types/isomorphic-fetch": "0.0.34",

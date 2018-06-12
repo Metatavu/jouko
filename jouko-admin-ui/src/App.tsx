@@ -53,7 +53,7 @@ class App extends React.Component<{}, AppState> {
         const kc = Keycloak(
             {
                 url: authUrl,
-                realm: 'master',
+                realm: 'jouko-realm',
                 clientId: 'admin-jouko'
             }
         );
