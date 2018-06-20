@@ -13,6 +13,7 @@ message Katkot {
 	repeated Katko katkot = 1;
 }
 
+
 message Katkonestot {
 	message Katkonesto {
 		required int64 katkoID = 1;
@@ -29,18 +30,25 @@ message VersioKysely {
 	required bool versioKysely = 1;
 }
 
-message SbUpdateStart {
-	required int32 numFiles = 1;
-}
-
 message SbUpdatePart {
-	required string num = 1;
-	required bytes part = 2;
+  required int32 updateId = 1;
+  required int32 partNumber = 2;
+	required bytes content = 3;
 }
 
-message SbUpdateStop {
-	required int32 splitSize = 1;
-	required int32 numFiles = 2;
+message SbUpdateFinish {
+  required int32 updateId = 1;
+  required string fileName = 2;
+  required int32 numParts = 3;
+  optional int32 checkSum = 4;
+}
+
+message SbUpdateInstall {
+	repeated int32 updateId = 1;
+	enum InstallType {
+	 RESTART = 0;
+  }
+	required InstallType installType = 2;
 }
 
 message Mittaukset {
@@ -65,9 +73,9 @@ message ViestiLaitteelle {
 		Katkot katkot = 1;
 		Katkonestot katkonestot = 2;
 		AikasynkLaitteelle aikasynkLaitteelle = 3;
-		SbUpdateStart sbUpdateStart = 4;
-		SbUpdatePart sbUpdatePart = 5;
-		SbUpdateStop sbUpdateStop = 6;
+		SbUpdatePart sbUpdatePart = 4;
+		SbUpdateFinish sbUpdateFinish = 5;
+		SbUpdateInstall sbUpdateInstall = 6;
 		VersioKysely versioKysely = 7;
 	}
 }
