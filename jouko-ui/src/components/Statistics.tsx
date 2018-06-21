@@ -28,6 +28,7 @@ interface StatisticsState {
   allDevices: AllDevicesProps[];
   rowProps: ChartProps[];
   loading: boolean;
+  currentDeviceName: String;
 }
 
 interface StatisticsProps {
@@ -40,7 +41,7 @@ export class Statistics
 
   constructor(props: StatisticsProps) {
     super(props);
-    this.state = {rowProps: [], allDevices: [], loading: true};
+    this.state = {rowProps: [], allDevices: [], loading: true, currentDeviceName: ''};
   }
 
   componentDidMount() {
@@ -67,6 +68,9 @@ export class Statistics
 
     const devices = await devicesApi.listDevices(this.props.currentUserId, 0, 1000);
     for (const device of devices) {
+      if (device.id.toString() === this.props.deviceId.toString()) {
+        this.setState({currentDeviceName: device.name.toString()});
+      }
       allDevices.push({
         deviceId: device.id,
         name: device.name,
@@ -124,21 +128,35 @@ export class Statistics
   }
   render() {
     const filterOptions = this.state.allDevices.map(device => {
-      return (
-        <option
-          key={device.deviceId.toString()}
-          value={`/Statistics/${device.deviceId.toString()}`}
-          onClick={this.onUrlSelected}
-        >
-          {device.deviceId.toString()} | {device.name.toString()}
-        </option>
-      );
+        if (this.props.deviceId.toString() === device.deviceId.toString()) {
+          return (
+            <option
+              key={device.deviceId.toString()}
+              value={`/Statistics/${device.deviceId.toString()}`}
+              selected={true}
+              onClick={this.onUrlSelected}
+            >
+              {device.deviceId.toString()} | {device.name.toString()}
+            </option>
+          );
+        } else {
+          return (
+            <option
+              key={device.deviceId.toString()}
+              value={`/Statistics/${device.deviceId.toString()}`}
+              selected={false}
+              onClick={this.onUrlSelected}
+            >
+              {device.deviceId.toString()} | {device.name.toString()}
+            </option>
+          );
+        }
     });
     const hourChart = this.state.rowProps.map(prop => {
       return (
         <div key={prop.deviceId.toString()}>
-          <h1>{_('device')}: {prop.deviceId.toString()}</h1>
-          <h2>{_('statistics')} | {_('1hour')}</h2>
+          <h3>{this.state.currentDeviceName.toString()}</h3>
+          <h4>{_('statistics')} | {_('1hour')}</h4>
           <Bar
             data={
               {
@@ -157,7 +175,7 @@ export class Statistics
               }
             }
           />
-          <h2>{_('statistics')} | {_('24hours')}</h2>
+          <h4>{_('statistics')} | {_('24hours')}</h4>
           <Bar
             data={
               {
@@ -176,7 +194,7 @@ export class Statistics
               }
             }
           />
-          <h2>{_('statistics')} | {_('30days')}</h2>
+          <h4>{_('statistics')} | {_('30days')}</h4>
           <Line
             data={
             {
@@ -213,18 +231,6 @@ export class Statistics
     });
     return (
       <div>
-        <div className="StatisticsFilter">
-          <select>
-            <option>{_('selectStatistics')}...</option>
-            <option
-              value="/StatisticsSummary"
-              onClick={this.onUrlSelected}
-            >
-              {_('allStatistics')}
-            </option>
-            {filterOptions}
-          </select>
-        </div>
         <div className="sweet-loading">
           <BeatLoader
             color={'#30C4C9'}
@@ -233,6 +239,17 @@ export class Statistics
         </div>
         <div className="Statistics">
           {hourChart}
+        </div>
+        <div className="StatisticsFilter">
+          <select>
+            <option
+              value="/StatisticsSummary"
+              onClick={this.onUrlSelected}
+            >
+              {_('allStatistics')}
+            </option>
+            {filterOptions}
+          </select>
         </div>
       </div>
     );

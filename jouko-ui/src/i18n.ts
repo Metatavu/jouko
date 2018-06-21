@@ -43,6 +43,12 @@ const messages = {
     'de': 'Benutzerdaten erfolgreich geändert!',
     'sv': 'Användardata ändras framgångsrikt!'
   },
+  'allMeasurements': {
+    'fi': 'Kaikki Mittaukset',
+    'en': 'All Measurements',
+    'de': 'Alle Messungen',
+    'sv': 'Alla Mätningar'
+  },
   'allStatistics': {
     'fi': 'Kaikki tilastot',
     'en': 'All Statistics',
@@ -91,11 +97,23 @@ const messages = {
     'de': 'Gerät',
     'sv': 'Enhet'
   },
+  'edit': {
+    'fi': 'Muokkaa',
+    'en': 'Edit',
+    'de': 'Bearbeiten',
+    'sv': 'Redigera'
+  },
   'email': {
     'fi': 'Sähköposti',
     'en': 'Email',
     'de': 'E-Mail',
     'sv': 'E-post'
+  },
+  'endtime': {
+    'fi': 'Loppuaika',
+    'en': 'Endtime',
+    'de': 'Endzeit',
+    'sv': 'Sluttid'
   },
   'firstname': {
     'fi': 'Etunimi',
@@ -103,11 +121,23 @@ const messages = {
     'de': 'Vorname',
     'sv': 'Förnamn'
   },
+  'highLow': {
+    'fi': 'aleneva',
+    'en': 'descending',
+    'de': 'absteigend',
+    'sv': 'fallande'
+  },
   'home': {
     'fi': 'Koti',
     'en': 'Home',
     'de': 'Home',
     'sv': 'Hem'
+  },
+  'in': {
+    'fi': 'sisään',
+    'en': 'in',
+    'de': 'in',
+    'sv': 'i'
   },
   'incomingInterruptions': {
     'fi': 'Tulevat katkot',
@@ -121,6 +151,12 @@ const messages = {
     'de': 'Unterbrechung',
     'sv': 'Avbrott'
   },
+  'latestMeasurements': {
+    'fi': 'Viimeisimmät Mittaukset',
+    'en': 'Latest Measurements',
+    'de': 'Neueste Messungen',
+    'sv': 'Senaste Mätningarna'
+  },
   'lastname': {
     'fi': 'Sukunimi',
     'en': 'Lastname',
@@ -132,6 +168,18 @@ const messages = {
     'en': 'Logout',
     'de': 'Abmelden',
     'sv': 'Logga ut'
+  },
+  'lowHigh': {
+    'fi': 'nuoseva',
+    'en': 'ascending',
+    'de': 'aufsteigend',
+    'sv': 'stigande'
+  },
+  'measurementValue': {
+    'fi': 'Mittausarvo',
+    'en': 'Measurement Value',
+    'de': 'Messwert',
+    'sv': 'Mätvärde'
   },
   'powerConsumption': {
     'fi': 'Tehonkulutus',
@@ -151,6 +199,18 @@ const messages = {
     'de': 'Speichern',
     'sv': 'Spara'
   },
+  'search': {
+    'fi': 'Haku...',
+    'en': 'Search...',
+    'de': 'Suche...',
+    'sv': 'Sök...'
+  },
+  'searchFor': {
+    'fi': 'Etsiminen',
+    'en': 'Search for',
+    'de': 'Suche nach',
+    'sv': 'Sök efter'
+  },
   'selectStatistics': {
     'fi': 'Valitse tilasto',
     'en': 'Select Statistics',
@@ -162,6 +222,18 @@ const messages = {
     'en': 'Signed in',
     'de': 'Angemeldet',
     'sv': 'Inloggad'
+  },
+  'starttime': {
+    'fi': 'Alkuaika',
+    'en': 'Starttime',
+    'de': 'Startzeit',
+    'sv': 'Starttid'
+  },
+  'sortBy': {
+    'fi': 'Lajittele',
+    'en': 'Sort by',
+    'de': 'Sortieren nach',
+    'sv': 'Sortera efter'
   },
   'statistics': {
     'fi': 'Tilastot',

@@ -13,17 +13,12 @@ interface PowerUsageSummaryProps {
   measurementvalue: number;
 }
 
-const deviceImage = require('../img/device.JPG');
-
 export class PowerUsageSummary
   extends React.Component<PowerUsageSummaryProps> {
 
   render() {
     return (
         <div className="PowerUsageSummaryCard">
-          <NavLink to={`/Statistics/${this.props.deviceId}`}>
-            <img src={deviceImage} width="100%" className="PowerUsageSummaryCardImage"/>
-          </NavLink>
           <div className="PowerUsageSummaryContainer">
             <NavLink to={`/Statistics/${this.props.deviceId}`}>
               <h4>{this.props.name} </h4>
@@ -91,17 +86,13 @@ export class PowerUsageSummaries
 
     return (
       <div>
-        <h1>{_('powerConsumption')}</h1>
+        <h3>{_('powerConsumption')}</h3>
         <div className="PowerUsageSummaryContent">
           {rows}
           <div className="PowerUsageSummaryCard">
-            <NavLink to={'/StatisticsSummary'}>
-              <img src={deviceImage} width="100%" className="PowerUsageSummaryCardImage"/>
-            </NavLink>
             <div className="PowerUsageSummaryContainer">
               <NavLink to={'/StatisticsSummary'} onClick={() => window.scrollTo(0, 0)}>
                 <h4>{_('allStatistics')}</h4>
-                <p/>
               </NavLink>
             </div>
           </div>

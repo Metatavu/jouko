@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { _ } from '../i18n';
+import { authUrl } from '../config';
+
+const editLink = authUrl + 'realms/jouko-realm/account/';
 
 interface  UserProps {
   username: string;
@@ -76,6 +79,12 @@ export class User extends React.Component<UserProps, UserState> {
             onChange={this.handleLastnameChange}
             disabled={true}
           />
+          <input
+            type="submit"
+            value={_('edit')}
+            onClick={() => window.open(editLink, '_blank')}
+          />
+
           {/*
           <input
             type="reset"

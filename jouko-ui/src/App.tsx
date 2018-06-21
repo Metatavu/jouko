@@ -9,12 +9,12 @@ import { User } from './components/User';
 import { Home } from './components/Home';
 import { Statistics } from './components/Statistics';
 import { StatisticsSummary } from './components/StatisticsSummary';
-import { NavLink } from 'react-router-dom';
 import * as Keycloak from 'keycloak-js';
 import { UsersApi } from 'jouko-ts-client';
 import { PowerUsageSummaries } from './components/PowerUsageSummary';
 import { WelcomeBox } from './components/WelcomeBox';
 import { apiUrl, authUrl } from './config';
+import { LatestMeasurements } from './components/LatestMeasurements';
 
 interface AppState {
   keycloakInstance?: Keycloak.KeycloakInstance;
@@ -91,12 +91,10 @@ class App extends React.Component<{}, AppState> {
         <div>
           <div className="Navigationbar">
             <div className="Navigation">
-              <Header logout={() => this.logout()}/>
-            </div>
-            <div className="Logout">
-              <NavLink to="/" onClick={() => this.logout()}>
-                <i className="fa fa-sign-out"/>
-              </NavLink>
+              <Header
+                logout={() => this.logout()}
+                currentUserId={this.state.userId as number}
+              />
             </div>
           </div>
           <WelcomeBox
@@ -124,6 +122,7 @@ class App extends React.Component<{}, AppState> {
             />
           )}
         />
+        <Route path="/LatestMeasurements" component={LatestMeasurements}/>
         <Route
           path="/WelcomeBox"
           exact={true}
@@ -136,6 +135,7 @@ class App extends React.Component<{}, AppState> {
         />
         <Route
           path="/StatisticsSummary/"
+          exact={true}
           render={props => (
             <StatisticsSummary
               currentUserId={this.state.userId as number}
@@ -146,6 +146,7 @@ class App extends React.Component<{}, AppState> {
         />
         <Route
           path="/Statistics/:id"
+          exact={true}
           render={props => (
             <Statistics
               deviceId={props.match.params.id as number}
@@ -155,6 +156,7 @@ class App extends React.Component<{}, AppState> {
         />
         <Route
           path="/UpcomingInterruptions"
+          exact={true}
           render={props => (
             <UpcomingInterruptions
               currentUserId={this.state.userId as number}
@@ -163,6 +165,7 @@ class App extends React.Component<{}, AppState> {
         />
         <Route
           path="/PowerUsageSummary/"
+          exact={true}
           render={props => (
             <PowerUsageSummaries
               currentUserId={this.state.userId as number}

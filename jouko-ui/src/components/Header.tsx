@@ -2,7 +2,10 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { _ } from '../i18n';
+import { DevicesApi } from 'jouko-ts-client';
+import { apiUrl } from '../config';
 import * as language from '../i18n';
+import { take } from 'lodash';
 
 const finland = require('../flags/Finland.png');
 const germany = require('../flags/Germany.png');
@@ -13,12 +16,17 @@ enum State {
   CLOSED,
   OPEN
 }
-
+interface DeviceProps {
+  deviceId: number;
+  deviceName: string;
+}
 interface HeaderState {
   state: State;
+  rowProps: DeviceProps[];
 }
 interface HeaderProps {
   logout(): void;
+  currentUserId: number;
 }
 
 export class Header
@@ -26,7 +34,10 @@ export class Header
 
   constructor(props: HeaderProps) {
     super(props);
-    this.state = { state: State.CLOSED };
+    this.state = {
+      state: State.CLOSED,
+      rowProps: []
+    };
   }
 
   onMenuClick() {
@@ -43,6 +54,28 @@ export class Header
     }
   }
 
+  componentDidMount() {
+    this.fetchDevices();
+  }
+
+  async fetchDevices() {
+    const devicesApi = new DevicesApi(
+      undefined,
+      apiUrl);
+    const devices = await devicesApi.listDevices(this.props.currentUserId, 0, 1000);
+
+    const rowProps: DeviceProps[] = [];
+
+    for (const device of devices) {
+      rowProps.push({
+        deviceId: device.id,
+        deviceName: device.name,
+      });
+    }
+
+    this.setState({rowProps: take(rowProps, 40)});
+  }
+
   render() {
     let classes: string;
     switch (this.state.state) {
@@ -57,6 +90,16 @@ export class Header
         break;
     }
 
+    const devices = this.state.rowProps.map(prop => {
+      return (
+        <li className="menuItems" key={prop.deviceId}>
+          <NavLink to={`/Statistics/${prop.deviceId}`}>
+            <i className="fa fa-server fa-fw"/>{prop.deviceName}
+          </NavLink>
+        </li>
+      );
+    });
+
     return (
       <div className="navigation" onClick={() => this.onMenuClick()}>
         <div className="menu">
@@ -64,13 +107,35 @@ export class Header
         </div>
         <div className={classes}>
           <ul>
-            <li className="menuItems"><NavLink to="/"><i className="fa fa-home fa-fw"/>{_('home')}</NavLink></li>
-            <li className="menuItems"><NavLink to="/User"><i className="fa fa-user fa-fw"/>{_('user')}</NavLink></li>
-            <li className="menuItems"><NavLink to="/StatisticsSummary" onClick={() => window.scrollTo(0, 0)}>
-              <i className="fa fa-line-chart fa-fw"/>{_('statistics')}
-            </NavLink></li>
-            <li className="menuItems"><NavLink to="/" onClick={() => this.props.logout()}>
-              <i className="fa fa-sign-out fa-fw" />{_('logout')}</NavLink></li>
+            <li className="menuItems">
+              <NavLink to="/">
+                <i className="fa fa-home fa-fw"/>{_('home')}
+                </NavLink>
+            </li>
+            <li className="menuItems">
+              <NavLink to="/LatestMeasurements">
+                <i className="fa fa-table fa-fw"/>{_('latestMeasurements')}
+              </NavLink>
+            </li>
+            <li className="menuItems">
+              <NavLink to="/StatisticsSummary" onClick={() => window.scrollTo(0, 0)}>
+                <i className="fa fa-line-chart fa-fw"/>{_('statistics')}
+              </NavLink>
+            </li>
+
+            {devices}
+
+            <li className="menuItems">
+              <NavLink to="/User">
+                <i className="fa fa-user fa-fw"/>{_('user')}
+              </NavLink>
+            </li>
+            <li className="menuItems">
+              <NavLink to="/" onClick={() => this.props.logout()}>
+                <i className="fa fa-sign-out fa-fw" />{_('logout')}
+              </NavLink>
+            </li>
+
             <li className="flagBar">
               <NavLink to={location.pathname}>
                 <img

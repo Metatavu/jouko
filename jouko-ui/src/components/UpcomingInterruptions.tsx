@@ -12,7 +12,6 @@ interface UpcomingInterruptionProps {
   startTime: Date;
   endTime: Date;
   cancelled: Boolean;
-
   cancelInterruption(): void;
 }
 
@@ -70,6 +69,7 @@ export class UpcomingInterruption
 
 interface UpcomingInterruptionsState {
   rowProps: UpcomingInterruptionProps[];
+  errorMessage: string;
 }
 interface  UpcomingInterruptionsProps {
   currentUserId: number;
@@ -81,7 +81,7 @@ export class UpcomingInterruptions
   constructor(props: UpcomingInterruptionsProps) {
     super(props);
 
-    this.state = {rowProps: []};
+    this.state = {rowProps: [], errorMessage: ''};
   }
 
   componentDidMount() {
@@ -133,6 +133,9 @@ export class UpcomingInterruptions
           cancelInterruption: cancelInterruption
         });
       }
+      if (rowProps.length === 0) {
+        this.setState({errorMessage: 'No interruptions found'});
+      }
     }
 
     rowProps.sort((a, b) => {
@@ -142,20 +145,21 @@ export class UpcomingInterruptions
   }
 
   render() {
-    const rows = this.state.rowProps.map(prop => {
+    let rows = this.state.rowProps.map(prop => {
       return (
-        <UpcomingInterruption
-          key={prop.id.toString()}
-          {...prop}
-        />
+          <UpcomingInterruption
+            key={prop.id.toString()}
+            {...prop}
+          />
       );
-    });
 
+    });
     return (
       <div className="UpcomingInterruptions">
-        <h1 className="App-title">{_('incomingInterruptions')}</h1>
+        <h3 className="App-title">{_('incomingInterruptions')}</h3>
         <div className="UpcomingInterruptionsContent">
           {rows}
+          <p>{this.state.errorMessage}</p>
         </div>
       </div>
     );

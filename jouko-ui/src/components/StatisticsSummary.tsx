@@ -143,7 +143,7 @@ export class StatisticsSummary
     const statisticsSummary = (
       <div>
         <div className="DeviceInterruptionTitle">
-          <h2>{_('totalEnergy')}</h2>
+          <h3>{_('totalEnergy')}</h3>
         </div>
         <div className="DeviceInterruption">
           <div className="DeviceInterruptionCharts">
@@ -162,7 +162,7 @@ export class StatisticsSummary
           </div>
         </div>
         <div className="BuildingInterruptionTitle">
-          <h2>{_('buildingEnergy')}</h2>
+          <h3>{_('buildingEnergy')}</h3>
         </div>
         <div className="BuildingInterruption">
           <div className="BuildingInterruptionCharts">
@@ -182,6 +182,7 @@ export class StatisticsSummary
             <option>Select Statistics ...</option>
             <option
               value="/StatisticsSummary"
+              selected={true}
               onClick={this.onUrlSelected}
             >
               All Statistics
