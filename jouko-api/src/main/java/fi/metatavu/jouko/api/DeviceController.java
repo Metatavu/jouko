@@ -34,6 +34,14 @@ public class DeviceController {
   @Inject
   private ControllerDAO controllerDAO;
   
+  public DeviceEntity createDevice(
+      ControllerEntity controller,
+      String name,
+      UserEntity user
+  ) {
+    return deviceDAO.create(controller, name, user);
+  }
+  
   public List<DeviceEntity> listAll(
       Integer firstResult,
       Integer maxResults
@@ -57,6 +65,10 @@ public class DeviceController {
     return deviceDAO.findById(deviceId);
   }
   
+  public ControllerEntity findControllerById(long id) {
+    return controllerDAO.findById(id);
+  }
+
   public ControllerEntity findControllerByEui(String eui) {
     return controllerDAO.findByEui(eui);
   }

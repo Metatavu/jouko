@@ -9,9 +9,11 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import fi.metatavu.jouko.api.device.DeviceCommunicator;
+import fi.metatavu.jouko.api.model.ControllerEntity;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
+import fi.metatavu.jouko.api.model.UserEntity;
 import fi.metatavu.jouko.server.rest.AdminApi;
 import fi.metatavu.jouko.server.rest.model.Device;
 import fi.metatavu.jouko.server.rest.model.InterruptionGroup;
@@ -25,6 +27,9 @@ public class AdminApiImpl implements AdminApi {
   
   @Inject
   private DeviceController deviceController;
+
+  @Inject
+  private UserController userController;
   
   @Inject
   private DeviceCommunicator deviceCommunicator;
@@ -125,8 +130,12 @@ public class AdminApiImpl implements AdminApi {
 
   @Override
   public Response createDevice(Device body) throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+    ControllerEntity controller = deviceController.findControllerById(
+        body.getControllerId());
+    UserEntity user = userController.findUserById(body.getUserId());
+    DeviceEntity device = deviceController.createDevice(controller, body.getName(), user);
+    body.setId(device.getId());
+    return Response.ok(body).build();
   }
 
   @Override
@@ -144,8 +153,8 @@ public class AdminApiImpl implements AdminApi {
 
   @Override
   public Response retrieveDevice(Long deviceId) throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+    DeviceEntity device = deviceController.findById(deviceId);
+    return Response.ok(deviceFromEntity(device)).build();
   }
 
   @Override

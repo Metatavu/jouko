@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
+import fi.metatavu.jouko.api.model.ControllerEntity;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.DeviceEntity_;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
@@ -17,6 +18,19 @@ import fi.metatavu.jouko.api.model.UserEntity;
 
 @Dependent
 public class DeviceDAO extends AbstractDAO<DeviceEntity> {
+  
+  public DeviceEntity create(
+      ControllerEntity controller,
+      String name,
+      UserEntity user
+  ) {
+    DeviceEntity device = new DeviceEntity();
+    device.setController(controller);
+    device.setName(name);
+    device.setUser(user);
+    getEntityManager().persist(device);
+    return device;
+  }
   
   public List<DeviceEntity> listByInterruption(InterruptionEntity entity) {
     EntityManager em = getEntityManager();
