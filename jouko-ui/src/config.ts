@@ -8,3 +8,8 @@ export const authUrl =
   process.env.NODE_ENV === 'production'
   ? 'https://jouko-auth.metatavu.io/auth/'
   : 'http://localhost:9080/auth/';
+
+export const appUrl =
+  process.env.NODE_ENV === 'production'
+    ? 'https://jouko-auth.metatavu.io/'
+    : 'http://localhost:3000/';
