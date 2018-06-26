@@ -93,7 +93,10 @@ export class Header
     const devices = this.state.rowProps.map(prop => {
       return (
         <li className="menuItems" key={prop.deviceId}>
-          <NavLink to={`/Statistics/${prop.deviceId}`}>
+          <NavLink
+            to={`/Statistics/${prop.deviceId.toString()}`}
+            onClick={() => location.replace(`/Statistics/${prop.deviceId.toString()}`)}
+          >
             <i className="fa fa-server fa-fw"/>{prop.deviceName}
           </NavLink>
         </li>
@@ -118,7 +121,11 @@ export class Header
               </NavLink>
             </li>
             <li className="menuItems">
-              <NavLink to="/StatisticsSummary" onClick={() => window.scrollTo(0, 0)}>
+              <NavLink
+                to="/StatisticsSummary"
+                onClick={() => location.replace('/StatisticsSummary')}
+
+              >
                 <i className="fa fa-line-chart fa-fw"/>{_('statistics')}
               </NavLink>
             </li>

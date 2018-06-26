@@ -121,12 +121,7 @@ export class StatisticsSummary
     }
     this.setState({allDevices: take(allDevices, 40), loading: false});
   }
-  onUrlSelected(event: React.FormEvent<HTMLOptionElement>) {
-    const url = event.currentTarget.value;
-    console.log(url);
-    console.log(typeof url);
-    location.replace(url);
-  }
+
   render() {
 
     const filterOptions = this.state.allDevices.map(device => {
@@ -134,7 +129,7 @@ export class StatisticsSummary
         <option
           key={device.deviceId.toString()}
           value={`/Statistics/${device.deviceId.toString()}`}
-          onClick={this.onUrlSelected}
+          onClick={() => location.replace(`/Statistics/${device.deviceId.toString()}`)}
         >
           {device.deviceId.toString()} | {device.name.toString()}
         </option>
@@ -182,7 +177,7 @@ export class StatisticsSummary
           <option
             value="/StatisticsSummary"
             selected={true}
-            onClick={this.onUrlSelected}
+            onClick={() => location.replace('/StatisticsSummary')}
           >
             All Statistics
           </option>

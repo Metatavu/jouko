@@ -331,7 +331,6 @@
 }
 /*########################## Statistics ##########################*/
 .Statistics{
-  padding-bottom: 100px;
   margin: auto;
   width: 55%;
 }
@@ -458,6 +457,8 @@
   height: auto;
   width: 100%;
   text-align: right;
+  padding-top: 50px;
+  padding-bottom: 100px;
 }
 
 .StatisticsFilter select {
@@ -502,9 +503,10 @@
   }
 }
 /*########## Building ##########*/
-.BuildingInterruption {
+BuildingInterruption {
   padding-top: 30px;
   padding-bottom: 100px;
+
 }
 .BuildingInterruptionTitle{
   background-color: #f6f6f6;
@@ -514,13 +516,28 @@
 .BuildingInterruptionTitle h3{
   margin-top: 0;
 }
-.BuildingInterruptionCharts {
+.BuildingInterruptionCharts{
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
 }
 
+@media only screen and (max-width: 568px) {
+  .BuildingInterruptionChart{
+    width: 90%;
+  }
+}
+@media only screen and (min-width: 569px) {
+  .BuildingInterruptionChart{
+    width: 45%;
+  }
+}
 
+@media only screen and (min-width: 769px) {
+  .BuildingInterruptionChart{
+    width: 33.33%;
+  }
+}
 /*############################## SearchFilter ##############################*/
 .SearchFilter{
   width: 100%;

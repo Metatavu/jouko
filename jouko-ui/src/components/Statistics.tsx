@@ -120,12 +120,6 @@ export class Statistics
     });
     this.setState({allDevices: take(allDevices, 40), rowProps: take(rowProps, 40), loading: false});
   }
-  onUrlSelected(event: React.FormEvent<HTMLOptionElement>) {
-    const url = event.currentTarget.value;
-    console.log(url);
-    console.log(typeof url);
-    location.replace(url);
-  }
   render() {
     const filterOptions = this.state.allDevices.map(device => {
         if (this.props.deviceId.toString() === device.deviceId.toString()) {
@@ -134,7 +128,7 @@ export class Statistics
               key={device.deviceId.toString()}
               value={`/Statistics/${device.deviceId.toString()}`}
               selected={true}
-              onClick={this.onUrlSelected}
+              onClick={() => location.replace(`/Statistics/${device.deviceId.toString()}`)}
             >
               {device.deviceId.toString()} | {device.name.toString()}
             </option>
@@ -145,7 +139,7 @@ export class Statistics
               key={device.deviceId.toString()}
               value={`/Statistics/${device.deviceId.toString()}`}
               selected={false}
-              onClick={this.onUrlSelected}
+              onClick={() => location.replace(`/Statistics/${device.deviceId.toString()}`)}
             >
               {device.deviceId.toString()} | {device.name.toString()}
             </option>
@@ -235,7 +229,7 @@ export class Statistics
           <select>
             <option
               value="/StatisticsSummary"
-              onClick={this.onUrlSelected}
+              onClick={() => location.replace('/StatisticsSummary')}
             >
               {_('allStatistics')}
             </option>
