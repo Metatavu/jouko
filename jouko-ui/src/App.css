@@ -50,17 +50,17 @@
     border-bottom: 1px solid rgba(10,36,45,0.2);
     list-style-type: none !important;
     text-align: left;
-    width: 18rem;
+    width: 20rem;
   }
   .overlay{
     display: flex;
     height: 100%;
     background: #30C4C9;
     left: 0;
-    width: 18rem;
+    width: 20rem;
     transition: transform 0.75s;
     transition-timing-function: ease-in-out;
-    transform: translate(-18rem, 0);
+    transform: translate(-20rem, 0);
     position: fixed;
     z-index: 998;
   }
@@ -116,7 +116,7 @@
     border-bottom: 1px solid rgba(10,36,45,0.2);
     list-style-type: none !important;
     text-align: left;
-    width: 18rem;
+    width: 20rem;
 
   }
   .overlay{
@@ -124,10 +124,10 @@
     height: 100%;
     background: #30C4C9;
     left: 0;
-    width: 18rem;
+    width: 20rem;
     transition: transform 1s;
     transition-timing-function: ease-in-out;
-    transform: translate(-18rem, 0);
+    transform: translate(-20rem, 0);
     position: fixed;
     z-index: 998;
     overflow-y: scroll;
@@ -243,7 +243,7 @@
     width: 80% !important;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    min-height: 150px;
+    min-height: 100px;
     margin:auto;
     margin-bottom: 35px;
   }
@@ -254,7 +254,7 @@
     width: 40%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    min-height: 150px;
+    min-height: 100px;
     margin:auto;
     margin-bottom: 35px;
   }
@@ -357,7 +357,7 @@
   margin: 10px auto;
   padding-top: 15px;
   background: #ffffff;
-  font-size: 18px;
+  font-size: 14px;
   margin-bottom: 100px;
 }
 .UserSettings p{
@@ -388,7 +388,7 @@
   border: 1px solid #ccc;
   padding: 15px;
   color: #555;
-  font-size: 18px;
+  font-size: 14px;
 }
 .UserSettings input[type="text"]:focus,
 .UserSettings input[type="date"]:focus,
@@ -464,6 +464,7 @@
   font-size: 100%;
   padding: 10px;
   margin-right: 25px;
+  margin-bottom: 25px;
 }
 /*########## Device ##########*/
 .DeviceInterruption {
@@ -518,9 +519,7 @@
   flex-flow: row wrap;
   justify-content: flex-start;
 }
-.BuildingInterruptionChart{
-  width: 33.33%;
-}
+
 
 /*############################## SearchFilter ##############################*/
 .SearchFilter{
@@ -545,6 +544,8 @@
   padding: 10px;
   margin-left: 25px;
   margin-right: 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 .SearchInput, .SearchBetweenA, .SearchBetweenB {
   padding: 10px;

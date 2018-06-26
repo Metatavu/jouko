@@ -229,6 +229,20 @@ export class Statistics
         </div>
       );
     });
+    let statisticsFilter;
+    if (this.state.loading === false) {
+      statisticsFilter = (
+          <select>
+            <option
+              value="/StatisticsSummary"
+              onClick={this.onUrlSelected}
+            >
+              {_('allStatistics')}
+            </option>
+            {filterOptions}
+          </select>
+        );
+      }
     return (
       <div>
         <div className="sweet-loading">
@@ -241,15 +255,7 @@ export class Statistics
           {hourChart}
         </div>
         <div className="StatisticsFilter">
-          <select>
-            <option
-              value="/StatisticsSummary"
-              onClick={this.onUrlSelected}
-            >
-              {_('allStatistics')}
-            </option>
-            {filterOptions}
-          </select>
+          {statisticsFilter}
         </div>
       </div>
     );

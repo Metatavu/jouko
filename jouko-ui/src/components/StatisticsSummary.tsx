@@ -174,22 +174,24 @@ export class StatisticsSummary
         </div>
       </div>
     );
-
+    let statisticsFilter;
+    if (this.state.loading === false) {
+      statisticsFilter = (
+        <select>
+          <option>Select Statistics ...</option>
+          <option
+            value="/StatisticsSummary"
+            selected={true}
+            onClick={this.onUrlSelected}
+          >
+            All Statistics
+          </option>
+          {filterOptions}
+        </select>
+      );
+    }
     return (
       <div className="StatisticsSummaryContainer">
-        <div className="StatisticsFilter">
-          <select>
-            <option>Select Statistics ...</option>
-            <option
-              value="/StatisticsSummary"
-              selected={true}
-              onClick={this.onUrlSelected}
-            >
-              All Statistics
-            </option>
-            {filterOptions}
-          </select>
-        </div>
         <div className="sweet-loading">
           <BeatLoader
             color={'#30C4C9'}
@@ -198,6 +200,9 @@ export class StatisticsSummary
         </div>
         <div>
           {statisticsSummary}
+        </div>
+        <div className="StatisticsFilter">
+          {statisticsFilter}
         </div>
       </div>
     );
