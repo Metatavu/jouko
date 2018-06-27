@@ -121,11 +121,7 @@ export class Header
               </NavLink>
             </li>
             <li className="menuItems">
-              <NavLink
-                to="/StatisticsSummary"
-                onClick={() => location.replace('/StatisticsSummary')}
-
-              >
+              <NavLink to="/StatisticsSummary">
                 <i className="fa fa-line-chart fa-fw"/>{_('statistics')}
               </NavLink>
             </li>

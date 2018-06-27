@@ -121,6 +121,7 @@ export class Statistics
     this.setState({allDevices: take(allDevices, 40), rowProps: take(rowProps, 40), loading: false});
   }
   render() {
+    {/*
     const filterOptions = this.state.allDevices.map(device => {
         if (this.props.deviceId.toString() === device.deviceId.toString()) {
           return (
@@ -146,6 +147,7 @@ export class Statistics
           );
         }
     });
+    */}
     const hourChart = this.state.rowProps.map(prop => {
       return (
         <div key={prop.deviceId.toString()}>
@@ -223,6 +225,7 @@ export class Statistics
         </div>
       );
     });
+    {/*
     let statisticsFilter;
     if (this.state.loading === false) {
       statisticsFilter = (
@@ -237,6 +240,7 @@ export class Statistics
           </select>
         );
       }
+      */}
     return (
       <div>
         <div className="sweet-loading">
@@ -248,9 +252,11 @@ export class Statistics
         <div className="Statistics">
           {hourChart}
         </div>
+        {/*
         <div className="StatisticsFilter">
           {statisticsFilter}
         </div>
+        */}
       </div>
     );
   }

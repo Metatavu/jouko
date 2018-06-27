@@ -123,7 +123,7 @@ export class StatisticsSummary
   }
 
   render() {
-
+    {/*
     const filterOptions = this.state.allDevices.map(device => {
       return (
         <option
@@ -135,6 +135,7 @@ export class StatisticsSummary
         </option>
       );
     });
+    */}
     const statisticsSummary = (
       <div>
         <div className="DeviceInterruptionTitle">
@@ -169,6 +170,7 @@ export class StatisticsSummary
         </div>
       </div>
     );
+    {/*
     let statisticsFilter;
     if (this.state.loading === false) {
       statisticsFilter = (
@@ -185,6 +187,7 @@ export class StatisticsSummary
         </select>
       );
     }
+    */}
     return (
       <div className="StatisticsSummaryContainer">
         <div className="sweet-loading">
@@ -196,9 +199,11 @@ export class StatisticsSummary
         <div>
           {statisticsSummary}
         </div>
+        {/*
         <div className="StatisticsFilter">
           {statisticsFilter}
         </div>
+        */}
       </div>
     );
   }
