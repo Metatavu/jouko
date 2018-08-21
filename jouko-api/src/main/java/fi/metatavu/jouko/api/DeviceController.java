@@ -1,6 +1,7 @@
 package fi.metatavu.jouko.api;
 
 import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -93,45 +94,24 @@ public class DeviceController {
   public double averageConsumptionInWatts(DeviceEntity device, OffsetDateTime fromTime, OffsetDateTime toTime) {
     // TODO handle different measurement durations
     // TODO do in database
-    List<DevicePowerMeasurementEntity> entities = powerMeasurementDAO.listByDeviceAndDate(
-        device,
-        fromTime,
-        toTime
-    );
     double energyInJoules = 0.0;
-    for (DevicePowerMeasurementEntity entity : entities) {
-      if (entity.getMeasurementType() != MeasurementType.AVERAGE) {
-        continue;
+    
+    OffsetDateTime time = fromTime;
+    
+    while (time.isBefore(toTime)) {
+      OffsetDateTime nextTime = time.plus(1, ChronoUnit.MINUTES);
+
+      List<DevicePowerMeasurementEntity> entities = powerMeasurementDAO.listByDeviceAndDate(
+          device,
+          time,
+          nextTime
+      );
+      
+      for (DevicePowerMeasurementEntity entity : entities) {
+        energyInJoules += entity.getMeasurementValue() * 60.0;
       }
-      if (entity.getStartTime().isBefore(fromTime) && entity.getEndTime().isAfter(fromTime)) {
-        double measurementDurationInSecs =
-            entity.getEndTime().toEpochSecond() -
-            entity.getStartTime().toEpochSecond();
-        double relevantSpanDurationInSecs =
-            entity.getEndTime().toEpochSecond() -
-            fromTime.toEpochSecond();
-        double ratio = relevantSpanDurationInSecs / measurementDurationInSecs;
-        double measurementEnergyInJoules = entity.getMeasurementValue() * measurementDurationInSecs;
-        double relevantEnergyInJoules = ratio * measurementEnergyInJoules;
-        energyInJoules += relevantEnergyInJoules;
-      } else if (entity.getStartTime().isAfter(fromTime) && entity.getEndTime().isBefore(toTime)) {
-        double measurementDurationInSecs =
-            entity.getEndTime().toEpochSecond() -
-            entity.getStartTime().toEpochSecond();
-        double measurementEnergyInJoules = entity.getMeasurementValue() * measurementDurationInSecs;
-        energyInJoules += measurementEnergyInJoules;
-      } else if (entity.getStartTime().isBefore(toTime) && entity.getEndTime().isAfter(toTime)) {
-        double measurementDurationInSecs =
-            entity.getEndTime().toEpochSecond() -
-            entity.getStartTime().toEpochSecond();
-        double relevantSpanDurationInSecs =
-            entity.getEndTime().toEpochSecond() -
-            toTime.toEpochSecond();
-        double ratio = relevantSpanDurationInSecs / measurementDurationInSecs;
-        double measurementEnergyInJoules = entity.getMeasurementValue() * measurementDurationInSecs;
-        double relevantEnergyInJoules = ratio * measurementEnergyInJoules;
-        energyInJoules += relevantEnergyInJoules;
-      }
+      
+      time = nextTime;
     }
     
     double timeSpanInSeconds = toTime.toEpochSecond() - fromTime.toEpochSecond();
