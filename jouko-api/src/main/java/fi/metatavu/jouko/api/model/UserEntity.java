@@ -15,10 +15,6 @@ public class UserEntity {
   @Column
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  
-  @Column(nullable = false)
-  @NotNull
-  private String name;
 
   // Use a separate keycloakId because the devices have very restricted
   // communication bandwidth, so using UUIDs everywhere is not feasible
@@ -32,7 +28,6 @@ public class UserEntity {
   public UserEntity(Long id, String name) {
     super();
     this.id = id;
-    this.name = name;
   }
 
   public Long getId() {
@@ -41,14 +36,6 @@ public class UserEntity {
 
   public void setId(Long id) {
     this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public String getKeycloakId() {

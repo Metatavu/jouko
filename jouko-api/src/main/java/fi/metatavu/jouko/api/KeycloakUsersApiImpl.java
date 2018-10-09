@@ -22,7 +22,6 @@ public class KeycloakUsersApiImpl implements KeycloakUsersApi {
   private User userFromEntity(UserEntity entity) {
     User result = new User();
     result.setId(entity.getId());
-    result.setName(entity.getName());
     result.setKeycloakId(UUID.fromString(entity.getKeycloakId()));
     return result;
   }

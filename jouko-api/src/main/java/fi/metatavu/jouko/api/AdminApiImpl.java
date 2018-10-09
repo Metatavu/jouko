@@ -1,6 +1,7 @@
 package fi.metatavu.jouko.api;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
@@ -15,9 +16,11 @@ import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
 import fi.metatavu.jouko.api.model.UserEntity;
 import fi.metatavu.jouko.server.rest.AdminApi;
+import fi.metatavu.jouko.server.rest.model.ControllerDevice;
 import fi.metatavu.jouko.server.rest.model.Device;
 import fi.metatavu.jouko.server.rest.model.InterruptionGroup;
 import fi.metatavu.jouko.server.rest.model.User;
+import fi.metatavu.jouko.api.UserController;
 
 @Stateless
 public class AdminApiImpl implements AdminApi {
@@ -40,6 +43,13 @@ public class AdminApiImpl implements AdminApi {
     result.setName(entity.getName());
     result.setControllerId(entity.getController().getId());
     result.setUserId(entity.getUser().getId());
+    return result;
+  }
+  
+  private User userFromEntity(UserEntity entity) {
+    User result = new User();
+    result.setId(entity.getId());
+    result.setKeycloakId(UUID.fromString(entity.getKeycloakId()));
     return result;
   }
   
@@ -147,8 +157,11 @@ public class AdminApiImpl implements AdminApi {
   @Override
   public Response listAllUsers(Integer firstResult, Integer maxResults)
       throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+    List<UserEntity> entities = userController.listUsers();
+    List<User> users = entities.stream()
+        .map(this::userFromEntity)
+        .collect(Collectors.toList());
+    return Response.ok(users).build();
   }
 
   @Override
@@ -172,6 +185,31 @@ public class AdminApiImpl implements AdminApi {
 
   @Override
   public Response updateUser(Long userId, User body) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Response createControllerDevice(ControllerDevice body) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Response listAllControllerDevices(Integer firstResult, Integer maxResults) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Response retrieveControllerDevice(Long controllerDeviceId) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Response updateControllerDevice(Long controllerDeviceId, ControllerDevice newControllerDevice)
+      throws Exception {
     // TODO Auto-generated method stub
     return null;
   }

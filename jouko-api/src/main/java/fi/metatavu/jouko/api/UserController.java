@@ -1,5 +1,7 @@
 package fi.metatavu.jouko.api;
 
+import java.util.List;
+
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
@@ -18,6 +20,10 @@ public class UserController {
 
   public UserEntity findUserById(Long id) {
     return userDAO.findById(id);
+  }
+  
+  public List<UserEntity> listUsers() {
+    return userDAO.listAll();
   }
 
 }
