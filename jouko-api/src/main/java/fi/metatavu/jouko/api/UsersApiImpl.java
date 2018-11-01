@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import fi.metatavu.jouko.api.dao.InterruptionDAO;
 import fi.metatavu.jouko.api.device.DeviceCommunicator;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
@@ -118,10 +119,7 @@ public class UsersApiImpl implements UsersApi {
   }
 
   @Override
-  public Response setInterruptionCancelled(
-      Long userId,
-      Long interruptionId,
-      InterruptionCancellation body) throws Exception {
+  public Response setInterruptionCancelled(Long userId, Long interruptionId, InterruptionCancellation body) throws Exception {
     InterruptionEntity interruption = interruptionController.findInterruptionById(interruptionId);
     if (interruption == null) {
       return Response.status(Status.NOT_FOUND).entity("Interruption not found").build();
@@ -130,9 +128,16 @@ public class UsersApiImpl implements UsersApi {
     interruptionController.setInterruptionCancelled(interruption, body.isCancelled());
     if (body.isCancelled()) {
       deviceCommunicator.notifyInterruptionCancellation(interruption);
+      //interruptionController.deleteInterruptionByDevice(interruption, device);
     }
       
     return Response.ok(body).build();
+  }
+
+  @Override
+  public Response listAllMeasurements(Integer userId) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
   }
   
 }

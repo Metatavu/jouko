@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import fi.metatavu.jouko.api.device.DeviceCommunicator;
+import fi.metatavu.jouko.api.model.ControllerCommunicationChannel;
 import fi.metatavu.jouko.api.model.ControllerEntity;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
@@ -50,6 +51,15 @@ public class AdminApiImpl implements AdminApi {
     User result = new User();
     result.setId(entity.getId());
     result.setKeycloakId(UUID.fromString(entity.getKeycloakId()));
+    return result;
+  }
+  
+  private ControllerDevice controllerDeviceFromEntity(ControllerEntity entity) {
+    ControllerDevice result = new ControllerDevice();
+    result.setId(entity.getId());
+    result.setEui(entity.getEui());
+    result.setKey(entity.getKey());
+    result.setCommunicationChannel(entity.getCommunicationChannelString());
     return result;
   }
   
@@ -110,12 +120,8 @@ public class AdminApiImpl implements AdminApi {
   }
 
   @Override
-  public Response updateInterruptionGroup(
-      Long groupId,
-      InterruptionGroup body
-  ) throws Exception {
-    InterruptionGroupEntity entity = interruptionController.findInterruptionGroupById(
-        groupId);
+  public Response updateInterruptionGroup(Long groupId, InterruptionGroup body) throws Exception {
+    InterruptionGroupEntity entity = interruptionController.findInterruptionGroupById(groupId);
     if (entity == null) {
       return Response.status(Status.NOT_FOUND)
                      .entity("interruption group not found")
@@ -125,6 +131,7 @@ public class AdminApiImpl implements AdminApi {
         entity,
         body.getStartTime(),
         body.getEndTime());
+    
     return Response.ok(body).build();
   }
 
@@ -191,14 +198,21 @@ public class AdminApiImpl implements AdminApi {
 
   @Override
   public Response createControllerDevice(ControllerDevice body) throws Exception {
-    // TODO Auto-generated method stub
+    ControllerCommunicationChannel controllerCommunicationChannel = ControllerCommunicationChannel.valueOf(body.getCommunicationChannel());
+    String eui = body.getEui();
+    String key = body.getKey();
+    
+    deviceController.createControllerDevice(eui, key, controllerCommunicationChannel);
     return null;
   }
 
   @Override
   public Response listAllControllerDevices(Integer firstResult, Integer maxResults) throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+    List<ControllerEntity> entities = deviceController.listControllerDevices(firstResult, maxResults);
+    List<ControllerDevice> controllerDevices = entities.stream()
+        .map(this::controllerDeviceFromEntity)
+        .collect(Collectors.toList());
+    return Response.ok(controllerDevices).build();
   }
 
   @Override
@@ -210,6 +224,12 @@ public class AdminApiImpl implements AdminApi {
   @Override
   public Response updateControllerDevice(Long controllerDeviceId, ControllerDevice newControllerDevice)
       throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Response deleteInterruption(Long groupId) throws Exception {
     // TODO Auto-generated method stub
     return null;
   }

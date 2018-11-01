@@ -2,6 +2,8 @@ package fi.metatavu.jouko.api.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,18 +25,25 @@ public class GprsMessageEntity {
   @ManyToOne
   private ControllerEntity controller;
   
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  @NotNull
+  private MessageType type;
+  
   public GprsMessageEntity() {
   }
 
   public GprsMessageEntity(
       Long id,
       String content,
-      ControllerEntity controller
+      ControllerEntity controller,
+      MessageType type
   ) {
     super();
     this.id = id;
     this.content = content;
     this.controller = controller;
+    this.type = type;
   }
 
   public Long getId() {
@@ -47,6 +56,14 @@ public class GprsMessageEntity {
 
   public ControllerEntity getController() {
     return controller;
+  }
+  
+  public MessageType getMessageType() {
+    return type;
+  }
+  
+  public void setMessageType(MessageType type) {
+    this.type = type;
   }
 
   public void setController(ControllerEntity controller) {

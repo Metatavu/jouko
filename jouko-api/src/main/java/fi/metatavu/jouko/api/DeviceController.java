@@ -12,12 +12,14 @@ import fi.metatavu.jouko.api.dao.ControllerDAO;
 import fi.metatavu.jouko.api.dao.DeviceDAO;
 import fi.metatavu.jouko.api.dao.GprsMessageDAO;
 import fi.metatavu.jouko.api.dao.PowerMeasurementDAO;
+import fi.metatavu.jouko.api.model.ControllerCommunicationChannel;
 import fi.metatavu.jouko.api.model.ControllerEntity;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity;
 import fi.metatavu.jouko.api.model.GprsMessageEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.api.model.MeasurementType;
+import fi.metatavu.jouko.api.model.MessageType;
 import fi.metatavu.jouko.api.model.UserEntity;
 
 @Dependent
@@ -43,11 +45,26 @@ public class DeviceController {
     return deviceDAO.create(controller, name, user);
   }
   
+  public ControllerEntity createControllerDevice(
+      String eui, 
+      String key, 
+      ControllerCommunicationChannel communicationChannel
+    ) {
+    return controllerDAO.create(eui, key, communicationChannel);
+  }
+  
   public List<DeviceEntity> listAll(
       Integer firstResult,
       Integer maxResults
   ) {
     return deviceDAO.listAll(firstResult, maxResults);
+  }
+  
+  public List<ControllerEntity> listControllerDevices(
+      Integer firstResult,
+      Integer maxResults
+  ) {
+    return controllerDAO.listAll(firstResult, maxResults);
   }
 
   public List<DeviceEntity> listByUser(
@@ -96,31 +113,39 @@ public class DeviceController {
     // TODO do in database
     double energyInJoules = 0.0;
     
-    OffsetDateTime time = fromTime;
-    
-    while (time.isBefore(toTime)) {
-      OffsetDateTime nextTime = time.plus(1, ChronoUnit.MINUTES);
-
-      List<DevicePowerMeasurementEntity> entities = powerMeasurementDAO.listByDeviceAndDate(
-          device,
-          time,
-          nextTime
-      );
-      
-      for (DevicePowerMeasurementEntity entity : entities) {
-        energyInJoules += entity.getMeasurementValue() * 60.0;
-      }
-      
-      time = nextTime;
+    if (fromTime.toEpochSecond() < toTime.toEpochSecond()) {
+      fromTime = fromTime.plusSeconds(1);
     }
     
-    double timeSpanInSeconds = toTime.toEpochSecond() - fromTime.toEpochSecond();
+    List<DevicePowerMeasurementEntity> entities = powerMeasurementDAO.listByDeviceAndDate(
+        device,
+        fromTime,
+        toTime
+    );
     
-    return energyInJoules / timeSpanInSeconds;
+    //double timeSpanInSeconds = toTime.toEpochSecond() - fromTime.toEpochSecond();
+    double overallDuration = 0;
+    double averagePowerInWatts = 0;
+    
+    for (DevicePowerMeasurementEntity entity : entities) {
+      OffsetDateTime startTime = entity.getStartTime();
+      OffsetDateTime endTime = entity.getEndTime();
+      
+      double durationInSeconds = endTime.toEpochSecond() - startTime.toEpochSecond();
+      overallDuration += durationInSeconds;
+      
+      energyInJoules += entity.getMeasurementValue() * durationInSeconds;
+    }
+    
+    if (overallDuration > 0) {
+      averagePowerInWatts = energyInJoules / (overallDuration / 3);
+    }
+    
+    return averagePowerInWatts;
   }
   
-  public void queueGprsMessage(ControllerEntity controller, String message) {
-    gprsMessageDAO.create(controller, message);
+  public void queueGprsMessage(ControllerEntity controller, String message, MessageType messageType) {
+    gprsMessageDAO.create(controller, message, messageType);
   }
   
   public List<String> getAllQueuedGprsMessages() {
@@ -137,6 +162,14 @@ public class DeviceController {
                          .stream()
                          .map(GprsMessageEntity::getContent)
                          .collect(Collectors.toList());
+  }
+  
+  public GprsMessageEntity getQueuedGprsMessageForController(ControllerEntity controller) {
+    return gprsMessageDAO.findOneByController(controller);
+  }
+  
+  public void deleteGprsMessageFromController(ControllerEntity controller, GprsMessageEntity message) {
+    gprsMessageDAO.deleteGprsMessageFromController(controller, message); 
   }
   
   public void clearGprsMessages() {

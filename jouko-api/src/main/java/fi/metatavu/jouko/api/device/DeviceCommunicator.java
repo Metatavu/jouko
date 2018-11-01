@@ -29,6 +29,7 @@ import fi.metatavu.jouko.api.device.Laiteviestit.ViestiLaitteelle;
 import fi.metatavu.jouko.api.model.ControllerEntity;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
+import fi.metatavu.jouko.api.model.MessageType;
 
 public class DeviceCommunicator {
   
@@ -77,9 +78,10 @@ public class DeviceCommunicator {
     }
   }
 
-  private void sendMessageGprs(ViestiLaitteelle message, ControllerEntity controller) {
+  private void sendMessageGprs(ViestiLaitteelle message, ControllerEntity controller, MessageType messageType) {
     byte[] payloadBytes = encodeMessage(message);
-    deviceController.queueGprsMessage(controller, new String(payloadBytes, StandardCharsets.UTF_8));
+    System.out.println(new String(payloadBytes, StandardCharsets.UTF_8));
+    deviceController.queueGprsMessage(controller, new String(payloadBytes, StandardCharsets.UTF_8), messageType);
   }
   
   private void sendMessageLora(ViestiLaitteelle message, ControllerEntity controller) {
@@ -123,16 +125,17 @@ public class DeviceCommunicator {
   }
   
   private boolean isEnabled() {
-    String enabledSetting = settingController.getSetting(ENABLED_SETTING, "false");
-    return "true".equals(enabledSetting);
+    return true;
+    //String enabledSetting = settingController.getSetting(ENABLED_SETTING, "false");
+    //return "true".equals(enabledSetting);
   }
 
-  private void sendMessage(ViestiLaitteelle viestiLaitteelle, ControllerEntity controller) {
+  private void sendMessage(ViestiLaitteelle viestiLaitteelle, ControllerEntity controller, MessageType messageType) {
     switch (controller.getCommunicationChannel()) {
     case LORA:
       sendMessageLora(viestiLaitteelle, controller);
     case GPRS:
-      sendMessageGprs(viestiLaitteelle, controller);
+      sendMessageGprs(viestiLaitteelle, controller, messageType);
     }
   }
   
@@ -169,7 +172,9 @@ public class DeviceCommunicator {
                            .build())
           .build();
       ControllerEntity controller = controllers.get(entry.getKey());
-      sendMessage(viestiLaitteelle, controller);
+      MessageType messageType = MessageType.NEW_INTERRUPTION;
+      
+      sendMessage(viestiLaitteelle, controller, messageType);
     }
   }
 
@@ -200,7 +205,9 @@ public class DeviceCommunicator {
                            .build())
           .build();
       ControllerEntity controller = controllers.get(entry.getKey());
-      sendMessage(viestiLaitteelle, controller);
+      MessageType messageType = MessageType.CANCEL_INTERRUPTION;
+      
+      sendMessage(viestiLaitteelle, controller, messageType);
     }
   }
 }

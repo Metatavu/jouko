@@ -21,7 +21,7 @@ public class ControllerEntity {
   @NotNull
   private String eui;
   
-  @Column(nullable = false)
+  @Column(nullable = false, name="`key`")
   @NotNull
   private String key;
   
@@ -71,6 +71,10 @@ public class ControllerEntity {
 
   public ControllerCommunicationChannel getCommunicationChannel() {
     return communicationChannel;
+  }
+  
+  public String getCommunicationChannelString() {
+    return communicationChannel.toString();
   }
 
   public void setCommunicationChannel(ControllerCommunicationChannel communicationChannel) {

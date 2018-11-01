@@ -6,11 +6,14 @@ import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 import fi.metatavu.jouko.api.model.DeviceEntity;
+import fi.metatavu.jouko.api.model.GprsMessageEntity;
+import fi.metatavu.jouko.api.model.GprsMessageEntity_;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity_;
 import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
@@ -58,10 +61,7 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
     return em.createQuery(criteria).getResultList();
   }
 
-  public List<InterruptionEntity> listByDate(
-      OffsetDateTime fromTime,
-      OffsetDateTime toTime
-  ) {
+  public List<InterruptionEntity> listByDate(OffsetDateTime fromTime, OffsetDateTime toTime) {
     EntityManager em = getEntityManager();
     
     CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -80,19 +80,32 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
     return em.createQuery(criteria).getResultList();
   }
   
-  public InterruptionEntity updateCancelled(
-      InterruptionEntity entity,
-      boolean cancelled
-  ) {
+  public void deleteInterruptionFromDevice(InterruptionEntity entity, DeviceEntity device) {
+    EntityManager em = getEntityManager();
+    
+    CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+    CriteriaDelete<InterruptionEntity> delete = criteriaBuilder.createCriteriaDelete(InterruptionEntity.class);
+    Root<InterruptionEntity> root = delete.from(InterruptionEntity.class);
+
+    delete.where(
+      criteriaBuilder.and(
+        criteriaBuilder.equal(root.get(InterruptionEntity_.device), device)
+      ),
+      criteriaBuilder.and(
+        criteriaBuilder.equal(root.get(InterruptionEntity_.id), entity.getId())
+      )
+    );
+    
+    em.createQuery(delete).executeUpdate();
+  }
+  
+  public InterruptionEntity updateCancelled(InterruptionEntity entity, boolean cancelled) {
     entity.setCancelled(cancelled);
     getEntityManager().persist(entity);
     return entity;
   }
   
-  public InterruptionEntity updateCancellationTime(
-      InterruptionEntity entity,
-      OffsetDateTime cancellationTime
-  ) {
+  public InterruptionEntity updateCancellationTime(InterruptionEntity entity, OffsetDateTime cancellationTime) {
     entity.setCancellationTime(cancellationTime);
     getEntityManager().persist(entity);
     return entity;

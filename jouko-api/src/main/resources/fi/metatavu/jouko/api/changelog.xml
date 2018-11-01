@@ -257,4 +257,14 @@
       </column>
     </addColumn>
   </changeSet>
+  <changeSet author="Ville Koivukangas" id="20181030-message-type">
+    <addColumn tableName="GprsMessage">
+      <column
+          name="type"
+          type="VARCHAR(255)"
+          defaultValue="UNKNOWN">
+        <constraints nullable="false" />
+      </column>
+    </addColumn>
+  </changeSet>
 </databaseChangeLog>

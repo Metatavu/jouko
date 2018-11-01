@@ -8,12 +8,24 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import fi.metatavu.jouko.api.model.ControllerCommunicationChannel;
 import fi.metatavu.jouko.api.model.ControllerEntity;
 import fi.metatavu.jouko.api.model.ControllerEntity_;
+import fi.metatavu.jouko.api.model.DeviceEntity;
+import fi.metatavu.jouko.api.model.UserEntity;
 
 @Dependent
 public class ControllerDAO extends AbstractDAO<ControllerEntity> {
 
+  public ControllerEntity create(String eui, String key, ControllerCommunicationChannel communicationChannel) {
+    ControllerEntity controllerDevice = new ControllerEntity();
+    controllerDevice.setEui(eui);
+    controllerDevice.setKey(key);
+    controllerDevice.setCommunicationChannel(communicationChannel);
+    getEntityManager().persist(controllerDevice);
+    return controllerDevice;
+  }
+  
   public ControllerEntity findByEui(String eui) {
     EntityManager em = getEntityManager();
     

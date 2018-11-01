@@ -42,13 +42,16 @@ public class InterruptionController {
     return interruptionGroupDAO.listAll(firstResult, maxResults);
   }
 
-  public void setInterruptionCancelled(
-      InterruptionEntity interruption,
-      boolean cancelled) {
+  public void setInterruptionCancelled(InterruptionEntity interruption, boolean cancelled) {
     interruption.setCancelled(cancelled);
+    
     if (cancelled) {
       interruption.setCancellationTime(OffsetDateTime.now(ZoneOffset.UTC));
     }
+  }
+  
+  public void deleteInterruptionByDevice(InterruptionEntity interruption, DeviceEntity device) {
+    interruptionDAO.deleteInterruptionFromDevice(interruption, device);
   }
 
   public InterruptionEntity findInterruptionById(Long interruptionId) {

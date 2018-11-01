@@ -46,7 +46,7 @@
 
     <!-- Spec -->
 
-    <jouko-api-spec.version>0.0.14</jouko-api-spec.version>
+    <jouko-api-spec.version>0.0.16</jouko-api-spec.version>
 
     <!-- Maven -->
 
@@ -204,6 +204,12 @@
   </dependencyManagement>
   
   <dependencies>
+    <dependency>
+	    <groupId>org.keycloak</groupId>
+	    <artifactId>keycloak-admin-client</artifactId>
+	    <version>3.4.3.Final</version>
+    </dependency>
+    
     <dependency>
       <groupId>org.jboss.spec.javax.servlet</groupId>
       <artifactId>jboss-servlet-api_3.1_spec</artifactId>

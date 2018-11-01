@@ -38,6 +38,7 @@ import fi.metatavu.jouko.api.device.Laiteviestit.ViestiLaitteelle;
 import fi.metatavu.jouko.api.device.Laiteviestit.ViestiLaitteelta;
 import fi.metatavu.jouko.api.model.ControllerEntity;
 import fi.metatavu.jouko.api.model.DeviceEntity;
+import fi.metatavu.jouko.api.model.GprsMessageEntity;
 import fi.metatavu.jouko.api.model.MeasurementType;
 
 @Stateless
@@ -225,9 +226,16 @@ public class GprsApi {
           .entity(String.format("Protobuf error: %s", ex.getMessage()))
           .build();
     }
-      
-    messages.addAll(deviceController.getQueuedGprsMessagesForController(controller));
-    deviceController.clearGprsMessagesForController(controller);
+    
+    // If messages is empty we want to add messages from db
+    // If it's not empty we have timesync message there and we only want to respond that 
+    if (messages.isEmpty()) {
+      GprsMessageEntity oldestMessage = deviceController.getQueuedGprsMessageForController(controller);
+      if (oldestMessage != null) {
+        messages.add(oldestMessage.getContent());
+        deviceController.deleteGprsMessageFromController(controller, oldestMessage);
+      }
+    } 
 
     return Response.ok(String.join(" ", messages)).build();
   }
@@ -278,19 +286,21 @@ public class GprsApi {
       } else if (viestiLaitteelta.hasAikasynkLaitteelta()) {
         AikasynkLaitteelta sync = viestiLaitteelta.getAikasynkLaitteelta();
         long deviceTime = sync.getLaiteaika();
-        long myTime = Instant.now().getEpochSecond();
-        
+        long myTime = Instant.now().getEpochSecond() * 1000;
+        System.out.println(myTime);
         ViestiLaitteelle replyMessage = ViestiLaitteelle
             .newBuilder()
             .setAikasynkLaitteelle(
                 AikasynkLaitteelle.newBuilder()
-                  .setErotus(deviceTime - myTime)
+                  .setErotus(myTime - deviceTime)
                   .build())
             .build();
         
         String replyMessageString = String.format("{%s}",
             Base64.encodeBase64String(replyMessage.toByteArray()));
         
+        // If we end up here, we only want to send timesync message
+        messages.clear();
         messages.add(replyMessageString);
       }
     }
