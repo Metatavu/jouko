@@ -22,12 +22,24 @@ public class UserEntity {
   @NotNull
   private String keycloakId;
   
+  private String name;
+  
   public UserEntity() {
   }
   
-  public UserEntity(Long id, String name) {
+  public UserEntity(Long id, String keycloakId, String name) {
     super();
     this.id = id;
+    this.keycloakId = keycloakId;
+    this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public Long getId() {

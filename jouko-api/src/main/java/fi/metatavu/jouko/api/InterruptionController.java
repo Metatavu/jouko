@@ -41,6 +41,10 @@ public class InterruptionController {
   ) {
     return interruptionGroupDAO.listAll(firstResult, maxResults);
   }
+  
+  public void deleteInerruptionGroup(Long id) {
+    interruptionGroupDAO.deleteInterruptionGroupById(id);
+  }
 
   public void setInterruptionCancelled(InterruptionEntity interruption, boolean cancelled) {
     interruption.setCancelled(cancelled);
@@ -53,9 +57,17 @@ public class InterruptionController {
   public void deleteInterruptionByDevice(InterruptionEntity interruption, DeviceEntity device) {
     interruptionDAO.deleteInterruptionFromDevice(interruption, device);
   }
+  
+  public void deleteInterruption(InterruptionEntity interruption) {
+    interruptionDAO.deleteInterruption(interruption);
+  }
 
   public InterruptionEntity findInterruptionById(Long interruptionId) {
     return interruptionDAO.findById(interruptionId);
+  }
+  
+  public List<InterruptionEntity> listInterruptionsByGroupId(Long groupId) {
+    return interruptionDAO.listByGroupId(groupId);
   }
 
   public InterruptionGroupEntity findInterruptionGroupById(Long interruptionGroupId) {

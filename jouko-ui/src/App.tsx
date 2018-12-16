@@ -10,7 +10,7 @@ import { Home } from './components/Home';
 import { Statistics } from './components/Statistics';
 import { StatisticsSummary } from './components/StatisticsSummary';
 import * as Keycloak from 'keycloak-js';
-import { UsersApi } from 'jouko-ts-client';
+import { UsersApi, Configuration } from 'jouko-ts-client';
 import { PowerUsageSummaries } from './components/PowerUsageSummary';
 import { WelcomeBox } from './components/WelcomeBox';
 import { apiUrl, authUrl, appUrl } from './config';
@@ -53,11 +53,14 @@ class App extends React.Component<{}, AppState> {
   }
   // tslint:disable-next-line:no-any
   async fetchUsers(kc: any) {
+    const configuration = new Configuration({
+      apiKey: `Bearer ${kc.token}`
+    });
 
     // tslint:disable-next-line:no-any
     const keycloakId = (kc.idTokenParsed as any).sub;
     const usersApi = new UsersApi(
-      undefined,
+      configuration,
       apiUrl);
     const user = await usersApi.getUserByKeycloakId(keycloakId);
     console.log(kc);
@@ -94,6 +97,7 @@ class App extends React.Component<{}, AppState> {
               <Header
                 logout={() => this.logout()}
                 currentUserId={this.state.userId as number}
+                kc={this.state.keycloakInstance}
               />
             </div>
           </div>
@@ -107,6 +111,7 @@ class App extends React.Component<{}, AppState> {
           render={props => (
             <Home
               currentUserId={this.state.userId as number}
+              kc={this.state.keycloakInstance}
             />
           )}
         />
@@ -122,7 +127,15 @@ class App extends React.Component<{}, AppState> {
             />
           )}
         />
-        <Route path="/LatestMeasurements" component={LatestMeasurements}/>
+        <Route 
+          path="/LatestMeasurements"
+          render={props => (
+            <LatestMeasurements
+              currentUserId={this.state.userId as number}
+              kc={this.state.keycloakInstance}
+            />
+          )}
+        />
         <Route
           path="/WelcomeBox"
           exact={true}
@@ -141,6 +154,7 @@ class App extends React.Component<{}, AppState> {
               currentUserId={this.state.userId as number}
               firstname={this.state.firstname as string}
               lastname={this.state.lastname as string}
+              kc={this.state.keycloakInstance}
             />
           )}
         />
@@ -151,6 +165,7 @@ class App extends React.Component<{}, AppState> {
             <Statistics
               deviceId={props.match.params.id as number}
               currentUserId={this.state.userId as number}
+              kc={this.state.keycloakInstance}
             />
           )}
         />
@@ -160,6 +175,7 @@ class App extends React.Component<{}, AppState> {
           render={props => (
             <UpcomingInterruptions
               currentUserId={this.state.userId as number}
+              kc={this.state.keycloakInstance}
             />
           )}
         />
@@ -169,6 +185,7 @@ class App extends React.Component<{}, AppState> {
           render={props => (
             <PowerUsageSummaries
               currentUserId={this.state.userId as number}
+              kc={this.state.keycloakInstance}
             />
           )}
         />

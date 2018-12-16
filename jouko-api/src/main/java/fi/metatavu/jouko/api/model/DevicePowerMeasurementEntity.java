@@ -44,6 +44,18 @@ public class DevicePowerMeasurementEntity {
   @NotNull
   private int phaseNumber;
   
+  @Column(nullable = false)
+  @NotNull
+  private boolean relayIsOpen;
+
+  public boolean isRelayIsOpen() {
+    return relayIsOpen;
+  }
+
+  public void setRelayIsOpen(boolean relayIsOpen) {
+    this.relayIsOpen = relayIsOpen;
+  }
+
   public DevicePowerMeasurementEntity() {
   }
 
@@ -54,7 +66,8 @@ public class DevicePowerMeasurementEntity {
       MeasurementType measurementType,
       OffsetDateTime startTime,
       OffsetDateTime endTime,
-      int phaseNumber) {
+      int phaseNumber,
+      boolean relayIsOpen) {
     super();
     this.id = id;
     this.device = device;
@@ -62,6 +75,15 @@ public class DevicePowerMeasurementEntity {
     this.measurementType = measurementType;
     this.startTime = startTime;
     this.endTime = endTime;
+    this.phaseNumber = phaseNumber;
+    this.relayIsOpen = relayIsOpen;
+  }
+
+  public int getPhaseNumber() {
+    return phaseNumber;
+  }
+
+  public void setPhaseNumber(int phaseNumber) {
     this.phaseNumber = phaseNumber;
   }
 

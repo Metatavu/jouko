@@ -80,6 +80,23 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
     return em.createQuery(criteria).getResultList();
   }
   
+  public List<InterruptionEntity> listByGroupId(Long groupId) {
+    EntityManager em = getEntityManager();
+    
+    CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+    CriteriaQuery<InterruptionEntity> criteria = criteriaBuilder.createQuery(InterruptionEntity.class);
+    Root<InterruptionEntity> root = criteria.from(InterruptionEntity.class);
+    
+    criteria.select(root);
+    criteria.where(
+      criteriaBuilder.and(
+        criteriaBuilder.equal(root.get(InterruptionEntity_.group), groupId)
+      )
+    );
+    
+    return em.createQuery(criteria).getResultList();
+  }
+  
   public void deleteInterruptionFromDevice(InterruptionEntity entity, DeviceEntity device) {
     EntityManager em = getEntityManager();
     
@@ -91,6 +108,22 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
       criteriaBuilder.and(
         criteriaBuilder.equal(root.get(InterruptionEntity_.device), device)
       ),
+      criteriaBuilder.and(
+        criteriaBuilder.equal(root.get(InterruptionEntity_.id), entity.getId())
+      )
+    );
+    
+    em.createQuery(delete).executeUpdate();
+  }
+  
+  public void deleteInterruption(InterruptionEntity entity) {
+    EntityManager em = getEntityManager();
+    
+    CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+    CriteriaDelete<InterruptionEntity> delete = criteriaBuilder.createCriteriaDelete(InterruptionEntity.class);
+    Root<InterruptionEntity> root = delete.from(InterruptionEntity.class);
+
+    delete.where(
       criteriaBuilder.and(
         criteriaBuilder.equal(root.get(InterruptionEntity_.id), entity.getId())
       )

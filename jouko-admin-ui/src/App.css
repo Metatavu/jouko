@@ -33,6 +33,14 @@
     background: #ffffff;
     font-size: 18px;
 }
+
+.new-update-form {
+    width: 50%;
+    padding-top: 25px;
+    background: #ffffff;
+    font-size: 18px;
+}
+
 .new-item-form input[type="text"],
 .new-item-form input[type="date"],
 .new-item-form input[type="datetime"],
@@ -41,6 +49,7 @@
 .new-item-form input[type="search"],
 .new-item-form input[type="time"],
 .new-item-form input[type="url"],
+.new-update-form input[type="text"],
 .new-item-form textarea,
 .new-item-form select,
 .edit-item-form input[type="text"],
@@ -102,6 +111,7 @@ input[type="text"]:disabled {
     color: #626262;
 }
 
+.new-update-form input[type="submit"],
 .new-item-form input[type="submit"],
 .new-item-form input[type="button"],
 .edit-item-form input[type="submit"],

@@ -3,27 +3,33 @@ import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
 import { _ } from '../i18n';
-// import { take } from 'lodash';
-// import { UsersApi } from 'jouko-ts-client';
+import { take } from 'lodash';
+import { UsersApi, Configuration } from 'jouko-ts-client';
+import { apiUrl } from '../config';
+import * as Keycloak from 'keycloak-js';
 
-interface UserProps {
-    userId: number;
-    keycloakId: string;
-    username: string;
-    firstname: string;
-    lastname: string;
-    email: string;
+interface Props {
+    kc?: Keycloak.KeycloakInstance;
+}
+
+interface UserType {
+    userId?: number;
+    keycloakId?: string;
+    username?: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
 }
 interface UserState {
-    users: UserProps[];
+    users: UserType[];
     sortingElement: string;
     sortingDirection: string;
     searchTerm: string;
     searchColumn: string;
 }
 export class ListUser extends
-    React.Component<UserProps, UserState> {
-    constructor(props: UserProps) {
+    React.Component<Props, UserState> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             users: [],
@@ -49,11 +55,7 @@ export class ListUser extends
     }
     handleDeleteUser(event: React.FormEvent<HTMLDivElement>) {
         if (confirm(_('confirmDeleteUser'))) {
-            console.log(this.props.userId);
-            console.log(this.props.keycloakId);
-            console.log(this.props.username);
-            console.log(this.props.firstname);
-            console.log(this.props.lastname);
+            console.log('Delete');
         }
         this.forceUpdate();
     }
@@ -118,35 +120,43 @@ export class ListUser extends
         this.fetchAllUsers();
     }
     searchColumn(event: React.FormEvent<HTMLOptionElement>) {
+        console.log(event.currentTarget.value.toString());
         this.setState({searchColumn: event.currentTarget.value.toString()});
         this.fetchAllUsers();
     }
     async fetchAllUsers() {
-        {/*
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
         const allUsersApi = new UsersApi(
-            undefined,
-            'http://127.0.0.1:8080/api-0.0.1-apiUrl/v1');
-        const allUsers = await allUsersApi.listUsers(0, 1000);
-        const users: UserProps[] = [];
+            configuration,
+            apiUrl);
+        
+        const allUsers = await allUsersApi.listKeycloakUsers(this.props.kc!.token);
+        
+        const users: UserType[] = [];
         for (const user of allUsers) {
             const searchColumn = this.state.searchColumn.toString();
             if (user[searchColumn].toString().match(this.state.searchTerm )) {
-                user.push({
+                users.push({
                     userId: user.id,
-                    username: user.username.toString(),
-                    firstname: user.firstname.toString(),
-                    lastname: user.lastname.toString()
+                    keycloakId: user.keycloakId,
+                    email: user.email,
+                    username: user.username,
+                    firstName: user.firstName,
+                    lastName: user.lastName
                 });
             }
         }
         if (this.state.sortingDirection === 'ASC') {
             const sortingElement = this.state.sortingElement.toString();
             if (sortingElement === 'username') {
-                users.sort((a, b) => a.username.localeCompare(b.username));
+                users.sort((a, b) => a.username!.localeCompare(b.username!));
             } else if (sortingElement === 'firstname') {
-                users.sort((a, b) => a.firstname.localeCompare(b.firstname));
+                users.sort((a, b) => a.firstName!.localeCompare(b.firstName!));
             } else if (sortingElement === 'lastname') {
-                users.sort((a, b) => a.lastname.localeCompare(b.lastname));
+                users.sort((a, b) => a.lastName!.localeCompare(b.lastName!));
             } else {
                 users.sort((a, b) => {
                     return a[sortingElement] - b[sortingElement];
@@ -155,11 +165,11 @@ export class ListUser extends
         } else {
             const sortingElement = this.state.sortingElement.toString();
             if (sortingElement === 'username') {
-                users.sort((a, b) => b.username.localeCompare(a.username));
+                users.sort((a, b) => b.username!.localeCompare(a.username!));
             } else if (sortingElement === 'firstname') {
-                users.sort((a, b) => b.firstname.localeCompare(a.firstname));
+                users.sort((a, b) => b.firstName!.localeCompare(a.firstName!));
             } else if (sortingElement === 'deviceName') {
-                users.sort((a, b) => b.lastname.localeCompare(a.lastname));
+                users.sort((a, b) => b.lastName!.localeCompare(a.lastName!));
             } else {
                 users.sort((a, b) => {
                     return b[sortingElement] - a[sortingElement];
@@ -167,7 +177,6 @@ export class ListUser extends
             }
         }
         this.setState({users: take(users, 100)});
-        */}
     }
 
     render() {
@@ -190,8 +199,8 @@ export class ListUser extends
                     </th>
                     <th>{users.userId}</th>
                     <th>{users.username}</th>
-                    <th>{users.firstname}</th>
-                    <th>{users.lastname}</th>
+                    <th>{users.firstName}</th>
+                    <th>{users.lastName}</th>
                     <th>
                         <div>
                             <NavLink to={`/ShowUser/${users.userId}`}>

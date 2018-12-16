@@ -3,19 +3,19 @@ let language = localStorage.getItem('language') || 'fi';
 const messages = {
   '1hourlegend': {
     'fi': '5 min ka.',
-    'en': '1 hour',
+    'en': '5 min avg.',
     'de': '1 Stunde',
     'sv': '1 timme'
   },
   '24hourslegend': {
     'fi': '1 h ka.',
-    'en': '24 hours',
+    'en': '1 h avg.',
     'de': '24 Stunden',
     'sv': '24 timmar'
   },
   '30dayslegend': {
     'fi': '1 vrk ka.',
-    'en': '30 days',
+    'en': '1 d avg.',
     'de': '30 Tage',
     'sv': '30 dagar'
   },
@@ -44,7 +44,7 @@ const messages = {
     'sv': 'Användardata ändras framgångsrikt!'
   },
   'allMeasurements': {
-    'fi': 'Kaikki Mittaukset',
+    'fi': 'Kaikki mittaukset',
     'en': 'All Measurements',
     'de': 'Alle Messungen',
     'sv': 'Alla Mätningar'
@@ -96,6 +96,12 @@ const messages = {
     'en': 'Device',
     'de': 'Gerät',
     'sv': 'Enhet'
+  },
+  'devicename': {
+    'fi': 'Laitteen nimi',
+    'en': 'Device name',
+    'de': 'Device name',
+    'sv': 'Enhet name'
   },
   'edit': {
     'fi': 'Muokkaa',
@@ -151,8 +157,14 @@ const messages = {
     'de': 'Unterbrechung',
     'sv': 'Avbrott'
   },
+  'interruption': {
+    'fi': 'Katko',
+    'en': 'Interruption',
+    'de': 'Interruption',
+    'sv': 'Avbrott'
+  },
   'latestMeasurements': {
-    'fi': 'Viimeisimmät Mittaukset',
+    'fi': 'Viimeisimmät mittaukset',
     'en': 'Latest Measurements',
     'de': 'Neueste Messungen',
     'sv': 'Senaste Mätningarna'
@@ -181,11 +193,23 @@ const messages = {
     'de': 'Messwert',
     'sv': 'Mätvärde'
   },
+  'noInterruptionsFound': {
+    'fi': 'Ei tulevia katkoja',
+    'en': 'No interruptions found',
+    'de': 'No interruptions found',
+    'sv': 'Ingen inkommande avbrott'
+  },
   'powerConsumption': {
     'fi': 'Tehonkulutus',
     'en': 'Power Consumption',
     'de': 'Energieverbrauch (Leistung)',
     'sv': 'Energiförbrukning'
+  },
+  'phase': {
+    'fi': 'Vaihe',
+    'en': 'Phase',
+    'de': 'Phase',
+    'sv': 'Fas'
   },
   'preventInterruptions': {
     'fi': 'Estä katko',
@@ -206,7 +230,7 @@ const messages = {
     'sv': 'Sök...'
   },
   'searchFor': {
-    'fi': 'Etsiminen',
+    'fi': 'Etsi',
     'en': 'Search for',
     'de': 'Suche nach',
     'sv': 'Sök efter'

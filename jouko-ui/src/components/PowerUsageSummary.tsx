@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { take } from 'lodash';
-import { DevicesApi } from 'jouko-ts-client';
+import { DevicesApi, Configuration } from 'jouko-ts-client';
 import { format as formatDate, subHours } from 'date-fns';
 import { NavLink } from 'react-router-dom';
 import '../App.css';
 import { _ } from '../i18n';
 import { apiUrl } from '../config';
+import { KeycloakInstance } from 'keycloak-js';
 
 interface PowerUsageSummaryProps {
   deviceId: number;
@@ -35,6 +36,7 @@ interface PowerUsageSummariesState {
 }
 interface  PowerUsageSummariesProps {
   currentUserId: number;
+  kc?: KeycloakInstance;
 }
 
 export class PowerUsageSummaries
@@ -50,8 +52,12 @@ export class PowerUsageSummaries
   }
 
   async fetchPowerUsages() {
+    const configuration = new Configuration({
+      apiKey: `Bearer ${this.props.kc!.token}`
+    });
+
     const devicesApi = new DevicesApi(
-      undefined,
+      configuration,
       apiUrl);
     const devices = await devicesApi.listDevices(this.props.currentUserId, 0, 1000);
 
@@ -61,6 +67,7 @@ export class PowerUsageSummaries
 
       let lastHour = formatDate(subHours(new Date(), 1));
       let today = formatDate(new Date());
+
       const powerUsage = await devicesApi.getPowerConsumption(this.props.currentUserId, device.id, lastHour, today);
       rowProps.push({
           deviceId: device.id,

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
-import { InterruptionGroupsApi } from 'jouko-ts-client';
+import { UsersApi, Configuration } from 'jouko-ts-client';
 import { take } from 'lodash';
 import { _ } from '../i18n';
 import { apiUrl } from '../config';
@@ -9,6 +9,10 @@ import { apiUrl } from '../config';
 interface NewUsersProps {
     interruptiongroupId: number;
     starttime: string;
+    keycloakId: string;
+}
+interface Props {
+    kc?: Keycloak.KeycloakInstance;
 }
 interface ControllersProps {
     devicename: string;
@@ -30,7 +34,7 @@ interface NewUserState {
     controllers: ControllersProps[];
 }
 export class NewUser
-    extends React.Component<{}, NewUserState> {
+    extends React.Component<Props, NewUserState> {
     constructor(props: {}) {
         super(props);
         this.state = {
@@ -89,38 +93,31 @@ export class NewUser
         }
         this.forceUpdate();
     }
-    handleSubmit(event: React.FormEvent<HTMLInputElement>) {
-        console.log(this.state.keycloakId);
-        console.log(this.state.firstname);
-        console.log(this.state.lastname);
-        console.log(this.state.email);
-        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-        console.log(this.state.deviceName);
-        console.log(this.state.keycloakId);
-        console.log(this.state.firstname);
-        console.log(this.state.lastname);
-        console.log(this.state.controllerId);
-
+    async handleSubmit(event: React.FormEvent<HTMLInputElement>) {
         event.preventDefault();
-        alert(_('alertUserCreated'));
-    }
 
-    componentDidMount() {
-        this.fetchControllerAndDevices();
-    }
-    async fetchControllerAndDevices() {
-        const interruptionGroupsApi = new InterruptionGroupsApi(
-            undefined,
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
+        const usersApi = new UsersApi(
+            configuration,
             apiUrl);
-        const interruptionGroups = await interruptionGroupsApi.listInterruptionGroups(0, 1000);
-        const rowProps: NewUsersProps[] = [];
-        for (const interruptionGroup of interruptionGroups) {
-            rowProps.push({
-                interruptiongroupId: interruptionGroup.id,
-                starttime: interruptionGroup.startTime
-            });
+
+        const payload = {
+            username: this.state.keycloakId,
+            email: this.state.email,
+            firstName: this.state.firstname,
+            lastName: this.state.lastname
+        };
+
+        try {
+            await usersApi.createUser(payload, this.props.kc!.token);
+            alert(_('alertUserCreated'));
+        } catch (error) {
+            alert(_('alertUserCreatedError'));
         }
-        this.setState({rowProps: take(rowProps, 100)});
+        
     }
 
     render() {

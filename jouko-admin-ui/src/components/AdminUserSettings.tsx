@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { _ } from '../i18n';
 
-interface  AdminUserSettingsProps {
+interface Props {
+    kc?: Keycloak.KeycloakInstance;
     userId: number;
     username: string;
     keycloakId: string;
@@ -9,6 +10,7 @@ interface  AdminUserSettingsProps {
     firstname: string;
     lastname: string;
 }
+
 interface  AdminUserSettingsState {
     userId: number;
     username: string;
@@ -18,8 +20,8 @@ interface  AdminUserSettingsState {
     lastname: string;
 }
 
-export class AdminUserSettings extends React.Component<AdminUserSettingsProps, AdminUserSettingsState> {
-    constructor(props: AdminUserSettingsProps) {
+export class AdminUserSettings extends React.Component<Props, AdminUserSettingsState> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             userId: this.props.userId,

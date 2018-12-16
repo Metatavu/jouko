@@ -46,7 +46,7 @@
 
     <!-- Spec -->
 
-    <jouko-api-spec.version>0.0.16</jouko-api-spec.version>
+    <jouko-api-spec.version>0.0.20</jouko-api-spec.version>
 
     <!-- Maven -->
 
@@ -211,6 +211,46 @@
     </dependency>
     
     <dependency>
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-core</artifactId>
+      <version>3.4.3.Final</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+		    <groupId>javax.transaction</groupId>
+		    <artifactId>javax.transaction-api</artifactId>
+		    <version>1.2</version>
+		</dependency>
+		
+    <dependency>
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-adapter-spi</artifactId>
+      <version>3.4.3.Final</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-adapter-core</artifactId>
+      <version>3.4.3.Final</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-authz-client</artifactId>
+      <version>3.4.3.Final</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.keycloak</groupId>
+          <artifactId>keycloak-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    
+    <dependency>
       <groupId>org.jboss.spec.javax.servlet</groupId>
       <artifactId>jboss-servlet-api_3.1_spec</artifactId>
       <scope>provided</scope>
@@ -239,6 +279,13 @@
       <artifactId>resteasy-jaxrs</artifactId>
       <scope>provided</scope>
     </dependency>
+    
+    <dependency>
+		  <groupId>org.jboss.resteasy</groupId>
+		  <artifactId>resteasy-client</artifactId>
+		  <version>3.0.6.Final</version>
+		  <scope>provided</scope>
+		</dependency>
 
     <dependency>
       <groupId>org.jboss.spec.javax.ws.rs</groupId>

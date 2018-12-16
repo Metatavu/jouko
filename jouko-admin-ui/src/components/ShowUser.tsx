@@ -2,12 +2,13 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { _ } from '../i18n';
-import { DevicesApi } from 'jouko-ts-client';
+import { DevicesApi, Configuration } from 'jouko-ts-client';
 import { take } from 'lodash';
 import { apiUrl } from '../config';
 
 interface ShowUserProps {
     userId: number;
+    kc?: Keycloak.KeycloakInstance;
 }
 interface ControllersProps {
     deviceId: number;
@@ -50,8 +51,12 @@ export class ShowUser
         this.fetchUsersDevices();
     }
     async fetchUsersDevices() {
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
         const usersDevicesApi = new DevicesApi(
-            undefined,
+            configuration,
             apiUrl);
         const usersDevices = await usersDevicesApi.listDevices(5, 0, 1000);
 
@@ -59,9 +64,9 @@ export class ShowUser
 
         for (const usersDevice of usersDevices) {
             devices.push({
-                deviceId: usersDevice.id,
+                deviceId: usersDevice.id!,
                 devicename: usersDevice.name,
-                controller: usersDevice.id
+                controller: usersDevice.id!
             });
         }
         this.setState({devices: take(devices, 100)});

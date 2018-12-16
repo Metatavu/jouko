@@ -91,13 +91,18 @@ public class DeviceController {
     return controllerDAO.findByEui(eui);
   }
   
+  public ControllerEntity findControllerByEuiAndKey(String eui, String key) {
+    return controllerDAO.findByEuiAndKey(eui, key);
+  }
+  
   public DevicePowerMeasurementEntity addPowerMeasurement(
       DeviceEntity device,
       double measurementValue,
       MeasurementType measurementType,
       OffsetDateTime startTime,
       OffsetDateTime endTime,
-      int phaseNumber
+      int phaseNumber,
+      boolean relayIsOpen
   ) {
     return powerMeasurementDAO.create(
         device,
@@ -105,7 +110,8 @@ public class DeviceController {
         measurementType,
         startTime,
         endTime,
-        phaseNumber);
+        phaseNumber,
+        relayIsOpen);
   }
       
   public double averageConsumptionInWatts(DeviceEntity device, OffsetDateTime fromTime, OffsetDateTime toTime) {
@@ -144,8 +150,16 @@ public class DeviceController {
     return averagePowerInWatts;
   }
   
-  public void queueGprsMessage(ControllerEntity controller, String message, MessageType messageType) {
-    gprsMessageDAO.create(controller, message, messageType);
+  public List<DevicePowerMeasurementEntity> listPowerMeasurementsByDevices(List<DeviceEntity> devices, OffsetDateTime fromTime, OffsetDateTime toTime) {
+    return powerMeasurementDAO.listByDevices(devices, fromTime, toTime);
+  }
+  
+  public List<DevicePowerMeasurementEntity> listPowerMeasurementsByDevice(DeviceEntity device, OffsetDateTime fromTime, OffsetDateTime toTime) {
+    return powerMeasurementDAO.listByDevice(device, fromTime, toTime);
+  }
+  
+  public void queueGprsMessage(ControllerEntity controller, long deviceId, String message, MessageType messageType) {
+    gprsMessageDAO.create(controller, deviceId, message, messageType);
   }
   
   public List<String> getAllQueuedGprsMessages() {
@@ -164,8 +178,8 @@ public class DeviceController {
                          .collect(Collectors.toList());
   }
   
-  public GprsMessageEntity getQueuedGprsMessageForController(ControllerEntity controller) {
-    return gprsMessageDAO.findOneByController(controller);
+  public GprsMessageEntity getQueuedGprsMessageForController(ControllerEntity controller, long deviceId) {
+    return gprsMessageDAO.findOneByController(controller, deviceId);
   }
   
   public void deleteGprsMessageFromController(ControllerEntity controller, GprsMessageEntity message) {

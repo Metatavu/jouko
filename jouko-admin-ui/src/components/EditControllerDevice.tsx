@@ -2,11 +2,12 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { _ } from '../i18n';
-import { InterruptionGroupsApi } from 'jouko-ts-client';
+import { InterruptionGroupsApi, Configuration } from 'jouko-ts-client';
 import { take } from 'lodash';
 import { apiUrl } from '../config';
 
-interface EditControllerDeviceProps {
+interface Props {
+    kc?: Keycloak.KeycloakInstance;
     controllerDeviceId: number;
     currentUserId: number;
 }
@@ -23,8 +24,8 @@ interface EditControllerDeviceState {
 }
 
 export class EditControllerDevice
-    extends React.Component<EditControllerDeviceProps, EditControllerDeviceState> {
-    constructor(props: EditControllerDeviceProps) {
+    extends React.Component<Props, EditControllerDeviceState> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             eui: '',
@@ -57,9 +58,14 @@ export class EditControllerDevice
         this.fetchEditControllerDevices();
     }
     async fetchEditControllerDevices() {
+        const configuration = new Configuration({
+            apiKey: 'Bearer ' + this.props.kc!.token
+        });
+
         const interruptionGroupsApi = new InterruptionGroupsApi(
-            undefined,
+            configuration,
             apiUrl);
+
         const interruptionGroups = await interruptionGroupsApi.listInterruptionGroups(0, 1000);
         const rowProps: EditControllerDevicesProps[] = [];
         for (const interruptionGroup of interruptionGroups) {

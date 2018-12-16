@@ -9,11 +9,23 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import fi.metatavu.jouko.api.model.DeviceEntity;
+import fi.metatavu.jouko.api.model.InterruptionEntity;
+import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
 import fi.metatavu.jouko.api.model.UserEntity;
 import fi.metatavu.jouko.api.model.UserEntity_;
 
 @Dependent
 public class UserDAO extends AbstractDAO<UserEntity> {
+  
+  public UserEntity create(UserEntity user) {
+    UserEntity entity = new UserEntity(
+        null,
+        user.getKeycloakId(),
+        user.getName()
+    );
+    getEntityManager().persist(entity);
+    return entity;
+  }
   
   public UserEntity findByKeycloakId(String keycloakId) {
     EntityManager em = getEntityManager();

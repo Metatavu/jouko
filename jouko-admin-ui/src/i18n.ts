@@ -14,13 +14,13 @@ const messages = {
         'sv': 'Admin-användardata'
     },
     'alertAdminDataChanged': {
-        'fi': 'Hallinnoijan tiedot muuttuivat onnistuneesti!',
+        'fi': 'Hallinnoijan tiedot muutettu onnistuneesti!',
         'en': 'Admin data successfully changed!',
         'de': 'Admin-Benutzerdaten erfolgreich geändert!',
         'sv': 'Admin-användardata har ändrats framgångsrikt!'
     },
     'alertDeviceChanged': {
-        'fi': 'Laite on onnistuneesti muuttunut!',
+        'fi': 'Laitetta on muokattu onnistuneesti!',
         'en': 'Device successfully changed!',
         'de': 'Gerät erfolgreich geändert!',
         'sv': 'Enheten har ändrats framgångsrikt!'
@@ -31,44 +31,59 @@ const messages = {
         'de': 'Gerät erfolgreich hinzugefügt!',
         'sv': 'Enheten har lagts till framgångsrikt!'
     },
+    'alertControllerDeviceCreated': {
+        'fi': 'Laite luotu'
+    },
     'alertInterruptiongroupChanged': {
-        'fi': 'Keskeytysryhmä on onnistuneesti muuttunut!',
+        'fi': 'Keskeytysryhmää on muokattu onnistuneesti!',
         'en': 'Interruptiongroup successfully changed!',
         'de': 'Unterbrechung erfolgreich geändert!',
         'sv': 'Avbrottsgrupper har ändrats framgångsrikt!'
     },
     'alertInterruptiongroupCreated': {
-        'fi': 'Keskeytys onnistuneesti luoto!',
+        'fi': 'Keskeytys onnistuneesti luotu!',
         'en': 'Interruptiongroup successfully created!',
         'de': 'Unterbrechung erfolgreich hinzugefügt!',
         'sv': 'Avbrottsgrupper har lagt till till framgångsrikt!'
     },
     'alertUserChanged': {
-        'fi': 'Käyttäjä on muuttunut onnistuneesti!',
+        'fi': 'Käyttäjä on muokattu onnistuneesti!',
         'en': 'User successfully changed!',
         'de': 'Benutzer erfolgreich geändert!',
         'sv': 'Användaren har ändrats framgångsrikt!'
     },
     'alertUserCreated': {
-        'fi': 'Käyttäjä on onnistuneesti luoto!',
+        'fi': 'Käyttäjä on onnistuneesti luotu!',
         'en': 'User successfully created!',
         'de': 'Benutzer erfolgreich hinzugefügt!',
         'sv': 'Användaren har lagts till framgångsrikt!'
     },
+    'alertUserCreatedError': {
+        'fi': 'Tapahtui virhe käyttäjää luodessa. Onko sähköpostiosoite jo käytössä?',
+        'en': 'Error while creating user. Maybe email is taken?',
+        'de': 'Error while creating user. Maybe email is taken?',
+        'sv': 'Error while creating user. Maybe email is taken?'
+    },
+    'alertUpdateCreated': {
+        'fi': 'Päivitys luotu!',
+        'en': 'Update created!',
+        'de': 'Update created!',
+        'sv': 'Update created!'
+    },
     'allControllerDevices': {
-        'fi': 'Kaikki Ohjauslaite',
+        'fi': 'Kaikki Ohjauslaitteet',
         'en': 'All Controller Devices',
         'de': 'Alle Steuervorrichtungen',
         'sv': 'Alla Styranordning'
     },
     'allDevices': {
-        'fi': 'Kaikki Laitteet',
+        'fi': 'Kaikki laitteet',
         'en': 'All Devices',
         'de': 'Alle Geräte',
         'sv': 'Alla Enheter'
     },
     'allInterruptionGroups': {
-        'fi': 'Kaikki Katkoryhmät',
+        'fi': 'Kaikki katkoryhmät',
         'en': 'All Interruption Groups',
         'de': 'Alle Unterbrechungsgruppen',
         'sv': 'Alla Avbrott Grupper'
@@ -140,19 +155,19 @@ const messages = {
         'sv': 'Datum'
     },
     'device': {
-        'fi': 'Laite',
+        'fi': 'Kytkinlaite',
         'en': 'Device',
         'de': 'Gerät',
         'sv': 'Anordning'
     },
     'deviceName': {
-        'fi': 'Laitteen nimi',
+        'fi': 'Kytkinlaitteen nimi',
         'en': 'Device name',
         'de': 'Gerätename',
         'sv': 'Enhetsnamn'
     },
     'devices': {
-        'fi': 'Laitteet',
+        'fi': 'Kytkinlaitteet',
         'en': 'Devices',
         'de': 'Geräte',
         'sv': 'Enheter'
@@ -170,25 +185,25 @@ const messages = {
         'sv': 'Redigera'
     },
     'editControllerDevice': {
-        'fi': 'Muokkaa ohjauslaite',
+        'fi': 'Muokkaa ohjauslaitetta',
         'en': 'Edit Controller Device',
         'de': 'Steuervorrichtung bearbeiten',
         'sv': 'Redigera Styranordning'
     },
     'editDevice': {
-        'fi': 'Muokkaa laitetta',
+        'fi': 'Muokkaa kytkinlaitetta',
         'en': 'Edit Device',
         'de': 'Gerät bearbeiten',
         'sv': 'Redigera Enhet'
     },
     'editInterruptiongroup': {
-        'fi': 'Muokka katkoviiva',
+        'fi': 'Muokkaa katkoryhmää',
         'en': 'Edit Interruptiongroup',
         'de': 'Unterbrechung bearbeiten',
         'sv': 'Redigera avbrottsgrupper'
     },
     'editUser': {
-        'fi': 'Muokkaa käyttäjä',
+        'fi': 'Muokkaa käyttäjää',
         'en': 'Edit User',
         'de': 'Benutzer bearbeiten',
         'sv': 'Redigera användare'
@@ -210,6 +225,24 @@ const messages = {
         'en': 'Firstname',
         'de': 'Vorname',
         'sv': 'Förnamn'
+    },
+    'file': {
+        'fi': 'Tiedosto',
+        'en': 'File',
+        'de': 'File',
+        'sv': 'File'
+    },
+    'filename': {
+        'fi': 'Tiedostonimi',
+        'en': 'File name',
+        'de': 'File name',
+        'sv': 'File namen'
+    },
+    'filenameInfo': {
+        'fi': 'Käytetään ladatun tiedoston nimeä, jos ei asetettu',
+        'en': 'If empty uploaded filename is used',
+        'de': 'If empty uploaded filename is used',
+        'sv': 'If empty uploaded filename is used'
     },
     'hello': {
         'fi': 'Hei',
@@ -272,16 +305,22 @@ const messages = {
         'sv': 'Ny Styranordning'
     },
     'newDevice': {
-        'fi': 'Uusi Laite',
+        'fi': 'Uusi kytkinlaite',
         'en': 'New Device',
         'de': 'Neues Gerät',
         'sv': 'Ny Enhet'
     },
     'newInterruptionGroups': {
-        'fi': 'Uusi Katkoryhmä',
+        'fi': 'Uusi katkoryhmä',
         'en': 'New Interruption Group',
         'de': 'Neue Unterbrechungsgruppe',
         'sv': 'Nya Avbrott Grupper'
+    },
+    'newUpdatefile': {
+        'fi': 'Uusi päivitys',
+        'en': 'New Update',
+        'de': 'New update',
+        'sv': 'Ny update'
     },
     'newUser': {
         'fi': 'Uusi käyttäjä',
@@ -290,7 +329,7 @@ const messages = {
         'sv': 'Ny användare'
     },
     'noEditControllerDevicePossible1': {
-        'fi': 'Valitettavasti et voi muokata tätä ohjauslaite. Voit kuitenkin poistaa ohjauslaitteet. Katso ',
+        'fi': 'Valitettavasti et voi muokata tätä ohjauslaitetta. Voit kuitenkin poistaa ohjauslaitteet. Katso ',
         'en': 'Unfortunately, you cannot edit this controller device. ' +
         'You may, however, delete controller devices. Please have a look at the ',
         'de': 'Leider können Sie diese Steuervorrichtung nicht bearbeiten. ' +
@@ -316,7 +355,7 @@ const messages = {
         'sv': 'här.'
     },
     'noEditDevicePossible1': {
-        'fi': 'Valitettavasti et voi muokata tätä laite. Voit kuitenkin poistaa laitteita. Katso ',
+        'fi': 'Valitettavasti et voi muokata tätä kytkinlaitetta. Voit kuitenkin poistaa laitteita. Katso ',
         'en': 'Unfortunately, you cannot edit this device. ' +
         'You may, however, delete devices. Please have a look at the ',
         'de': 'Leider können Sie dieses Gerät nicht bearbeiten. ' +
@@ -342,7 +381,7 @@ const messages = {
         'sv': 'här.'
     },
     'noEditInterruptiongroupPossible1': {
-        'fi': 'Valitettavasti et voi muokata tätä katkoryhmä. Voit kuitenkin poistaa katkoryhmiä. Katso ',
+        'fi': 'Valitettavasti et voi muokata tätä katkoryhmää. Voit kuitenkin poistaa katkoryhmiä. Katso ',
         'en': 'Unfortunately, you cannot edit this interruption group. ' +
         'You may, however, delete interruption groups. Please have a look at the ',
         'de': 'Leider können Sie diese Unterbrechungsgruppe nicht bearbeiten. ' +
@@ -356,7 +395,7 @@ const messages = {
         'sv': 'översikten'
     },
     'noEditInterruptiongroupPossible3': {
-        'fi': ' tai luo uusi keskeytysryhmä ',
+        'fi': ' tai luo uusi katkoryhmä ',
         'en': ' or create a new interruption group ',
         'de': ' oder erstellen Sie eine neue Unterbrechungsgruppe ',
         'sv': ' eller skapa en ny avbrottsgrupp '
@@ -368,7 +407,7 @@ const messages = {
         'sv': 'här.'
     },
     'noEditUserPossible1': {
-        'fi': 'Valitettavasti et voi muokata tätä käyttäjä. Voit kuitenkin poistaa käyttäjiä. Katso ',
+        'fi': 'Valitettavasti et voi muokata tätä käyttäjää. Voit kuitenkin poistaa käyttäjiä. Katso ',
         'en': 'Unfortunately, you cannot edit this user. ' +
         'You may, however, delete users. Please have a look at the ',
         'de': 'Leider können Sie diesen Benutzer nicht bearbeiten. ' +
@@ -430,7 +469,7 @@ const messages = {
         'sv': 'Sök...'
     },
     'searchFor': {
-        'fi': 'Etsiminen',
+        'fi': 'Etsi',
         'en': 'Search for',
         'de': 'Suche nach',
         'sv': 'Sök efter'
@@ -502,6 +541,13 @@ const messages = {
         'en': 'Username',
         'de': 'Benutzername',
         'sv': 'Användarnamn'
+    }
+    ,
+    'version': {
+        'fi': 'Versionumero',
+        'en': 'Version',
+        'de': 'Version',
+        'sv': 'Version'
     }
 };
 

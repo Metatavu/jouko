@@ -20,8 +20,8 @@ import fi.metatavu.jouko.api.model.MessageType;
 
 @Dependent
 public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
-  public GprsMessageEntity create(ControllerEntity controller, String content, MessageType messageType) {
-    GprsMessageEntity result = new GprsMessageEntity(null, content, controller, messageType);
+  public GprsMessageEntity create(ControllerEntity controller, long deviceId, String content, MessageType messageType) {
+    GprsMessageEntity result = new GprsMessageEntity(null, deviceId, content, controller, messageType);
     getEntityManager().persist(result);
     return result;
   } 
@@ -69,7 +69,7 @@ public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
     return em.createQuery(criteria).getResultList();
   }
   
-  public GprsMessageEntity findOneByController(ControllerEntity controller) {
+  public GprsMessageEntity findOneByController(ControllerEntity controller, long deviceId) {
     EntityManager em = getEntityManager();
     
     CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -79,16 +79,62 @@ public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
     List<Order> orderList = new ArrayList();
     
     criteria.select(root);
-    criteria.where(
-      criteriaBuilder.equal(root.get(GprsMessageEntity_.controller), controller)
+    
+    CriteriaQuery<GprsMessageEntity> newInterruptionQuery = criteria.where(
+        criteriaBuilder.and(
+            criteriaBuilder.equal(root.get(GprsMessageEntity_.controller), controller),
+            criteriaBuilder.equal(root.get(GprsMessageEntity_.deviceId), deviceId),
+            criteriaBuilder.equal(root.get(GprsMessageEntity_.type), MessageType.NEW_INTERRUPTION)
+        )
     );
     
+    if (em.createQuery(newInterruptionQuery).getResultList().size() > 0) {
+      orderList.add(criteriaBuilder.asc(root.get(GprsMessageEntity_.id)));
+      criteria.orderBy(orderList);
+      return em.createQuery(newInterruptionQuery).getResultList().get(0);
+    }
+    
+    CriteriaQuery<GprsMessageEntity> cancelInterruptionQuery = criteria.where(
+        criteriaBuilder.and(
+            criteriaBuilder.equal(root.get(GprsMessageEntity_.controller), controller),
+            criteriaBuilder.equal(root.get(GprsMessageEntity_.deviceId), deviceId),
+            criteriaBuilder.equal(root.get(GprsMessageEntity_.type), MessageType.CANCEL_INTERRUPTION)
+        )
+    );
+    
+    if (em.createQuery(cancelInterruptionQuery).getResultList().size() > 0) {
+      orderList.add(criteriaBuilder.asc(root.get(GprsMessageEntity_.id)));
+      criteria.orderBy(orderList);
+      return em.createQuery(cancelInterruptionQuery).getResultList().get(0);
+    }
+    
+    CriteriaQuery<GprsMessageEntity> elseQuery = criteria.where(
+        criteriaBuilder.and(
+            criteriaBuilder.equal(root.get(GprsMessageEntity_.controller), controller),
+            criteriaBuilder.equal(root.get(GprsMessageEntity_.deviceId), deviceId)
+        )
+    );
+    
+    // Order results by ID
     orderList.add(criteriaBuilder.asc(root.get(GprsMessageEntity_.id)));
     criteria.orderBy(orderList);
     
     if (em.createQuery(criteria).getResultList().size() > 0) {
       return em.createQuery(criteria).getResultList().get(0);
     }
+    
+    elseQuery = criteria.where(
+      criteriaBuilder.equal(root.get(GprsMessageEntity_.controller), controller)
+    );
+    
+    // Order results by ID
+    orderList.add(criteriaBuilder.asc(root.get(GprsMessageEntity_.id)));
+    criteria.orderBy(orderList);
+    
+    if (em.createQuery(criteria).getResultList().size() > 0) {
+      return em.createQuery(criteria).getResultList().get(0);
+    }
+    
     return null;
   }
   

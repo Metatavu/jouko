@@ -3,7 +3,7 @@ import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
 import { _ } from '../i18n';
-import { DevicesApi } from 'jouko-ts-client';
+import { ControllerDevicesApi, Configuration } from 'jouko-ts-client';
 import { take } from 'lodash';
 import { apiUrl } from '../config';
 
@@ -13,6 +13,11 @@ interface ControllerDevicesProps {
     key: string;
     communicationChannel: string;
 }
+
+interface Props {
+    kc?: Keycloak.KeycloakInstance;
+}
+
 interface ControllerDevicesState {
     controllerDevices: ControllerDevicesProps[];
     sortingElement: string;
@@ -22,8 +27,8 @@ interface ControllerDevicesState {
 }
 
 export class ListControllerDevice
-    extends React.Component<ControllerDevicesProps, ControllerDevicesState> {
-    constructor(props: ControllerDevicesProps) {
+    extends React.Component<Props, ControllerDevicesState> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             controllerDevices: [],
@@ -46,13 +51,20 @@ export class ListControllerDevice
     componentDidMount() {
         this.fetchAllControllerDevices();
     }
-    handleDeleteControllerDevice(event: React.FormEvent<HTMLDivElement>) {
+    async handleDeleteControllerDevice(controllerDeviceId: number) {
         if (confirm(_('confirmDeleteControllerDevice'))) {
-            console.log(this.props.controllerDeviceId);
-            console.log(this.props.eui);
-            console.log(this.props.key);
-            console.log(this.props.communicationChannel);
+            console.log('delete');
         }
+
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
+        const controllerDevicesApi = new ControllerDevicesApi(
+            configuration,
+            apiUrl);
+
+        await controllerDevicesApi.deleteControllerDevice({controllerId: controllerDeviceId});
         this.forceUpdate();
     }
     sortByIdASC(event: React.FormEvent<HTMLOptionElement>) {
@@ -121,19 +133,23 @@ export class ListControllerDevice
     }
 
     async fetchAllControllerDevices() {
-        const allControllerDevicesApi = new DevicesApi(
-            undefined,
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
+        const allControllerDevicesApi = new ControllerDevicesApi(
+            configuration,
             apiUrl);
-        const allControllerDevices = await allControllerDevicesApi.listAllDevices(0, 1000);
+        const allControllerDevices = await allControllerDevicesApi.listAllControllerDevices(0, 1000);
         const controllerDevices: ControllerDevicesProps[] = [];
         for (const controllerDevice of allControllerDevices) {
             const searchColumn = this.state.searchColumn.toString();
             if (controllerDevice[searchColumn].toString().match(this.state.searchTerm )) {
                 controllerDevices.push({
-                    controllerDeviceId: controllerDevice.id,
-                    eui: controllerDevice.name.toString(),
-                    key: controllerDevice.name.toString(),
-                    communicationChannel: controllerDevice.name.toString()
+                    controllerDeviceId: controllerDevice.id!,
+                    eui: controllerDevice.eui.toString(),
+                    key: controllerDevice.key.toString(),
+                    communicationChannel: controllerDevice.communicationChannel!.toString() || ''
                 });
             }
         }
@@ -172,7 +188,7 @@ export class ListControllerDevice
                 <tr key={index.toString()}>
                     <th>
                         <div
-                            onClick={(event) => this.handleDeleteControllerDevice(event)}
+                            onClick={(event) => this.handleDeleteControllerDevice(controllerDevices.controllerDeviceId)}
                         >
                             <i className="fa fa-trash fa-fh"/>
                         </div>

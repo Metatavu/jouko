@@ -4,12 +4,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.Clock;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
+import java.util.regex.Matcher;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -19,13 +21,22 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.client.fluent.Request;
 import org.jboss.resteasy.util.Hex;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+
 import fi.metatavu.jouko.api.DeviceController;
 import fi.metatavu.jouko.api.SettingController;
+import fi.metatavu.jouko.api.device.Laiteviestit.AikasynkLaitteelle;
+import fi.metatavu.jouko.api.device.Laiteviestit.AikasynkLaitteelta;
 import fi.metatavu.jouko.api.device.Laiteviestit.Katkonestot;
 import fi.metatavu.jouko.api.device.Laiteviestit.Katkonestot.Katkonesto;
 import fi.metatavu.jouko.api.device.Laiteviestit.Katkot;
 import fi.metatavu.jouko.api.device.Laiteviestit.Katkot.Katko;
+import fi.metatavu.jouko.api.device.Laiteviestit.SbUpdateStart;
+import fi.metatavu.jouko.api.device.Laiteviestit.SbUpdateStop;
+import fi.metatavu.jouko.api.device.Laiteviestit.SbUpdatePart;
 import fi.metatavu.jouko.api.device.Laiteviestit.ViestiLaitteelle;
+import fi.metatavu.jouko.api.device.Laiteviestit.ViestiLaitteelta;
+import fi.metatavu.jouko.api.files.FilePart;
 import fi.metatavu.jouko.api.model.ControllerEntity;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
@@ -49,12 +60,7 @@ public class DeviceCommunicator {
   public DeviceCommunicator() {
   }
   
-  public DeviceCommunicator(
-    DeviceController deviceController,
-    SettingController settingController,
-    Clock clock,
-    Function<String, String> doPost
-  ) {
+  public DeviceCommunicator(DeviceController deviceController, SettingController settingController, Clock clock, Function<String, String> doPost) {
     this.deviceController = deviceController;
     this.settingController = settingController;
     this.clock = clock;
@@ -80,11 +86,18 @@ public class DeviceCommunicator {
 
   private void sendMessageGprs(ViestiLaitteelle message, ControllerEntity controller, MessageType messageType) {
     byte[] payloadBytes = encodeMessage(message);
+    long deviceId = -1;
+    
+    if (message.hasKatkot()) {
+      deviceId = message.getKatkot().getKatkotList().get(0).getLaiteID();
+    }
+    
     System.out.println(new String(payloadBytes, StandardCharsets.UTF_8));
-    deviceController.queueGprsMessage(controller, new String(payloadBytes, StandardCharsets.UTF_8), messageType);
+    deviceController.queueGprsMessage(controller, deviceId, new String(payloadBytes, StandardCharsets.UTF_8), messageType);
   }
   
   private void sendMessageLora(ViestiLaitteelle message, ControllerEntity controller) {
+    System.out.println("LÄHETETÄÄN LORA VIESTI");
     byte[] payloadBytes = encodeMessage(message);
     
     StringBuilder qsNoToken = new StringBuilder();
@@ -108,6 +121,7 @@ public class DeviceCommunicator {
     url.append("&Token=");
     url.append(token);
     
+    System.out.println("LÄHTEVÄ LORA VIESTI: " + url.toString());
     String response = doPost.apply(url.toString());
     if (!"<html><body>Request queued by LRC</body></html>".equals(response)) {
       // Maybe check status code instead, IF none of the errors are 200
@@ -136,6 +150,80 @@ public class DeviceCommunicator {
       sendMessageLora(viestiLaitteelle, controller);
     case GPRS:
       sendMessageGprs(viestiLaitteelle, controller, messageType);
+    }
+  }
+  
+  public void notifyUpdate(String fileName, int version, List<FilePart> fileParts) {
+    List<ControllerEntity> devices = deviceController.listControllerDevices(0, 9999999);
+    ViestiLaitteelle viestiLaitteelle = null;
+    
+    for (ControllerEntity device : devices) {
+      switch (device.getCommunicationChannel()) {
+        case GPRS:
+          viestiLaitteelle = ViestiLaitteelle.newBuilder()
+              .setSbUpdateStart(SbUpdateStart.newBuilder()
+                  .setNumFiles(fileParts.size())
+                  .build())
+              .build();
+          
+          sendMessage(viestiLaitteelle, device, MessageType.UPDATE_START);
+          
+          for (FilePart part : fileParts) {
+            String content = part.getFilePart();
+            
+            ViestiLaitteelle viestiLaitteelle2 = ViestiLaitteelle.newBuilder()
+                .setSbUpdatePart(SbUpdatePart.newBuilder()
+                    .setNum(fileParts.indexOf(part) + 1)
+                    .setPart(content)
+                    .build())
+                .build();
+            
+            sendMessage(viestiLaitteelle2, device, MessageType.UPDATE_PART);
+          }
+          
+          ViestiLaitteelle viestiLaitteelle3 = ViestiLaitteelle.newBuilder()
+              .setSbUpdateStop(SbUpdateStop.newBuilder()
+                  .setSplitSize(128)
+                  .setNumFiles(fileParts.size())
+                  .setFileName(fileName)
+                  .setVersioNumero(version)
+                  .build())
+              .build();
+          
+          sendMessage(viestiLaitteelle3, device, MessageType.UPDATE_STOP);
+      }
+    }
+  }
+  
+  public void notifyTimeSync(Matcher messageMatcher, ControllerEntity controller) {
+    while (messageMatcher.find()) {
+      String base64 = messageMatcher.group(1);
+      byte[] bytes = Base64.decodeBase64(base64);
+      ViestiLaitteelta viestiLaitteelta;
+      
+      try {
+        viestiLaitteelta = ViestiLaitteelta.parseFrom(bytes);
+        
+        if (viestiLaitteelta.hasAikasynkLaitteelta()) {
+          AikasynkLaitteelta sync = viestiLaitteelta.getAikasynkLaitteelta();
+          long deviceTime = sync.getLaiteaika();
+          long myTime = Instant.now().getEpochSecond() * 1000;
+          
+          ViestiLaitteelle replyMessage = ViestiLaitteelle
+              .newBuilder()
+              .setAikasynkLaitteelle(
+                  AikasynkLaitteelle.newBuilder()
+                    .setErotus(myTime - deviceTime)
+                    .build())
+              .build();
+          
+          System.out.println("Aloitetaan viestin lähetys");
+          sendMessage(replyMessage, controller, MessageType.TIME_SYNC);
+        }
+      } catch (InvalidProtocolBufferException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
     }
   }
   

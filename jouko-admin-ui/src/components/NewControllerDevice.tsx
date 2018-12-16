@@ -1,14 +1,17 @@
 import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
-import { InterruptionGroupsApi } from 'jouko-ts-client';
-import { take } from 'lodash';
+import { ControllerDevicesApi, Configuration } from 'jouko-ts-client';
+// import { take } from 'lodash';
 import { _ } from '../i18n';
 import { apiUrl } from '../config';
 
 interface NewControllerDevicesProps {
     interruptiongroupId: number;
     starttime: string;
+}
+interface Props {
+    kc?: Keycloak.KeycloakInstance;
 }
 interface NewControllerDeviceState {
     eui: string;
@@ -18,8 +21,8 @@ interface NewControllerDeviceState {
 }
 
 export class NewControllerDevice
-    extends React.Component<{}, NewControllerDeviceState> {
-    constructor(props: {}) {
+    extends React.Component<Props, NewControllerDeviceState> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             eui: '',
@@ -45,25 +48,29 @@ export class NewControllerDevice
         console.log(this.state.key);
         console.log(this.state.communicationChannel);
         event.preventDefault();
+        this.createControllerDevie();
         alert(_('alertControllerDeviceCreated'));
     }
 
-    componentDidMount() {
-        this.fetchNewControllerDevices();
-    }
-    async fetchNewControllerDevices() {
-        const interruptionGroupsApi = new InterruptionGroupsApi(
-            undefined,
+    /*componentDidMount() {
+    
+    }*/
+    async createControllerDevie() {
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
+        const controllerDevicesApi = new ControllerDevicesApi(
+            configuration,
             apiUrl);
-        const interruptionGroups = await interruptionGroupsApi.listInterruptionGroups(0, 1000);
-        const rowProps: NewControllerDevicesProps[] = [];
-        for (const interruptionGroup of interruptionGroups) {
-            rowProps.push({
-                interruptiongroupId: interruptionGroup.id,
-                starttime: interruptionGroup.startTime,
-            });
-        }
-        this.setState({rowProps: take(rowProps, 100)});
+        const interruptionGroups = await controllerDevicesApi.createControllerDevice({
+            id: 3,
+            eui: this.state.eui,
+            key: this.state.key,
+            communicationChannel: this.state.communicationChannel
+        });
+
+        console.log(interruptionGroups);
     }
 
     render() {

@@ -25,6 +25,8 @@ public class GprsMessageEntity {
   @ManyToOne
   private ControllerEntity controller;
   
+  private long deviceId;
+  
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   @NotNull
@@ -35,14 +37,32 @@ public class GprsMessageEntity {
 
   public GprsMessageEntity(
       Long id,
+      long deviceId,
       String content,
       ControllerEntity controller,
       MessageType type
   ) {
     super();
     this.id = id;
+    this.deviceId = deviceId;
     this.content = content;
     this.controller = controller;
+    this.type = type;
+  }
+
+  public long getDeviceId() {
+    return deviceId;
+  }
+
+  public void setDeviceId(long deviceId) {
+    this.deviceId = deviceId;
+  }
+
+  public MessageType getType() {
+    return type;
+  }
+
+  public void setType(MessageType type) {
     this.type = type;
   }
 

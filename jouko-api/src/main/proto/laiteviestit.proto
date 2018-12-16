@@ -30,10 +30,20 @@ message VersioKysely {
 	required bool versioKysely = 1;
 }
 
+message SbUpdateStart {
+    required int32 numFiles = 1;
+}
+
 message SbUpdatePart {
-  required int32 updateId = 1;
-  required int32 partNumber = 2;
-	required bytes content = 3;
+    required int64 num = 1;
+    required string part = 2;
+}
+
+message SbUpdateStop {
+    required int64 splitSize = 1;
+    required int32 numFiles = 2;
+    required string fileName = 3;
+    required int32 versioNumero = 4;
 }
 
 message SbUpdateFinish {
@@ -77,6 +87,8 @@ message ViestiLaitteelle {
 		SbUpdateFinish sbUpdateFinish = 5;
 		SbUpdateInstall sbUpdateInstall = 6;
 		VersioKysely versioKysely = 7;
+        SbUpdateStart sbUpdateStart = 8;
+        SbUpdateStop sbUpdateStop = 9;
 	}
 }
 

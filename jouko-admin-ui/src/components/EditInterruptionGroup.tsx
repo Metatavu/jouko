@@ -4,12 +4,13 @@ import { NavLink } from 'react-router-dom';
 // import { parse as parseDate } from 'date-fns';
 // import { addMinutes, addHours } from 'date-fns';
 import { format as formatDate } from 'date-fns';
-import { InterruptionsApi } from 'jouko-ts-client';
+import { InterruptionsApi, Configuration } from 'jouko-ts-client';
 import { _ } from '../i18n';
 import { take } from 'lodash';
 import { apiUrl } from '../config';
 
-interface InterruptionGroupProps {
+interface Props {
+    kc?: Keycloak.KeycloakInstance;
     interruptionGroupId: number;
 }
 interface InterruptionProps {
@@ -30,8 +31,8 @@ interface EditInterruptionGroupState {
 }
 
 export class EditInterruptionGroup
-    extends React.Component<InterruptionGroupProps, EditInterruptionGroupState> {
-    constructor(props: InterruptionGroupProps) {
+    extends React.Component<Props, EditInterruptionGroupState> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             interruptionGroupId: this.props.interruptionGroupId,
@@ -52,8 +53,12 @@ export class EditInterruptionGroup
         this.fetchSingleInterruption();
     }
     async fetchSingleInterruption() {
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
         const interruptionsApi = new InterruptionsApi(
-            undefined,
+            configuration,
             apiUrl);
         const interruptions = await interruptionsApi.retrieveInterruptionGroup(Number(this.props.interruptionGroupId));
 

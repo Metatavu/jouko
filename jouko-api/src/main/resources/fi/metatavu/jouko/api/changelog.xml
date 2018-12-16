@@ -267,4 +267,20 @@
       </column>
     </addColumn>
   </changeSet>
+  <changeSet author="Ville Koivukangas" id="20181106-relaypositioon">
+    <addColumn tableName="DevicePowerMeasurement">
+	    <column name="relayIsOpen" type="BOOLEAN">
+	      <constraints nullable="false"/>
+	    </column>
+	  </addColumn>
+  </changeSet>
+  
+  <changeSet author="Ville Koivukangas" id="20181207-deviceidd">
+    <addColumn tableName="GprsMessage">
+      <column name="deviceId" type="BIGINT">
+        <constraints nullable="true"/>
+      </column>
+    </addColumn>
+  </changeSet>
+  
 </databaseChangeLog>

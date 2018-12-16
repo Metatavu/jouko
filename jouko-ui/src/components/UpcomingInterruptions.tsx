@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { InterruptionsApi, DevicesApi } from 'jouko-ts-client';
+import { InterruptionsApi, DevicesApi, Configuration } from 'jouko-ts-client';
 import { addYears, format as formatDate, parse as parseDate } from 'date-fns';
 import { take } from 'lodash';
 import '../App.css';
 import { _ } from '../i18n';
 import { apiUrl } from '../config';
+import { KeycloakInstance } from 'keycloak-js';
 
 interface UpcomingInterruptionProps {
   id: number;
@@ -73,6 +74,7 @@ interface UpcomingInterruptionsState {
 }
 interface  UpcomingInterruptionsProps {
   currentUserId: number;
+  kc?: KeycloakInstance;
 }
 
 export class UpcomingInterruptions
@@ -89,8 +91,12 @@ export class UpcomingInterruptions
   }
 
   async cancelInterruption(interruptionId: number) {
+    const configuration = new Configuration({
+      apiKey: `Bearer ${this.props.kc!.token}`
+    });
+
     const interruptionsApi = new InterruptionsApi(
-      undefined,
+      configuration,
       apiUrl);
 
     await interruptionsApi.setInterruptionCancelled(this.props.currentUserId, interruptionId, {cancelled: true});
@@ -98,12 +104,16 @@ export class UpcomingInterruptions
   }
 
   async fetchInterruptions() {
+    const configuration = new Configuration({
+      apiKey: `Bearer ${this.props.kc!.token}`
+    });
+
     const interruptionsApi = new InterruptionsApi(
-      undefined,
+      configuration,
       apiUrl);
 
     const devicesApi = new DevicesApi(
-      undefined,
+      configuration,
       apiUrl);
 
     const devices = await devicesApi.listDevices(this.props.currentUserId, 0, 1000);
@@ -134,14 +144,15 @@ export class UpcomingInterruptions
         });
       }
       if (rowProps.length === 0) {
-        this.setState({errorMessage: 'No interruptions found'});
+        this.setState({errorMessage: _('noInterruptionsFound')});
       }
     }
 
     rowProps.sort((a, b) => {
-      return b.startTime.getTime() - a.startTime.getTime();
+      return a.startTime.getTime() - b.startTime.getTime();
     });
-    this.setState({rowProps: take(rowProps, 6)});
+
+    this.setState({rowProps: take(rowProps, 12)});
   }
 
   render() {

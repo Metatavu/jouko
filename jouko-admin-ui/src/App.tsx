@@ -12,6 +12,7 @@ import { ListInterruptionGroups } from './components/ListInterruptionGroups';
 import { ListUser } from './components/ListUser';
 import { NewControllerDevice } from './components/NewControllerDevice';
 import { NewDevice } from './components/NewDevice';
+import { NewUpdateFile } from './components/NewUpdateFile';
 import { NewInterruptionGroup } from './components/NewInterruptionGroup';
 import { NewUser } from './components/NewUser';
 import { EditControllerDevice } from './components/EditControllerDevice';
@@ -19,7 +20,7 @@ import { EditDevice } from './components/EditDevice';
 import { EditUser } from './components/EditUser';
 import { ShowUser } from './components/ShowUser';
 import * as Keycloak from 'keycloak-js';
-import { UsersApi } from 'jouko-ts-client';
+import { UsersApi, Configuration } from 'jouko-ts-client';
 import { EditInterruptionGroup } from './components/EditInterruptionGroup';
 import { apiUrl, authUrl } from './config';
 
@@ -68,15 +69,20 @@ class App extends React.Component<{}, AppState> {
     }
     // tslint:disable-next-line:no-any
     async fetchAdmin(kc: any) {
+        const configuration = new Configuration({
+            apiKey: 'Bearer ' + kc!.token
+        });
 
         // tslint:disable-next-line:no-any
         const keycloakId = (kc.idTokenParsed as any).sub;
         const usersApi = new UsersApi(
-            undefined,
+            configuration,
             apiUrl);
         const user = await usersApi.getUserByKeycloakId(keycloakId);
+        console.log('ahahhaa');
         console.log(kc);
         if (user) {
+            console.log('javol');
             this.setState({
                 keycloakInstance : kc,
                 // tslint:disable-next-line:no-any
@@ -117,6 +123,7 @@ class App extends React.Component<{}, AppState> {
                           render={props => (
                               <Home
                                   firstName={this.state.firstname as string}
+                                  kc={this.state.keycloakInstance}
                               />
                           )}
                       />
@@ -124,6 +131,7 @@ class App extends React.Component<{}, AppState> {
                           path="/AdminUserSettings"
                           render={props => (
                               <AdminUserSettings
+                                  kc={this.state.keycloakInstance}
                                   userId={this.state.userId as number}
                                   username={this.state.username as string}
                                   keycloakId={this.state.keycloakId as string}
@@ -133,19 +141,84 @@ class App extends React.Component<{}, AppState> {
                               />
                           )}
                       />
-                      <Route path="/ListInterruptionGroups" component={ListInterruptionGroups}/>
-                      <Route path="/ListUser" component={ListUser}/>
-                      <Route path="/ListControllerDevice" component={ListControllerDevice}/>
-                      <Route path="/ListDevice" component={ListDevice}/>
-                      <Route path="/NewInterruptionGroup" component={NewInterruptionGroup}/>
-                      <Route path="/NewUser" component={NewUser}/>
-                      <Route path="/NewControllerDevice" component={NewControllerDevice}/>
-                      <Route path="/NewDevice" component={NewDevice}/>
+                      <Route 
+                            path="/ListInterruptionGroups" 
+                            render={props => (
+                                <ListInterruptionGroups
+                                    kc={this.state.keycloakInstance}
+                                />
+                            )}
+                      />
+                      <Route 
+                            path="/ListUser"
+                            render={props => (
+                                <ListUser
+                                    kc={this.state.keycloakInstance}
+                                />
+                            )}
+                      />
+                      <Route 
+                        path="/ListControllerDevice"
+                        render={props => (
+                            <ListControllerDevice
+                                kc={this.state.keycloakInstance}
+                            />
+                        )}
+                      />
+                      <Route 
+                        path="/ListDevice"
+                        render={props => (
+                            <ListDevice
+                                kc={this.state.keycloakInstance}
+                            />
+                        )}
+                      />
+                      <Route 
+                        path="/NewInterruptionGroup" 
+                        render={props => (
+                            <NewInterruptionGroup
+                                kc={this.state.keycloakInstance}
+                            />
+                        )}
+                      />
+                      <Route 
+                        path="/NewUpdateFile" 
+                        render={props => (
+                            <NewUpdateFile
+                                kc={this.state.keycloakInstance}
+                            />
+                        )}
+                      />
+                      <Route 
+                        path="/NewUser" 
+                        render={props => (
+                            <NewUser
+                                kc={this.state.keycloakInstance}
+                            />
+                        )}
+                      />
+                      <Route 
+                        path="/NewControllerDevice" 
+                        render={props => (
+                            <NewControllerDevice
+                                kc={this.state.keycloakInstance}
+                            />
+                        )}
+                      />
+                      <Route 
+                        path="/NewDevice" 
+                        render={props => (
+                            <NewDevice
+                                kc={this.state.keycloakInstance}
+                            />
+                        )}
+                      />
                       <Route
                           path="/EditInterruptionGroup/:interruptionGroupId"
                           render={props => (
                               <EditInterruptionGroup
                                   interruptionGroupId={props.match.params.interruptionGroupId as number}
+                                  kc={this.state.keycloakInstance}
                               />
                           )}
                       />
@@ -155,6 +228,7 @@ class App extends React.Component<{}, AppState> {
                               <EditUser
                                   userId={props.match.params.id as number}
                                   currentUserId={this.state.userId as number}
+                                  kc={this.state.keycloakInstance}
                               />
                           )}
                       />
@@ -162,6 +236,7 @@ class App extends React.Component<{}, AppState> {
                           path="/EditControllerDevice/:controllerDeviceId"
                           render={props => (
                               <EditControllerDevice
+                                  kc={this.state.keycloakInstance}
                                   controllerDeviceId={props.match.params.controllerDeviceId as number}
                                   currentUserId={this.state.userId as number}
                               />
@@ -171,6 +246,7 @@ class App extends React.Component<{}, AppState> {
                           path="/EditDevice/:deviceId"
                           render={props => (
                               <EditDevice
+                                  kc={this.state.keycloakInstance}
                                   deviceId={props.match.params.deviceId as number}
                                   currentUserId={this.state.userId as number}
                               />
@@ -181,6 +257,7 @@ class App extends React.Component<{}, AppState> {
                           render={props => (
                               <ShowUser
                                   userId={props.match.params.id as number}
+                                  kc={this.state.keycloakInstance}
                               />
                           )}
                       />

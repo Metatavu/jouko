@@ -3,7 +3,7 @@ import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
 import { _ } from '../i18n';
-import { DevicesApi } from 'jouko-ts-client';
+import { DevicesApi, Configuration } from 'jouko-ts-client';
 import { take } from 'lodash';
 import { apiUrl } from '../config';
 
@@ -13,6 +13,11 @@ interface DevicesProps {
     userId: number;
     controllerId: number;
 }
+
+interface Props {
+    kc?: Keycloak.KeycloakInstance;
+}
+
 interface DevicesState {
     devices: DevicesProps[];
     sortingElement: string;
@@ -22,8 +27,8 @@ interface DevicesState {
 }
 
 export class ListDevice
-    extends React.Component<DevicesProps, DevicesState> {
-    constructor(props: DevicesProps) {
+    extends React.Component<Props, DevicesState> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             devices: [],
@@ -48,10 +53,7 @@ export class ListDevice
     }
     handleDeleteDevice(event: React.FormEvent<HTMLDivElement>) {
         if (confirm(_('confirmDeleteDevice'))) {
-            console.log(this.props.deviceId);
-            console.log(this.props.deviceName);
-            console.log(this.props.userId);
-            console.log(this.props.controllerId);
+            console.log('delete');
         }
         this.forceUpdate();
     }
@@ -121,8 +123,12 @@ export class ListDevice
     }
 
     async fetchAllDevices() {
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
         const allDevicesApi = new DevicesApi(
-            undefined,
+            configuration,
             apiUrl);
         const allDevices = await allDevicesApi.listAllDevices(0, 1000);
         const devices: DevicesProps[] = [];
@@ -130,7 +136,7 @@ export class ListDevice
             const searchColumn = this.state.searchColumn.toString();
             if (device[searchColumn].toString().match(this.state.searchTerm )) {
                 devices.push({
-                    deviceId: device.id,
+                    deviceId: device.id!,
                     deviceName: device.name.toString(),
                     userId: device.userId || 0,
                     controllerId: device.controllerId || 0

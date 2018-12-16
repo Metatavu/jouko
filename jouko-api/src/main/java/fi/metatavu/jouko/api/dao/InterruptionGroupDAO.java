@@ -6,6 +6,7 @@ import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
@@ -31,6 +32,22 @@ public class InterruptionGroupDAO extends AbstractDAO<InterruptionGroupEntity> {
     group.setPowerSavingGoalInWatts(powerSavingGoalInWatts);
     getEntityManager().persist(group);
     return group;
+  }
+  
+  public void deleteInterruptionGroupById(Long id) {
+    EntityManager em = getEntityManager();
+    
+    CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+    CriteriaDelete<InterruptionGroupEntity> delete = criteriaBuilder.createCriteriaDelete(InterruptionGroupEntity.class);
+    Root<InterruptionGroupEntity> root = delete.from(InterruptionGroupEntity.class);
+
+    delete.where(
+      criteriaBuilder.and(
+        criteriaBuilder.equal(root.get(InterruptionGroupEntity_.id), id)
+      )
+    );
+    
+    em.createQuery(delete).executeUpdate();
   }
   
   public InterruptionGroupEntity update(

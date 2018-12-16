@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -31,6 +32,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import fi.metatavu.jouko.api.device.DeviceCommunicator;
 import fi.metatavu.jouko.api.device.Laiteviestit.AikasynkLaitteelle;
 import fi.metatavu.jouko.api.device.Laiteviestit.AikasynkLaitteelta;
 import fi.metatavu.jouko.api.device.Laiteviestit.Mittaukset;
@@ -51,6 +53,9 @@ public class GprsApi {
   
   @Inject
   private DeviceController deviceController;
+  
+  @Inject
+  private DeviceCommunicator deviceCommunicator;
   
   @Context
   private HttpServletRequest request;
@@ -168,8 +173,8 @@ public class GprsApi {
     String queryParameters = String.format(
         "LrnDevEui=%s&LrnFPort=%s&LrnInfos=%s&AS_ID=%s&Time=%s",
          lrnDevEui,   lrnFPort,   lrnInfos,   asId,    time);
+    
     String hashedStringNoKey = bodyParameters + queryParameters;
-    logger.info("hashedStringNoKey: {}", hashedStringNoKey);
     
     ControllerEntity controller = deviceController.findControllerByEui(uplink.getDevEui());
     logger.info("Eui: {}", uplink.getDevEui());
@@ -183,32 +188,46 @@ public class GprsApi {
     logger.info("kellonaika: {}", time);
     logger.info("hash: {}", hash);
     logger.info("token: {}", token);
+    
     if (!Objects.equals(hash, token)) {
       return Response.status(Status.BAD_REQUEST).entity("Bad token").build();
     }
 
     Matcher messageMatcher = MESSAGE_PATTERN.matcher(message);
+    deviceCommunicator.notifyTimeSync(messageMatcher, controller);
+    
+    Matcher messageMatcher2 = MESSAGE_PATTERN.matcher(message);
     List<String> messages = new ArrayList<>();
-    try {
-      unpackMessages(messageMatcher, messages);
-    } catch (InvalidProtocolBufferException | InvalidDeviceException ex) {
-      return Response
-          .status(400)
-          .entity(String.format("Protobuf error: %s", ex.getMessage()))
-          .build();
+    
+    long deviceId = -1;
+    
+    while (messageMatcher.find()) {
+      String base64 = messageMatcher2.group(1);
+      byte[] bytes = Base64.decodeBase64(base64);
+      
+      try {
+        ViestiLaitteelta viestiLaitteelta = ViestiLaitteelta.parseFrom(bytes);
+        if (viestiLaitteelta.hasMittaukset()) {
+          Mittaukset mittaukset = viestiLaitteelta.getMittaukset();
+          deviceId = mittaukset.getLaiteID();
+          unpackMittaukset(mittaukset);
+        }
+      } catch (InvalidProtocolBufferException | InvalidDeviceException ex) {
+        return Response
+            .status(400)
+            .entity(String.format("Protobuf error: %s", ex.getMessage()))
+            .build();
+      }
     }
+
     return Response.ok().build();
   }
   
   @POST
   @Path("/gprs/{eui}")
-  public Response communicateWithGprsDevice(
-      @PathParam("eui") String eui,
-      String content
-  ) {
-    
+  public Response communicateWithGprsDevice(@PathParam("eui") String eui, String content) {
     // TODO basic auth using eui/key
-
+    
     ControllerEntity controller = deviceController.findControllerByEui(eui);
     if (controller == null) {
       return Response.status(Status.NOT_FOUND)
@@ -218,19 +237,33 @@ public class GprsApi {
     
     Matcher messageMatcher = MESSAGE_PATTERN.matcher(content);
     List<String> messages = new ArrayList<>();
-    try {
-      unpackMessages(messageMatcher, messages);
-    } catch (InvalidProtocolBufferException | InvalidDeviceException ex) {
-      return Response
-          .status(400)
-          .entity(String.format("Protobuf error: %s", ex.getMessage()))
-          .build();
+    long deviceId = -1;
+    
+    while (messageMatcher.find()) {
+      String base64 = messageMatcher.group(1);
+      byte[] bytes = Base64.decodeBase64(base64);
+     
+      try {
+        ViestiLaitteelta viestiLaitteelta = ViestiLaitteelta.parseFrom(bytes);
+        if (viestiLaitteelta.hasMittaukset()) {
+          Mittaukset mittaukset = viestiLaitteelta.getMittaukset();
+          deviceId = mittaukset.getLaiteID();
+          unpackMittaukset(mittaukset);
+        } else {
+          unpackAikasync(viestiLaitteelta, messages);
+        }
+      } catch (InvalidProtocolBufferException | InvalidDeviceException ex) {
+        return Response
+            .status(400)
+            .entity(String.format("Protobuf error: %s", ex.getMessage()))
+            .build();
+      }
     }
     
     // If messages is empty we want to add messages from db
     // If it's not empty we have timesync message there and we only want to respond that 
     if (messages.isEmpty()) {
-      GprsMessageEntity oldestMessage = deviceController.getQueuedGprsMessageForController(controller);
+      GprsMessageEntity oldestMessage = deviceController.getQueuedGprsMessageForController(controller, deviceId);
       if (oldestMessage != null) {
         messages.add(oldestMessage.getContent());
         deviceController.deleteGprsMessageFromController(controller, oldestMessage);
@@ -239,70 +272,66 @@ public class GprsApi {
 
     return Response.ok(String.join(" ", messages)).build();
   }
+  
+  private void unpackMittaukset(Mittaukset mittaukset) throws InvalidDeviceException {
+    long deviceId = mittaukset.getLaiteID();
+    
+    DeviceEntity device = deviceController.findById(deviceId);
+    if (device == null) {
+      logger.error("Invalid device ID: {}", deviceId);
+      throw new InvalidDeviceException(String.format("Invalid device ID: %s", deviceId));
+    }
 
-
-  private void unpackMessages(Matcher messageMatcher, List<String> messages)
-      throws InvalidProtocolBufferException, InvalidDeviceException {
-    while (messageMatcher.find()) {
-      String base64 = messageMatcher.group(1);
-      byte[] bytes = Base64.decodeBase64(base64);
-      ViestiLaitteelta viestiLaitteelta = ViestiLaitteelta.parseFrom(bytes);
-      if (viestiLaitteelta.hasMittaukset()) {
-        Mittaukset mittaukset = viestiLaitteelta.getMittaukset();
-        
-        long deviceId = mittaukset.getLaiteID();
-        DeviceEntity device = deviceController.findById(deviceId);
-        if (device == null) {
-          logger.error("Invalid device ID: {}", deviceId);
-          throw new InvalidDeviceException(String.format("Invalid device ID: %s", deviceId));
-        }
-
-        Instant endTime = Instant.ofEpochSecond(mittaukset.getAika());
-        long measurementLength = mittaukset.getPituusMinuutteina();
-        if (measurementLength == 0) {
-          measurementLength = 5;
-        }
-        int numMeasurements = mittaukset.getKeskiarvotCount();
-        
-        Instant time = endTime.minus(numMeasurements * measurementLength, ChronoUnit.MINUTES);
-        
-        int phaseNumber = 0;
-        
-        for (int average : mittaukset.getKeskiarvotList()) {
-          deviceController.addPowerMeasurement(
-              device,
-              (double)average,
-              MeasurementType.AVERAGE,
-              time
-                .atOffset(ZoneOffset.UTC),
-              time
-                .plus(measurementLength, ChronoUnit.MINUTES)
-                .atOffset(ZoneOffset.UTC),
-              (phaseNumber++ % 3) + 1);
-          if ((phaseNumber % 3) == 0) {
-            time = time.plus(measurementLength, ChronoUnit.MINUTES);
-          }
-        }
-      } else if (viestiLaitteelta.hasAikasynkLaitteelta()) {
-        AikasynkLaitteelta sync = viestiLaitteelta.getAikasynkLaitteelta();
-        long deviceTime = sync.getLaiteaika();
-        long myTime = Instant.now().getEpochSecond() * 1000;
-        System.out.println(myTime);
-        ViestiLaitteelle replyMessage = ViestiLaitteelle
-            .newBuilder()
-            .setAikasynkLaitteelle(
-                AikasynkLaitteelle.newBuilder()
-                  .setErotus(myTime - deviceTime)
-                  .build())
-            .build();
-        
-        String replyMessageString = String.format("{%s}",
-            Base64.encodeBase64String(replyMessage.toByteArray()));
-        
-        // If we end up here, we only want to send timesync message
-        messages.clear();
-        messages.add(replyMessageString);
+    Instant endTime = Instant.ofEpochSecond(mittaukset.getAika());
+    long measurementLength = mittaukset.getPituusMinuutteina();
+    
+    if (measurementLength == 0) {
+      measurementLength = 5;
+    }
+    int numMeasurements = mittaukset.getKeskiarvotCount();
+    
+    Instant time = endTime.minus((numMeasurements / 3 ) * measurementLength, ChronoUnit.MINUTES);
+    
+    int phaseNumber = 0;
+    boolean relayIsOpen = !mittaukset.hasReleOhjaukset();
+    
+    for (int average : mittaukset.getKeskiarvotList()) {
+      deviceController.addPowerMeasurement(
+          device,
+          (double)average,
+          MeasurementType.AVERAGE,
+          time.atOffset(ZoneOffset.UTC),
+          time.plus(measurementLength, ChronoUnit.MINUTES).atOffset(ZoneOffset.UTC),
+          (phaseNumber++ % 3) + 1,
+          relayIsOpen
+      );
+      if ((phaseNumber % 3) == 0) {
+        time = time.plus(measurementLength, ChronoUnit.MINUTES);
       }
+    }
+  }
+
+
+  private void unpackAikasync(ViestiLaitteelta viestiLaitteelta, List<String> messages) throws InvalidProtocolBufferException  {
+    if (viestiLaitteelta.hasAikasynkLaitteelta()) {
+      AikasynkLaitteelta sync = viestiLaitteelta.getAikasynkLaitteelta();
+      long deviceTime = sync.getLaiteaika();
+      long myTime = Instant.now().getEpochSecond() * 1000;
+      
+      ViestiLaitteelle replyMessage = ViestiLaitteelle
+          .newBuilder()
+          .setAikasynkLaitteelle(
+              AikasynkLaitteelle.newBuilder()
+                .setErotus(myTime - deviceTime)
+                .build())
+          .build();
+      
+      String replyMessageString = String.format("{%s}",
+          Base64.encodeBase64String(replyMessage.toByteArray()));
+      
+      // If we end up here, we only want to send timesync message
+      messages.clear();
+      messages.add(replyMessageString);
     }
   }
 }

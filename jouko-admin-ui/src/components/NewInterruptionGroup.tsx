@@ -2,7 +2,7 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { parse as parseDate, addMinutes, addHours } from 'date-fns';
-import { InterruptionGroupsApi } from 'jouko-ts-client';
+import { InterruptionGroupsApi, Configuration } from 'jouko-ts-client';
 import { _ } from '../i18n';
 import { apiUrl } from '../config';
 
@@ -13,9 +13,14 @@ interface NewInterruptionGroupState {
     powerSavingGoalInWatts: number;
     overbookingFactor: number;
 }
+
+interface Props {
+    kc?: Keycloak.KeycloakInstance;
+}
+
 export class NewInterruptionGroup
-    extends React.Component<{}, NewInterruptionGroupState> {
-    constructor(props: {}) {
+    extends React.Component<Props, NewInterruptionGroupState> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             startDate: '',
@@ -57,8 +62,13 @@ export class NewInterruptionGroup
         endtime = addHours(endtime, interruptionDurationHour);
         let powerSavingGoalInWatts = this.state.powerSavingGoalInWatts;
         let overbookingFactor = this.state.overbookingFactor;
+
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
         const interruptionGroupsApi = new InterruptionGroupsApi(
-            undefined,
+            configuration,
             apiUrl);
         interruptionGroupsApi.createInterruptionGroup(
             {

@@ -2,13 +2,13 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { _ } from '../i18n';
-import { DevicesApi } from 'jouko-ts-client';
+import { DevicesApi, Configuration } from 'jouko-ts-client';
 import { apiUrl } from '../config';
 import * as language from '../i18n';
 import { take } from 'lodash';
+import { KeycloakInstance } from 'keycloak-js';
 
 const finland = require('../flags/Finland.png');
-const germany = require('../flags/Germany.png');
 const sweden = require('../flags/Sweden.png');
 const unitedKingdom = require('../flags/United_Kingdom.png');
 
@@ -26,6 +26,7 @@ interface HeaderState {
 }
 interface HeaderProps {
   logout(): void;
+  kc: KeycloakInstance;
   currentUserId: number;
 }
 
@@ -59,8 +60,12 @@ export class Header
   }
 
   async fetchDevices() {
+    const configuration = new Configuration({
+      apiKey: `Bearer ${this.props.kc!.token}`
+    });
+
     const devicesApi = new DevicesApi(
-      undefined,
+      configuration,
       apiUrl);
     const devices = await devicesApi.listDevices(this.props.currentUserId, 0, 1000);
 
@@ -146,14 +151,6 @@ export class Header
                   className="flag"
                   alt="flag-finland"
                   onClick={() => language.setLanguage('fi')}
-                />
-              </NavLink>
-              <NavLink to={location.pathname}>
-                <img
-                  src={germany}
-                  className="flag"
-                  alt="flag-germany"
-                  onClick={() => language.setLanguage('de')}
                 />
               </NavLink>
               <NavLink to={location.pathname}>

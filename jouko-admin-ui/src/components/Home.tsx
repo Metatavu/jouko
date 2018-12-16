@@ -5,6 +5,7 @@ import { _ } from '../i18n';
 
 interface  HomeProps {
     firstName: string;
+    kc?: Keycloak.KeycloakInstance;
 }
 
 export class Home extends React.Component<HomeProps> {
@@ -24,7 +25,11 @@ export class Home extends React.Component<HomeProps> {
                         </NavLink>
                     </div>
                     <div className="ExampleContainer1">
-                        <NavLink to="/NewUser">
+                        <NavLink 
+                            to={{
+                                pathname: '/NewUser'
+                            }}
+                        >
                             <i className="fa fa-user-o"/>
                             <h3>{_('newUser')}</h3>
                         </NavLink>
@@ -39,6 +44,12 @@ export class Home extends React.Component<HomeProps> {
                         <NavLink to="/NewControllerDevice">
                             <i className="fa fa-server"/>
                             <h3>{_('newControllerDevice')}</h3>
+                        </NavLink>
+                    </div>
+                    <div className="ExampleContainer1">
+                        <NavLink to="/NewUpdateFile">
+                            <i className="fa fa-upload"/>
+                            <h3>{_('newUpdatefile')}</h3>
                         </NavLink>
                     </div>
                 </div>

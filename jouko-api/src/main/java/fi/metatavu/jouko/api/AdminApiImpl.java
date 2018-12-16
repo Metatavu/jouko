@@ -6,6 +6,11 @@ import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -22,6 +27,15 @@ import fi.metatavu.jouko.server.rest.model.Device;
 import fi.metatavu.jouko.server.rest.model.InterruptionGroup;
 import fi.metatavu.jouko.server.rest.model.User;
 import fi.metatavu.jouko.api.UserController;
+import fi.metatavu.jouko.api.dao.ControllerDAO;
+import fi.metatavu.jouko.api.dao.SettingDAO;
+
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.KeycloakBuilder;
+import org.keycloak.admin.client.resource.RealmResource;
+import org.keycloak.admin.client.resource.UsersResource;
+import org.keycloak.representations.idm.UserRepresentation;
 
 @Stateless
 public class AdminApiImpl implements AdminApi {
@@ -37,6 +51,12 @@ public class AdminApiImpl implements AdminApi {
   
   @Inject
   private DeviceCommunicator deviceCommunicator;
+  
+  @Inject
+  private SettingDAO settingDao;
+  
+  @Inject
+  private ControllerDAO controllerDAO;
   
   private Device deviceFromEntity(DeviceEntity entity) {
     Device result = new Device();
@@ -156,9 +176,11 @@ public class AdminApiImpl implements AdminApi {
   }
 
   @Override
-  public Response createUser(User body) throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+  public Response createUser(User body, String token) throws Exception {
+    String keycloakId = userController.createKeycloakUser(body, token);   
+    UserEntity newUser = userController.createUser(body, keycloakId);
+    
+    return Response.ok(newUser).build();
   }
 
   @Override
@@ -217,7 +239,7 @@ public class AdminApiImpl implements AdminApi {
 
   @Override
   public Response retrieveControllerDevice(Long controllerDeviceId) throws Exception {
-    // TODO Auto-generated method stub
+    System.out.println("mummo");
     return null;
   }
 
@@ -225,12 +247,28 @@ public class AdminApiImpl implements AdminApi {
   public Response updateControllerDevice(Long controllerDeviceId, ControllerDevice newControllerDevice)
       throws Exception {
     // TODO Auto-generated method stub
+ 
     return null;
   }
 
   @Override
   public Response deleteInterruption(Long groupId) throws Exception {
+    List<InterruptionEntity> entities = interruptionController.listInterruptionsByGroupId(groupId);
+    
+    for (InterruptionEntity entity : entities) {
+      deviceCommunicator.notifyInterruptionCancellation(entity);
+      interruptionController.deleteInterruption(entity);
+    }
+    
+    interruptionController.deleteInerruptionGroup(groupId);
+    return Response.ok().build();
+  }
+
+  @Override
+  public Response deleteControllerDevice(Long controllerDeviceId) throws Exception {
     // TODO Auto-generated method stub
+    System.out.println("Granny's leg");
+    System.out.println("Leg of the granny");
     return null;
   }
   

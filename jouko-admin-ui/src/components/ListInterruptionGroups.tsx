@@ -3,7 +3,7 @@ import '../App.css';
 import { take } from 'lodash';
 import { NavLink } from 'react-router-dom';
 import { addDays, format as formatDate, parse as parseDate } from 'date-fns';
-import { InterruptionGroupsApi } from 'jouko-ts-client';
+import { InterruptionGroupsApi, Configuration } from 'jouko-ts-client';
 import { BeatLoader } from 'react-spinners';
 import { _ } from '../i18n';
 import { apiUrl } from '../config';
@@ -18,71 +18,9 @@ interface InterruptionGroupProps {
     powerSavingGoalInWatts: number;
     overbookingFactor: number;
 }
-interface InterruptionGroupState {
-    interruptiongroupId: number;
-    starttime: Date;
-    endttime: Date;
-    powerSavingGoalInWatts: number;
-    overbookingFactor: number;
-}
 
-export class InterruptionGroup
-    extends React.Component<InterruptionGroupProps, InterruptionGroupState> {
-
-    constructor(props: InterruptionGroupProps) {
-        super(props);
-        this.state = {
-            interruptiongroupId: this.props.interruptiongroupId,
-            starttime: this.props.starttime,
-            endttime: this.props.endttime,
-            powerSavingGoalInWatts: this.props.powerSavingGoalInWatts,
-            overbookingFactor: this.props.overbookingFactor
-        };
-    }
-
-    handleDeleteInterruptionGroup(event: React.FormEvent<HTMLDivElement>) {
-        if (confirm(_('confirmDeleteInterruptionGroup'))) {
-            console.log(this.props.interruptiongroupId);
-            console.log(this.props.starttime);
-            console.log(this.props.endttime);
-            console.log(this.props.powerSavingGoalInWatts);
-            console.log(this.props.overbookingFactor);
-        }
-        this.forceUpdate();
-    }
-    render() {
-        let interruptiongroupId = this.props.interruptiongroupId;
-        let startdate = formatDate(this.props.starttime, 'dddd DD. MMMM YYYY');
-        let starttime = formatDate(this.props.starttime, 'H:mm');
-        let enddate = formatDate(this.props.endttime, 'dddd DD. MMMM YYYY');
-        let endtime = formatDate(this.props.endttime, 'HH:mm');
-        let powerSavingGoalInWatts = this.props.powerSavingGoalInWatts;
-        let overbookingFactor = this.props.overbookingFactor;
-
-        return (
-            <tr>
-                <th>
-                    <div
-                        onClick={(event) => this.handleDeleteInterruptionGroup(event)}
-                    >
-                        <i className="fa fa-trash fa-fh"/>
-                    </div>
-                </th>
-                <th>
-                    <NavLink
-                        to={`/EditInterruptionGroup/${this.props.interruptiongroupId}`}
-                    >
-                        <i className="fa fa-edit fa-fh"/>
-                    </NavLink>
-                </th>
-                <th>{interruptiongroupId}</th>
-                <th>{startdate} | {starttime}</th>
-                <th>{enddate} | {endtime}</th>
-                <th>{powerSavingGoalInWatts} kW</th>
-                <th>{overbookingFactor} %</th>
-            </tr>
-        );
-    }
+interface Props {
+    kc?: Keycloak.KeycloakInstance;
 }
 
 interface InterruptionGroupsState {
@@ -99,9 +37,9 @@ interface InterruptionGroupsState {
 }
 
 export class ListInterruptionGroups
-    extends React.Component<InterruptionGroupProps, InterruptionGroupsState> {
+    extends React.Component<Props, InterruptionGroupsState> {
 
-    constructor(props: InterruptionGroupProps) {
+    constructor(props: Props) {
         super(props);
         this.state = {
             rowProps: [],
@@ -330,11 +268,17 @@ export class ListInterruptionGroups
     }
 
     componentDidMount() {
+        console.log(this.props);
         this.fetchInterruptionGroups();
     }
+
     async fetchInterruptionGroups() {
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
         const interruptionGroupsApi = new InterruptionGroupsApi(
-            undefined,
+            configuration,
             apiUrl);
         const interruptionGroups = await interruptionGroupsApi.listInterruptionGroups(0, 1000);
 
@@ -399,13 +343,52 @@ export class ListInterruptionGroups
         });
     }
 
+    async handleDeleteInterruptionGroup(event: number) {
+        if (confirm(_('confirmDeleteInterruptionGroup'))) {
+            console.log(event);
+        }
+
+        const configuration = new Configuration({
+            apiKey: 'Bearer ' + this.props.kc!.token
+        });
+
+        const interruptionGroupsApi = new InterruptionGroupsApi(configuration, apiUrl);
+        await interruptionGroupsApi.deleteInterruption(event);
+        this.fetchInterruptionGroups();
+    }
+
     render() {
         const rows = this.state.rowProps.map(rowProp => {
+            let interruptiongroupId = rowProp.interruptiongroupId;
+            let startdate = formatDate(rowProp.starttime, 'dddd DD. MMMM YYYY');
+            let starttime = formatDate(rowProp.starttime, 'H:mm');
+            let enddate = formatDate(rowProp.endttime, 'dddd DD. MMMM YYYY');
+            let endtime = formatDate(rowProp.endttime, 'HH:mm');
+            let powerSavingGoalInWatts = rowProp.powerSavingGoalInWatts;
+            let overbookingFactor = rowProp.overbookingFactor;
+
             return (
-                <InterruptionGroup
-                    key={rowProp.interruptiongroupId.toString()}
-                    {...rowProp}
-                />
+                <tr key={rowProp.interruptiongroupId}>
+                    <th>
+                        <div
+                            onClick={() => this.handleDeleteInterruptionGroup(interruptiongroupId)}
+                        >
+                            <i className="fa fa-trash fa-fh"/>
+                        </div>
+                    </th>
+                    <th>
+                        <NavLink
+                            to={`/EditInterruptionGroup/${interruptiongroupId}`}
+                        >
+                            <i className="fa fa-edit fa-fh"/>
+                        </NavLink>
+                    </th>
+                    <th>{interruptiongroupId}</th>
+                    <th>{startdate} | {starttime}</th>
+                    <th>{enddate} | {endtime}</th>
+                    <th>{powerSavingGoalInWatts} kW</th>
+                    <th>{overbookingFactor} %</th>
+                </tr>
             );
         });
         return (

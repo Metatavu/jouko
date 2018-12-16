@@ -2,22 +2,34 @@ import * as React from 'react';
 import '../App.css';
 import { BeatLoader } from 'react-spinners';
 import { addDays, format as formatDate, parse as parseDate } from 'date-fns';
+import { subHours } from 'date-fns';
 import { _ } from '../i18n';
-import { take } from 'lodash';
-// import { apiUrl } from '../config';
+import { DevicesApi, Configuration } from 'jouko-ts-client';
+import { apiUrl } from '../config';
+import * as Moment from 'moment';
+import { KeycloakInstance } from 'keycloak-js';
 
 // tslint:disable-next-line:no-any
 let searchbetween: any;
 
 interface LatestMeasurementsProps {
+  currentUserId: number;
+  kc?: KeycloakInstance;
+}
+
+interface MeasurementsType {
   measurementId: number;
   starttime: Date;
   endtime: Date;
+  phaseNumber?: number;
   measurementValue: number;
   deviceId: number;
+  deviceName?: string;
+  realyIsOpen?: boolean;
 }
+
 interface LatestMeasurementsState {
-  measurements: LatestMeasurementsProps[];
+  measurements: MeasurementsType[];
   sortingElement: string;
   sortingDirection: string;
   searchTerm: string;
@@ -237,16 +249,21 @@ export class LatestMeasurements
     }
 
     async fetchAllMeasurements() {
-      const allMeasurements: LatestMeasurementsProps[] = [];
-      {/*
-      const allMeasurementsApi = new MeasurementsApi(
-        undefined,
+      const configuration = new Configuration({
+        apiKey: `Bearer ${this.props.kc!.token}`
+      });
+
+      const allMeasurementsApi = new DevicesApi(
+        configuration,
         apiUrl);
 
-      const allMeasurements = await allMeasurementsApi.listAllMeasurements(0, 1000);
-      */}
-      const measurements: LatestMeasurementsProps[] = [];
-      for (const measurement of allMeasurements) {
+      let lastHour = new Date();
+
+      const allMeasurements = await allMeasurementsApi.listAllMeasurements(
+        this.props.currentUserId, formatDate(subHours(lastHour, 24)), formatDate(lastHour));
+      
+      const measurements: MeasurementsType[] = [];
+      allMeasurements.forEach((measurement) => {
         const searchColumn = this.state.searchColumn.toString();
         if (measurement[searchColumn].toString().match(this.state.searchTerm)) {
           let firstDate = parseDate(this.state.searchBetweenA);
@@ -258,11 +275,14 @@ export class LatestMeasurements
               (parseDate(measurement[searchColumn]) <= parseDate(formatDate(addDays(secondDate, 1))))
             ) {
               measurements.push({
-                measurementId: measurement.measurementId,
-                starttime: parseDate(measurement.starttime),
-                endtime: parseDate(measurement.endtime),
+                measurementId: measurement.id,
+                phaseNumber: measurement.phaseNumber,
+                starttime: parseDate(measurement.startTime),
+                endtime: parseDate(measurement.endTime),
                 measurementValue: measurement.measurementValue || 0,
-                deviceId: measurement.deviceId || 0
+                deviceId: measurement.deviceId || 0,
+                deviceName: measurement.device ? measurement.device.name : '',
+                realyIsOpen: measurement.relayIsOpen 
               });
             } else if (
               (searchColumn === 'measurementValue') &&
@@ -270,20 +290,26 @@ export class LatestMeasurements
               (Number(measurement[searchColumn]) <= Number(this.state.searchBetweenB))
             ) {
               measurements.push({
-                measurementId: measurement.measurementId,
-                starttime: parseDate(measurement.starttime),
-                endtime: parseDate(measurement.endtime),
+                measurementId: measurement.id,
+                phaseNumber: measurement.phaseNumber,
+                starttime: parseDate(measurement.startTime),
+                endtime: parseDate(measurement.endTime),
                 measurementValue: measurement.measurementValue || 0,
-                deviceId: measurement.deviceId || 0
+                deviceId: measurement.deviceId || 0,
+                deviceName: measurement.device ? measurement.device.name : '',
+                realyIsOpen: measurement.relayIsOpen 
               });
             }
           } else {
             measurements.push({
-              measurementId: measurement.measurementId,
-              starttime: parseDate(measurement.starttime),
-              endtime: parseDate(measurement.endtime),
+              measurementId: measurement.id,
+              phaseNumber: measurement.phaseNumber,
+              starttime: parseDate(measurement.startTime),
+              endtime: parseDate(measurement.endTime),
               measurementValue: measurement.measurementValue || 0,
-              deviceId: measurement.deviceId || 0
+              deviceId: measurement.deviceId || 0,
+              deviceName: measurement.device ? measurement.device.name : '',
+              realyIsOpen: measurement.relayIsOpen  
             });
           }
         }
@@ -298,18 +324,20 @@ export class LatestMeasurements
             return b[sortingElement] - a[sortingElement];
           });
         }
-        this.setState({measurements: take(measurements, 100)});
-      }
+        this.setState({measurements: measurements});
+      });
     }
     render() {
         const allMeasurements = this.state.measurements.map((measurements, index) => {
             return (
                 <tr key={index.toString()}>
                     <th>{measurements.measurementId}</th>
-                    <th>{measurements.starttime}</th>
-                    <th>{measurements.endtime}</th>
                     <th>{measurements.measurementValue}</th>
-                    <th>{measurements.deviceId}</th>
+                    <th>{measurements.deviceName}</th>
+                    <th>{measurements.phaseNumber}</th>
+                    <th>{measurements.realyIsOpen ? 'Katko käynnissä' : '-'}</th>
+                    <th>{Moment(measurements.starttime).format('DD.MM.YYYY HH:mm')}</th>
+                    <th>{Moment(measurements.endtime).format('DD.MM.YYYY HH:mm')}</th>
                 </tr>
             );
         });
@@ -380,8 +408,8 @@ export class LatestMeasurements
                             <option value="measurementValue" onClick={this.searchColumn}>
                               {_('measurementValue')}
                               </option>
-                            <option value="deviceId" onClick={this.searchColumn}>
-                              {_('device')}
+                            <option value="devicename" onClick={this.searchColumn}>
+                              {_('devicename')}
                               </option>
                         </select>
                       {searchbetween}
@@ -391,10 +419,12 @@ export class LatestMeasurements
                     <thead className="MeasurementsHead">
                     <tr>
                         <th>ID</th>
-                        <th>{_('starttime')}</th>
-                        <th>{_('endtime')}</th>
                         <th>{_('measurementValue')}</th>
                         <th>{_('device')}</th>
+                        <th>{_('phase')}</th>
+                        <th>{_('interruption')}</th>
+                        <th>{_('starttime')}</th>
+                        <th>{_('endtime')}</th>
                     </tr>
                     </thead>
                     <tbody className="MeasurementsBody">

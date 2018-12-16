@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Pie } from 'react-chartjs-2';
-import { DevicesApi  } from 'jouko-ts-client';
+import { DevicesApi, Configuration  } from 'jouko-ts-client';
 import { take } from 'lodash';
 import { BeatLoader } from 'react-spinners';
 import { _ } from '../i18n';
 import { apiUrl } from '../config';
+import { KeycloakInstance } from 'keycloak-js';
 
 const device1 = {
   labels: [
@@ -91,6 +92,7 @@ interface StatisticsSummaryProps {
   currentUserId: number;
   firstname: string;
   lastname: string;
+  kc?: KeycloakInstance;
 }
 
 export class StatisticsSummary
@@ -106,8 +108,12 @@ export class StatisticsSummary
   }
 
   async fetchDevices() {
+    const configuration = new Configuration({
+      apiKey: `Bearer ${this.props.kc!.token}`
+    });
+
     const devicesApi = new DevicesApi(
-      undefined,
+      configuration,
       apiUrl);
 
     const allDevices: AllDevicesProps[] = [];

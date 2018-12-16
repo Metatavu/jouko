@@ -5,7 +5,6 @@ import * as language from '../i18n';
 import { NavLink } from 'react-router-dom';
 
 const finland = require('../flags/Finland.png');
-const germany = require('../flags/Germany.png');
 const sweden = require('../flags/Sweden.png');
 const unitedKingdom = require('../flags/United_Kingdom.png');
 
@@ -21,16 +20,6 @@ export class FlagBar
                             className="flag"
                             alt="flag-finland"
                             onClick={() => language.setLanguage('fi')}
-                        />
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to={location.pathname}>
-                        <img
-                            src={germany}
-                            className="flag"
-                            alt="flag-germany"
-                            onClick={() => language.setLanguage('de')}
                         />
                     </NavLink>
                 </li>
