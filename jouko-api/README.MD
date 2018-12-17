@@ -6,8 +6,8 @@ The documentation for the api can be found [here](https://metatavu.github.io/jou
 
 You need java to install jouko-api. If you dont have java installation on your machine you can install it by running
 
-    apt-get update && apt-get upgrade
-    apt-get install default-jdk
+    sudo apt-get update && sudo apt-get upgrade
+    sudo apt-get install default-jdk
 
 ### MySQL
 
@@ -23,6 +23,8 @@ Launch your mysql server by running `systemctl start mysql` or `service mysql st
 Start the mysql shell by running `/usr/bin/mysql -u root -p`. If you have not set password just hit enter when password is prompted (or use password `root`)
 
 On the mysql shell run command `CREATE DATABASE jouko_api;` to create the database.
+
+Run `exit` to exit mysql.
 
 
 ### Wildfly
@@ -51,10 +53,12 @@ Start keycloak by running inside the keycloak directory
 - Navigate into *http://localhost:9080/auth*. 
 - Create admin user
 - Login with newly created user
+- Navigate to Clients tab and click Create
 - Create new realm called `jouko-realm`
-- Create new client called `jouko-api` with following settings:
+- Create new client with Client ID `jouko-api` with following settings:
   - Client Protocol: openid-connect
-  - Access Type: bearer-only
+  - Hit Save
+- Change Access Type to bearer-only and hit Save
 - Click installation tab
 - Select Keycloak OIDC JSON format
 - Download the configuration and save it into somewhere where you find it later
@@ -103,7 +107,7 @@ Open YOUR_WILDFLY_DIR/standalone/configuration/standalone.xml with text editor. 
 
 Replace the YOUR_MYSQL_PASSWORD with your actual mysql password.
 
-Find the drivers section and add the following driver
+Find the drivers section (right after datasources) and add the following driver
 
     <driver name="mysql" module="com.mysql">
         <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
@@ -142,12 +146,19 @@ To make sure protobuf installed correctly run:
 
     protoc --version
 
-IF you get error message (If not then skip next steps) 
+IF you get the following error message (If not then skip next steps) 
 
     protoc: error while loading shared libraries: libprotoc.so.10: cannot open shared object file: No such file or directory
 
 Then run:
     sudo ldconfig
+
+
+### Git
+
+Install git by running 
+
+    sudo apt install git
 
 ### Jouko-api
 
