@@ -61,7 +61,34 @@ Start keycloak by running inside the keycloak directory
 
 ### Configure wildfly 
 
-First add mysql connector to your wildfly by following [this tutorial](https://synaptiklabs.com/posts/adding-the-mysql-jdbc-driver-into-wildfly/)
+First add mysql connector to your wildfly by running:
+
+    cd PATH_TO_WILDFLY/modules/system/layers/base/com
+    mkdir mysql
+    cd mysql
+    mkdir main
+    cd main
+    wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.47.zip
+    unzip mysql-connector-java-5.1.47.zip
+    cd mysql-connector-java-5.1.47/
+    mv mysql-connector-java-5.1.47-bin.jar ../mysql-connector-java-5.1.47-bin.jar
+    cd ..
+    rm -rf mysql-connector-java-5.1.47
+    rm -rf mysql-connector-java-5.1.47.zip
+    touch module.xml
+    nano module.xml
+
+Add the following xml to the module.xml
+
+    <module xmlns="urn:jboss:module:1.5" name="com.mysql">
+        <resources>
+            <resource-root path="mysql-connector-java-5.1.47-bin.jar" />
+        </resources>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="javax.transaction.api"/>
+        </dependencies>
+    </module>
 
 Open YOUR_WILDFLY_DIR/standalone/configuration/standalone.xml with text editor. Find the datasources section and add the following datasource:
 
@@ -99,20 +126,6 @@ Install maven by running
 
     sudo apt install maven
 
-### Jouko-api-spec
-
-Clone [this repository](https://github.com/Metatavu/jouko-api-spec) to your computer. And use `cd` command to inside of the jouko-api-spec folder. Then run
-
-    wget https://oss.sonatype.org/content/repositories/snapshots/io/swagger/swagger-codegen-cli/3.0.0-SNAPSHOT/swagger-codegen-cli-3.0.0-20180710.190537-87.jar
-    mv swagger-codegen-cli-3.0.0-20180710.190537-87.jar swagger-codegen-cli.jar
-    grunt jaxrs-gen
-    cd jaxrs-spec-generated
-    mvn install
-
-Check the version from jaxrs-spec-generated/pom.xml and use that version inside of jouko-api/pom.xml at 
-
-    <jouko-api-spec.version>VERSION_NUMBER_HERE</jouko-api-spec.version>
-
 ### Protobuf
 
 Use `cd` command to where you want to download protobuf. Install protobuf by running commands:
@@ -129,11 +142,11 @@ To make sure protobuf installed correctly run:
 
     protoc --version
 
-IF you get error message
+IF you get error message (If not then skip next steps) 
 
     protoc: error while loading shared libraries: libprotoc.so.10: cannot open shared object file: No such file or directory
 
-run 
+Then run:
     sudo ldconfig
 
 ### Jouko-api
@@ -142,6 +155,15 @@ Use `cd` command to where you want to install the project and then run
 
     git clone https://github.com/Metatavu/jouko.git
     cd jouko/jouko-api
+    mkdir target
+    cd target
+    mkdir generated-sources
+    cd generated-sources
+    mkdir protobuf
+    cd protobuf
+    mkdir java
+    cd ../../../
+    protoc -I=./src/main/proto --java_out=./target/generated-sources/protobuf/java ./src/main/proto/laiteviestit.proto
     mvn package
     cp target/*.war YOUR_WILDFLY_DIR/standalone/deployments/
 
@@ -151,4 +173,4 @@ Replace the YOUR_WILDFLY_DIR with the actual directory of your wildfly.
 
 Start the api by running 
 
-    YOUR_WILDFLY_DIR/bin/standalone.xml
+    sh YOUR_WILDFLY_DIR/bin/standalone.sh
