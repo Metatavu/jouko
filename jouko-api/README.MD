@@ -59,9 +59,6 @@ Start keycloak by running inside the keycloak directory
   - Client Protocol: openid-connect
   - Hit Save
 - Change Access Type to bearer-only and hit Save
-- Click installation tab
-- Select Keycloak OIDC JSON format
-- Download the configuration and save it into somewhere where you find it later
 
 ### Configure wildfly 
 
