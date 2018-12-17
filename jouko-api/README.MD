@@ -2,6 +2,10 @@
 
 The documentation for the api can be found [here](https://metatavu.github.io/jouko-api-spec/)
 
+## Platform
+
+These instructions are made by Ubuntu 16. Some steps may be different on other platforms.
+
 ## Installation
 
 You need java to install jouko-api. If you dont have java installation on your machine you can install it by running
