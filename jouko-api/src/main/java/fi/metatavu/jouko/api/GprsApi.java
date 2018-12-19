@@ -201,16 +201,27 @@ public class GprsApi {
     
     long deviceId = -1;
     
-    while (messageMatcher.find()) {
+    GprsMessageEntity oldestMessage = deviceController.getQueuedGprsMessageForController(controller, deviceId);
+    if (oldestMessage != null) {
+      deviceCommunicator.sendLoraMessageFromQueue(oldestMessage.getContent(), controller);
+      System.out.println("PÄIVITYS VIESTI LÄHETETTY");
+      deviceController.deleteGprsMessageFromController(controller, oldestMessage);
+      System.out.println("PÄIVITYS VIESTI POISTETTU");
+    }
+    
+    while (messageMatcher2.find()) {
+      System.out.println("WHILE MESSAGEMATCHER FIND");
       String base64 = messageMatcher2.group(1);
       byte[] bytes = Base64.decodeBase64(base64);
       
       try {
         ViestiLaitteelta viestiLaitteelta = ViestiLaitteelta.parseFrom(bytes);
         if (viestiLaitteelta.hasMittaukset()) {
+          System.out.println("HAS MITTAUKSET");
           Mittaukset mittaukset = viestiLaitteelta.getMittaukset();
           deviceId = mittaukset.getLaiteID();
           unpackMittaukset(mittaukset);
+          System.out.println("MITTAUKSET UNPACKATTU!");
         }
       } catch (InvalidProtocolBufferException | InvalidDeviceException ex) {
         return Response

@@ -96,9 +96,15 @@ public class DeviceCommunicator {
     deviceController.queueGprsMessage(controller, deviceId, new String(payloadBytes, StandardCharsets.UTF_8), messageType);
   }
   
-  private void sendMessageLora(ViestiLaitteelle message, ControllerEntity controller) {
+  private void sendMessageLora(String encodedMessage, ViestiLaitteelle message, ControllerEntity controller) {
     System.out.println("LÄHETETÄÄN LORA VIESTI");
-    byte[] payloadBytes = encodeMessage(message);
+    byte[] payloadBytes = null;
+    
+    if (encodedMessage != null) {
+      payloadBytes = encodedMessage.getBytes();
+    } else {
+      payloadBytes = encodeMessage(message); 
+    }
     
     StringBuilder qsNoToken = new StringBuilder();
     qsNoToken.append("DevEUI=");
@@ -128,6 +134,18 @@ public class DeviceCommunicator {
       throw new DeviceCommunicationException(response);
     }
   }
+  
+  private void queueLoraMessage(ViestiLaitteelle message, ControllerEntity controller, MessageType messageType) {
+    byte[] payloadBytes = encodeMessage(message);
+    long deviceId = -1;
+    
+    System.out.println(new String(payloadBytes, StandardCharsets.UTF_8));
+    deviceController.queueGprsMessage(controller, deviceId, new String(payloadBytes, StandardCharsets.UTF_8), messageType);
+  }
+  
+  public void sendLoraMessageFromQueue(String message, ControllerEntity controller) {
+    sendMessageLora(message, null, controller);
+  }
 
   private byte[] encodeMessage(ViestiLaitteelle message) {
     ByteArrayOutputStream payloadBytes = new ByteArrayOutputStream();
@@ -144,29 +162,32 @@ public class DeviceCommunicator {
     //return "true".equals(enabledSetting);
   }
 
-  private void sendMessage(ViestiLaitteelle viestiLaitteelle, ControllerEntity controller, MessageType messageType) {
+  private void sendMessage(String encodedMessage, ViestiLaitteelle viestiLaitteelle, ControllerEntity controller, MessageType messageType) {
     switch (controller.getCommunicationChannel()) {
     case LORA:
-      sendMessageLora(viestiLaitteelle, controller);
+      sendMessageLora(null, viestiLaitteelle, controller);
     case GPRS:
       sendMessageGprs(viestiLaitteelle, controller, messageType);
     }
   }
   
-  public void notifyUpdate(String fileName, int version, List<FilePart> fileParts) {
+  public void notifyUpdate(String fileName, int version, List<FilePart> fileParts, String communicationChannel) {
     List<ControllerEntity> devices = deviceController.listControllerDevices(0, 9999999);
     ViestiLaitteelle viestiLaitteelle = null;
     
     for (ControllerEntity device : devices) {
       switch (device.getCommunicationChannel()) {
         case GPRS:
+          if (!communicationChannel.toLowerCase().equals("gprs")) {
+            break;
+          }
           viestiLaitteelle = ViestiLaitteelle.newBuilder()
               .setSbUpdateStart(SbUpdateStart.newBuilder()
                   .setNumFiles(fileParts.size())
                   .build())
               .build();
           
-          sendMessage(viestiLaitteelle, device, MessageType.UPDATE_START);
+          sendMessage(null, viestiLaitteelle, device, MessageType.UPDATE_START);
           
           for (FilePart part : fileParts) {
             String content = part.getFilePart();
@@ -178,7 +199,7 @@ public class DeviceCommunicator {
                     .build())
                 .build();
             
-            sendMessage(viestiLaitteelle2, device, MessageType.UPDATE_PART);
+            sendMessage(null, viestiLaitteelle2, device, MessageType.UPDATE_PART);
           }
           
           ViestiLaitteelle viestiLaitteelle3 = ViestiLaitteelle.newBuilder()
@@ -190,7 +211,44 @@ public class DeviceCommunicator {
                   .build())
               .build();
           
-          sendMessage(viestiLaitteelle3, device, MessageType.UPDATE_STOP);
+          sendMessage(null, viestiLaitteelle3, device, MessageType.UPDATE_STOP);
+          break;
+        case LORA:
+          if (!communicationChannel.toLowerCase().equals("lora")) {
+            break;
+          }
+          ViestiLaitteelle loraViestiLaitteelle1 = ViestiLaitteelle.newBuilder()
+              .setSbUpdateStart(SbUpdateStart.newBuilder()
+                  .setNumFiles(fileParts.size())
+                  .build())
+              .build();
+          
+          queueLoraMessage(loraViestiLaitteelle1, device, MessageType.UPDATE_START);
+          
+          for (FilePart part : fileParts) {
+            String content = part.getFilePart();
+            
+            ViestiLaitteelle loraViestiLaitteelle2 = ViestiLaitteelle.newBuilder()
+                .setSbUpdatePart(SbUpdatePart.newBuilder()
+                    .setNum(fileParts.indexOf(part) + 1)
+                    .setPart(content)
+                    .build())
+                .build();
+            
+            queueLoraMessage(loraViestiLaitteelle2, device, MessageType.UPDATE_PART);
+          }
+          
+          ViestiLaitteelle loraViestiLaitteelle3 = ViestiLaitteelle.newBuilder()
+              .setSbUpdateStop(SbUpdateStop.newBuilder()
+                  .setSplitSize(128)
+                  .setNumFiles(fileParts.size())
+                  .setFileName(fileName)
+                  .setVersioNumero(version)
+                  .build())
+              .build();
+          
+          queueLoraMessage(loraViestiLaitteelle3, device, MessageType.UPDATE_STOP);
+          break;
       }
     }
   }
@@ -218,7 +276,7 @@ public class DeviceCommunicator {
               .build();
           
           System.out.println("Aloitetaan viestin lähetys");
-          sendMessage(replyMessage, controller, MessageType.TIME_SYNC);
+          sendMessage(null, replyMessage, controller, MessageType.TIME_SYNC);
         }
       } catch (InvalidProtocolBufferException e) {
         // TODO Auto-generated catch block
@@ -262,7 +320,7 @@ public class DeviceCommunicator {
       ControllerEntity controller = controllers.get(entry.getKey());
       MessageType messageType = MessageType.NEW_INTERRUPTION;
       
-      sendMessage(viestiLaitteelle, controller, messageType);
+      sendMessage(null, viestiLaitteelle, controller, messageType);
     }
   }
 
@@ -295,7 +353,7 @@ public class DeviceCommunicator {
       ControllerEntity controller = controllers.get(entry.getKey());
       MessageType messageType = MessageType.CANCEL_INTERRUPTION;
       
-      sendMessage(viestiLaitteelle, controller, messageType);
+      sendMessage(null, viestiLaitteelle, controller, messageType);
     }
   }
 }

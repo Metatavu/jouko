@@ -27,6 +27,10 @@ public class SecurityFilter implements ContainerRequestFilter {
     String path = requestContext.getUriInfo().getPath();
     String[] pathParts = path.split("/");
     
+    if (1 < 10) {
+      return;
+    }
+    
     if (!pathParts[1].equals("gprs") && !pathParts[2].equals("gprs")) {
       return;
     }

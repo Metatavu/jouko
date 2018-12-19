@@ -8,6 +8,7 @@ interface NewUploadFileState {
     filename: string;
     version: string;
     file: File | null;
+    channel: string;
 }
 
 interface Props {
@@ -21,12 +22,14 @@ export class NewUpdateFile
         this.state = {
             filename: '',
             version: '',
-            file: null
+            file: null,
+            channel: 'GPRS'
         };
 
         this.handleFilenameChange = this.handleFilenameChange.bind(this);
         this.handleVersionChange = this.handleVersionChange.bind(this);
         this.fileChangedHandler = this.fileChangedHandler.bind(this);
+        this.handleChannelChange = this.handleChannelChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -42,6 +45,10 @@ export class NewUpdateFile
       this.setState({file: e!.currentTarget.files![0]});
     }
 
+    handleChannelChange(event: React.FormEvent<HTMLInputElement>) {
+      this.setState({channel: event.currentTarget.value});
+    }
+
     async handleSubmit(event: React.FormEvent<HTMLFormElement>) {
       event.preventDefault();
 
@@ -49,6 +56,7 @@ export class NewUpdateFile
       formData.append('file', this.state.file!);
       formData.append('filename', this.state.filename);
       formData.append('version', this.state.version);
+      formData.append('channel', this.state.channel);
 
       const config = {
           headers: {
@@ -91,6 +99,17 @@ export class NewUpdateFile
                 name="version"
                 value={this.state.version}
                 onChange={this.handleVersionChange}
+              />
+
+              <h5>
+                {_('communicationChannel')}
+              </h5>
+
+              <input
+                type="text"
+                name="channel"
+                value={this.state.channel}
+                onChange={this.handleChannelChange}
               />
 
               <h5>

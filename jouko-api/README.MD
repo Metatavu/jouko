@@ -62,7 +62,19 @@ Start keycloak by running inside the keycloak directory
 - Create new client with Client ID `jouko-api` with following settings:
   - Client Protocol: openid-connect
   - Hit Save
-- Change Access Type to bearer-only and hit Save
+- Change Access Type to bearer-only and hit Reset Password
+
+### Create user
+
+- Navigate into *http://localhost:9080/auth*. 
+- Select jouko-realm 
+- Go to Users
+- Click `Add user`
+- Fill information and check `Email verified`
+- Hit save
+- Open credentials tab
+- Fill in new password
+- Uncheck temporary and hit save
 
 ### Configure wildfly 
 
@@ -186,3 +198,10 @@ Replace the YOUR_WILDFLY_DIR with the actual directory of your wildfly.
 Start the api by running 
 
     sh YOUR_WILDFLY_DIR/bin/standalone.sh
+
+
+### Connect UI's to api
+
+At your jouko-ui and jouko-admin-ui you need to edit file `src/config.ts`. Change the url's to match your API's IP/domain.
+
+Note that uploadUrl will be same as apiUrl but there you have to remove the `/v1` part from url.
