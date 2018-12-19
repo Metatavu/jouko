@@ -75,6 +75,8 @@ Start keycloak by running inside the keycloak directory
 - Open credentials tab
 - Fill in new password
 - Uncheck temporary and hit save
+- Open Role Mappings tab
+- Select role `user` and click Add selected
 
 ### Configure wildfly 
 
