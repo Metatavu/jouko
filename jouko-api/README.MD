@@ -194,7 +194,7 @@ Use `cd` command to where you want to install the project and then run
     mvn package
     cp target/*.war YOUR_WILDFLY_DIR/standalone/deployments/
 
-Replace the YOUR_WILDFLY_DIR with the actual directory of your wildfly. War-file that you copied to YOUR_WILDFLY_DIR/standalone/deployments/ must be renamed to jouko-api.war.
+Replace the YOUR_WILDFLY_DIR with the actual directory of your wildfly. War-file that you copied to YOUR_WILDFLY_DIR/standalone/deployments/ must be renamed to `jouko-api.war`.
 
 ### Run api
 
@@ -211,7 +211,7 @@ Start the mysql shell by running `/usr/bin/mysql -u root -p`.
 - Run command `insert into Setting values (2, "keycloakRealm", "jouko-realm");`
 - Run command `insert into User values (1, "KEYCLOAK_USER_ID", "KEYCLOAK_USER_NAME");`
 
-Replace KEYCLOAK_USER_ID with the id of your Keycloak user and KEYCLOAK_USER_NAME with its name.
+Replace KEYCLOAK_USER_ID with the id of your Keycloak user and KEYCLOAK_USER_NAME with the username of your Keycloak user.
 
 Run `exit` to exit mysql.
 
