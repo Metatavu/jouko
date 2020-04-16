@@ -206,7 +206,6 @@ Start the api by running
 Start the mysql shell by running `/usr/bin/mysql -u root -p`.
 
 - On the mysql shell run command `USE jouko_api;` to use the database.
-- Then run command `USE jouko_api;` to use the database.
 - Run command `insert into Setting values (1, "keycloakUrl", "http://localhost:9080/auth");`
 - Run command `insert into Setting values (2, "keycloakRealm", "jouko-realm");`
 - Run command `insert into User values (1, "KEYCLOAK_USER_ID", "KEYCLOAK_USER_NAME");`
