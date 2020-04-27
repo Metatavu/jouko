@@ -72,6 +72,7 @@ Start keycloak by running inside the keycloak directory
 - Click `Add user`
 - Fill information and check `Email verified`
 - Hit save
+- Write down somewhere the id of your Keycloak user. You are going to need it later.
 - Open credentials tab
 - Fill in new password
 - Uncheck temporary and hit save
@@ -193,7 +194,7 @@ Use `cd` command to where you want to install the project and then run
     mvn package
     cp target/*.war YOUR_WILDFLY_DIR/standalone/deployments/
 
-Replace the YOUR_WILDFLY_DIR with the actual directory of your wildfly.
+Replace the YOUR_WILDFLY_DIR with the actual directory of your wildfly. War-file that you copied to YOUR_WILDFLY_DIR/standalone/deployments/ must be renamed to `jouko-api.war`.
 
 ### Run api
 
@@ -201,6 +202,17 @@ Start the api by running
 
     sh YOUR_WILDFLY_DIR/bin/standalone.sh
 
+### MySQL entries needed for the API
+Start the mysql shell by running `/usr/bin/mysql -u root -p`.
+
+- On the mysql shell run command `USE jouko_api;` to use the database.
+- Run command `insert into Setting values (1, "keycloakUrl", "http://localhost:9080/auth");`
+- Run command `insert into Setting values (2, "keycloakRealm", "jouko-realm");`
+- Run command `insert into User values (1, "KEYCLOAK_USER_ID", "KEYCLOAK_USER_NAME");`
+
+Replace KEYCLOAK_USER_ID with the id of your Keycloak user and KEYCLOAK_USER_NAME with the username of your Keycloak user.
+
+Run `exit` to exit mysql.
 
 ### Connect UI's to api
 
