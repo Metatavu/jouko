@@ -5,7 +5,7 @@
   "homepage": "https://jouko2018.metatavu.io/",
   "dependencies": {
     "@types/chart.js": "^2.7.14",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "chartjs-plugin-datalabels": "^0.3.0",
     "date-fns": "^1.29.0",
     "font-awesome": "^4.7.0",
