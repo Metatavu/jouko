@@ -1,41 +1,22 @@
 package fi.metatavu.jouko.api;
 
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
+import fi.metatavu.jouko.api.dao.ControllerDAO;
+import fi.metatavu.jouko.api.dao.SettingDAO;
 import fi.metatavu.jouko.api.device.DeviceCommunicator;
-import fi.metatavu.jouko.api.model.ControllerCommunicationChannel;
-import fi.metatavu.jouko.api.model.ControllerEntity;
-import fi.metatavu.jouko.api.model.DeviceEntity;
-import fi.metatavu.jouko.api.model.InterruptionEntity;
-import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
-import fi.metatavu.jouko.api.model.UserEntity;
+import fi.metatavu.jouko.api.model.*;
 import fi.metatavu.jouko.server.rest.AdminApi;
 import fi.metatavu.jouko.server.rest.model.ControllerDevice;
 import fi.metatavu.jouko.server.rest.model.Device;
 import fi.metatavu.jouko.server.rest.model.InterruptionGroup;
 import fi.metatavu.jouko.server.rest.model.User;
-import fi.metatavu.jouko.api.UserController;
-import fi.metatavu.jouko.api.dao.ControllerDAO;
-import fi.metatavu.jouko.api.dao.SettingDAO;
 
-import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
-import org.keycloak.admin.client.Keycloak;
-import org.keycloak.admin.client.KeycloakBuilder;
-import org.keycloak.admin.client.resource.RealmResource;
-import org.keycloak.admin.client.resource.UsersResource;
-import org.keycloak.representations.idm.UserRepresentation;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Stateless
 public class AdminApiImpl implements AdminApi {

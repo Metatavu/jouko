@@ -14,8 +14,8 @@ import liquibase.resource.ResourceAccessor;
 
 @Dependent
 public class LiquibaseProducer {
-  
-  @Resource (lookup = "java:jboss/datasources/jouko-api")
+  // Use jboss to connect to database
+  @Resource (mappedName = "java:jboss/datasources/jouko-api")
   private DataSource dataSource;
   
   @Produces
