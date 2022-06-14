@@ -17,6 +17,7 @@ import org.slf4j.Logger;
  * Abstract base class for all DAO classes
  * 
  * @author Antti Leppä
+ * @author Valio Valtokari
  *
  * @param <T> entity type
  */
@@ -30,7 +31,7 @@ public abstract class AbstractDAO<T> {
   private EntityManager entityManager;
   
   /**
-   * Returns entity by id
+   * Returns entity by a string id
    * 
    * @param id entity id
    * @return entity or null if non found
@@ -41,7 +42,7 @@ public abstract class AbstractDAO<T> {
   }
   
   /**
-   * Returns entity by id
+   * Returns entity by an integer id
    * 
    * @param id entity id
    * @return entity or null if non found
@@ -129,6 +130,14 @@ public abstract class AbstractDAO<T> {
     return object;
   }
 
+  /**
+   * Executes a query that is expected to return a single result.
+   * If the query returns more than one result, the last one is returned.
+   *
+   * @param query the query to execute
+   * @return the result of the typed query
+   * @param <X> the typed query thar returns result type X
+   */
   protected <X> X getSingleResult(TypedQuery<X> query) {
     List<X> list = query.getResultList();
 
@@ -155,7 +164,7 @@ public abstract class AbstractDAO<T> {
   private Class<?> getFirstTypeArgument(ParameterizedType parameterizedType) {
     return (Class<?>) parameterizedType.getActualTypeArguments()[0];
   }
-
+  
   protected Class<?> getGenericTypeClass() {
     Type genericSuperclass = getClass().getGenericSuperclass();
 
@@ -170,6 +179,11 @@ public abstract class AbstractDAO<T> {
     return null;
   }
 
+  /**
+   * Returns the entity manager used by this DAO
+   *
+   * @return the entity manager used by this DAO
+   */
   protected EntityManager getEntityManager() {
     return entityManager;
   }
