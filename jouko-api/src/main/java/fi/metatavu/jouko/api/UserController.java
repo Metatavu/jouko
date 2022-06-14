@@ -4,6 +4,7 @@ import fi.metatavu.jouko.api.dao.SettingDAO;
 import fi.metatavu.jouko.api.dao.UserDAO;
 import fi.metatavu.jouko.api.model.UserEntity;
 import fi.metatavu.jouko.server.rest.model.User;
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
@@ -13,6 +14,7 @@ import org.keycloak.representations.idm.UserRepresentation;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -53,7 +55,7 @@ public class UserController {
         .serverUrl(kcUrl)
         .realm(realm)
         .authorization(token)
-        .resteasyClient(new ResteasyClientBuilder().connectionPoolSize(20).build())
+        .resteasyClient((ResteasyClient) ClientBuilder.newBuilder().build())
         .build();
     
     UserRepresentation newUser = new UserRepresentation();

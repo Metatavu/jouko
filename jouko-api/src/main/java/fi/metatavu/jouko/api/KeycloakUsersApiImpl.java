@@ -7,9 +7,11 @@ import java.util.UUID;
 import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
@@ -63,7 +65,7 @@ public class KeycloakUsersApiImpl implements KeycloakUsersApi {
         .serverUrl(kcUrl)
         .realm(realm)
         .authorization(token)
-        .resteasyClient(new ResteasyClientBuilder().connectionPoolSize(20).build())
+        .resteasyClient((ResteasyClient) ClientBuilder.newBuilder().build())
         .build();
 
     List<UserRepresentation> list = keycloak.realm(realm).users().list();

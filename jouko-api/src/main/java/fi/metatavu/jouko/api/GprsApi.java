@@ -215,7 +215,7 @@ public class GprsApi {
           unpackMittaukset(mittaukset);
           System.out.println("MITTAUKSET UNPACKATTU!");
         }
-      } catch (InvalidDeviceException ex) {
+      } catch (InvalidDeviceException | InvalidProtocolBufferException ex) {
         return Response
             .status(400)
             .entity(String.format("Protobuf error: %s", ex.getMessage()))
