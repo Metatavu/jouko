@@ -1,8 +1,6 @@
 package fi.metatavu.jouko.api.dao;
 
-import fi.metatavu.jouko.api.model.ControllerCommunicationChannel;
-import fi.metatavu.jouko.api.model.ControllerEntity;
-import fi.metatavu.jouko.api.model.ControllerEntity_;
+import java.util.List;
 
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
@@ -10,7 +8,14 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.List;
+
+import fi.metatavu.jouko.api.model.ControllerCommunicationChannel;
+import fi.metatavu.jouko.api.model.ControllerEntity;
+import fi.metatavu.jouko.api.model.ControllerEntity_;
+import fi.metatavu.jouko.api.model.DeviceEntity;
+import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
+import fi.metatavu.jouko.api.model.InterruptionGroupEntity_;
+import fi.metatavu.jouko.api.model.UserEntity;
 
 @Dependent
 public class ControllerDAO extends AbstractDAO<ControllerEntity> {
