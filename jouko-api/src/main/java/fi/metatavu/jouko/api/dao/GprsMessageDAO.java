@@ -1,22 +1,15 @@
 package fi.metatavu.jouko.api.dao;
 
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.enterprise.context.Dependent;
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Order;
-import javax.persistence.criteria.Root;
-
 import fi.metatavu.jouko.api.model.ControllerEntity;
-import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity_;
 import fi.metatavu.jouko.api.model.GprsMessageEntity;
 import fi.metatavu.jouko.api.model.GprsMessageEntity_;
 import fi.metatavu.jouko.api.model.MessageType;
+
+import javax.enterprise.context.Dependent;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Dependent
 public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
