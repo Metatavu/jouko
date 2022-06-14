@@ -1,20 +1,27 @@
 package fi.metatavu.jouko.api;
 
-import fi.metatavu.jouko.api.dao.SettingDAO;
-import fi.metatavu.jouko.api.dao.UserDAO;
-import fi.metatavu.jouko.api.model.UserEntity;
-import fi.metatavu.jouko.server.rest.model.User;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.keycloak.authorization.client.util.HttpResponseException;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.UserRepresentation;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
-import java.util.List;
+import fi.metatavu.jouko.api.dao.SettingDAO;
+import fi.metatavu.jouko.api.dao.UserDAO;
+import fi.metatavu.jouko.api.model.UserEntity;
+import fi.metatavu.jouko.server.rest.model.User;
 
 @Dependent
 public class UserController {
