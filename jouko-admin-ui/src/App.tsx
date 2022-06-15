@@ -104,7 +104,7 @@ class App extends React.Component<{}, AppState> {
             this.state.keycloakInstance.logout();
         }
     }
-
+  // Creates the different website paths and uses the website components to render the pages
   public render() {
       let content;
       if (!this.state.keycloakInstance) {
