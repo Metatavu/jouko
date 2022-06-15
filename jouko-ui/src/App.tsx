@@ -88,6 +88,7 @@ class App extends React.Component<{}, AppState> {
       this.state.keycloakInstance.logout({redirectUri: appUrl});
     }
   }
+  // Creates the website paths for the different pages and uses the components to render the appropriate pages
   render() {
     let content;
     if (!this.state.keycloakInstance) {
