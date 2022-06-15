@@ -227,7 +227,7 @@
     <dependency>
       <groupId>org.keycloak</groupId>
       <artifactId>keycloak-adapter-spi</artifactId>
-      <version>3.4.3.Final</version>
+      <version>18.0.0</version>
       <scope>provided</scope>
     </dependency>
 
