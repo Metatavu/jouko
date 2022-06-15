@@ -6,7 +6,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.ext.Provider;
-
+// Set Access Control Headers to filter out incoming requests
 @Provider
 public class CorsProvider implements ContainerResponseFilter {
 
