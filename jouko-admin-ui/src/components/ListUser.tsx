@@ -150,6 +150,7 @@ export class ListUser extends
                 });
             }
         }
+        // Return data in ascending order if ASC is selected and descending order otherwise
         if (this.state.sortingDirection === 'ASC') {
             const sortingElement = this.state.sortingElement.toString();
             if (sortingElement === 'username') {
