@@ -14,6 +14,19 @@ export class Topbar
     constructor(props: TopbarProps) {
         super(props);
     }
+    
+    // Search returns the closest matching button to the search term
+    search = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const searchTerm = event.target.value.toLowerCase();
+        const buttons = document.getElementsByClassName('topbar-button');
+        for (let i = 0; i < buttons.length; i++) {
+            const button = buttons[i] as HTMLButtonElement;
+            if (button.innerText.toLowerCase().indexOf(searchTerm) !== -1) {
+                button.focus();
+                return;
+            }
+        }
+    }
 
     render() {
 
@@ -40,6 +53,7 @@ export class Topbar
                         name="search"
                         placeholder={_('search')}
                         className="inputSearch"
+                        onChange={this.search}
                     />
                 </li>
             </ul>
