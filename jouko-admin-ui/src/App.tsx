@@ -24,6 +24,7 @@ import { UsersApi, Configuration } from 'jouko-ts-client';
 import { EditInterruptionGroup } from './components/EditInterruptionGroup';
 import { apiUrl, authUrl } from './config';
 
+// Initialise Keycloak
 interface AppState {
     keycloakInstance?: Keycloak.KeycloakInstance;
     username?: string;
@@ -75,6 +76,7 @@ class App extends React.Component<{}, AppState> {
 
         // tslint:disable-next-line:no-any
         const keycloakId = (kc.idTokenParsed as any).sub;
+        // Initialise jouko-ts-client
         const usersApi = new UsersApi(
             configuration,
             apiUrl);
