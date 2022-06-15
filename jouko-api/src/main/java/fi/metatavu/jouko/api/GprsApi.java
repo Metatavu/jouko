@@ -163,6 +163,7 @@ public class GprsApi {
     String payloadHex = uplink.getPayloadHex();
     String message;
     try {
+      // Decode payload hex to string
       message = new String(Hex.decodeHex(payloadHex.toCharArray()),
                                   StandardCharsets.US_ASCII);
     } catch (DecoderException e) {
@@ -189,6 +190,7 @@ public class GprsApi {
     }
 
     String hashedStringKey = hashedStringNoKey + controller.getKey();
+    // Create a hash using SHA-256 algorithm
     String hash = DigestUtils.sha256Hex(hashedStringKey.getBytes(StandardCharsets.UTF_8));
     logger.info("kellonaika: {}", time);
     logger.info("hash: {}", hash);
@@ -262,6 +264,7 @@ public class GprsApi {
     
     while (messageMatcher.find()) {
       String base64 = messageMatcher.group(1);
+      // Decode base64 to bytes
       byte[] bytes = Base64.decodeBase64(base64);
      
       try {
