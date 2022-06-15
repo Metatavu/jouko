@@ -54,15 +54,18 @@ export class Statistics
     this.fetchStatistics();
   }
 
+  // Fetch statistics from the API using the jouko-ts-client library
   async fetchStatistics() {
     const configuration = new Configuration({
       apiKey: `Bearer ${this.props.kc!.token}`
     });
 
+    // Fetch the devices data from the API using the jouko-ts-client library
     const devicesApi = new DevicesApi(
       configuration,
       apiUrl);
 
+    // Fetch all measurements from the API using the jouko-ts-client library
     const allMeasurementsApi = new DevicesApi(
       configuration,
       apiUrl);
