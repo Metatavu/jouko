@@ -127,6 +127,7 @@ export class Statistics
       });
     }
 
+    // Display 12 minutes of data from the last hour
     for ( let i = 0; i < 12; i++) {
       let startTime = addMinutes(lastHour, i * 5);
       let endTime = addMinutes(startTime, 5);
@@ -137,6 +138,7 @@ export class Statistics
       hourData.push(hourDataValue.averageConsumptionInWatts);
     }
     
+    // Display 24 hours of data from the last 24 hours
     for ( let i = 0; i < 24; i++) {
       let hoursStartTime = addHours(last24Hour, i);
       let hoursEndTime = addHours(hoursStartTime, 1);
@@ -148,6 +150,7 @@ export class Statistics
       hoursData.push(hoursDataValue.averageConsumptionInWatts);
     }
 
+    // Display 30 days of data from the last 30 days
     for ( let i = 0; i < 31; i++) {
       let daysStartTime = addDays(lastDays, i);
       let daysEndTime = addDays(daysStartTime, 1);
