@@ -284,7 +284,8 @@ export class ListInterruptionGroups
         const interruptionGroups = await interruptionGroupsApi.listInterruptionGroups(0, 1000);
 
         const rowProps: InterruptionGroupProps[] = [];
-
+    
+        // For each interruption group, create a row in the table
         for (const interruptionGroup of interruptionGroups) {
             const searchColumn = this.state.searchColumn.toString();
             if (interruptionGroup[searchColumn].toString().match(this.state.searchTerm )) {
