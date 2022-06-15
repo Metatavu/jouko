@@ -142,7 +142,12 @@ public class GprsApi {
       this.payloadHex = payloadHex;
     }
   }
-  
+
+  /**
+   * @POST
+   * @Path("/lora/")
+   * Creates API path to communicate with Lora device
+   */
   @POST
   @Path("/lora/")
   public Response communicateWithLoraDevice(
@@ -234,7 +239,7 @@ public class GprsApi {
     return Response.ok().build();
   }
 
-  /*
+  /**
     @POST
     @Path("/gprs/{eui}")
     Creates API path for GPRS device communication
@@ -305,7 +310,7 @@ public class GprsApi {
       measurementLength = 5;
     }
     int numMeasurements = mittaukset.getKeskiarvotCount();
-    
+
     Instant time = endTime.minus((numMeasurements / 3 ) * measurementLength, ChronoUnit.MINUTES);
     
     int phaseNumber = 0;
