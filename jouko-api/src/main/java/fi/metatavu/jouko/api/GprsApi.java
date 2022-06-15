@@ -237,8 +237,6 @@ public class GprsApi {
   /*
     @POST
     @Path("/gprs/{eui}")
-    public Response communicateWithGprsDevice(
-    @PathParam("eui") String eui
     Creates API path for GPRS device communication
   */
   @POST
