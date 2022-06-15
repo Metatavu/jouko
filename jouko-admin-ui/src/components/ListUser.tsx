@@ -59,6 +59,7 @@ export class ListUser extends
         }
         this.forceUpdate();
     }
+    // The methods below are used to fetch the data based on the sorting element and direction
     sortByIdASC(event: React.FormEvent<HTMLOptionElement>) {
         this.setState({
             sortingElement: 'deviceId',
