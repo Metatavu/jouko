@@ -143,6 +143,7 @@ export class ListDevice
                 });
             }
         }
+        // If sorting is ASC sort names in ascending order otherwise sort names in descending order
         if (this.state.sortingDirection === 'ASC') {
             const sortingElement = this.state.sortingElement.toString();
             if (sortingElement === 'deviceName') {
