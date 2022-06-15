@@ -6,6 +6,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.ext.Provider;
+
 /*
     * This class is used to add CORS headers to all responses.
     * Filters out incoming requests that use wrong methods or headers.
