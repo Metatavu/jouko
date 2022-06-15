@@ -351,6 +351,7 @@ public class GprsApi {
           .build();
       
       String replyMessageString = String.format("{%s}",
+          // Encode message to base64 string and replyMessage to byte array before base64 encoding
           Base64.encodeBase64String(replyMessage.toByteArray()));
       
       // If we end up here, we only want to send timesync message
