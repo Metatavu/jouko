@@ -36,7 +36,7 @@ class App extends React.Component<{}, AppState> {
       {
         url: authUrl,
         realm: 'jouko-realm',
-        clientId: 'jouko',
+        clientId: 'jouko-api',
       }
     );
     kc.init({
