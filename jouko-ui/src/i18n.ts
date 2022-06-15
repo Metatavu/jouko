@@ -1,3 +1,4 @@
+// Set the default language as Finnish
 let language = localStorage.getItem('language') || 'fi';
 
 const messages = {
