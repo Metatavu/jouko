@@ -79,7 +79,6 @@ class App extends React.Component<{}, AppState> {
             configuration,
             apiUrl);
         const user = await usersApi.getUserByKeycloakId(keycloakId);
-        console.log('ahahhaa');
         console.log(kc);
         if (user) {
             console.log('javol');
