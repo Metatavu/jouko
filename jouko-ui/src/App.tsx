@@ -62,6 +62,7 @@ class App extends React.Component<{}, AppState> {
     const usersApi = new UsersApi(
       configuration,
       apiUrl);
+      // Uses the jouko-ts-client to fetch the Keycloak ID of the current user
     const user = await usersApi.getUserByKeycloakId(keycloakId);
     console.log(kc);
     if (user) {
