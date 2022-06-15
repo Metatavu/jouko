@@ -127,7 +127,7 @@ export class Statistics
       });
     }
 
-    // Display 12 minutes of data from the last hour
+    // Display one hour of data
     for ( let i = 0; i < 12; i++) {
       let startTime = addMinutes(lastHour, i * 5);
       let endTime = addMinutes(startTime, 5);
