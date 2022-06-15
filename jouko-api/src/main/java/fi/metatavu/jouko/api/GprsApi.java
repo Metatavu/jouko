@@ -233,7 +233,14 @@ public class GprsApi {
 
     return Response.ok().build();
   }
-  
+
+  /*
+    @POST
+    @Path("/gprs/{eui}")
+    public Response communicateWithGprsDevice(
+    @PathParam("eui") String eui
+    Creates API path for GPRS device communication
+  */
   @POST
   @Path("/gprs/{eui}")
   public Response communicateWithGprsDevice(@PathParam("eui") String eui, String content) {
