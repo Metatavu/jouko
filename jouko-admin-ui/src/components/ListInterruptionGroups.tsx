@@ -68,6 +68,7 @@ export class ListInterruptionGroups
         this.searchBetweenB = this.searchBetweenB.bind(this);
         this.searchColumn = this.searchColumn.bind(this);
     }
+    // The methods below filter the list of interruption groups based on the sortingElement and sortingDirection
     sortByIdASC(event: React.FormEvent<HTMLOptionElement>) {
         this.setState({
             sortingElement: 'interruptiongroupId',
