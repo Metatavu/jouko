@@ -16,6 +16,7 @@ import { WelcomeBox } from './components/WelcomeBox';
 import { apiUrl, authUrl, appUrl } from './config';
 import { LatestMeasurements } from './components/LatestMeasurements';
 
+// Set up the Keycloak client
 interface AppState {
   keycloakInstance?: Keycloak.KeycloakInstance;
   username?: string;
@@ -59,10 +60,11 @@ class App extends React.Component<{}, AppState> {
 
     // tslint:disable-next-line:no-any
     const keycloakId = (kc.idTokenParsed as any).sub;
+    // Initialise jouko-ts-client
     const usersApi = new UsersApi(
       configuration,
       apiUrl);
-      // Uses the jouko-ts-client to fetch the Keycloak ID of the current user
+    // Uses the jouko-ts-client to fetch the Keycloak ID of the current user
     const user = await usersApi.getUserByKeycloakId(keycloakId);
     console.log(kc);
     if (user) {
