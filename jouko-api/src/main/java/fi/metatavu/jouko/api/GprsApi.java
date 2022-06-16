@@ -134,7 +134,12 @@ public class GprsApi {
       this.payloadHex = payloadHex;
     }
   }
-  
+
+  /**
+   * @POST
+   * @Path("/lora/")
+   * Creates API path to communicate with Lora device
+   */
   @POST
   @Path("/lora/")
   public Response communicateWithLoraDevice(
@@ -150,6 +155,7 @@ public class GprsApi {
     String payloadHex = uplink.getPayloadHex();
     String message;
     try {
+      // Decode payload hex to string
       message = new String(Hex.decodeHex(payloadHex.toCharArray()),
                                   StandardCharsets.US_ASCII);
     } catch (DecoderException e) {
@@ -176,6 +182,7 @@ public class GprsApi {
     }
 
     String hashedStringKey = hashedStringNoKey + controller.getKey();
+    // Create a hash using SHA-256 algorithm
     String hash = DigestUtils.sha256Hex(hashedStringKey.getBytes(StandardCharsets.UTF_8));
     logger.info("kellonaika: {}", time);
     logger.info("hash: {}", hash);
@@ -225,7 +232,12 @@ public class GprsApi {
 
     return Response.ok().build();
   }
-  
+
+  /**
+    @POST
+    @Path("/gprs/{eui}")
+    Creates API path for GPRS device communication
+  */
   @POST
   @Path("/gprs/{eui}")
   public Response communicateWithGprsDevice(@PathParam("eui") String eui, String content) {
@@ -244,6 +256,7 @@ public class GprsApi {
     
     while (messageMatcher.find()) {
       String base64 = messageMatcher.group(1);
+      // Decode base64 to bytes
       byte[] bytes = Base64.decodeBase64(base64);
      
       try {
@@ -292,7 +305,7 @@ public class GprsApi {
       measurementLength = 5;
     }
     int numMeasurements = mittaukset.getKeskiarvotCount();
-    
+
     Instant time = endTime.minus((numMeasurements / 3 ) * measurementLength, ChronoUnit.MINUTES);
     
     int phaseNumber = 0;

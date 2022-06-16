@@ -71,6 +71,9 @@ public class KeycloakUsersApiImpl implements KeycloakUsersApi {
     List<UserRepresentation> list = keycloak.realm(realm).users().list();
     List<KeycloakUserEntity> userList = new ArrayList<KeycloakUserEntity>();
 
+    /*
+        * Fetches keycloak users, sets their details and saves them to a userList that gets built and returned.
+    */
     for (UserRepresentation kcUser : list) {
       KeycloakUserEntity keycloakUserEntity = new KeycloakUserEntity();
       UserEntity userEntity = userController.findUserByKeycloakId(kcUser.getId());

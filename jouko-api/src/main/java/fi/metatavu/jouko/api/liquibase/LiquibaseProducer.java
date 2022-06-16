@@ -14,7 +14,12 @@ import liquibase.resource.ResourceAccessor;
 
 @Dependent
 public class LiquibaseProducer {
-  // Use jboss to connect to the MySQL database
+
+  /**
+   * Liquibase configuration
+   * Used to connect to the MySQL database
+   * @Resource is the path for the MySQL database and uses Wildfly/JBoss to connect.
+   */
   @Resource (mappedName = "java:jboss/datasources/jouko-api")
   private DataSource dataSource;
   
