@@ -77,6 +77,10 @@ public class ControllerDAO extends AbstractDAO<ControllerEntity> {
       criteriaBuilder.equal(root.get(ControllerEntity_.eui), eui)
     );
 
+    return getControllerEntity(em, criteria);
+  }
+
+  private ControllerEntity getControllerEntity(EntityManager em, CriteriaQuery<ControllerEntity> criteria) {
     List<ControllerEntity> results = em.createQuery(criteria).getResultList();
     if (results.size() == 0) {
       return null;
@@ -110,14 +114,7 @@ public class ControllerDAO extends AbstractDAO<ControllerEntity> {
         )
     );
 
-    List<ControllerEntity> results = em.createQuery(criteria).getResultList();
-    if (results.size() == 0) {
-      return null;
-    } else if (results.size() == 1) {
-      return results.get(0);
-    } else {
-      throw new RuntimeException("More than 2 settings found by key");
-    }
+    return getControllerEntity(em, criteria);
   }
 
 }
