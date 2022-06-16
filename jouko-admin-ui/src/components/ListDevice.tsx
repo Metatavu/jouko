@@ -57,6 +57,7 @@ export class ListDevice
         }
         this.forceUpdate();
     }
+    // Device filtering where it takes sortingElement and sortingDirection as parameters
     sortByIdASC(event: React.FormEvent<HTMLOptionElement>) {
         this.setState({
             sortingElement: 'deviceId',
