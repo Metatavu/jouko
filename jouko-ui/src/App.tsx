@@ -13,7 +13,7 @@ import * as Keycloak from 'keycloak-js';
 import { UsersApi, Configuration } from 'jouko-ts-client';
 import { PowerUsageSummaries } from './components/PowerUsageSummary';
 import { WelcomeBox } from './components/WelcomeBox';
-import { apiUrl, authUrl, appUrl } from './config';
+import { apiUrl, authUrl, appUrl, keycloakRealm, keycloakClientId } from './config';
 import { LatestMeasurements } from './components/LatestMeasurements';
 
 interface AppState {
@@ -35,8 +35,8 @@ class App extends React.Component<{}, AppState> {
     const kc = Keycloak(
       {
         url: authUrl,
-        realm: 'jouko-realm',
-        clientId: 'jouko',
+        realm: keycloakRealm,
+        clientId: keycloakClientId,
       }
     );
     kc.init({

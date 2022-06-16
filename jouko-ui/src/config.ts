@@ -13,3 +13,13 @@ export const appUrl =
   process.env.NODE_ENV === 'production'
     ? 'https://jouko2018.github.io/'
     : 'http://localhost:3000/';
+
+export const keycloakRealm =
+  process.env.NODE_ENV === 'production'
+  ? 'jouko-realm'
+  : 'jouko-realm';
+
+export const keycloakClientId =
+  process.env.NODE_ENV === 'production'
+  ? 'jouko-admin'
+  : 'jouko-api';

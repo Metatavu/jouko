@@ -22,7 +22,7 @@ import { ShowUser } from './components/ShowUser';
 import * as Keycloak from 'keycloak-js';
 import { UsersApi, Configuration } from 'jouko-ts-client';
 import { EditInterruptionGroup } from './components/EditInterruptionGroup';
-import { apiUrl, authUrl } from './config';
+import { apiUrl, authUrl, keycloakRealm, keycloakClientId } from './config';
 
 interface AppState {
     keycloakInstance?: Keycloak.KeycloakInstance;
@@ -54,8 +54,8 @@ class App extends React.Component<{}, AppState> {
         const kc = Keycloak(
             {
                 url: authUrl,
-                realm: 'jouko-realm',
-                clientId: 'admin-jouko'
+                realm: keycloakRealm,
+                clientId: keycloakClientId,
             }
         );
         kc.init({ onLoad: 'login-required' })
