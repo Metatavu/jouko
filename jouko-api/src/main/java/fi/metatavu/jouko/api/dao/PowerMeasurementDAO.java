@@ -1,16 +1,24 @@
 package fi.metatavu.jouko.api.dao;
 
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.context.Dependent;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity;
 import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity_;
 import fi.metatavu.jouko.api.model.MeasurementType;
-
-import javax.enterprise.context.Dependent;
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.*;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import fi.metatavu.jouko.server.rest.model.Device;
 
 @Dependent
 public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntity> {
