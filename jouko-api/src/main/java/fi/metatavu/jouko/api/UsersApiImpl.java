@@ -7,16 +7,9 @@ import java.util.stream.Collectors;
 import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import fi.metatavu.jouko.api.dao.InterruptionDAO;
 import fi.metatavu.jouko.api.device.DeviceCommunicator;
 import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity;
@@ -27,8 +20,6 @@ import fi.metatavu.jouko.server.rest.model.Device;
 import fi.metatavu.jouko.server.rest.model.DevicePowerConsumption;
 import fi.metatavu.jouko.server.rest.model.Interruption;
 import fi.metatavu.jouko.server.rest.model.InterruptionCancellation;
-import fi.metatavu.jouko.server.rest.model.PowerMeasurement;
-import io.swagger.annotations.ApiParam;
 
 @RequestScoped
 @Stateful
