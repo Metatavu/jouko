@@ -16,7 +16,7 @@ import { WelcomeBox } from './components/WelcomeBox';
 import { apiUrl, authUrl, appUrl } from './config';
 import { LatestMeasurements } from './components/LatestMeasurements';
 
-// Set up the Keycloak client
+// Initialise Keycloak
 interface AppState {
   keycloakInstance?: Keycloak.KeycloakInstance;
   username?: string;
