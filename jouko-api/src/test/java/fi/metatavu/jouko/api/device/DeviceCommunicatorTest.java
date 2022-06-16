@@ -22,12 +22,12 @@ import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
 
 public class DeviceCommunicatorTest {
-    
+
   DeviceController deviceController;
   SettingController settingController;
   private List<String> postResults;
   DeviceCommunicator subject;
-  
+
   @Before
   public void setUp() {
     deviceController = Mockito.mock(DeviceController.class);
@@ -35,81 +35,102 @@ public class DeviceCommunicatorTest {
     postResults = new ArrayList<>();
 
     Mockito.when(settingController.getSetting("deviceCommunicator.endpoint"))
-           .thenReturn("http://jouko.test/");
+            .thenReturn("http://jouko.test/");
 
     Mockito.when(settingController.getSetting("deviceCommunicator.asId"))
-           .thenReturn("as");
+            .thenReturn("as");
 
     Mockito.when(settingController.getSetting("deviceCommunicator.enabled", "false"))
-           .thenReturn("true");
+            .thenReturn("true");
 
     subject = new DeviceCommunicator(
-        deviceController,
-        settingController,
-        Clock.fixed(Instant.EPOCH, ZoneOffset.UTC),
-        (String postResult) -> {
-          postResults.add(postResult);
-          return "<html><body>Request queued by LRC</body></html>";
-        }
+            deviceController,
+            settingController,
+            Clock.fixed(Instant.EPOCH, ZoneOffset.UTC),
+            (String postResult) -> {
+              postResults.add(postResult);
+              return "<html><body>Request queued by LRC</body></html>";
+            }
     );
   }
-  
+
   @Test
   public void testNotifySingleDeviceInterruption() {
     ControllerEntity controller = new ControllerEntity(1l, "EUI", "KEY", ControllerCommunicationChannel.LORA);
-    
+
     DeviceEntity device = new DeviceEntity(1l, "Device", null, controller);
-    
+
     InterruptionGroupEntity group = new InterruptionGroupEntity(
-        1l,
-        OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC),
-        OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
-    
+            1l,
+            OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC),
+            OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
+
     InterruptionEntity interruption = new InterruptionEntity(1l, device, group, false, null);
-    
+
     Mockito.when(deviceController.listByInterruption(Mockito.any()))
-           .thenReturn(Arrays.asList(device));
-    
+            .thenReturn(Arrays.asList(device));
+
     subject.notifyInterruption(interruption);
-    
+
     String expectedPost = "http://jouko.test/?DevEUI=EUI"
-                        + "&FPort=1"
-                        + "&Payload=7b43676f4b43416742454145594143426b7d"
-                        + "&AS_ID=as"
-                        + "&Time=1970-01-01T00:00:00Z"
-                        + "&Token=5b89dcabdeadcd07a523a6a26f94c951a4bc8b14947e30a048615010a4d3f034";
+            + "&FPort=1"
+            + "&Payload=7b43676f4b43416742454145594143426b7d"
+            + "&AS_ID=as"
+            + "&Time=1970-01-01T00:00:00Z"
+            + "&Token=5b89dcabdeadcd07a523a6a26f94c951a4bc8b14947e30a048615010a4d3f034";
 
     Assert.assertEquals(1, postResults.size());
     Assert.assertEquals(expectedPost, postResults.get(0));
   }
-  
+
   @Test
   public void testNotifySingleDeviceInterruptionCancellation() {
     ControllerEntity controller = new ControllerEntity(1l, "EUI", "KEY", ControllerCommunicationChannel.LORA);
-    
+
     DeviceEntity device = new DeviceEntity(1l, "Device", null, controller);
-    
+
     InterruptionGroupEntity group = new InterruptionGroupEntity(
-        1l,
-        OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC),
-        OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
-    
+            1l,
+            OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC),
+            OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
+
     InterruptionEntity interruption = new InterruptionEntity(1l, device, group, false, null);
-    
+
     Mockito.when(deviceController.listByInterruption(Mockito.any()))
-           .thenReturn(Arrays.asList(device));
-    
+            .thenReturn(Arrays.asList(device));
+
     subject.notifyInterruptionCancellation(interruption);
-    
+
     String expectedPost = "http://jouko.test/?DevEUI=EUI"
-                        + "&FPort=1"
-                        + "&Payload=7b4567514b416767427d"
-                        + "&AS_ID=as"
-                        + "&Time=1970-01-01T00:00:00Z"
-                        + "&Token=31c171ca123ce8cf905ab83e4a9aad2f6190f3cdcb73b63714ea18eae2402d5f";
+            + "&FPort=1"
+            + "&Payload=7b4567514b416767427d"
+            + "&AS_ID=as"
+            + "&Time=1970-01-01T00:00:00Z"
+            + "&Token=31c171ca123ce8cf905ab83e4a9aad2f6190f3cdcb73b63714ea18eae2402d5f";
 
     Assert.assertEquals(1, postResults.size());
     Assert.assertEquals(expectedPost, postResults.get(0));
   }
 
+  // Test that when device is not found, no request is sent
+    @Test
+    public void testNotifySingleDeviceInterruptionDeviceNotFound() {
+        ControllerEntity controller = new ControllerEntity(1l, "EUI", "KEY", ControllerCommunicationChannel.LORA);
+
+        DeviceEntity device = new DeviceEntity(1l, "Device", null, controller);
+
+        InterruptionGroupEntity group = new InterruptionGroupEntity(
+                1l,
+                OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC),
+                OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
+
+        InterruptionEntity interruption = new InterruptionEntity(1l, device, group, false, null);
+
+        Mockito.when(deviceController.listByInterruption(Mockito.any()))
+                .thenReturn(Arrays.asList());
+
+        subject.notifyInterruption(interruption);
+
+        Assert.assertEquals(0, postResults.size());
+    }
 }
