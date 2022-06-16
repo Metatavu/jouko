@@ -3,6 +3,7 @@ package fi.metatavu.jouko.api;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.UUID;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -90,6 +91,9 @@ public class UserController {
     
     return null;
   }
-  
 
+
+  public void updateUser(UserEntity user, UUID keycloakId) {
+    userDAO.update(user);
+  }
 }

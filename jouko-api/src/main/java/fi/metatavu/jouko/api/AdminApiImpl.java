@@ -201,21 +201,33 @@ public class AdminApiImpl implements AdminApi {
 
   @Override
   public Response retrieveUser(Long userId) throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+    UserEntity user = userController.findUserById(userId);
+    return Response.ok(userFromEntity(user)).build();
   }
 
   @Override
   public Response updateDevice(Long deviceId, Device newDevice)
-      throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+        throws Exception {
+    DeviceEntity device = deviceController.findById(deviceId);
+    if (device == null) {
+      return Response.status(Status.NOT_FOUND)
+                     .entity("device not found")
+                     .build();
+    }
+    deviceController.updateDevice(device, newDevice.getName());
+    return Response.ok(newDevice).build();
   }
 
   @Override
   public Response updateUser(Long userId, User body) throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+    UserEntity user = userController.findUserById(userId);
+    if (user == null) {
+      return Response.status(Status.NOT_FOUND)
+                     .entity("user not found")
+                     .build();
+    }
+    userController.updateUser(user, body.getKeycloakId());
+    return Response.ok(body).build();
   }
 
   @Override
@@ -239,16 +251,21 @@ public class AdminApiImpl implements AdminApi {
 
   @Override
   public Response retrieveControllerDevice(Long controllerDeviceId) throws Exception {
-    System.out.println("mummo");
-    return null;
+    ControllerEntity entity = deviceController.findControllerDeviceById(controllerDeviceId);
+    return Response.ok(controllerDeviceFromEntity(entity)).build();
   }
 
   @Override
   public Response updateControllerDevice(Long controllerDeviceId, ControllerDevice newControllerDevice)
       throws Exception {
-    // TODO Auto-generated method stub
- 
-    return null;
+    ControllerEntity entity = deviceController.findControllerDeviceById(controllerDeviceId);
+    if (entity == null) {
+      return Response.status(Status.NOT_FOUND)
+                     .entity("controller device not found")
+                     .build();
+    }
+    deviceController.updateControllerDevice(entity, newControllerDevice.getEui(), newControllerDevice.getKey());
+    return Response.ok(newControllerDevice).build();
   }
 
   @Override
@@ -266,10 +283,7 @@ public class AdminApiImpl implements AdminApi {
 
   @Override
   public Response deleteControllerDevice(Long controllerDeviceId) throws Exception {
-    // TODO Auto-generated method stub
-    System.out.println("Granny's leg");
-    System.out.println("Leg of the granny");
-    return null;
+    deviceController.deleteControllerDevice(controllerDeviceId);
+    return Response.ok().build();
   }
-  
 }

@@ -50,5 +50,8 @@ public class UserDAO extends AbstractDAO<UserEntity> {
       throw new RuntimeException("Multiple users with the same keycloakId");
     }
   }
-  
+
+  public void update(UserEntity user) {
+    getEntityManager().merge(user);
+  }
 }
