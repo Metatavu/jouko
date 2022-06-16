@@ -32,7 +32,10 @@ const messages = {
         'sv': 'Enheten har lagts till framgångsrikt!'
     },
     'alertControllerDeviceCreated': {
-        'fi': 'Laite luotu'
+        'fi': 'Laite luotu',
+        'en': 'Device created',
+        'de': 'Gerät erstellt',
+        'sv': 'Enhet skapad'
     },
     'alertInterruptiongroupChanged': {
         'fi': 'Keskeytysryhmää on muokattu onnistuneesti!',
