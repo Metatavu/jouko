@@ -66,11 +66,11 @@ public class UserController {
     newUser.setEmail(user.getEmail());
     
     RealmResource realmResource = keycloak.realm(realm);
-    UsersResource userRessource = realmResource.users();
+    UsersResource userResource = realmResource.users();
     Response response = null;
     
     try {
-      response = userRessource.create(newUser);
+      response = userResource.create(newUser);
     } catch (Throwable e) {
       e.printStackTrace();
       System.out.println(e.getMessage());
