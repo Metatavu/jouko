@@ -1,3 +1,4 @@
+// Check what language is selected or return Finnish language as default
 let language = localStorage.getItem('language') || 'fi';
 
 const messages = {
@@ -244,7 +245,7 @@ const messages = {
     'filenameInfo': {
         'fi': 'Käytetään ladatun tiedoston nimeä, jos ei asetettu',
         'en': 'If empty uploaded filename is used',
-        'de': 'Falls ist das Datei nicht genamnt, wird der Name der hochgeladene Datei benützt',
+        'de': 'Falls die Datei nicht benamt wird, wird der Name der hochgeladenen Datei verwendet',
         'sv': 'Om datafilen är inte namngiven kommer namnet på den uppladdade filen att användas'
     },
     'hello': {
@@ -536,7 +537,7 @@ const messages = {
     'userId': {
         'fi': 'Käyttäjätunniste',
         'en': 'User ID',
-        'de': 'User-ID',
+        'de': 'Benützer-ID',
         'sv': 'Användar ID'
     },
     'username': {

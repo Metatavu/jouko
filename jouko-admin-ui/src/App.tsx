@@ -24,6 +24,7 @@ import { UsersApi, Configuration } from 'jouko-ts-client';
 import { EditInterruptionGroup } from './components/EditInterruptionGroup';
 import { apiUrl, authUrl } from './config';
 
+// Initialise Keycloak
 interface AppState {
     keycloakInstance?: Keycloak.KeycloakInstance;
     username?: string;
@@ -75,11 +76,11 @@ class App extends React.Component<{}, AppState> {
 
         // tslint:disable-next-line:no-any
         const keycloakId = (kc.idTokenParsed as any).sub;
+        // Initialise jouko-ts-client
         const usersApi = new UsersApi(
             configuration,
             apiUrl);
         const user = await usersApi.getUserByKeycloakId(keycloakId);
-        console.log('ahahhaa');
         console.log(kc);
         if (user) {
             console.log('javol');
@@ -103,7 +104,7 @@ class App extends React.Component<{}, AppState> {
             this.state.keycloakInstance.logout();
         }
     }
-
+  // Creates the different website paths and uses the website components to render the pages
   public render() {
       let content;
       if (!this.state.keycloakInstance) {
