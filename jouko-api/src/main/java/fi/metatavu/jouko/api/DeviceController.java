@@ -282,11 +282,24 @@ public class DeviceController {
                          .map(GprsMessageEntity::getContent)
                          .collect(Collectors.toList());
   }
-  
+
+  /**
+   * Get queued messages of a controller
+   *
+   * @param controller you want to get the messages from
+   * @param deviceId you want to check
+   * @return queued messages
+   */
   public GprsMessageEntity getQueuedGprsMessageForController(ControllerEntity controller, long deviceId) {
     return gprsMessageDAO.findOneByController(controller, deviceId);
   }
-  
+
+  /**
+   * Deletes a Gprs message from a controller
+   *
+   * @param controller you want to delete a message from
+   * @param message you want to delete specifically
+   */
   public void deleteGprsMessageFromController(ControllerEntity controller, GprsMessageEntity message) {
     gprsMessageDAO.deleteGprsMessageFromController(controller, message); 
   }
