@@ -42,6 +42,9 @@ import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.api.model.MessageType;
 
+/**
+ * File handles communication with the device
+ */
 public class DeviceCommunicator {
   
   private static String ENDPOINT_SETTING = "deviceCommunicator.endpoint";
