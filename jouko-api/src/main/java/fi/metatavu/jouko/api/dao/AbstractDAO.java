@@ -180,8 +180,6 @@ public abstract class AbstractDAO<T> {
   }
 
   /**
-   * Returns the entity manager used by this DAO
-   *
    * @return the entity manager used by this DAO
    */
   protected EntityManager getEntityManager() {
