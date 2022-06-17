@@ -27,7 +27,7 @@ public class KeycloakAdminClient {
    * @param serverUrl where keycloak is located at
    * @param realmId is the realm name
    * @param username of keycloak user
-   * @param secret
+   * @param secret of keycloak user
    * @param clientId that's used to interact with the keycloak server
    */
   public KeycloakAdminClient(String serverUrl, String realmId, String username, String secret, String clientId, Keycloak keycloakInstance) {
@@ -46,7 +46,7 @@ public class KeycloakAdminClient {
    * @param realmId is the realm you want to control / name
    * @param username of keycloak user
    * @param clientId  that's used to interact with the keycloak server
-   * @param keycloakInstance
+   * @param keycloakInstance keycloak instance
    * @return Keycloak instance of keycloak
    */
   private Keycloak initializeKeycloak(String serverUrl, String realmId, String username, String secret, String clientId, Keycloak keycloakInstance) {
