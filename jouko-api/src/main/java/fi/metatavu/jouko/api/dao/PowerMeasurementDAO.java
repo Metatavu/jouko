@@ -123,7 +123,7 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
 
   /**
    * Creates a list of power measurements for a single device using date as a filter
-   * 
+   *
    * @param device
    * @param fromTime
    * @param toTime

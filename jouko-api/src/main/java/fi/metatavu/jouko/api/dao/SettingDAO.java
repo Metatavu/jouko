@@ -16,7 +16,7 @@ public class SettingDAO extends AbstractDAO<SettingEntity> {
 
   /**
    * Find setting by key
-   * 
+   *
    * @param key
    * @return setting or null if not found
    */
