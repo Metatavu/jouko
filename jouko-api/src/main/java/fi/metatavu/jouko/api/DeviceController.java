@@ -78,7 +78,7 @@ public class DeviceController {
   /**
    * List all controllers
    *
-   * @param firstResult
+   * @param firstResult to start from
    * @param maxResults how many controllers want to return
    * @return all controllers
    */
@@ -93,7 +93,7 @@ public class DeviceController {
    * List devices by user
    *
    * @param user you want to get devices from
-   * @param firstResult
+   * @param firstResult to start from
    * @param maxResults how many results you want
    * @return devices of a user
    */
@@ -164,8 +164,8 @@ public class DeviceController {
    * @param measurementType that was used
    * @param startTime from when
    * @param endTime from to
-   * @param phaseNumber
-   * @param relayIsOpen
+   * @param phaseNumber of the measurement
+   * @param relayIsOpen if the relay is open
    * @return adds a measurement to a device
    */
   public DevicePowerMeasurementEntity addPowerMeasurement(

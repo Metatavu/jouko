@@ -53,7 +53,7 @@ public class InterruptionController {
   /**
    * List all interruption groups
    *
-   * @param firstResult
+   * @param firstResult you want to start from
    * @param maxResults you want to return
    * @return interruption groups
    */
@@ -76,8 +76,8 @@ public class InterruptionController {
   /**
    * Cancel a interruption
    *
-   * @param interruption
-   * @param cancelled
+   * @param interruption you want to cancel
+   * @param cancelled true if you want to cancel the interruption
    */
   public void setInterruptionCancelled(InterruptionEntity interruption, boolean cancelled) {
     interruption.setCancelled(cancelled);
@@ -90,7 +90,7 @@ public class InterruptionController {
   /**
    * Deletes an interruption by device
    *
-   * @param interruption
+   * @param interruption you want to delete
    * @param device that has the interruption
    */
   public void deleteInterruptionByDevice(InterruptionEntity interruption, DeviceEntity device) {
@@ -100,7 +100,7 @@ public class InterruptionController {
   /**
    * Deletes a interruption
    *
-   * @param interruption
+   * @param interruption you want to delete
    */
   public void deleteInterruption(InterruptionEntity interruption) {
     interruptionDAO.deleteInterruption(interruption);
@@ -141,7 +141,7 @@ public class InterruptionController {
    *
    * @param startTime you want to start the interruption from
    * @param endTime you want to end the interruption at
-   * @param overbookingFactor
+   * @param overbookingFactor you want the overbooking factor to be
    * @param powerSavingGoalInWatts is the watts amount you trying to achieve with this interruption
    * @return a new interruption group
    */

@@ -34,7 +34,7 @@ public class UserController {
 
   /**
    * Get user by keycloak id
-   * 
+   *
    * @param keycloakId keycloak id
    * @return keycloak user
    */
