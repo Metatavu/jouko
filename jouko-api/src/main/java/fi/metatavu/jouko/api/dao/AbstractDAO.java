@@ -94,7 +94,7 @@ public abstract class AbstractDAO<T> {
   /**
    * Returns count of all entities
    * 
-   * @return entity count
+   * @return entity count from database
    */
   public Long count() {
     Class<?> genericTypeClass = getGenericTypeClass();
@@ -105,7 +105,7 @@ public abstract class AbstractDAO<T> {
   /**
    * Deletes entity
    * 
-   * @param e entity
+   * @param e entity to delete
    */
   public void delete(T e) {
     getEntityManager().remove(e);
@@ -154,8 +154,8 @@ public abstract class AbstractDAO<T> {
   /**
    * Prints query as HQL. Used for debugging purposes only
    * 
-   * @param query query
-   * @return query as HQL
+   * @param query query to print
+   * @return query as HQL string
    */
   protected String getQueryHQL(Query query) {
     return ((CriteriaQueryTypeQueryAdapter<?>) query).getHibernateQuery().getQueryString();
