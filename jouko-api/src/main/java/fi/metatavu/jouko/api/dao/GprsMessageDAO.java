@@ -36,6 +36,11 @@ public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
     em.createQuery(delete).executeUpdate();
   }
 
+  /**
+   * Clear a controller's messages
+   *
+   * @param controller
+   */
   public void clearControllerMessages(
       ControllerEntity controller
   ) {
@@ -51,7 +56,13 @@ public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
     
     em.createQuery(delete).executeUpdate();
   }
-  
+
+  /**
+   * List controllers
+   *
+   * @param controller
+   * @return
+   */
   public List<GprsMessageEntity> listByController(
       ControllerEntity controller
   ) {
@@ -68,7 +79,14 @@ public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
     
     return em.createQuery(criteria).getResultList();
   }
-  
+
+  /**
+   * Find controller of device using deviceId
+   *
+   * @param controller
+   * @param deviceId
+   * @return
+   */
   public GprsMessageEntity findOneByController(ControllerEntity controller, long deviceId) {
     EntityManager em = getEntityManager();
     
@@ -141,7 +159,13 @@ public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
     
     return null;
   }
-  
+
+  /**
+   * Delete Gprs message from specified controller
+   *
+   * @param controller
+   * @param message
+   */
   public void deleteGprsMessageFromController(ControllerEntity controller, GprsMessageEntity message) {
     EntityManager em = getEntityManager();
     
