@@ -8,6 +8,7 @@ const finland = require('../flags/Finland.png');
 const sweden = require('../flags/Sweden.png');
 const unitedKingdom = require('../flags/United_Kingdom.png');
 
+// Creates the flag bar for the language selection and changes the i18n localisation accordingly
 export class FlagBar
     extends React.Component {
     render() {
