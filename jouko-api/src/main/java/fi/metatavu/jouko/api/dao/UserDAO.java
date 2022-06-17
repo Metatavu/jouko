@@ -38,6 +38,7 @@ public class UserDAO extends AbstractDAO<UserEntity> {
    *
    * @param keycloakId keycloak user id
    * @return user or null if not found
+   * @throws RuntimeException if there are multiple users with the same ID
    */
   public UserEntity findByKeycloakId(String keycloakId) {
     EntityManager em = getEntityManager();

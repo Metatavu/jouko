@@ -19,6 +19,7 @@ public class SettingDAO extends AbstractDAO<SettingEntity> {
    *
    * @param key
    * @return setting or null if not found
+   * @throws RuntimeException if one key has two settings assigned
    */
   public SettingEntity findByKey(String key) {
     EntityManager em = getEntityManager();
