@@ -1,30 +1,5 @@
 package fi.metatavu.jouko.api;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.protobuf.InvalidProtocolBufferException;
-import fi.metatavu.jouko.api.device.DeviceCommunicator;
-import fi.metatavu.jouko.api.device.Laiteviestit.*;
-import fi.metatavu.jouko.api.model.ControllerEntity;
-import fi.metatavu.jouko.api.model.DeviceEntity;
-import fi.metatavu.jouko.api.model.GprsMessageEntity;
-import fi.metatavu.jouko.api.model.MeasurementType;
-import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.slf4j.Logger;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -34,6 +9,39 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.protobuf.InvalidProtocolBufferException;
+
+import fi.metatavu.jouko.api.device.DeviceCommunicator;
+import fi.metatavu.jouko.api.device.Laiteviestit.AikasynkLaitteelle;
+import fi.metatavu.jouko.api.device.Laiteviestit.AikasynkLaitteelta;
+import fi.metatavu.jouko.api.device.Laiteviestit.Mittaukset;
+import fi.metatavu.jouko.api.device.Laiteviestit.ViestiLaitteelle;
+import fi.metatavu.jouko.api.device.Laiteviestit.ViestiLaitteelta;
+import fi.metatavu.jouko.api.model.ControllerEntity;
+import fi.metatavu.jouko.api.model.DeviceEntity;
+import fi.metatavu.jouko.api.model.GprsMessageEntity;
+import fi.metatavu.jouko.api.model.MeasurementType;
 
 @Stateless
 @Path("/gprs")
@@ -134,7 +142,12 @@ public class GprsApi {
       this.payloadHex = payloadHex;
     }
   }
-  
+
+  /**
+   * @POST
+   * @Path("/lora/")
+   * Creates API path to communicate with Lora device
+   */
   @POST
   @Path("/lora/")
   public Response communicateWithLoraDevice(
@@ -150,6 +163,7 @@ public class GprsApi {
     String payloadHex = uplink.getPayloadHex();
     String message;
     try {
+      // Decode payload hex to string
       message = new String(Hex.decodeHex(payloadHex.toCharArray()),
                                   StandardCharsets.US_ASCII);
     } catch (DecoderException e) {
@@ -176,6 +190,7 @@ public class GprsApi {
     }
 
     String hashedStringKey = hashedStringNoKey + controller.getKey();
+    // Create a hash using SHA-256 algorithm
     String hash = DigestUtils.sha256Hex(hashedStringKey.getBytes(StandardCharsets.UTF_8));
     logger.info("kellonaika: {}", time);
     logger.info("hash: {}", hash);
@@ -215,7 +230,7 @@ public class GprsApi {
           unpackMittaukset(mittaukset);
           System.out.println("MITTAUKSET UNPACKATTU!");
         }
-      } catch (InvalidDeviceException ex) {
+      } catch (InvalidProtocolBufferException | InvalidDeviceException ex) {
         return Response
             .status(400)
             .entity(String.format("Protobuf error: %s", ex.getMessage()))
@@ -225,7 +240,12 @@ public class GprsApi {
 
     return Response.ok().build();
   }
-  
+
+  /**
+    @POST
+    @Path("/gprs/{eui}")
+    Creates API path for GPRS device communication
+  */
   @POST
   @Path("/gprs/{eui}")
   public Response communicateWithGprsDevice(@PathParam("eui") String eui, String content) {
@@ -244,6 +264,7 @@ public class GprsApi {
     
     while (messageMatcher.find()) {
       String base64 = messageMatcher.group(1);
+      // Decode base64 to bytes
       byte[] bytes = Base64.decodeBase64(base64);
      
       try {
@@ -292,7 +313,7 @@ public class GprsApi {
       measurementLength = 5;
     }
     int numMeasurements = mittaukset.getKeskiarvotCount();
-    
+
     Instant time = endTime.minus((numMeasurements / 3 ) * measurementLength, ChronoUnit.MINUTES);
     
     int phaseNumber = 0;
