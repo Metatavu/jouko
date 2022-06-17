@@ -8,9 +8,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import fi.metatavu.jouko.api.model.DeviceEntity;
-import fi.metatavu.jouko.api.model.InterruptionEntity;
-import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
 import fi.metatavu.jouko.api.model.UserEntity;
 import fi.metatavu.jouko.api.model.UserEntity_;
 
