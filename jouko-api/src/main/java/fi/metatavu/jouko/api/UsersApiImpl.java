@@ -90,7 +90,7 @@ public class UsersApiImpl implements UsersApi {
    * @param userId of a user
    * @param firstResult
    * @param maxResults that can be returned
-   * @return devices
+   * @return devices of a user
    * @throws Exception
    */
   @Override
@@ -121,7 +121,7 @@ public class UsersApiImpl implements UsersApi {
    * @param fromTime filter from where you want results from
    * @param toTime filter where to you want the results to end
    * @param deviceId you want the interruptions from
-   * @return
+   * @return list of interruptions of a user
    * @throws Exception
    */
   @Override
@@ -153,7 +153,7 @@ public class UsersApiImpl implements UsersApi {
    * @param userId to cancel specific user's interruptions
    * @param interruptionId is the interruption you want to cancel specifically
    * @param body
-   * @return
+   * @return cancelled interruption
    * @throws Exception
    */
   @Override
