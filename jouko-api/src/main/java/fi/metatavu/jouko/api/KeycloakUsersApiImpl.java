@@ -37,7 +37,13 @@ public class KeycloakUsersApiImpl implements KeycloakUsersApi {
     result.setKeycloakId(UUID.fromString(entity.getKeycloakId()));
     return result;
   }
-  
+
+  /**
+   * Get user by keycloak id
+   * @param keycloakId keycloak id
+   * @return user
+   * @throws Exception if user could not be found
+   */
   @Override
   public Response getUserByKeycloakId(UUID keycloakId) throws Exception {
     UserEntity userEntity = userController.findUserByKeycloakId(keycloakId.toString());
@@ -49,7 +55,13 @@ public class KeycloakUsersApiImpl implements KeycloakUsersApi {
       return Response.ok(userFromEntity(userEntity)).build();
     }
   }
-  
+
+  /**
+   * List keycloak users
+   * @param token keycloak token
+   * @return list of keycloak users
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response listKeycloakUsers(String token) throws Exception {
     if (token == null || token.isEmpty()) {
