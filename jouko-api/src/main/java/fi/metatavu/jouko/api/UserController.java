@@ -34,6 +34,7 @@ public class UserController {
 
   /**
    * Get user by keycloak id
+   * 
    * @param keycloakId keycloak id
    * @return keycloak user
    */
@@ -43,6 +44,7 @@ public class UserController {
 
   /**
    * Get user by id
+   *
    * @param id user id
    * @return user
    */
@@ -52,6 +54,7 @@ public class UserController {
 
   /**
    * Get list of all users
+   *
    * @return list of users
    */
   public List<UserEntity> listUsers() {
@@ -60,6 +63,7 @@ public class UserController {
 
   /**
    * Create user
+   *
    * @param user you want to create
    * @param keycloakId keycloak id
    * @return created user
@@ -74,6 +78,7 @@ public class UserController {
 
   /**
    * Create a new keycloak user
+   *
    * @param user The user to create
    * @param token The token to use for authentication
    * @return The created user
