@@ -12,6 +12,11 @@ public class SettingController {
   @Inject
   private SettingDAO settingDAO;
 
+  /**
+   * Reads the setting, otherwise throws an exception that no setting exists for the key
+   * @param key is an ID for the setting
+   * @return settings data
+   */
   public String getSetting(String key) {
     SettingEntity setting = settingDAO.findByKey(key);
     if (setting != null) {
