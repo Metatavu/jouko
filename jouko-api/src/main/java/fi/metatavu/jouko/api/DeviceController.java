@@ -60,14 +60,28 @@ public class DeviceController {
     ) {
     return controllerDAO.create(eui, key, communicationChannel);
   }
-  
+
+  /**
+   * List all devices
+   *
+   * @param firstResult
+   * @param maxResults for how many devices you want to return
+   * @return all devices
+   */
   public List<DeviceEntity> listAll(
       Integer firstResult,
       Integer maxResults
   ) {
     return deviceDAO.listAll(firstResult, maxResults);
   }
-  
+
+  /**
+   * List all controllers
+   *
+   * @param firstResult
+   * @param maxResults how many controllers want to return
+   * @return all controllers
+   */
   public List<ControllerEntity> listControllerDevices(
       Integer firstResult,
       Integer maxResults
@@ -75,6 +89,14 @@ public class DeviceController {
     return controllerDAO.listAll(firstResult, maxResults);
   }
 
+  /**
+   * List devices by user
+   *
+   * @param user you want to get devices from
+   * @param firstResult
+   * @param maxResults how many results you want
+   * @return devices of a user
+   */
   public List<DeviceEntity> listByUser(
       UserEntity user,
       Integer firstResult,
@@ -82,27 +104,70 @@ public class DeviceController {
   ) {
     return deviceDAO.listByUser(user, firstResult, maxResults);
   }
-  
+
+  /**
+   * List devices by interruption
+   *
+   * @param interruption you want to return
+   * @return interruptions of devices
+   */
   public List<DeviceEntity> listByInterruption(InterruptionEntity interruption) {
     return deviceDAO.listByInterruption(interruption);
   }
 
+  /**
+   * Find a device using the deviceId
+   *
+   * @param deviceId you want to find
+   * @return device
+   */
   public DeviceEntity findById(Long deviceId) {
     return deviceDAO.findById(deviceId);
   }
-  
+
+  /**
+   * Find controller by id
+   *
+   * @param id of a controller
+   * @return controller
+   */
   public ControllerEntity findControllerById(long id) {
     return controllerDAO.findById(id);
   }
 
+  /**
+   * Find controller using euid instead
+   *
+   * @param eui of a controller
+   * @return controller
+   */
   public ControllerEntity findControllerByEui(String eui) {
     return controllerDAO.findByEui(eui);
   }
-  
+
+  /**
+   * Find controller using Eui and Key
+   *
+   * @param eui of a controller
+   * @param key of a device
+   * @return controller
+   */
   public ControllerEntity findControllerByEuiAndKey(String eui, String key) {
     return controllerDAO.findByEuiAndKey(eui, key);
   }
-  
+
+  /**
+   * Add a power measurement
+   *
+   * @param device you want to add a power measurement to
+   * @param measurementValue that was measured
+   * @param measurementType that was used
+   * @param startTime from when
+   * @param endTime from to
+   * @param phaseNumber
+   * @param relayIsOpen
+   * @return adds a measurement to a device
+   */
   public DevicePowerMeasurementEntity addPowerMeasurement(
       DeviceEntity device,
       double measurementValue,
@@ -121,7 +186,15 @@ public class DeviceController {
         phaseNumber,
         relayIsOpen);
   }
-      
+
+  /**
+   * Get the average consumption of a device in Watts
+   *
+   * @param device you want to get consumption from
+   * @param fromTime you want the results from
+   * @param toTime where you want to filter to
+   * @return average consumption in watts
+   */
   public double averageConsumptionInWatts(DeviceEntity device, OffsetDateTime fromTime, OffsetDateTime toTime) {
     // TODO handle different measurement durations
     // TODO do in database
@@ -157,15 +230,39 @@ public class DeviceController {
     
     return averagePowerInWatts;
   }
-  
+
+  /**
+   * List power measurements by devices
+   *
+   * @param devices you want to get power measurements from
+   * @param fromTime you want the results from
+   * @param toTime where you want to filter to
+   * @return power measurements
+   */
   public List<DevicePowerMeasurementEntity> listPowerMeasurementsByDevices(List<DeviceEntity> devices, OffsetDateTime fromTime, OffsetDateTime toTime) {
     return powerMeasurementDAO.listByDevices(devices, fromTime, toTime);
   }
-  
+
+  /**
+   * List power measurements of a single device
+   *
+   * @param device you want to get power measurements from
+   * @param fromTime you want the results from
+   * @param toTime where you want to filter to
+   * @return power measurements
+   */
   public List<DevicePowerMeasurementEntity> listPowerMeasurementsByDevice(DeviceEntity device, OffsetDateTime fromTime, OffsetDateTime toTime) {
     return powerMeasurementDAO.listByDevice(device, fromTime, toTime);
   }
-  
+
+  /**
+   * Create a Gprs message
+   *
+   * @param controller you want to use
+   * @param deviceId you want to create the message for
+   * @param message you want to send
+   * @param messageType you want to use
+   */
   public void queueGprsMessage(ControllerEntity controller, long deviceId, String message, MessageType messageType) {
     gprsMessageDAO.create(controller, deviceId, message, messageType);
   }
