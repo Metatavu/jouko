@@ -34,7 +34,10 @@ public class SecurityFilter implements ContainerRequestFilter {
     if (!pathParts[1].equals("gprs") && !pathParts[2].equals("gprs")) {
       return;
     }
-    
+
+    /*
+        * Check that the authorization header is correct and contains correct data.
+    */
     String authorizationHeader = requestContext.getHeaderString(AUTHORIZATION_HEADER);
     if (StringUtils.isBlank(authorizationHeader)) {
       handleUnuauthorizedRequest(requestContext, "Missing authorization header");
