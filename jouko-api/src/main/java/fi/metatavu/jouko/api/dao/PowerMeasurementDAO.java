@@ -25,6 +25,7 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
 
   /**
    * Creates a new power measurement for a device
+   *
    * @param device device to create measurement for
    * @param measurementValue measurement value
    * @param measurementType is the power measurement

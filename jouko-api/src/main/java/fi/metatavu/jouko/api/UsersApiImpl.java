@@ -91,7 +91,7 @@ public class UsersApiImpl implements UsersApi {
    * @param firstResult
    * @param maxResults that can be returned
    * @return devices of a user
-   * @throws Exception
+   * @throws Exception if something goes wrong
    */
   @Override
   public Response listDevices(
@@ -122,7 +122,7 @@ public class UsersApiImpl implements UsersApi {
    * @param toTime filter where to you want the results to end
    * @param deviceId you want the interruptions from
    * @return list of interruptions of a user
-   * @throws Exception
+   * @throws Exception if something goes wrong
    */
   @Override
   public Response listInterruptions(
@@ -154,7 +154,7 @@ public class UsersApiImpl implements UsersApi {
    * @param interruptionId is the interruption you want to cancel specifically
    * @param body
    * @return cancelled interruption
-   * @throws Exception
+   * @throws Exception if interruption not found
    */
   @Override
   public Response setInterruptionCancelled(Long userId, Long interruptionId, InterruptionCancellation body) throws Exception {
@@ -179,7 +179,7 @@ public class UsersApiImpl implements UsersApi {
    * @param fromTime filter from when you want the results from
    * @param toTime filter to when you want the results to
    * @return measurements of a user
-   * @throws Exception
+   * @throws Exception if something goes wrong
    */
   @Override
   public Response listAllMeasurements(Long userId, OffsetDateTime fromTime, OffsetDateTime toTime) throws Exception {
@@ -203,7 +203,7 @@ public class UsersApiImpl implements UsersApi {
    * @param fromTime filter from when you want the results
    * @param toTime filter to when you want the results
    * @return measurements of a specific device
-   * @throws Exception
+   * @throws Exception if something goes wrong
    */
   @Override
   public Response listMeasurementsByDevice(Long userId, Long deviceId, OffsetDateTime fromTime, OffsetDateTime toTime) throws Exception {

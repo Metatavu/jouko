@@ -40,6 +40,7 @@ public class KeycloakUsersApiImpl implements KeycloakUsersApi {
 
   /**
    * Get user by keycloak id
+   *
    * @param keycloakId keycloak id
    * @return user
    * @throws Exception if user could not be found
@@ -58,6 +59,7 @@ public class KeycloakUsersApiImpl implements KeycloakUsersApi {
 
   /**
    * List keycloak users
+   *
    * @param token keycloak token
    * @return list of keycloak users
    * @throws Exception if something goes wrong

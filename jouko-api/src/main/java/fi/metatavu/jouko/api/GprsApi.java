@@ -307,6 +307,7 @@ public class GprsApi {
 
   /**
    * Unpacks messages from GPRS device
+   *
    * @param mittaukset Measurements from GPRS device
    * @throws InvalidDeviceException If device is not found
    */
@@ -351,6 +352,7 @@ public class GprsApi {
 
   /**
    * Unpacks timesync message
+   *
    * @param viestiLaitteelta is the message from the device
    * @param messages is the list of messages
    * @throws InvalidProtocolBufferException if the message is invalid

@@ -205,6 +205,7 @@ public class AdminApiImpl implements AdminApi {
 
   /**
    * List of all devices
+   *
    * @param firstResult first result to return
    * @param maxResults max results to return
    * @return list of devices
@@ -222,6 +223,7 @@ public class AdminApiImpl implements AdminApi {
 
   /**
    * Create a new device
+   *
    * @param body of the request
    * @return created device
    * @throws Exception if something goes wrong
@@ -238,6 +240,7 @@ public class AdminApiImpl implements AdminApi {
 
   /**
    * Create a new user
+   *
    * @param body of the request
    * @param token to authenticate
    * @return created user
@@ -253,6 +256,7 @@ public class AdminApiImpl implements AdminApi {
 
   /**
    * List of all users
+   *
    * @param firstResult first result to return
    * @param maxResults max results to return
    * @return list of users
@@ -295,6 +299,7 @@ public class AdminApiImpl implements AdminApi {
 
   /**
    * Create a new controller device
+   *
    * @param body of request
    * @return created controller device
    * @throws Exception if something goes wrong
@@ -311,6 +316,7 @@ public class AdminApiImpl implements AdminApi {
 
   /**
    * List of all controller devices
+   *
    * @param firstResult first result to return
    * @param maxResults max results to return
    * @return list of controller devices
@@ -340,7 +346,8 @@ public class AdminApiImpl implements AdminApi {
   }
 
   /**
-   * Delete a interruption from a group
+   * Delete an interruption from a group
+   *
    * @param groupId of the group
    * @return deleted interruption
    * @throws Exception if something goes wrong
