@@ -27,7 +27,7 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
    *
    * @param device you want ot create an interruption for
    * @param group to assign the device to
-   * @return
+   * @return a new interruption
    */
   public InterruptionEntity create(
       DeviceEntity device,
@@ -49,7 +49,7 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
    * @param device you want to retrieve interruptions from
    * @param fromTime filter from when
    * @param toTime filter to when
-   * @return
+   * @return list of interruptions
    */
   public List<InterruptionEntity> listByDeviceAndDate(
       DeviceEntity device,
@@ -152,7 +152,7 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
   /**
    * Deletes interruption
    *
-   * @param entity
+   * @param entity is the interruption that you want to delete
    */
   public void deleteInterruption(InterruptionEntity entity) {
     EntityManager em = getEntityManager();
@@ -173,9 +173,9 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
   /**
    * Set interruption as cancelled
    *
-   * @param entity
-   * @param cancelled
-   * @return
+   * @param entity is the interruption that you want to cancel
+   * @param cancelled is the new value of cancelled
+   * @return cancelled interruption
    */
   public InterruptionEntity updateCancelled(InterruptionEntity entity, boolean cancelled) {
     entity.setCancelled(cancelled);
@@ -186,9 +186,9 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
   /**
    * Set interruption cancellation time
    *
-   * @param entity
-   * @param cancellationTime
-   * @return
+   * @param entity is the interruption that you want to cancel
+   * @param cancellationTime is the new value of cancellation time
+   * @return cancelled interruption
    */
   public InterruptionEntity updateCancellationTime(InterruptionEntity entity, OffsetDateTime cancellationTime) {
     entity.setCancellationTime(cancellationTime);
