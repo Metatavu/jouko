@@ -82,7 +82,10 @@ public class FileUploadServlet extends HttpServlet {
       InputStream filecontent = null;
       final PrintWriter writer = resp.getWriter();
 
-      try {
+        /**
+         * Reads the file that was uploaded and processes it on the API end writing it to a path
+         */
+        try {
           out = new FileOutputStream(new File(path + File.separator
                   + name));
           filecontent = filePart.getInputStream();
