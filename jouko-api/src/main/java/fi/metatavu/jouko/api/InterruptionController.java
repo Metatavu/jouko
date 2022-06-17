@@ -42,7 +42,7 @@ public class InterruptionController {
     return interruptionGroupDAO.listAll(firstResult, maxResults);
   }
   
-  public void deleteInerruptionGroup(Long id) {
+  public void deleteInterruptionGroup(Long id) {
     interruptionGroupDAO.deleteInterruptionGroupById(id);
   }
 

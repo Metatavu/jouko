@@ -260,7 +260,7 @@ public class AdminApiImpl implements AdminApi {
       interruptionController.deleteInterruption(entity);
     }
     
-    interruptionController.deleteInerruptionGroup(groupId);
+    interruptionController.deleteInterruptionGroup(groupId);
     return Response.ok().build();
   }
 
