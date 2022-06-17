@@ -31,7 +31,13 @@ public class DeviceDAO extends AbstractDAO<DeviceEntity> {
     getEntityManager().persist(device);
     return device;
   }
-  
+
+  /**
+   * List device by interruption
+   *
+   * @param entity
+   * @return
+   */
   public List<DeviceEntity> listByInterruption(InterruptionEntity entity) {
     EntityManager em = getEntityManager();
     
@@ -48,6 +54,14 @@ public class DeviceDAO extends AbstractDAO<DeviceEntity> {
     return em.createQuery(criteria).getResultList();
   }
 
+  /**
+   * List user devices by using the user
+   *
+   * @param user
+   * @param firstResult
+   * @param maxResults
+   * @return
+   */
   public List<DeviceEntity> listByUser(UserEntity user, int firstResult, int maxResults) {
     EntityManager em = getEntityManager();
     
