@@ -35,8 +35,8 @@ public class DeviceDAO extends AbstractDAO<DeviceEntity> {
   /**
    * List device by interruption
    *
-   * @param entity
-   * @return
+   * @param entity you want to retrieve interruptions from
+   * @return list of interruptions
    */
   public List<DeviceEntity> listByInterruption(InterruptionEntity entity) {
     EntityManager em = getEntityManager();
@@ -57,10 +57,10 @@ public class DeviceDAO extends AbstractDAO<DeviceEntity> {
   /**
    * List user devices by using the user
    *
-   * @param user
-   * @param firstResult
-   * @param maxResults
-   * @return
+   * @param user you want to retrieve devices from
+   * @param firstResult first result
+   * @param maxResults max results you want to retrieve
+   * @return list of devices
    */
   public List<DeviceEntity> listByUser(UserEntity user, int firstResult, int maxResults) {
     EntityManager em = getEntityManager();
