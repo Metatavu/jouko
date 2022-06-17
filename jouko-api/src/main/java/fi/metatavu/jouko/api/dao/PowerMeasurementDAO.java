@@ -22,7 +22,18 @@ import fi.metatavu.jouko.server.rest.model.Device;
 
 @Dependent
 public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntity> {
-  
+
+  /**
+   * Creates a new power measurement for a device
+   * @param device device to create measurement for
+   * @param measurementValue measurement value
+   * @param measurementType is the power measurement
+   * @param startTime start time of the measurement
+   * @param endTime end time of the measurement
+   * @param phaseNumber phase number of the measurement
+   * @param relayIsOpen is the relay open
+   * @return the new power measurement
+   */
   public DevicePowerMeasurementEntity create(
       DeviceEntity device,
       double measurementValue,
