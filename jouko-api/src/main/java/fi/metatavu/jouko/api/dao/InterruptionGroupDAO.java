@@ -21,13 +21,13 @@ import fi.metatavu.jouko.api.model.InterruptionGroupEntity_;
 public class InterruptionGroupDAO extends AbstractDAO<InterruptionGroupEntity> {
 
   /**
-   * Creates new interruption group
+   * Creates a new interruption group
    *
-   * @param startTime
-   * @param endTime
+   * @param startTime when to start interruption
+   * @param endTime when to end interruption
    * @param overbookingFactor
    * @param powerSavingGoalInWatts
-   * @return
+   * @return a new group
    */
   public InterruptionGroupEntity create(
       OffsetDateTime startTime,
@@ -44,9 +44,9 @@ public class InterruptionGroupDAO extends AbstractDAO<InterruptionGroupEntity> {
   }
 
   /**
-   * Deletes a interruption group by id
+   * Deletes an interruption group by id
    *
-   * @param id
+   * @param id of interruption group
    */
   public void deleteInterruptionGroupById(Long id) {
     EntityManager em = getEntityManager();
@@ -65,12 +65,12 @@ public class InterruptionGroupDAO extends AbstractDAO<InterruptionGroupEntity> {
   }
 
   /**
-   * Updates a interruption group
+   * Updates an interruption group
    *
-   * @param entity
-   * @param startTime
-   * @param endTime
-   * @return
+   * @param entity the id of the interruption group that wish to change
+   * @param startTime from when
+   * @param endTime to when
+   * @return updated interruption group
    */
   public InterruptionGroupEntity update(
       InterruptionGroupEntity entity,

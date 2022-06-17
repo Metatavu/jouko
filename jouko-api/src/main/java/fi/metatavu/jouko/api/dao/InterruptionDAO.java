@@ -25,8 +25,8 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
   /**
    * Creates an interruption to a device
    *
-   * @param device
-   * @param group
+   * @param device you want ot create an interruption for
+   * @param group to assign the device to
    * @return
    */
   public InterruptionEntity create(
@@ -46,9 +46,9 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
   /**
    * List device interruptions by date
    *
-   * @param device
-   * @param fromTime
-   * @param toTime
+   * @param device you want to retrieve interruptions from
+   * @param fromTime filter from when
+   * @param toTime filter to when
    * @return
    */
   public List<InterruptionEntity> listByDeviceAndDate(
@@ -78,9 +78,9 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
   /**
    * Lists all interruptions by date
    *
-   * @param fromTime
-   * @param toTime
-   * @return
+   * @param fromTime filter from when
+   * @param toTime filter from to
+   * @return interruptions in a specific time period
    */
   public List<InterruptionEntity> listByDate(OffsetDateTime fromTime, OffsetDateTime toTime) {
     EntityManager em = getEntityManager();
@@ -104,8 +104,8 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
   /**
    * Lists interruptions using group id
    *
-   * @param groupId
-   * @return
+   * @param groupId of an interruption group
+   * @return all interruption groups of an id
    */
   public List<InterruptionEntity> listByGroupId(Long groupId) {
     EntityManager em = getEntityManager();
@@ -127,8 +127,8 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
   /**
    * Deletes interruption from device
    *
-   * @param entity
-   * @param device
+   * @param entity is the interruption that you want to delete
+   * @param device is from what device the interruption want to be deleted from
    */
   public void deleteInterruptionFromDevice(InterruptionEntity entity, DeviceEntity device) {
     EntityManager em = getEntityManager();

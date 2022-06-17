@@ -49,9 +49,9 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
   /**
    * Creates a list of power measurements for devices
    *
-   * @param devices
-   * @param fromTime
-   * @param toTime
+   * @param devices (Passing multiple devices than a specific device of a user)
+   * @param fromTime filter from when
+   * @param toTime filter to when
    * @return list of power measurements
    */
   public List<DevicePowerMeasurementEntity> listByDevices(List<DeviceEntity> devices, OffsetDateTime fromTime, OffsetDateTime toTime) {
@@ -80,10 +80,10 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
   /**
    * Creates a list of power measurements for a single device
    *
-   * @param device
-   * @param fromTime
-   * @param toTime
-   * @return
+   * @param device of a user
+   * @param fromTime filter from when
+   * @param toTime filter to when
+   * @return list based on a single device
    */
   public List<DevicePowerMeasurementEntity> listByDevice(DeviceEntity device, OffsetDateTime fromTime, OffsetDateTime toTime) {
     EntityManager em = getEntityManager();
@@ -124,10 +124,10 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
   /**
    * Creates a list of power measurements for a single device using date as a filter
    *
-   * @param device
-   * @param fromTime
-   * @param toTime
-   * @return
+   * @param device of a user
+   * @param fromTime filter from when
+   * @param toTime filter to when
+   * @return list of power measurements using date
    */
   public List<DevicePowerMeasurementEntity> listByDeviceAndDate(
       DeviceEntity device,
