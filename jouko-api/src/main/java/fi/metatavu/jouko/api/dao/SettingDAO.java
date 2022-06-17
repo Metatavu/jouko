@@ -13,7 +13,13 @@ import fi.metatavu.jouko.api.model.SettingEntity_;
 
 @Dependent
 public class SettingDAO extends AbstractDAO<SettingEntity> {
-  
+
+  /**
+   * Find setting by key
+   * 
+   * @param key
+   * @return setting or null if not found
+   */
   public SettingEntity findByKey(String key) {
     EntityManager em = getEntityManager();
     
