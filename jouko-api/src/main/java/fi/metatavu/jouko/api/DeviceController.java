@@ -44,7 +44,15 @@ public class DeviceController {
   ) {
     return deviceDAO.create(controller, name, user);
   }
-  
+
+  /**
+   * Create a device controller
+   *
+   * @param eui for controller
+   * @param key for controller
+   * @param communicationChannel the controller uses
+   * @return the newly created controller
+   */
   public ControllerEntity createControllerDevice(
       String eui, 
       String key, 
