@@ -199,12 +199,27 @@ public class AdminApiImpl implements AdminApi {
     return Response.ok(deviceFromEntity(device)).build();
   }
 
+  /**
+   * Retrieve a user
+   *
+   * @param userId of the user you want to get
+   * @return the user
+   * @throws Exception
+   */
   @Override
   public Response retrieveUser(Long userId) throws Exception {
     UserEntity user = userController.findUserById(userId);
     return Response.ok(userFromEntity(user)).build();
   }
 
+  /**
+   * Update a device
+   *
+   * @param deviceId you want to update
+   * @param newDevice what you want to update it to
+   * @return positive response if update was successful
+   * @throws Exception
+   */
   @Override
   public Response updateDevice(Long deviceId, Device newDevice)
         throws Exception {
@@ -218,6 +233,14 @@ public class AdminApiImpl implements AdminApi {
     return Response.ok(newDevice).build();
   }
 
+  /**
+   * Update a user account
+   *
+   * @param userId of the user
+   * @param body is the details that want to update
+   * @return positive response if user was updated
+   * @throws Exception
+   */
   @Override
   public Response updateUser(Long userId, User body) throws Exception {
     UserEntity user = userController.findUserById(userId);
