@@ -20,8 +20,8 @@ public class UserDAO extends AbstractDAO<UserEntity> {
   /**
    * Creates a new user
    *
-   * @param user
-   * @return entity
+   * @param user the user to create
+   * @return entity created
    */
   public UserEntity create(UserEntity user) {
     UserEntity entity = new UserEntity(
