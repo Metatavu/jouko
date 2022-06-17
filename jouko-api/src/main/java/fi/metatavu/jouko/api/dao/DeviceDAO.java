@@ -20,12 +20,12 @@ import fi.metatavu.jouko.api.model.UserEntity;
 public class DeviceDAO extends AbstractDAO<DeviceEntity> {
 
   /**
-   * Creates a new device
+   * Creates a new device entity.
    *
-   * @param controller controller to assign the device to
-   * @param name name of the device
-   * @param user user to assign the device to
-   * @return a new device
+   * @param controller the controller that manages the device
+   * @param name the name of the device
+   * @param user the user that utilizes the device
+   * @return the newly created device
    */
   public DeviceEntity create(
       ControllerEntity controller,
@@ -41,7 +41,7 @@ public class DeviceDAO extends AbstractDAO<DeviceEntity> {
   }
 
   /**
-   * List device by interruption
+   * Lists the device entities by interruption
    *
    * @param entity you want to retrieve interruptions from
    * @return list of interruptions
@@ -63,12 +63,12 @@ public class DeviceDAO extends AbstractDAO<DeviceEntity> {
   }
 
   /**
-   * List user devices by using the user
+   * List the user's devices.
    *
-   * @param user you want to retrieve devices from
-   * @param firstResult first result
-   * @param maxResults max results you want to retrieve
-   * @return list of devices
+   * @param user the user to list the devices of
+   * @param firstResult the first result (index) to return
+   * @param maxResults the maximum amount of results to return
+   * @return the user's devices, sliced as {@code [firstResult...firstResult+maxResults]}
    */
   public List<DeviceEntity> listByUser(UserEntity user, int firstResult, int maxResults) {
     EntityManager em = getEntityManager();
