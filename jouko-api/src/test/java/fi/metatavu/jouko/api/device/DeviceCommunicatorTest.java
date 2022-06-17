@@ -27,7 +27,11 @@ public class DeviceCommunicatorTest {
   SettingController settingController;
   private List<String> postResults;
   DeviceCommunicator subject;
-  
+
+  /**
+   * Setups a mock device controller and setting controller
+   * Setups mock settings such as the endpoint
+   */
   @Before
   public void setUp() {
     deviceController = Mockito.mock(DeviceController.class);
