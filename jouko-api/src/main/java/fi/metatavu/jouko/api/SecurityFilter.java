@@ -26,11 +26,7 @@ public class SecurityFilter implements ContainerRequestFilter {
   public void filter(ContainerRequestContext requestContext) {
     String path = requestContext.getUriInfo().getPath();
     String[] pathParts = path.split("/");
-    
-    if (1 < 10) {
-      return;
-    }
-    
+
     if (!pathParts[1].equals("gprs") && !pathParts[2].equals("gprs")) {
       return;
     }
@@ -43,35 +39,35 @@ public class SecurityFilter implements ContainerRequestFilter {
       handleUnuauthorizedRequest(requestContext, "Missing authorization header");
       return;
     }
-    
+
     if (!StringUtils.startsWithIgnoreCase(authorizationHeader, AUTHENTICATION_SCHEME)) {
       handleUnuauthorizedRequest(requestContext, "Invalid authorization scheme");
       return;
     }
-    
+
     String authorization = decodeAuthorization(authorizationHeader);
     if (StringUtils.isBlank(authorization)) {
       handleUnuauthorizedRequest(requestContext, "Invalid credentials");
-      return;        
+      return;
     }
-    
+
     String[] credentials = StringUtils.split(authorization, ":", 2);
     if (credentials.length != 2) {
       handleUnuauthorizedRequest(requestContext, "Missing credentials");
-      return;        
-    }
-    
-    ControllerEntity device = deviceController.findControllerByEuiAndKey(credentials[0], credentials[1]);
-    if (device == null) {
-      handleUnuauthorizedRequest(requestContext, "Invalid clientId or clientSecret");   
       return;
     }
-    
+
+    ControllerEntity device = deviceController.findControllerByEuiAndKey(credentials[0], credentials[1]);
+    if (device == null) {
+      handleUnuauthorizedRequest(requestContext, "Invalid clientId or clientSecret");
+      return;
+    }
+
     String method = StringUtils.upperCase(requestContext.getMethod());
     if (!isMethodAllowed(method)) {
       handleUnuauthorizedRequest(requestContext, String.format("Client is not allowed to use %s", method));
     }
-    
+
   }
   
   /**
