@@ -304,7 +304,12 @@ public class GprsApi {
 
     return Response.ok(String.join(" ", messages)).build();
   }
-  
+
+  /**
+   * Unpacks messages from GPRS device
+   * @param mittaukset Measurements from GPRS device
+   * @throws InvalidDeviceException If device is not found
+   */
   private void unpackMittaukset(Mittaukset mittaukset) throws InvalidDeviceException {
     long deviceId = mittaukset.getLaiteID();
     
@@ -344,6 +349,12 @@ public class GprsApi {
   }
 
 
+  /**
+   * Unpacks timesync message
+   * @param viestiLaitteelta is the message from the device
+   * @param messages is the list of messages
+   * @throws InvalidProtocolBufferException if the message is invalid
+   */
   private void unpackAikasync(ViestiLaitteelta viestiLaitteelta, List<String> messages) throws InvalidProtocolBufferException  {
     if (viestiLaitteelta.hasAikasynkLaitteelta()) {
       AikasynkLaitteelta sync = viestiLaitteelta.getAikasynkLaitteelta();
