@@ -31,19 +31,39 @@ public class UserController {
   
   @Inject
   private SettingDAO settingDao;
-  
+
+  /**
+   * Get user by keycloak id
+   * @param keycloakId keycloak id
+   * @return keycloak user
+   */
   public UserEntity findUserByKeycloakId(String keycloakId) {
     return userDAO.findByKeycloakId(keycloakId);
   }
 
+  /**
+   * Get user by id
+   * @param id user id
+   * @return user
+   */
   public UserEntity findUserById(Long id) {
     return userDAO.findById(id);
   }
-  
+
+  /**
+   * Get list of all users
+   * @return list of users
+   */
   public List<UserEntity> listUsers() {
     return userDAO.listAll();
   }
-  
+
+  /**
+   * Create user
+   * @param user you want to create
+   * @param keycloakId keycloak id
+   * @return created user
+   */
   public UserEntity createUser(User user, String keycloakId) {
     UserEntity entity = new UserEntity();
     entity.setKeycloakId(keycloakId);
@@ -51,7 +71,13 @@ public class UserController {
     
     return userDAO.create(entity);
   }
-  
+
+  /**
+   * Create a new keycloak user
+   * @param user The user to create
+   * @param token The token to use for authentication
+   * @return The created user
+   */
   public String createKeycloakUser(User user, String token) {
     String kcUrl = settingDao.findByKey("keycloakUrl").getValue();
     String realm = settingDao.findByKey("keycloakRealm").getValue();
