@@ -15,9 +15,10 @@ public class UserEntity {
   @Column
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  // Use a separate keycloakId because the devices have very restricted
-  // communication bandwidth, so using UUIDs everywhere is not feasible
+  /**
+   * Use a separate keycloakId because the devices have very restricted
+   * communication bandwidth, so using UUIDs everywhere is not feasible
+   */
   @Column(nullable = false)
   @NotNull
   private String keycloakId;

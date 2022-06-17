@@ -114,8 +114,10 @@ public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
             criteriaBuilder.equal(root.get(GprsMessageEntity_.deviceId), deviceId)
         )
     );
-    
-    // Order results by ID
+
+    /**
+     * Order results by ID
+     */
     orderList.add(criteriaBuilder.asc(root.get(GprsMessageEntity_.id)));
     criteria.orderBy(orderList);
     
@@ -126,8 +128,10 @@ public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
     elseQuery = criteria.where(
       criteriaBuilder.equal(root.get(GprsMessageEntity_.controller), controller)
     );
-    
-    // Order results by ID
+
+    /**
+     * Order results by ID
+     */
     orderList.add(criteriaBuilder.asc(root.get(GprsMessageEntity_.id)));
     criteria.orderBy(orderList);
     

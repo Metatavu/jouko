@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 /**
- *
  * Initialises Jackson mapper for JSON serialization.
  */
 @Provider
