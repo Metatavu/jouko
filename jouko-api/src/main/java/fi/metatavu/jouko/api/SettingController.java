@@ -14,6 +14,7 @@ public class SettingController {
 
   /**
    * Reads the setting, otherwise throws an exception that no setting exists for the key
+   *
    * @param key is an ID for the setting
    * @return settings data
    */

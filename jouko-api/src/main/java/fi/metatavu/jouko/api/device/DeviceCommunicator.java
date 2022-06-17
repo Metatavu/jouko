@@ -186,6 +186,7 @@ public class DeviceCommunicator {
 
   /**
    * Encode the message if it's not encoded yet
+   * 
    * @param message to encode
    * @return encoded message
    */
