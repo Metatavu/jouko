@@ -141,9 +141,9 @@ public class UsersApiImpl implements UsersApi {
     List<DeviceEntity> deviceEntities = deviceController.listByUser(userEntity, 0, 99999);
     
     if (deviceEntities.size() > 0) {
-      List<DevicePowerMeasurementEntity> powermeasurements = deviceController.listPowerMeasurementsByDevices(deviceEntities, fromTime, toTime);
+      List<DevicePowerMeasurementEntity> power_measurements = deviceController.listPowerMeasurementsByDevices(deviceEntities, fromTime, toTime);
       
-      return Response.ok(powermeasurements).build();
+      return Response.ok(power_measurements).build();
     }
    
     return null;
@@ -154,9 +154,9 @@ public class UsersApiImpl implements UsersApi {
     DeviceEntity deviceEntity = deviceController.findById(deviceId);
     
     if (deviceEntity != null) {
-      List<DevicePowerMeasurementEntity> powermeasurements = deviceController.listPowerMeasurementsByDevice(deviceEntity, fromTime, toTime);
+      List<DevicePowerMeasurementEntity> power_measurements = deviceController.listPowerMeasurementsByDevice(deviceEntity, fromTime, toTime);
       
-      return Response.ok(powermeasurements).build();
+      return Response.ok(power_measurements).build();
     }
     return null;
   }
