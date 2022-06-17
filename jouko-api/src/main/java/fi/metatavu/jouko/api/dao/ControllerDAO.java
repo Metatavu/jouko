@@ -1,8 +1,6 @@
 package fi.metatavu.jouko.api.dao;
 
-import fi.metatavu.jouko.api.model.ControllerCommunicationChannel;
-import fi.metatavu.jouko.api.model.ControllerEntity;
-import fi.metatavu.jouko.api.model.ControllerEntity_;
+import java.util.List;
 
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
@@ -10,7 +8,14 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.List;
+
+import fi.metatavu.jouko.api.model.ControllerCommunicationChannel;
+import fi.metatavu.jouko.api.model.ControllerEntity;
+import fi.metatavu.jouko.api.model.ControllerEntity_;
+import fi.metatavu.jouko.api.model.DeviceEntity;
+import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
+import fi.metatavu.jouko.api.model.InterruptionGroupEntity_;
+import fi.metatavu.jouko.api.model.UserEntity;
 
 @Dependent
 public class ControllerDAO extends AbstractDAO<ControllerEntity> {
@@ -18,8 +23,8 @@ public class ControllerDAO extends AbstractDAO<ControllerEntity> {
   /**
    * Creates a new controller entity.
    *
-   * @param eui some parameter. what is an eui?
-   * @param key some parameter, presumably a database key or something?
+   * @param eui the eui of the controller entity
+   * @param key the key of the controller entity
    * @param communicationChannel the channel this controller uses, GPRS or LORA
    * @return a new controller entity
    */
@@ -32,6 +37,11 @@ public class ControllerDAO extends AbstractDAO<ControllerEntity> {
     return controllerDevice;
   }
 
+  /**
+   * Deletes the controller entity with the given ID.
+   *
+   * @param id the ID of the controller entity to delete.
+   */
   public void delete(Long id) {
     EntityManager em = getEntityManager();
 
@@ -48,6 +58,13 @@ public class ControllerDAO extends AbstractDAO<ControllerEntity> {
     em.createQuery(delete).executeUpdate();
   }
 
+  /**
+   * Finds a controller entity by its eui
+   *
+   * @param eui the eui of the requested controller entity
+   * @return the found controller entity or null if none was found
+   * @throws RuntimeException if more than one controller entity is found for the eui
+   */
   public ControllerEntity findByEui(String eui) {
     EntityManager em = getEntityManager();
 
@@ -70,6 +87,14 @@ public class ControllerDAO extends AbstractDAO<ControllerEntity> {
     }
   }
 
+  /**
+   * Finds a controller entity given the eui (Extended Unique Identifier) and key
+   *
+   * @param eui the eui of the controller entity
+   * @param key the key of the controller entity
+   * @return the controller entity matching the criteria, or null if none was found
+   * @throws RuntimeException if more than two entities are found
+   */
   public ControllerEntity findByEuiAndKey(String eui, String key) {
     EntityManager em = getEntityManager();
 

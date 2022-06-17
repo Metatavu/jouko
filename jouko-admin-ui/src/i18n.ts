@@ -33,7 +33,10 @@ const messages = {
         'sv': 'Enheten har lagts till framgångsrikt!'
     },
     'alertControllerDeviceCreated': {
-        'fi': 'Laite luotu'
+        'fi': 'Laite luotu',
+        'en': 'Device created',
+        'de': 'Gerät erstellt',
+        'sv': 'Enhet skapad'
     },
     'alertInterruptiongroupChanged': {
         'fi': 'Keskeytysryhmää on muokattu onnistuneesti!',
@@ -61,15 +64,15 @@ const messages = {
     },
     'alertUserCreatedError': {
         'fi': 'Tapahtui virhe käyttäjää luodessa. Onko sähköpostiosoite jo käytössä?',
-        'en': 'Error while creating user. Maybe email is taken?',
-        'de': 'Error while creating user. Maybe email is taken?',
-        'sv': 'Error while creating user. Maybe email is taken?'
+        'en': 'Error while creating user. Maybe the email is taken?',
+        'de': 'Ein Fehler ist aufgetreten während der Benutzer erstellen. Vielleicht ist der E-Mail genommen?',
+        'sv': 'Ett fel uppstod när användaren skapades. Kanske är mejlet tagit?'
     },
     'alertUpdateCreated': {
         'fi': 'Päivitys luotu!',
         'en': 'Update created!',
-        'de': 'Update created!',
-        'sv': 'Update created!'
+        'de': 'Aktualisierung ertstellt!',
+        'sv': 'Uppdatering skapad!'
     },
     'allControllerDevices': {
         'fi': 'Kaikki Ohjauslaitteet',
@@ -230,20 +233,20 @@ const messages = {
     'file': {
         'fi': 'Tiedosto',
         'en': 'File',
-        'de': 'File',
-        'sv': 'File'
+        'de': 'Datei',
+        'sv': 'Datafil'
     },
     'filename': {
         'fi': 'Tiedostonimi',
         'en': 'File name',
-        'de': 'File name',
-        'sv': 'File namen'
+        'de': 'Dateiname',
+        'sv': 'Datafilnamn'
     },
     'filenameInfo': {
         'fi': 'Käytetään ladatun tiedoston nimeä, jos ei asetettu',
         'en': 'If empty uploaded filename is used',
-        'de': 'If empty uploaded filename is used',
-        'sv': 'If empty uploaded filename is used'
+        'de': 'Falls die Datei nicht benamt wird, wird der Name der hochgeladenen Datei verwendet',
+        'sv': 'Om datafilen är inte namngiven kommer namnet på den uppladdade filen att användas'
     },
     'hello': {
         'fi': 'Hei',
@@ -282,7 +285,7 @@ const messages = {
         'sv': 'Nyckel'
     },
     'keycloakId': {
-        'fi': 'Keycloak-tunnus',
+        'fi': 'Keycloak-ID',
         'en': 'Keycloak ID',
         'de': 'Keycloak-ID',
         'sv': 'Keycloak ID'
@@ -320,7 +323,7 @@ const messages = {
     'newUpdatefile': {
         'fi': 'Uusi päivitys',
         'en': 'New Update',
-        'de': 'New update',
+        'de': 'Neues Aktualisierung',
         'sv': 'Ny update'
     },
     'newUser': {
@@ -534,7 +537,7 @@ const messages = {
     'userId': {
         'fi': 'Käyttäjätunniste',
         'en': 'User ID',
-        'de': 'User-ID',
+        'de': 'Benützer-ID',
         'sv': 'Användar ID'
     },
     'username': {
