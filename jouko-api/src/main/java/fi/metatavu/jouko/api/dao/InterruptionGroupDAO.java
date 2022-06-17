@@ -25,8 +25,8 @@ public class InterruptionGroupDAO extends AbstractDAO<InterruptionGroupEntity> {
    *
    * @param startTime when to start interruption
    * @param endTime when to end interruption
-   * @param overbookingFactor
-   * @param powerSavingGoalInWatts
+   * @param overbookingFactor how much to overbook the device
+   * @param powerSavingGoalInWatts power saving goal in watts
    * @return a new group
    */
   public InterruptionGroupEntity create(
