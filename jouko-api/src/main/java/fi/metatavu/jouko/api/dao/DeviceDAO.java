@@ -18,7 +18,14 @@ import fi.metatavu.jouko.api.model.UserEntity;
 
 @Dependent
 public class DeviceDAO extends AbstractDAO<DeviceEntity> {
-  
+
+  /**
+   * Creates a new device
+   * @param controller controller to assign the device to
+   * @param name name of the device
+   * @param user user to assign the device to
+   * @return a new device
+   */
   public DeviceEntity create(
       ControllerEntity controller,
       String name,
