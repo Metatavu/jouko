@@ -45,7 +45,15 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
     getEntityManager().persist(entity);
     return entity;
   }
-  
+
+  /**
+   * Creates a list of power measurements for devices
+   *
+   * @param devices
+   * @param fromTime
+   * @param toTime
+   * @return list of power measurements
+   */
   public List<DevicePowerMeasurementEntity> listByDevices(List<DeviceEntity> devices, OffsetDateTime fromTime, OffsetDateTime toTime) {
     EntityManager em = getEntityManager();
     List<Order> orderList = new ArrayList();
@@ -68,7 +76,15 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
     
     return em.createQuery(criteria).setMaxResults(96).getResultList();
   }
-  
+
+  /**
+   * Creates a list of power measurements for a single device
+   *
+   * @param device
+   * @param fromTime
+   * @param toTime
+   * @return
+   */
   public List<DevicePowerMeasurementEntity> listByDevice(DeviceEntity device, OffsetDateTime fromTime, OffsetDateTime toTime) {
     EntityManager em = getEntityManager();
     List<Order> orderList = new ArrayList();
@@ -104,7 +120,15 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
     
     return em.createQuery(criteria).getResultList();
   }
-  
+
+  /**
+   * Creates a list of power measurements for a single device using date as a filter
+   * 
+   * @param device
+   * @param fromTime
+   * @param toTime
+   * @return
+   */
   public List<DevicePowerMeasurementEntity> listByDeviceAndDate(
       DeviceEntity device,
       OffsetDateTime fromTime,
