@@ -34,4 +34,22 @@ services:
       DB_ADDR: mysql
       DB_PASSWORD: root
   jouko-ui:
-    
+    build:
+      context:
+      dockerfile: Dockerfile.user-ui
+    ports:
+      - 3000:3000
+    depends_on:
+      - mysql
+      - api
+      - keycloak
+  jouko-admin:
+    build:
+      context:
+      dockerfile: Dockerfile.admin-ui
+    ports:
+      - 3000:3000
+    depends_on:
+      - mysql
+      - api
+      - keycloak
