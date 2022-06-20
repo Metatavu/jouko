@@ -15,15 +15,17 @@ export class Topbar
         super(props);
     }
     
-    // Search returns the closest matching button to the search term
+    // Search returns the closest matching container (ExampleContainer1)
     search = (event: React.ChangeEvent<HTMLInputElement>) => {
         const searchTerm = event.target.value.toLowerCase();
-        const buttons = document.getElementsByClassName('topbar-button');
+        const buttons = document.getElementsByClassName('ExampleContainer1');
         for (let i = 0; i < buttons.length; i++) {
             const button = buttons[i] as HTMLButtonElement;
-            if (button.innerText.toLowerCase().indexOf(searchTerm) !== -1) {
-                button.focus();
-                return;
+            const buttonText = button.innerText.toLowerCase();
+            if (buttonText.indexOf(searchTerm) > -1) {
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
             }
         }
     }
