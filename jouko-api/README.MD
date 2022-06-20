@@ -88,13 +88,13 @@ First add mysql connector to your wildfly by running:
     cd mysql
     mkdir main
     cd main
-    wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.47.zip
-    unzip mysql-connector-java-5.1.47.zip
+    wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.29.zip
+    unzip mysql-connector-java-8.0.29.zip
     cd mysql-connector-java-5.1.47/
-    mv mysql-connector-java-5.1.47-bin.jar ../mysql-connector-java-5.1.47-bin.jar
+    mv mysql-connector-java-8.0.29.jar ../mysql-connector-java-8.0.29.jar
     cd ..
-    rm -rf mysql-connector-java-5.1.47
-    rm -rf mysql-connector-java-5.1.47.zip
+    rm -rf mysql-connector-java-8.0.29
+    rm -rf mysql-connector-java-8.0.29.zip
     touch module.xml
     nano module.xml
 
@@ -150,9 +150,9 @@ Install maven by running
 
 Use `cd` command to where you want to download protobuf. Install protobuf by running commands:
 
-    wget https://github.com/protocolbuffers/protobuf/releases/download/v3.0.0/protobuf-java-3.0.0.zip
-    unzip protobuf-java-3.0.0.zip
-    cd protobuf-java-3.0.0.zip
+    wget https://github.com/protocolbuffers/protobuf/releases/download/v21.1/protobuf-java-3.21.1.zip
+    unzip protobuf-java-3.21.1.zip
+    cd protobuf-java-3.21.1.zip
     ./configure
     make
     make check
