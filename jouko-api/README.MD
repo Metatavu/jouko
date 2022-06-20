@@ -182,16 +182,7 @@ Use `cd` command to where you want to install the project and then run
 
     git clone https://github.com/Metatavu/jouko.git
     cd jouko/jouko-api
-    mkdir target
-    cd target
-    mkdir generated-sources
-    cd generated-sources
-    mkdir protobuf
-    cd protobuf
-    mkdir java
-    cd ../../../
-    protoc -I=./src/main/proto --java_out=./target/generated-sources/protobuf/java ./src/main/proto/laiteviestit.proto
-    mvn package
+    sh build.sh
     cp target/*.war YOUR_WILDFLY_DIR/standalone/deployments/
 
 Replace the YOUR_WILDFLY_DIR with the actual directory of your wildfly. War-file that you copied to YOUR_WILDFLY_DIR/standalone/deployments/ must be renamed to `jouko-api.war`.
