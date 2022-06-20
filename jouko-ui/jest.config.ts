@@ -1,14 +1,11 @@
-import type {Config} from '@jest/types';
+import type { Config } from '@jest/types';
 
 // Or async function
 export default async (): Promise<Config.InitialOptions> => {
   return {
     verbose: true,
-    transform: {
-      '^.+\\.tsx?$': 'ts-jest',
-    },
-    moduleNameMapper: {
-      '^.+\\.tsx?$': '<rootDir>/src',
-    },
+    testMatch: [
+      '**/__tests__/**/*.+(ts|tsx|js)'
+    ],
   };
 };
