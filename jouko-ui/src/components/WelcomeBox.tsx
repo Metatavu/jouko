@@ -9,7 +9,8 @@ interface WelcomeBoxProps {
 
 export class WelcomeBox
   extends React.Component<WelcomeBoxProps> {
-
+  
+  // Sets the welcome message that you see when you login and when you are on the home page.
   render() {
     return (
       <div className="App-Block1">
