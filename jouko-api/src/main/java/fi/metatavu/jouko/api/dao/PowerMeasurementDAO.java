@@ -28,11 +28,11 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
    *
    * @param device device to create measurement for
    * @param measurementValue measurement value
-   * @param measurementType is the power measurement
+   * @param measurementType the power measurement
    * @param startTime start time of the measurement
    * @param endTime end time of the measurement
    * @param phaseNumber phase number of the measurement
-   * @param relayIsOpen is the relay open
+   * @param relayIsOpen the relay's state
    * @return the new power measurement
    */
   public DevicePowerMeasurementEntity create(
@@ -61,9 +61,9 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
   /**
    * Creates a list of power measurements for devices
    *
-   * @param devices (Passing multiple devices than a specific device of a user)
-   * @param fromTime filter from when
-   * @param toTime filter to when
+   * @param devices the devices to create the list for (user-independent)
+   * @param fromTime the start time of the first power measurement
+   * @param toTime the end time of the first power measurement
    * @return list of power measurements
    */
   public List<DevicePowerMeasurementEntity> listByDevices(List<DeviceEntity> devices, OffsetDateTime fromTime, OffsetDateTime toTime) {
@@ -92,10 +92,10 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
   /**
    * Creates a list of power measurements for a single device
    *
-   * @param device of a user
-   * @param fromTime filter from when
-   * @param toTime filter to when
-   * @return list based on a single device
+   * @param device a user's device
+   * @param fromTime the start time of the power measurements
+   * @param toTime the end time of the power measurements
+   * @return the power measurements by device and time
    */
   public List<DevicePowerMeasurementEntity> listByDevice(DeviceEntity device, OffsetDateTime fromTime, OffsetDateTime toTime) {
     EntityManager em = getEntityManager();
@@ -136,9 +136,9 @@ public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntit
   /**
    * Creates a list of power measurements for a single device using date as a filter
    *
-   * @param device of a user
-   * @param fromTime filter from when
-   * @param toTime filter to when
+   * @param device a user's device
+   * @param fromTime the start time of the power measurements
+   * @param toTime the end time of the power measurements
    * @return list of power measurements using date
    */
   public List<DevicePowerMeasurementEntity> listByDeviceAndDate(
