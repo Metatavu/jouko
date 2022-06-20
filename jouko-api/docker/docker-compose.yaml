@@ -38,7 +38,7 @@ services:
       context:
       dockerfile: Dockerfile.user-ui
     ports:
-      - 3000:3000
+      - 8000:8000
     depends_on:
       - mysql
       - api
@@ -48,7 +48,7 @@ services:
       context:
       dockerfile: Dockerfile.admin-ui
     ports:
-      - 3000:3000
+      - 8001:8001
     depends_on:
       - mysql
       - api
