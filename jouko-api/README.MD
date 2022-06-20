@@ -35,9 +35,9 @@ Run `exit` to exit mysql.
 
 To Install wildfly first use `cd` command to where you want to install that and then run 
 
-    wget "http://download.jboss.org/wildfly/11.0.0.Final/wildfly-11.0.0.Final.zip"
-    unzip wildfly-11.0.0.Final.zip
-    rm wildfly-11.0.0.Final.zip
+    wget https://github.com/wildfly/wildfly/releases/download/26.1.1.Final/wildfly-26.1.1.Final.zip
+    unzip wildfly-26.1.1.Final.zip
+    rm wildfly-26.1.1.Final.zip
 
 ### Keycloak
 
