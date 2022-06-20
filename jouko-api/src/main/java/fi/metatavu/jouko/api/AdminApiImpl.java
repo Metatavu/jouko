@@ -6,11 +6,6 @@ import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -26,7 +21,6 @@ import fi.metatavu.jouko.server.rest.model.ControllerDevice;
 import fi.metatavu.jouko.server.rest.model.Device;
 import fi.metatavu.jouko.server.rest.model.InterruptionGroup;
 import fi.metatavu.jouko.server.rest.model.User;
-import fi.metatavu.jouko.api.UserController;
 import fi.metatavu.jouko.api.dao.ControllerDAO;
 import fi.metatavu.jouko.api.dao.SettingDAO;
 

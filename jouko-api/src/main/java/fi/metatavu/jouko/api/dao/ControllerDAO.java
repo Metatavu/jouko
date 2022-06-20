@@ -12,11 +12,6 @@ import javax.persistence.criteria.Root;
 import fi.metatavu.jouko.api.model.ControllerCommunicationChannel;
 import fi.metatavu.jouko.api.model.ControllerEntity;
 import fi.metatavu.jouko.api.model.ControllerEntity_;
-import fi.metatavu.jouko.api.model.DeviceEntity;
-import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
-import fi.metatavu.jouko.api.model.InterruptionGroupEntity_;
-import fi.metatavu.jouko.api.model.UserEntity;
-
 @Dependent
 public class ControllerDAO extends AbstractDAO<ControllerEntity> {
 

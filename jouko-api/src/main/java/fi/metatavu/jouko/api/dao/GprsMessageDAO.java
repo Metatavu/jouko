@@ -1,6 +1,5 @@
 package fi.metatavu.jouko.api.dao;
 
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 
 import fi.metatavu.jouko.api.model.ControllerEntity;
-import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity_;
 import fi.metatavu.jouko.api.model.GprsMessageEntity;
 import fi.metatavu.jouko.api.model.GprsMessageEntity_;
 import fi.metatavu.jouko.api.model.MessageType;

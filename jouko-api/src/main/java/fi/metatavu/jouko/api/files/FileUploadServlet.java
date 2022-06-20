@@ -1,28 +1,21 @@
 package fi.metatavu.jouko.api.files;
 
-import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,13 +25,9 @@ import javax.servlet.http.Part;
 import javax.transaction.Transactional;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import fi.metatavu.jouko.api.device.DeviceCommunicator;
-import fi.metatavu.jouko.api.device.Laiteviestit.Katkot.Katko;
 
 /**
  * Servlet that handles file upload requests

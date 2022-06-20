@@ -1,7 +1,6 @@
 package fi.metatavu.jouko.api.dao;
 
 import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,6 @@ import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity;
 import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity_;
 import fi.metatavu.jouko.api.model.MeasurementType;
-import fi.metatavu.jouko.server.rest.model.Device;
 
 @Dependent
 public class PowerMeasurementDAO extends AbstractDAO<DevicePowerMeasurementEntity> {

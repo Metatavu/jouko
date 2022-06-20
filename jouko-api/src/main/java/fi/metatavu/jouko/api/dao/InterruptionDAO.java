@@ -12,8 +12,6 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 import fi.metatavu.jouko.api.model.DeviceEntity;
-import fi.metatavu.jouko.api.model.GprsMessageEntity;
-import fi.metatavu.jouko.api.model.GprsMessageEntity_;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity_;
 import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
