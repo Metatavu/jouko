@@ -26,7 +26,6 @@
     "webpack",
     "jest",
     "src/setupTests.ts",
-    "coverage",
-    "jest.config.ts"
+    "coverage"
   ]
 }
