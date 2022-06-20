@@ -11,3 +11,27 @@ services:
       MYSQL_DATABASE: "jouko_api"
       MYSQL_USER: "jouko"
       MYSQL_PASSWORD: "jouko"
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+  keycloak:
+    image: jboss/keycloak:8.0.29.Final
+    hostname: keycloak
+    container_name: keycloak
+    ports:
+      - "8180:8180"
+    volumes:
+      - ./dev/:/opt/keycloak/
+    environment:
+      DB_VENDOR: mysql
+      DB_DATABASE: keycloak
+      DB_USER: root
+      DB_ADDR: mysql
+      DB_PASSWORD: root
+  jouko-ui:
+    
