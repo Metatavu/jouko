@@ -102,7 +102,7 @@ Add the following xml to the module.xml
 
     <module xmlns="urn:jboss:module:1.5" name="com.mysql">
         <resources>
-            <resource-root path="mysql-connector-java-5.1.47-bin.jar" />
+            <resource-root path="mysql-connector-java-8.0.29.jar" />
         </resources>
         <dependencies>
             <module name="javax.api"/>
