@@ -90,7 +90,7 @@ First add mysql connector to your wildfly by running:
     cd main
     wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.29.zip
     unzip mysql-connector-java-8.0.29.zip
-    cd mysql-connector-java-5.1.47/
+    cd mysql-connector-java-8.0.29/
     mv mysql-connector-java-8.0.29.jar ../mysql-connector-java-8.0.29.jar
     cd ..
     rm -rf mysql-connector-java-8.0.29
