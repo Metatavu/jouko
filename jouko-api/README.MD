@@ -8,7 +8,7 @@ These instructions are made with Ubuntu 22.04 LTS. Some steps may be different o
 
 ## Installation
 
-You need java to install jouko-api. If you dont have java installation on your machine you can install it by running
+You need java to install jouko-api. If you don't have java installation on your machine you can install it by running
 
     sudo apt-get update && sudo apt-get upgrade
     sudo apt-get install default-jdk
@@ -205,7 +205,7 @@ Replace KEYCLOAK_USER_ID with the id of your Keycloak user and KEYCLOAK_USER_NAM
 
 Run `exit` to exit mysql.
 
-### Connect UI's to api
+### Connect UIs to api
 
 At your jouko-ui and jouko-admin-ui you need to edit file `src/config.ts`. Change the url's to match your API's IP/domain.
 
