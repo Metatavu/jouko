@@ -20,7 +20,7 @@ services:
     depends_on:
       - mysql
   keycloak:
-    image: jboss/keycloak:8.0.29.Final
+    image: jboss/keycloak:16.1.1
     hostname: keycloak
     container_name: keycloak
     ports:
