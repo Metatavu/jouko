@@ -8,7 +8,7 @@ These instructions are made with Ubuntu 22.04 LTS. Some steps may be different o
 
 ## Installation
 
-You need java to install jouko-api. If you don't have java installation on your machine you can install it by running
+You need java (Java 11) to install jouko-api. If you don't have java installation on your machine you can install it by running
 
     sudo apt-get update && sudo apt-get upgrade
     sudo apt-get install default-jdk
