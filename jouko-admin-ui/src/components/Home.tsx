@@ -17,14 +17,14 @@ export class Home extends React.Component<HomeProps> {
                 <br/>
                 <hr/>
                 <br/>
-                <div className="ExampleContainer">
-                    <div className="ExampleContainer1">
+                <div className="HomeContainer">
+                    <div className="HomeOptionsSubContainer">
                         <NavLink to="/NewInterruptionGroup">
                             <i className="fa fa-hand-paper-o"/>
                             <h3>{_('newInterruptionGroups')}</h3>
                         </NavLink>
                     </div>
-                    <div className="ExampleContainer1">
+                    <div className="HomeOptionsSubContainer">
                         <NavLink 
                             to={{
                                 pathname: '/NewUser'
@@ -34,19 +34,19 @@ export class Home extends React.Component<HomeProps> {
                             <h3>{_('newUser')}</h3>
                         </NavLink>
                     </div>
-                    <div className="ExampleContainer1">
+                    <div className="HomeOptionsSubContainer">
                         <NavLink to="/NewDevice">
                             <i className="fa fa-tablet"/>
                             <h3>{_('newDevice')}</h3>
                         </NavLink>
                     </div>
-                    <div className="ExampleContainer1">
+                    <div className="HomeOptionsSubContainer">
                         <NavLink to="/NewControllerDevice">
                             <i className="fa fa-server"/>
                             <h3>{_('newControllerDevice')}</h3>
                         </NavLink>
                     </div>
-                    <div className="ExampleContainer1">
+                    <div className="HomeOptionsSubContainer">
                         <NavLink to="/NewUpdateFile">
                             <i className="fa fa-upload"/>
                             <h3>{_('newUpdatefile')}</h3>

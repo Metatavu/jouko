@@ -305,7 +305,7 @@
   color: #ffffff;
 }
 /*########## Buttons with arrows ##########*/
-.btn2{
+.buttonWithArrows{
   background: #fff;
   border-radius: 28px;
   border: none;
@@ -319,7 +319,7 @@
   font-size: 16px;
 }
 /*########## Cancelled Button ##########*/
-.btn3{
+.cancelledButton{
   background: transparent;
   border-radius: 28px;
   border: 2px solid #fff;
