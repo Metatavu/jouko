@@ -4,7 +4,7 @@ The documentation for the api can be found [here](https://metatavu.github.io/jou
 
 ## Platform
 
-These instructions are made with Ubuntu 16. Some steps may be different on other platforms.
+These instructions are made with Ubuntu 22.04 LTS. Some steps may be different on other platforms.
 
 ## Installation
 
