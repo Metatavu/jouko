@@ -31,7 +31,7 @@ hr {
         width: 45%;
         margin: auto;
     }
-    .ExampleContainer1 {
+    .HomeOptionsSubContainer {
         width: 45%;
     }
 }
@@ -43,18 +43,18 @@ hr {
         width: 90%;
         margin: auto;
     }
-    .ExampleContainer1 {
+    .HomeOptionsSubContainer {
         width: 55%;
     }
 }
 
-.ExampleContainer {
+.HomeContainer {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
     padding-top: 50px;
 }
-.ExampleContainer1 {
+.HomeOptionsSubContainer {
     text-align: center;
     box-shadow: 0 0 6px 0 rgba(0,0,0,0.9);
     border-radius: 10px;
@@ -63,14 +63,14 @@ hr {
     margin-right:1.5%;
     margin-bottom: 60px;
 }
-.ExampleContainer1:hover {
+.HomeOptionsSubContainer:hover {
     box-shadow: 0 0 6px 0 #269ca0;
 }
-.ExampleContainer1 a {
+.HomeOptionsSubContainer a {
     text-decoration: none;
     color: inherit;
 }
-.ExampleContainer1 h3 {
+.HomeOptionsSubContainer h3 {
     padding-left: 25px;
     padding-right: 25px;
     padding-top: 25px;

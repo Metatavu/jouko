@@ -10,6 +10,7 @@ import { KeycloakInstance } from 'keycloak-js';
 
 const finland = require('../flags/Finland.png');
 const sweden = require('../flags/Sweden.png');
+const germany = require('../flags/Germany.png');
 const unitedKingdom = require('../flags/United_Kingdom.png');
 
 enum State {
@@ -159,6 +160,14 @@ export class Header
                   className="flag"
                   alt="flag-sweden"
                   onClick={() => language.setLanguage('sv')}
+                />
+              </NavLink>
+              <NavLink to={location.pathname}>
+                <img
+                  src={germany}
+                  className="flag"
+                  alt="flag-germany"
+                  onClick={() => language.setLanguage('de')}
                 />
               </NavLink>
               <NavLink to={location.pathname}>
