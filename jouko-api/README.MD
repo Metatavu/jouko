@@ -8,7 +8,7 @@ These instructions are made with Ubuntu 22.04 LTS. Some steps may be different o
 
 ## Installation
 
-You need java (Java 11) to install jouko-api. If you don't have java installation on your machine you can install it by running
+You need java (OpenJDK 11) to install jouko-api. If you don't have java installation on your machine you can install it by running
 
     sudo apt-get update && sudo apt-get upgrade
     sudo apt-get install default-jdk
@@ -35,17 +35,17 @@ Run `exit` to exit mysql.
 
 To Install wildfly first use `cd` command to where you want to install that and then run 
 
-    wget https://github.com/wildfly/wildfly/releases/download/26.1.1.Final/wildfly-26.1.1.Final.zip
-    unzip wildfly-26.1.1.Final.zip
-    rm wildfly-26.1.1.Final.zip
+    wget "http://download.jboss.org/wildfly/11.0.0.Final/wildfly-11.0.0.Final.zip"
+    unzip wildfly-11.0.0.Final.zip
+    rm wildfly-11.0.0.Final.zip
 
 ### Keycloak
 
 To Install keycloak first use `cd` command to where you want to install that and then run 
 
-    wget https://github.com/keycloak/keycloak/releases/download/17.0.1/keycloak-legacy-17.0.1.zip
-    unzip keycloak-legacy-17.0.1.zip
-    rm keycloak-legacy-17.0.1.zip
+    wget https://downloads.jboss.org/keycloak/3.4.3.Final/keycloak-3.4.3.Final.zip
+    unzip keycloak-3.4.3.Final.zip
+    rm keycloak-3.4.3.Final.zip
 
 Start keycloak by running inside the keycloak directory
 
@@ -76,8 +76,6 @@ Start keycloak by running inside the keycloak directory
 - Open credentials tab
 - Fill in new password
 - Uncheck temporary and hit save
-- Open Role Mappings tab
-- Select role `user` and click Add selected
 
 ### Configure wildfly 
 
