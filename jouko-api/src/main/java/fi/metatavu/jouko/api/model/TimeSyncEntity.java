@@ -1,21 +1,30 @@
 package fi.metatavu.jouko.api.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotNull;
-
+@Table(name="TimeSync")
+@Entity
 public class TimeSyncEntity {
 
+  @Id
   @Column(nullable = false)
   @NotNull
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private OffsetDateTime time;
+  @ManyToOne
+  @JoinColumn(name = "device_id")
   private DeviceEntity device;
   
   @NotNull
   private int reason;
 
-    public void setTime(OffsetDateTime time) {
+  public DeviceEntity getDevice() {
+    return device;
+  }
+
+  public void setTime(OffsetDateTime time) {
         this.time = time;
     }
 
