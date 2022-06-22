@@ -57,6 +57,7 @@ export class ListDevice
         }
         this.forceUpdate();
     }
+    // Device filtering where it takes sortingElement and sortingDirection as parameters
     sortByIdASC(event: React.FormEvent<HTMLOptionElement>) {
         this.setState({
             sortingElement: 'deviceId',
@@ -143,6 +144,7 @@ export class ListDevice
                 });
             }
         }
+        // If sorting is ASC sort names in ascending order otherwise sort names in descending order
         if (this.state.sortingDirection === 'ASC') {
             const sortingElement = this.state.sortingElement.toString();
             if (sortingElement === 'deviceName') {
