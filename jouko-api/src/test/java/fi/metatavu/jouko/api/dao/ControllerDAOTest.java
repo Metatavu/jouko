@@ -13,13 +13,17 @@ public class ControllerDAOTest {
     @Before
     public void setUp() {
         controllerDAO = Mockito.mock(ControllerDAO.class);
-        
-        // Create a new controller (String eui, String key, ControllerCommunicationChannel, communicationChannel)
+
+        /**
+         * Create a new controller (String eui, String key, ControllerCommunicationChannel, communicationChannel)
+         */
         Mockito.when(controllerDAO.create(Mockito.anyString(), Mockito.anyString(), Mockito.any(ControllerCommunicationChannel.class)))
                 .thenReturn(new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.LORA));
     }
 
-    // Check that the newly created controller is returned
+    /**
+     * Create a new controller and make sure it exists
+     */
     @Test
     public void testCreateController() {
         ControllerEntity controller = controllerDAO.create("EUI", "KEY", ControllerCommunicationChannel.LORA);
@@ -28,14 +32,18 @@ public class ControllerDAOTest {
         Assert.assertEquals(ControllerCommunicationChannel.LORA, controller.getCommunicationChannel());
     }
 
-    // Check that no controller is returned when there is no controller with the given eui
+    /**
+     * Check that if a controller doesn't exist then null is returned
+     */
     @Test
     public void testGetControllerByEui() {
         ControllerEntity controller = controllerDAO.findByEui("EUI2131232132312");
         Assert.assertNull(controller);
     }
 
-    // Test deleting a controller
+    /**
+     * Test deleting a controller and make sure it doesn't exist
+     */
     @Test
     public void testDeleteController() {
         ControllerEntity controller = controllerDAO.delete(1L);
