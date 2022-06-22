@@ -9,8 +9,13 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
+import fi.metatavu.jouko.api.dao.SettingDAO;
+import fi.metatavu.jouko.api.dao.UserDAO;
+import fi.metatavu.jouko.api.model.UserEntity;
+import fi.metatavu.jouko.server.rest.model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
