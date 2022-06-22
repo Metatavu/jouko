@@ -34,4 +34,12 @@ public class ControllerDAOTest {
         ControllerEntity controller = controllerDAO.findByEui("EUI2131232132312");
         Assert.assertNull(controller);
     }
+
+    // Test deleting a controller
+    @Test
+    public void testDeleteController() {
+        ControllerEntity controller = controllerDAO.delete(1L);
+        controllerDAO.delete(controller);
+        Assert.assertNull(controllerDAO.findByEui("EUI"));
+    }
 }
