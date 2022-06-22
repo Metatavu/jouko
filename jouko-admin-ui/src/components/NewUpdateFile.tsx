@@ -58,6 +58,7 @@ export class NewUpdateFile
       formData.append('version', this.state.version);
       formData.append('channel', this.state.channel);
 
+      // Add the multipart/form-data content type to the POST request
       const config = {
           headers: {
               'content-type': 'multipart/form-data'

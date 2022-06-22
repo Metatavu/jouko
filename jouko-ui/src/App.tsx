@@ -13,9 +13,10 @@ import * as Keycloak from 'keycloak-js';
 import { UsersApi, Configuration } from 'jouko-ts-client';
 import { PowerUsageSummaries } from './components/PowerUsageSummary';
 import { WelcomeBox } from './components/WelcomeBox';
-import { apiUrl, authUrl, appUrl } from './config';
+import { apiUrl, authUrl, appUrl, keycloakRealm, keycloakClientId } from './config';
 import { LatestMeasurements } from './components/LatestMeasurements';
 
+// Initialise Keycloak
 interface AppState {
   keycloakInstance?: Keycloak.KeycloakInstance;
   username?: string;
@@ -35,8 +36,8 @@ class App extends React.Component<{}, AppState> {
     const kc = Keycloak(
       {
         url: authUrl,
-        realm: 'jouko-realm',
-        clientId: 'jouko',
+        realm: keycloakRealm,
+        clientId: keycloakClientId,
       }
     );
     kc.init({
@@ -59,9 +60,11 @@ class App extends React.Component<{}, AppState> {
 
     // tslint:disable-next-line:no-any
     const keycloakId = (kc.idTokenParsed as any).sub;
+    // Initialise jouko-ts-client
     const usersApi = new UsersApi(
       configuration,
       apiUrl);
+    // Uses the jouko-ts-client to fetch the Keycloak ID of the current user
     const user = await usersApi.getUserByKeycloakId(keycloakId);
     console.log(kc);
     if (user) {
@@ -85,6 +88,7 @@ class App extends React.Component<{}, AppState> {
       this.state.keycloakInstance.logout({redirectUri: appUrl});
     }
   }
+  // Creates the website paths for the different pages and uses the components to render the appropriate pages
   render() {
     let content;
     if (!this.state.keycloakInstance) {
