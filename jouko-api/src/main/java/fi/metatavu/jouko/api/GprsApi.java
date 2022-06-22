@@ -1,5 +1,30 @@
 package fi.metatavu.jouko.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.protobuf.InvalidProtocolBufferException;
+import fi.metatavu.jouko.api.device.DeviceCommunicator;
+import fi.metatavu.jouko.api.device.Laiteviestit.*;
+import fi.metatavu.jouko.api.model.ControllerEntity;
+import fi.metatavu.jouko.api.model.DeviceEntity;
+import fi.metatavu.jouko.api.model.GprsMessageEntity;
+import fi.metatavu.jouko.api.model.MeasurementType;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -229,7 +254,7 @@ public class GprsApi {
           unpackMittaukset(mittaukset);
           System.out.println("MITTAUKSET UNPACKATTU!");
         }
-      } catch (InvalidProtocolBufferException | InvalidDeviceException ex) {
+      } catch (InvalidDeviceException | InvalidProtocolBufferException ex) {
         return Response
             .status(400)
             .entity(String.format("Protobuf error: %s", ex.getMessage()))

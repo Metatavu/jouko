@@ -130,7 +130,6 @@ export class NewUser
                 </option>
             );
         });
-        //
         const usersDevices = this.state.devices.map((devices, index) => {
             return (
                 <tr key={index.toString()}>

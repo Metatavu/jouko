@@ -50,7 +50,7 @@ export class PowerUsageSummaries
   componentDidMount() {
     this.fetchPowerUsages();
   }
-
+  // Fetches the power usages from the API using the jouko-ts-client library.
   async fetchPowerUsages() {
     const configuration = new Configuration({
       apiKey: `Bearer ${this.props.kc!.token}`
