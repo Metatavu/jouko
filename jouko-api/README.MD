@@ -4,11 +4,11 @@ The documentation for the api can be found [here](https://metatavu.github.io/jou
 
 ## Platform
 
-These instructions are made with Ubuntu 16. Some steps may be different on other platforms.
+These instructions are made with Ubuntu 22.04 LTS. Some steps may be different on other platforms.
 
 ## Installation
 
-You need java to install jouko-api. If you dont have java installation on your machine you can install it by running
+You need java (OpenJDK 11) to install jouko-api. If you don't have java installation on your machine you can install it by running
 
     sudo apt-get update && sudo apt-get upgrade
     sudo apt-get install default-jdk
@@ -76,8 +76,6 @@ Start keycloak by running inside the keycloak directory
 - Open credentials tab
 - Fill in new password
 - Uncheck temporary and hit save
-- Open Role Mappings tab
-- Select role `user` and click Add selected
 
 ### Configure wildfly 
 
@@ -88,13 +86,13 @@ First add mysql connector to your wildfly by running:
     cd mysql
     mkdir main
     cd main
-    wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.47.zip
-    unzip mysql-connector-java-5.1.47.zip
-    cd mysql-connector-java-5.1.47/
-    mv mysql-connector-java-5.1.47-bin.jar ../mysql-connector-java-5.1.47-bin.jar
+    wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.29.zip
+    unzip mysql-connector-java-8.0.29.zip
+    cd mysql-connector-java-8.0.29/
+    mv mysql-connector-java-8.0.29.jar ../mysql-connector-java-8.0.29.jar
     cd ..
-    rm -rf mysql-connector-java-5.1.47
-    rm -rf mysql-connector-java-5.1.47.zip
+    rm -rf mysql-connector-java-8.0.29
+    rm -rf mysql-connector-java-8.0.29.zip
     touch module.xml
     nano module.xml
 
@@ -102,7 +100,7 @@ Add the following xml to the module.xml
 
     <module xmlns="urn:jboss:module:1.5" name="com.mysql">
         <resources>
-            <resource-root path="mysql-connector-java-5.1.47-bin.jar" />
+            <resource-root path="mysql-connector-java-8.0.29.jar" />
         </resources>
         <dependencies>
             <module name="javax.api"/>
@@ -150,9 +148,9 @@ Install maven by running
 
 Use `cd` command to where you want to download protobuf. Install protobuf by running commands:
 
-    wget https://github.com/protocolbuffers/protobuf/releases/download/v3.0.0/protobuf-java-3.0.0.zip
-    unzip protobuf-java-3.0.0.zip
-    cd protobuf-java-3.0.0.zip
+    wget https://github.com/protocolbuffers/protobuf/releases/download/v21.1/protobuf-java-3.21.1.zip
+    unzip protobuf-java-3.21.1.zip
+    cd protobuf-java-3.21.1.zip
     ./configure
     make
     make check
@@ -182,16 +180,7 @@ Use `cd` command to where you want to install the project and then run
 
     git clone https://github.com/Metatavu/jouko.git
     cd jouko/jouko-api
-    mkdir target
-    cd target
-    mkdir generated-sources
-    cd generated-sources
-    mkdir protobuf
-    cd protobuf
-    mkdir java
-    cd ../../../
-    protoc -I=./src/main/proto --java_out=./target/generated-sources/protobuf/java ./src/main/proto/laiteviestit.proto
-    mvn package
+    sh build.sh
     cp target/*.war YOUR_WILDFLY_DIR/standalone/deployments/
 
 Replace the YOUR_WILDFLY_DIR with the actual directory of your wildfly. War-file that you copied to YOUR_WILDFLY_DIR/standalone/deployments/ must be renamed to `jouko-api.war`.
@@ -214,7 +203,7 @@ Replace KEYCLOAK_USER_ID with the id of your Keycloak user and KEYCLOAK_USER_NAM
 
 Run `exit` to exit mysql.
 
-### Connect UI's to api
+### Connect UIs to api
 
 At your jouko-ui and jouko-admin-ui you need to edit file `src/config.ts`. Change the url's to match your API's IP/domain.
 
