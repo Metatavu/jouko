@@ -1,22 +1,10 @@
 package fi.metatavu.jouko.api;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.UUID;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
-
 import fi.metatavu.jouko.api.dao.SettingDAO;
 import fi.metatavu.jouko.api.dao.UserDAO;
 import fi.metatavu.jouko.api.model.UserEntity;
 import fi.metatavu.jouko.server.rest.model.User;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
-import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.RealmResource;
@@ -28,6 +16,7 @@ import javax.inject.Inject;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.UUID;
 
 @Dependent
 public class UserController {
@@ -56,6 +45,14 @@ public class UserController {
     entity.setName(user.getFirstName() + " " + user.getLastName());
 
     return userDAO.create(entity);
+  }
+
+  public UserEntity deleteUser(String keycloakId) {
+    UserEntity entity = userDAO.findByKeycloakId(keycloakId);
+    if (entity != null) {
+      userDAO.delete(entity);
+    }
+    return entity;
   }
 
   public String createKeycloakUser(User user, String token) {
@@ -93,6 +90,35 @@ public class UserController {
       return userId;
     }
 
+
+    return null;
+  }
+
+  public String deleteKeycloakUser(String keycloakId, String token) {
+    String kcUrl = settingDao.findByKey("keycloakUrl").getValue();
+    String realm = settingDao.findByKey("keycloakRealm").getValue();
+
+    Keycloak keycloak = KeycloakBuilder.builder()
+            .serverUrl(kcUrl)
+            .realm(realm)
+            .authorization(token)
+            .build();
+
+    RealmResource realmResource = keycloak.realm(realm);
+    UsersResource userRessource = realmResource.users();
+    Response response = null;
+
+    try {
+      response = userRessource.delete(keycloakId);
+    } catch (Throwable e) {
+      e.printStackTrace();
+      System.out.println(e.getMessage());
+      System.out.println(e.getCause());
+    }
+
+    if (response != null) {
+      return response.getStatusInfo().getReasonPhrase();
+    }
 
     return null;
   }
