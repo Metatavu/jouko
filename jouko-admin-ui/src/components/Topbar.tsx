@@ -14,6 +14,21 @@ export class Topbar
     constructor(props: TopbarProps) {
         super(props);
     }
+    
+    // Search returns the closest matching container (HomeOptionsSubContainer)
+    search = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const searchTerm = event.target.value.toLowerCase();
+        const buttons = document.getElementsByClassName('HomeOptionsSubContainer');
+        for (let i = 0; i < buttons.length; i++) {
+            const button = buttons[i] as HTMLButtonElement;
+            const buttonText = button.innerText.toLowerCase();
+            if (buttonText.indexOf(searchTerm) > -1) {
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
+            }
+        }
+    }
 
     render() {
 
@@ -40,6 +55,7 @@ export class Topbar
                         name="search"
                         placeholder={_('search')}
                         className="inputSearch"
+                        onChange={this.search}
                     />
                 </li>
             </ul>

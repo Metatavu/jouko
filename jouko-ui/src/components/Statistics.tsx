@@ -54,15 +54,18 @@ export class Statistics
     this.fetchStatistics();
   }
 
+  // Fetch statistics from the API using the jouko-ts-client library
   async fetchStatistics() {
     const configuration = new Configuration({
       apiKey: `Bearer ${this.props.kc!.token}`
     });
 
+    // Fetch the devices data from the API using the jouko-ts-client library
     const devicesApi = new DevicesApi(
       configuration,
       apiUrl);
 
+    // Fetch all measurements from the API using the jouko-ts-client library
     const allMeasurementsApi = new DevicesApi(
       configuration,
       apiUrl);
@@ -124,6 +127,7 @@ export class Statistics
       });
     }
 
+    // Display one hour of data
     for ( let i = 0; i < 12; i++) {
       let startTime = addMinutes(lastHour, i * 5);
       let endTime = addMinutes(startTime, 5);
@@ -134,6 +138,7 @@ export class Statistics
       hourData.push(hourDataValue.averageConsumptionInWatts);
     }
     
+    // Display 24 hours of data from the last 24 hours
     for ( let i = 0; i < 24; i++) {
       let hoursStartTime = addHours(last24Hour, i);
       let hoursEndTime = addHours(hoursStartTime, 1);
@@ -145,6 +150,7 @@ export class Statistics
       hoursData.push(hoursDataValue.averageConsumptionInWatts);
     }
 
+    // Display 30 days of data from the last 30 days
     for ( let i = 0; i < 31; i++) {
       let daysStartTime = addDays(lastDays, i);
       let daysEndTime = addDays(daysStartTime, 1);

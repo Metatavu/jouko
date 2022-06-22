@@ -77,6 +77,7 @@ export class LatestMeasurements
     componentDidMount() {
         this.fetchAllMeasurements();
     }
+    // Measurement filtering that takes two parameters: sortingElement and sortingDirection
     sortByIdASC(event: React.FormEvent<HTMLOptionElement>) {
         this.setState({
             sortingElement: 'measurementId',

@@ -1,18 +1,14 @@
 package fi.metatavu.jouko.api.dao;
 
-import java.util.List;
+import fi.metatavu.jouko.api.model.UserEntity;
+import fi.metatavu.jouko.api.model.UserEntity_;
 
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
-import fi.metatavu.jouko.api.model.DeviceEntity;
-import fi.metatavu.jouko.api.model.InterruptionEntity;
-import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
-import fi.metatavu.jouko.api.model.UserEntity;
-import fi.metatavu.jouko.api.model.UserEntity_;
+import java.util.List;
 
 @Dependent
 public class UserDAO extends AbstractDAO<UserEntity> {
@@ -63,5 +59,18 @@ public class UserDAO extends AbstractDAO<UserEntity> {
       throw new RuntimeException("Multiple users with the same keycloakId");
     }
   }
-  
+
+  /**
+   * Lists all users from the database. Returns null if no users are found.
+   */
+  public List<UserEntity> listUsers() {
+    EntityManager em = getEntityManager();
+
+    CriteriaBuilder cr = em.getCriteriaBuilder();
+    CriteriaQuery<UserEntity> criteria = cr.createQuery(UserEntity.class);
+    Root<UserEntity> root = criteria.from(UserEntity.class);
+
+    List<UserEntity> users = em.createQuery(criteria.select(root)).getResultList();
+    return users.isEmpty() ? null : users;
+  }
 }

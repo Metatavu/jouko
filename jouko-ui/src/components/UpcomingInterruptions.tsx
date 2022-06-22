@@ -25,7 +25,7 @@ export class UpcomingInterruption
     if (!this.props.cancelled) {
       button = (
         <button
-          className="btn2"
+          className="buttonWithArrows"
           onClick={() => {
             if (confirm(_('confirmCancelInterruption'))) {
               this.props.cancelInterruption();
@@ -39,7 +39,7 @@ export class UpcomingInterruption
       );
 
     } else {
-      button = <button className="btn3" >{_('cancelled')}</button>;
+      button = <button className="cancelledButton" >{_('cancelled')}</button>;
     }
 
     let startdate = formatDate(this.props.startTime, 'dd DD.MM.YYYY');
@@ -108,10 +108,12 @@ export class UpcomingInterruptions
       apiKey: `Bearer ${this.props.kc!.token}`
     });
 
+    // Fetches the list of upcoming interruptions from the API using the jouko-ts-client library
     const interruptionsApi = new InterruptionsApi(
       configuration,
       apiUrl);
-
+    
+    // Fetches the devices data from the API using the jouko-ts-client library
     const devicesApi = new DevicesApi(
       configuration,
       apiUrl);
