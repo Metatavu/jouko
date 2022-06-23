@@ -30,6 +30,7 @@ public class ControllerDAOTest {
         Assert.assertEquals("EUI", controller.getEui());
         Assert.assertEquals("KEY", controller.getKey());
         Assert.assertEquals(ControllerCommunicationChannel.LORA, controller.getCommunicationChannel());
+        System.out.println("Controller created");
     }
 
     /**
@@ -39,6 +40,7 @@ public class ControllerDAOTest {
     public void testGetControllerByEui() {
         ControllerEntity controller = controllerDAO.findByEui("EUI2131232132312");
         Assert.assertNull(controller);
+        System.out.println("Controller found by EUI");
     }
 
     /**
@@ -49,5 +51,6 @@ public class ControllerDAOTest {
         ControllerEntity controller = controllerDAO.delete(1L);
         controllerDAO.delete(controller);
         Assert.assertNull(controllerDAO.findByEui("EUI"));
+        System.out.println("Controller deleted");
     }
 }
