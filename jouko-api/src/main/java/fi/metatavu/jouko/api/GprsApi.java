@@ -35,9 +35,14 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Deals with the Gprs communication protocol
+ * Sets the API path to "/gprs" for the protocol
+ * 
+ * @Path("/gprs")
+ */
 @Stateless
 @Path("/gprs")
-// TODO rename
 public class GprsApi {
   
   @Inject
@@ -136,9 +141,11 @@ public class GprsApi {
   }
 
   /**
+   * Creates API path to communicate with Lora device
+   * Handles lora communication protocol
+   * 
    * @POST
    * @Path("/lora/")
-   * Creates API path to communicate with Lora device
    */
   @POST
   @Path("/lora/")
