@@ -5,3 +5,5 @@
 /.factorypath
 /.idea/
 pom.xml.local
+.vscode
+pbuild.sh
