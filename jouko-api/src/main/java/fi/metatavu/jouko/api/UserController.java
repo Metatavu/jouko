@@ -5,7 +5,6 @@ import fi.metatavu.jouko.api.dao.UserDAO;
 import fi.metatavu.jouko.api.model.UserEntity;
 import fi.metatavu.jouko.server.rest.model.User;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
-import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.RealmResource;
@@ -30,7 +29,7 @@ public class UserController {
   /**
    * Get user by keycloak id
    *
-   * @param keycloakId keycloak id
+   * @param keycloakId keycloak id (The long string that is used to identify the user in Keycloak)
    * @return keycloak user
    */
   public UserEntity findUserByKeycloakId(String keycloakId) {
@@ -40,7 +39,7 @@ public class UserController {
   /**
    * Get user by id
    *
-   * @param id user id
+   * @param id user id (e.g 1)
    * @return user
    */
   public UserEntity findUserById(Long id) {
@@ -82,6 +81,9 @@ public class UserController {
     String kcUrl = settingDao.findByKey("keycloakUrl").getValue();
     String realm = settingDao.findByKey("keycloakRealm").getValue();
 
+    /**
+     * Create a Keycloak client and build Resteasy client
+     */
     Keycloak keycloak = KeycloakBuilder.builder()
             .serverUrl(kcUrl)
             .realm(realm)

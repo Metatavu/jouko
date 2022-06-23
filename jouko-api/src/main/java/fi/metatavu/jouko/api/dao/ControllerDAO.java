@@ -40,7 +40,7 @@ public class ControllerDAO extends AbstractDAO<ControllerEntity> {
   /**
    * Deletes the controller entity with the given ID.
    *
-   * @param id the ID of the controller entity to delete.
+   * @param id the ID of the controller entity to delete. (e.g 1L)
    */
   public void delete(Long id) {
     EntityManager em = getEntityManager();
