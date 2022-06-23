@@ -165,7 +165,7 @@ public class AdminApiImpl implements AdminApi {
   public Response createUser(User body, String token) throws Exception {
     String keycloakId = userController.createKeycloakUser(body, token);   
     UserEntity newUser = userController.createUser(body, keycloakId);
-    
+
     return Response.ok(newUser).build();
   }
 
@@ -176,6 +176,12 @@ public class AdminApiImpl implements AdminApi {
     List<User> users = entities.stream()
         .map(this::userFromEntity)
         .collect(Collectors.toList());
+
+    if (users.isEmpty()) {
+      return Response.status(Status.NOT_FOUND)
+              .entity("no users found")
+              .build();
+    }
     return Response.ok(users).build();
   }
 
