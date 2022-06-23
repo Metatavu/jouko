@@ -140,8 +140,8 @@ public class AdminApiImpl implements AdminApi {
   /**
    * List of all interruption groups
    *
-   * @param firstResult first result to return
-   * @param maxResults max results to return
+   * @param firstResult The offset of the first result
+   * @param maxResults The maximum number of results
    * @return list of interruption groups
    * @throws Exception if something goes wrong
    */
@@ -206,8 +206,8 @@ public class AdminApiImpl implements AdminApi {
   /**
    * List of all devices
    *
-   * @param firstResult first result to return
-   * @param maxResults max results to return
+   * @param firstResult The offset of the first result
+   * @param maxResults The maximum number of results
    * @return list of devices
    * @throws Exception if something goes wrong
    */
@@ -257,8 +257,8 @@ public class AdminApiImpl implements AdminApi {
   /**
    * List of all users
    *
-   * @param firstResult first result to return
-   * @param maxResults max results to return
+   * @param firstResult The offset of the first result
+   * @param maxResults The maximum number of results
    * @return list of users
    * @throws Exception if something goes wrong
    */
@@ -317,8 +317,8 @@ public class AdminApiImpl implements AdminApi {
   /**
    * List of all controller devices
    *
-   * @param firstResult first result to return
-   * @param maxResults max results to return
+   * @param firstResult The offset of the first result
+   * @param maxResults The maximum number of results
    * @return list of controller devices
    * @throws Exception if something goes wrong
    */

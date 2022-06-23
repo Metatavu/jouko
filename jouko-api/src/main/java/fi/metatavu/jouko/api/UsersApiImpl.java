@@ -88,8 +88,8 @@ public class UsersApiImpl implements UsersApi {
    * Lists devices of a user
    *
    * @param userId of a user
-   * @param firstResult
-   * @param maxResults that can be returned
+   * @param firstResult The offset of the first result
+   * @param maxResults The maximum number of results
    * @return devices of a user
    * @throws Exception if something goes wrong
    */
