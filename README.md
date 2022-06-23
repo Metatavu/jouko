@@ -7,6 +7,8 @@ Flexible Power Usage at Home, This is the repository containing the server and u
 ```jouko-ui``` contains the user interface for regular users of the software to monitor their power usage. <br>
 ```jouko-admin-ui``` contains the admin user interface that allows management of users, interruptions and so on.
 
+Installation instructions are included in each folder.
+
 ## Related to Jouko:
 Control device software repository: https://github.com/Teukka/Jouko <br>
 Public documentation of the Jouko project: https://github.com/Teukka/FlexHomeElPower
