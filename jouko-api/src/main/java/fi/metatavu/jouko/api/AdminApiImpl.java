@@ -143,6 +143,11 @@ public class AdminApiImpl implements AdminApi {
     List<Device> devices = entities.stream()
                                    .map(this::deviceFromEntity)
                                    .collect(Collectors.toList());
+  if (devices.isEmpty()) {
+    return Response.status(Status.NOT_FOUND)
+                    .entity("no devices found")
+                    .build();
+  }
     return Response.ok(devices).build();
   }
 
