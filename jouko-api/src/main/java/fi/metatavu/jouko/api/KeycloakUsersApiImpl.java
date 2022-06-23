@@ -74,7 +74,7 @@ public class KeycloakUsersApiImpl implements KeycloakUsersApi {
 
     /**
      * Create a Keycloak client and build Resteasy client
-     x*/
+    */
     Keycloak keycloak = KeycloakBuilder.builder()
             .serverUrl(kcUrl)
             .realm(realm)
