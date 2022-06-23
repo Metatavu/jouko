@@ -207,6 +207,11 @@ public class AdminApiImpl implements AdminApi {
   @Override
   public Response retrieveUser(Long userId) throws Exception {
     UserEntity user = userController.findUserById(userId);
+    if (user == null) {
+      return Response.status(Status.NOT_FOUND)
+                     .entity("user not found")
+                     .build();
+    }
     return Response.ok(userFromEntity(user)).build();
   }
 
