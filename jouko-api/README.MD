@@ -181,9 +181,9 @@ Use `cd` command to where you want to install the project and then run
     git clone https://github.com/Metatavu/jouko.git
     cd jouko/jouko-api
     sh build.sh
-    cp target/*.war YOUR_WILDFLY_DIR/standalone/deployments/
+    cp target/*.war YOUR_WILDFLY_DIR/standalone/deployments/jouko-api.war
 
-Replace the YOUR_WILDFLY_DIR with the actual directory of your wildfly. War-file that you copied to YOUR_WILDFLY_DIR/standalone/deployments/ must be renamed to `jouko-api.war`.
+Replace the YOUR_WILDFLY_DIR with the actual directory of your wildfly.
 
 ### Run api
 
