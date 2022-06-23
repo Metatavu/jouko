@@ -13,6 +13,10 @@ import org.apache.commons.lang3.StringUtils;
 
 import fi.metatavu.jouko.api.model.ControllerEntity;
 
+/**
+ * Security filter that checks if the request is authorized.
+ * Uses Basic authentication scheme to authenticate the request.
+ */
 @Provider
 public class SecurityFilter implements ContainerRequestFilter {
   
