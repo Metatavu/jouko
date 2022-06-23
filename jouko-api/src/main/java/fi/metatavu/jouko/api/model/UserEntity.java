@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Creates MySQL table "User" and sets data types for columns.
+ */
 @Table(name="User")
 @Entity
 public class UserEntity {
