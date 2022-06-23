@@ -72,6 +72,10 @@ public class FileUploadServlet extends HttpServlet {
       String communicationChannel = req.getParameter("channel");
       int amountOfBytes = 128;
       
+      /**
+       * If Lora communication channel is used, the amount of bytes is set to 18 bytes.
+       * Otherwise, the amount of bytes is set to 128 bytes.
+       */
       if (communicationChannel != null) {
         if (communicationChannel.toLowerCase().equals("lora")) {
           amountOfBytes = 18;
