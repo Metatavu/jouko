@@ -21,7 +21,9 @@ public class InterruptionGroupDAOTest {
 
     }
 
-    // Create a new interruption group
+    /**
+     * Create a new interruption group
+     */
     @Test
     public void testCreateInterruptionGroup() {
         InterruptionGroupEntity group = new InterruptionGroupEntity(
@@ -35,7 +37,36 @@ public class InterruptionGroupDAOTest {
         System.out.println("Interruption group created");
     }
 
-    // Delete an interruption group
+    /**
+     * Update interruption group manually
+     */
+    // @Test
+    // public void testUpdateInterruptionGroup() {
+    //     InterruptionGroupEntity group = new InterruptionGroupEntity(
+    //             1L,
+    //             OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC),
+    //             OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
+
+    //     /**
+    //      * Check that interruption group exists
+    //      */
+    //     Mockito.when(interruptionGroupDAO.findById(1L)).thenReturn(group);
+    //     Assert.assertEquals(group, interruptionGroupDAO.findById(1L));
+
+    //     /**
+    //      * Update interruption group
+    //      */
+    //     OffsetDateTime startTimeUpdated = OffsetDateTime.ofInstant(Instant.ofEpochSecond(200), ZoneOffset.UTC);
+    //     OffsetDateTime endTimeUpdated = OffsetDateTime.ofInstant(Instant.ofEpochSecond(300), ZoneOffset.UTC);
+    //     interruptionGroupDAO.update(group, startTimeUpdated, endTimeUpdated);
+    //     Assert.assertEquals(startTimeUpdated, group.getStartTime());
+    //     Assert.assertEquals(endTimeUpdated, group.getEndTime());
+    //     System.out.println("Interruption group updated");
+    // }
+
+    /**
+     * Delete an interruption group
+     */
     @Test
     public void testDeleteInterruptionGroup() {
         interruptionGroupDAO.delete(interruptionGroupEntity);
