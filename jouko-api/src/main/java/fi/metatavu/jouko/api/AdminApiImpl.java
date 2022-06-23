@@ -268,6 +268,12 @@ public class AdminApiImpl implements AdminApi {
   @Override
   public Response retrieveControllerDevice(Long controllerDeviceId) throws Exception {
     ControllerEntity entity = deviceController.findControllerDeviceById(controllerDeviceId);
+
+    if (entity == null) {
+      return Response.status(Status.NOT_FOUND)
+                     .entity("controller device not found")
+                     .build();
+    }
     return Response.ok(controllerDeviceFromEntity(entity)).build();
   }
 
