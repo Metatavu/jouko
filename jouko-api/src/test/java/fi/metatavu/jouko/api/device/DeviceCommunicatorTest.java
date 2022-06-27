@@ -54,16 +54,16 @@ public class DeviceCommunicatorTest {
    */
   @Test
   public void testNotifySingleDeviceInterruption() {
-    ControllerEntity controller = new ControllerEntity(1l, "EUI", "KEY", ControllerCommunicationChannel.LORA);
+    ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.LORA);
 
-    DeviceEntity device = new DeviceEntity(1l, "Device", null, controller);
+    DeviceEntity device = new DeviceEntity(1L, "Device", null, controller);
 
     InterruptionGroupEntity group = new InterruptionGroupEntity(
-            1l,
+            1L,
             OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC),
             OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
 
-    InterruptionEntity interruption = new InterruptionEntity(1l, device, group, false, null);
+    InterruptionEntity interruption = new InterruptionEntity(1L, device, group, false, null);
 
     Mockito.when(deviceController.listByInterruption(Mockito.any()))
             .thenReturn(Arrays.asList(device));
@@ -86,12 +86,12 @@ public class DeviceCommunicatorTest {
    */
   @Test
   public void testNotifySingleDeviceInterruptionCancellation() {
-    ControllerEntity controller = new ControllerEntity(1l, "EUI", "KEY", ControllerCommunicationChannel.LORA);
+    ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.LORA);
 
-    DeviceEntity device = new DeviceEntity(1l, "Device", null, controller);
+    DeviceEntity device = new DeviceEntity(1L, "Device", null, controller);
 
     InterruptionGroupEntity group = new InterruptionGroupEntity(
-            1l,
+            1L,
             OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC),
             OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
 
@@ -118,16 +118,16 @@ public class DeviceCommunicatorTest {
    */
   @Test
   public void testNotifySingleDeviceInterruptionDeviceNotFound() {
-    ControllerEntity controller = new ControllerEntity(1l, "EUI", "KEY", ControllerCommunicationChannel.LORA);
+    ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.LORA);
 
-    DeviceEntity device = new DeviceEntity(1l, "Device", null, controller);
+    DeviceEntity device = new DeviceEntity(1L, "Device", null, controller);
 
     InterruptionGroupEntity group = new InterruptionGroupEntity(
-            1l,
+            1L,
             OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC),
             OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
 
-    InterruptionEntity interruption = new InterruptionEntity(1l, device, group, false, null);
+    InterruptionEntity interruption = new InterruptionEntity(1L, device, group, false, null);
 
     Mockito.when(deviceController.listByInterruption(Mockito.any()))
             .thenReturn(Arrays.asList());
