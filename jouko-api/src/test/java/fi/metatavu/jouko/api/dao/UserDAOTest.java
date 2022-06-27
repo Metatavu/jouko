@@ -33,4 +33,23 @@ public class UserDAOTest {
         Assert.assertEquals(user, userDAO.findById(1L));
         System.out.println("User created");
     }
+
+    /**
+     * Find a user by keyckoak id
+     */
+    @Test
+    public void testFindUserByKeycloakId() {
+        UserEntity user = new UserEntity(
+                1L,
+                "keycloakId",
+                "name"
+        );
+
+        /**
+         * Check that user exists
+         */
+        Mockito.when(userDAO.findByKeycloakId("keycloakId")).thenReturn(user);
+        Assert.assertEquals(user, userDAO.findByKeycloakId("keycloakId"));
+        System.out.println("User found by keycloak id");
+    }
 }
