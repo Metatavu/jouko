@@ -62,7 +62,6 @@ public class InterruptionGroupDAOTest {
         group.setEndTime(endTimeUpdated);
         Mockito.when(interruptionGroupDAO.update(group, startTimeUpdated, endTimeUpdated)).thenReturn(group);
         Assert.assertEquals(group, interruptionGroupDAO.update(group, startTimeUpdated, endTimeUpdated));
-        System.out.println(group.getStartTime());
         System.out.println("Interruption group updated");
     }
 
