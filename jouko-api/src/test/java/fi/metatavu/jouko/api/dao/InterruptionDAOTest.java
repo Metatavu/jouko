@@ -32,4 +32,20 @@ public class InterruptionDAOTest {
         Assert.assertEquals(interruption, interruptionDAO.findById(1L));
         System.out.println("Interruption created");
     }
+
+    /**
+     * Delete Interruption
+     */
+    @Test
+    public void deleteInterruption() {
+        UserEntity user = new UserEntity(1L,"keycloakId", "name");
+        ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
+        DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
+        InterruptionGroupEntity group = new InterruptionGroupEntity(1L, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
+        InterruptionEntity interruption = interruptionDAO.create(device, group);
+        Mockito.when(interruptionDAO.findById(1L)).thenReturn(interruption);
+        interruptionDAO.delete(interruption);
+        Assert.assertNull(interruptionDAO.findById(1L));
+        System.out.println("Interruption deleted");
+    }
 }
