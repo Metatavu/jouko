@@ -35,7 +35,6 @@ public class InterruptionDAOTest {
 
     /**
      * Cancel a interruption (InterruptionEntity interruption, boolean cancelled)
-     * Need to test that cancelled is set to true, but couldn't get it to work yet.
      */
     @Test
     public void cancelInterruption() {
@@ -45,8 +44,8 @@ public class InterruptionDAOTest {
         InterruptionGroupEntity group = new InterruptionGroupEntity(1L, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
         InterruptionEntity interruption = interruptionDAO.create(device, group);
         interruptionDAO.updateCancelled(interruption, true);
-        Mockito.when(interruptionDAO.findById(1L)).thenReturn(interruption);
-        Assert.assertEquals(interruption, interruptionDAO.findById(1L));
+        Mockito.when(interruptionDAO.updateCancelled(interruption, true)).thenReturn(interruption);
+        Assert.assertEquals(interruption, interruptionDAO.updateCancelled(interruption, true));
         System.out.println("Interruption cancelled");
     }
 
