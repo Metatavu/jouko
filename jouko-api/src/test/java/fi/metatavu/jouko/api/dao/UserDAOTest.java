@@ -48,8 +48,16 @@ public class UserDAOTest {
         /**
          * Check that user exists
          */
-        Mockito.when(userDAO.findByKeycloakId("keycloakId")).thenReturn(user);
-        Assert.assertEquals(user, userDAO.findByKeycloakId("keycloakId"));
+        Mockito.when(userDAO.findByKeycloakId("keycloakId")).thenReturn(user);   
+    }
+
+    /**
+     * If user does not exist then return null
+     */
+    @Test
+    public void testFindUserByKeycloakIdNotFound() {
+        UserEntity user = userDAO.findByKeycloakId("keycloakId123");
+        Assert.assertNull(user);
         System.out.println("User found by keycloak id");
     }
 
