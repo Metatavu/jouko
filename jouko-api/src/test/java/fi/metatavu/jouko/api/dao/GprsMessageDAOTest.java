@@ -60,6 +60,7 @@ public class GprsMessageDAOTest {
         Mockito.when(gprsMessageDAO.findById(1L)).thenReturn(gprsMessage);
         Assert.assertEquals(gprsMessage, gprsMessageDAO.findById(1L));
         gprsMessageDAO.delete(gprsMessage);
+        Assert.assertNull(gprsMessageDAO.findById(1L));
         System.out.println("Gprs message deleted");
     }
 }
