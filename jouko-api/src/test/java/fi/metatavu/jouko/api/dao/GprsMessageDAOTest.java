@@ -109,7 +109,7 @@ public class GprsMessageDAOTest {
     }
 
     /**
-     * Clear all Gprs messages (
+     * Clear all Gprs messages
      */
     @Test
     public void clearAllGprsMessages() {
