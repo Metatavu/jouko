@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.Arrays;
 
 public class InterruptionDAOTest {
     InterruptionDAO interruptionDAO;
@@ -63,5 +64,19 @@ public class InterruptionDAOTest {
         interruptionDAO.delete(interruption);
         Assert.assertNull(interruptionDAO.findById(1L));
         System.out.println("Interruption deleted");
+    }
+
+    /**
+     * List interruptions by device and date (DeviceEntity device, OffsetDateTime start, OffsetDateTime end)
+     */
+    @Test
+    public void listInterruptionsByDeviceAndDate() {
+        UserEntity user = new UserEntity(1L,"keycloakId", "name");
+        ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
+        DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
+        InterruptionGroupEntity group = new InterruptionGroupEntity(1L, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
+        InterruptionEntity interruption = interruptionDAO.create(device, group);
+        Mockito.when(interruptionDAO.listByDeviceAndDate(device, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC))).thenReturn(Arrays.asList());
+        System.out.println("Interruptions by device and date");
     }
 }
