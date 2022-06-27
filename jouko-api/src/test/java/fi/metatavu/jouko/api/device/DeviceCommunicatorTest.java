@@ -2,6 +2,7 @@ package fi.metatavu.jouko.api.device;
 
 import fi.metatavu.jouko.api.DeviceController;
 import fi.metatavu.jouko.api.SettingController;
+import fi.metatavu.jouko.api.dao.GprsMessageDAO;
 import fi.metatavu.jouko.api.model.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,6 +21,7 @@ public class DeviceCommunicatorTest {
 
   DeviceController deviceController;
   SettingController settingController;
+  GprsMessageDAO gprsMessageDAO;
   private List<String> postResults;
   DeviceCommunicator subject;
 
@@ -27,6 +29,7 @@ public class DeviceCommunicatorTest {
   public void setUp() {
     deviceController = Mockito.mock(DeviceController.class);
     settingController = Mockito.mock(SettingController.class);
+    gprsMessageDAO = Mockito.mock(GprsMessageDAO.class);
     postResults = new ArrayList<>();
 
     Mockito.when(settingController.getSetting("deviceCommunicator.endpoint"))
@@ -136,4 +139,36 @@ public class DeviceCommunicatorTest {
 
     Assert.assertEquals(0, postResults.size());
   }
-}
+
+  /**
+   * Test sending a notification as a Gprs message
+   */
+//   @Test
+//   public void testNotifySingleDeviceGprs() {
+//     ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
+
+//     DeviceEntity device = new DeviceEntity(1L, "Device", null, controller);
+
+//     InterruptionGroupEntity group = new InterruptionGroupEntity(
+//             1L,
+//             OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC),
+//             OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
+
+//     InterruptionEntity interruption = new InterruptionEntity(1L, device, group, false, null);
+
+//     Mockito.when(deviceController.listByInterruption(Mockito.any()))
+//             .thenReturn(Arrays.asList(device));
+
+//     subject.notifyInterruption(interruption);
+
+//     String expectedPost = "http://jouko.test/?DevEUI=EUI"
+//             + "&FPort=1"
+//             + "&Payload=7b43676f4b43416742454145594143426b7d"
+//             + "&AS_ID=as"
+//             + "&Time=1970-01-01T00:00:00Z"
+//             + "&Token=5b89dcabdeadcd07a523a6a26f94c951a4bc8b14947e30a048615010a4d3f034";
+
+//      Assert.assertEquals(1, postResults.size());
+//      Assert.assertEquals(expectedPost, postResults.get(0));
+//   }
+// }
