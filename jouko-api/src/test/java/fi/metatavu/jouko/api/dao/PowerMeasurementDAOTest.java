@@ -35,7 +35,6 @@ public class PowerMeasurementDAOTest {
                 OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC),
                 1,
                 false);
-        // Check that power measurement exists
         Mockito.when(powerMeasurementDAO.findById(1L)).thenReturn(powerMeasurement);
         Assert.assertEquals(powerMeasurement, powerMeasurementDAO.findById(1L));
         System.out.println("Power measurement created");
