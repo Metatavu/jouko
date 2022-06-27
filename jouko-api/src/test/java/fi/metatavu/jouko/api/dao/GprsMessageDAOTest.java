@@ -89,4 +89,22 @@ public class GprsMessageDAOTest {
         Assert.assertEquals(gprsMessage, gprsMessageDAO.findById(1L));
         System.out.println("Gprs message created (Cancel interruption)");
     }
+
+    /**
+     * Clear a controller's gprs messages (ControllerEntity controller)
+     */
+    @Test
+    public void clearGprsMessages() {
+        UserEntity user = new UserEntity(1L,"keycloakId", "name");
+        ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
+        DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
+        MessageType messageType = MessageType.NEW_INTERRUPTION;
+
+        GprsMessageEntity gprsMessage = gprsMessageDAO.create(controller, 1L, "test", messageType);
+        Mockito.when(gprsMessageDAO.findById(1L)).thenReturn(gprsMessage);
+        Assert.assertEquals(gprsMessage, gprsMessageDAO.findById(1L));
+        gprsMessageDAO.clearControllerMessages(controller);
+        Assert.assertNull(gprsMessageDAO.findById(1L));
+        System.out.println("Gprs messages cleared from a controller");
+    }
 }
