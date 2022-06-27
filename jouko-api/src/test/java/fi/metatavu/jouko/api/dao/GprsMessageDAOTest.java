@@ -27,7 +27,7 @@ public class GprsMessageDAOTest {
         GprsMessageEntity gprsMessage = gprsMessageDAO.create(controller, 1L, "test", messageType);
         Mockito.when(gprsMessageDAO.findById(1L)).thenReturn(gprsMessage);
         Assert.assertEquals(gprsMessage, gprsMessageDAO.findById(1L));
-        System.out.println("Gprs message created");
+        System.out.println("Gprs message created (New interruption)");
     }
 
     /**
