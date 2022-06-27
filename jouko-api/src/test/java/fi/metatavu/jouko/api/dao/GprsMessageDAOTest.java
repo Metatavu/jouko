@@ -47,6 +47,16 @@ public class GprsMessageDAOTest {
     }
 
     /**
+     * If gprs message not found by controller
+     */
+    @Test
+    public void findGprsMessageByControllerNotFound() {
+        GprsMessageEntity gprsMessage = gprsMessageDAO.findOneByController(null, 5L);
+        Assert.assertNull(gprsMessage);
+        System.out.println("Gprs message not found by controller");
+    }
+
+    /**
      * Delete a gprs message from a controller (ControllerEntity controller, GprsMessageEntity message)
      */
     @Test
