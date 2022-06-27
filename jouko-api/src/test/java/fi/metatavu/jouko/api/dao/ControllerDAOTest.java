@@ -53,4 +53,15 @@ public class ControllerDAOTest {
         Assert.assertNull(controllerDAO.findByEui("EUI"));
         System.out.println("Controller deleted");
     }
+
+    /**
+     * Find a controller by EUI and key and make sure it exists
+     */
+    @Test
+    public void testGetControllerByEuiAndKey() {
+        ControllerEntity controller = controllerDAO.create("EUI", "KEY", ControllerCommunicationChannel.LORA);
+        Mockito.when(controllerDAO.findByEuiAndKey("EUI", "KEY")).thenReturn(controller);
+        Assert.assertEquals(controller, controllerDAO.findByEuiAndKey("EUI", "KEY"));
+        System.out.println("Controller found by EUI and KEY");
+    }
 }
