@@ -171,4 +171,4 @@ public class DeviceCommunicatorTest {
 //      Assert.assertEquals(1, postResults.size());
 //      Assert.assertEquals(expectedPost, postResults.get(0));
 //   }
-// }
+}
