@@ -1,5 +1,13 @@
 package fi.metatavu.jouko.api.device;
 
+import fi.metatavu.jouko.api.DeviceController;
+import fi.metatavu.jouko.api.SettingController;
+import fi.metatavu.jouko.api.model.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+
 import java.time.Clock;
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -7,19 +15,6 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-
-import fi.metatavu.jouko.api.DeviceController;
-import fi.metatavu.jouko.api.SettingController;
-import fi.metatavu.jouko.api.model.ControllerCommunicationChannel;
-import fi.metatavu.jouko.api.model.ControllerEntity;
-import fi.metatavu.jouko.api.model.DeviceEntity;
-import fi.metatavu.jouko.api.model.InterruptionEntity;
-import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
 
 public class DeviceCommunicatorTest {
 
@@ -54,6 +49,9 @@ public class DeviceCommunicatorTest {
     );
   }
 
+  /**
+   * Test interruption notification for single device
+   */
   @Test
   public void testNotifySingleDeviceInterruption() {
     ControllerEntity controller = new ControllerEntity(1l, "EUI", "KEY", ControllerCommunicationChannel.LORA);
@@ -83,6 +81,9 @@ public class DeviceCommunicatorTest {
     Assert.assertEquals(expectedPost, postResults.get(0));
   }
 
+  /**
+   * Test interruption notification cancellation for single device.
+   */
   @Test
   public void testNotifySingleDeviceInterruptionCancellation() {
     ControllerEntity controller = new ControllerEntity(1l, "EUI", "KEY", ControllerCommunicationChannel.LORA);
@@ -112,7 +113,9 @@ public class DeviceCommunicatorTest {
     Assert.assertEquals(expectedPost, postResults.get(0));
   }
 
-  // Test that when device is not found, no request is sent
+  /**
+   * Test that when device is not found, no request is sent
+   */
   @Test
   public void testNotifySingleDeviceInterruptionDeviceNotFound() {
     ControllerEntity controller = new ControllerEntity(1l, "EUI", "KEY", ControllerCommunicationChannel.LORA);
