@@ -35,17 +35,17 @@ Run `exit` to exit mysql.
 
 To Install wildfly first use `cd` command to where you want to install that and then run 
 
-    wget "http://download.jboss.org/wildfly/11.0.0.Final/wildfly-11.0.0.Final.zip"
-    unzip wildfly-11.0.0.Final.zip
-    rm wildfly-11.0.0.Final.zip
+    wget https://download.jboss.org/wildfly/24.0.1.Final/wildfly-preview-24.0.1.Final.zip
+    unzip wildfly-preview-24.0.1.Final.zip
+    rm wildfly-preview-24.0.1.Final.zip
 
 ### Keycloak
 
 To Install keycloak first use `cd` command to where you want to install that and then run 
 
-    wget https://downloads.jboss.org/keycloak/3.4.3.Final/keycloak-3.4.3.Final.zip
-    unzip keycloak-3.4.3.Final.zip
-    rm keycloak-3.4.3.Final.zip
+    wget https://github.com/keycloak/keycloak/releases/download/17.0.1/keycloak-legacy-17.0.1.zip
+    unzip keycloak-legacy-17.0.1.zip
+    rm keycloak-legacy-17.0.1.zip
 
 Start keycloak by running inside the keycloak directory
 
