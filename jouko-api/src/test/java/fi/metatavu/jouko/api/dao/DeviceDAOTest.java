@@ -1,14 +1,14 @@
 package fi.metatavu.jouko.api.dao;
 
-import fi.metatavu.jouko.api.model.*;
+import fi.metatavu.jouko.api.model.ControllerCommunicationChannel;
+import fi.metatavu.jouko.api.model.ControllerEntity;
+import fi.metatavu.jouko.api.model.DeviceEntity;
+import fi.metatavu.jouko.api.model.UserEntity;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.Arrays;
 
 public class DeviceDAOTest {
