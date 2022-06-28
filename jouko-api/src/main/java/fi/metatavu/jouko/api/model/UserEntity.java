@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Creates MySQL table "User" and sets data types for columns.
+ */
 @Table(name="User")
 @Entity
 public class UserEntity {
@@ -15,9 +18,10 @@ public class UserEntity {
   @Column
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  // Use a separate keycloakId because the devices have very restricted
-  // communication bandwidth, so using UUIDs everywhere is not feasible
+  /**
+   * Use a separate keycloakId because the devices have very restricted
+   * communication bandwidth, so using UUIDs everywhere is not feasible
+   */
   @Column(nullable = false)
   @NotNull
   private String keycloakId;

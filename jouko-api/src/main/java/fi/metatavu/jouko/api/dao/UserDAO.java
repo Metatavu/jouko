@@ -12,7 +12,13 @@ import java.util.List;
 
 @Dependent
 public class UserDAO extends AbstractDAO<UserEntity> {
-  
+
+  /**
+   * Creates a new user
+   *
+   * @param user the user to be created
+   * @return the newly created user
+   */
   public UserEntity create(UserEntity user) {
     UserEntity entity = new UserEntity(
         null,
@@ -22,7 +28,14 @@ public class UserDAO extends AbstractDAO<UserEntity> {
     getEntityManager().persist(entity);
     return entity;
   }
-  
+
+  /**
+   * Finds user by keycloak id
+   *
+   * @param keycloakId keycloak user id
+   * @return user or null if not found
+   * @throws RuntimeException if there are multiple users with the same ID
+   */
   public UserEntity findByKeycloakId(String keycloakId) {
     EntityManager em = getEntityManager();
     

@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Creates MySQL table "DevicePowerMeasurement" and sets data types for columns.
+ */
 @Table(name="DevicePowerMeasurement")
 @Entity
 public class DevicePowerMeasurementEntity {

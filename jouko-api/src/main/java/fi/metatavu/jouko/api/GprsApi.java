@@ -35,9 +35,14 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Deals with the Gprs communication protocol
+ * Sets the API path to "/gprs" for the protocol
+ * 
+ * @Path("/gprs")
+ */
 @Stateless
 @Path("/gprs")
-// TODO rename
 public class GprsApi {
   
   @Inject
@@ -136,9 +141,11 @@ public class GprsApi {
   }
 
   /**
+   * Creates API path to communicate with Lora device
+   * Handles lora communication protocol
+   * 
    * @POST
    * @Path("/lora/")
-   * Creates API path to communicate with Lora device
    */
   @POST
   @Path("/lora/")
@@ -155,7 +162,9 @@ public class GprsApi {
     String payloadHex = uplink.getPayloadHex();
     String message;
     try {
-      // Decode payload hex to string
+      /**
+       * Decode payloadHex to message
+       */
       message = new String(Hex.decodeHex(payloadHex.toCharArray()),
                                   StandardCharsets.US_ASCII);
     } catch (DecoderException e) {
@@ -182,7 +191,9 @@ public class GprsApi {
     }
 
     String hashedStringKey = hashedStringNoKey + controller.getKey();
-    // Create a hash using SHA-256 algorithm
+    /**
+     * Create a hash using SHA-256 algorithm
+     */
     String hash = DigestUtils.sha256Hex(hashedStringKey.getBytes(StandardCharsets.UTF_8));
     logger.info("kellonaika: {}", time);
     logger.info("hash: {}", hash);
@@ -256,7 +267,9 @@ public class GprsApi {
     
     while (messageMatcher.find()) {
       String base64 = messageMatcher.group(1);
-      // Decode base64 to bytes
+      /**
+       * Decode base64 to message
+       */
       byte[] bytes = Base64.decodeBase64(base64);
      
       try {
@@ -275,9 +288,11 @@ public class GprsApi {
             .build();
       }
     }
-    
-    // If messages is empty we want to add messages from db
-    // If it's not empty we have timesync message there and we only want to respond that 
+
+    /**
+     * If messages is empty we want to add messages from db
+     * If it's not empty we have timesync message there and we only want to respond that
+     */
     if (messages.isEmpty()) {
       GprsMessageEntity oldestMessage = deviceController.getQueuedGprsMessageForController(controller, deviceId);
       if (oldestMessage != null) {
@@ -288,7 +303,13 @@ public class GprsApi {
 
     return Response.ok(String.join(" ", messages)).build();
   }
-  
+
+  /**
+   * Unpacks messages from GPRS device
+   *
+   * @param mittaukset Measurements from GPRS device
+   * @throws InvalidDeviceException If device is not found
+   */
   private void unpackMittaukset(Mittaukset mittaukset) throws InvalidDeviceException {
     long deviceId = mittaukset.getLaiteID();
     
@@ -328,6 +349,13 @@ public class GprsApi {
   }
 
 
+  /**
+   * Unpacks timesync message
+   *
+   * @param viestiLaitteelta is the message from the device
+   * @param messages is the list of messages
+   * @throws InvalidProtocolBufferException if the message is invalid
+   */
   private void unpackAikasync(ViestiLaitteelta viestiLaitteelta, List<String> messages) throws InvalidProtocolBufferException  {
     if (viestiLaitteelta.hasAikasynkLaitteelta()) {
       AikasynkLaitteelta sync = viestiLaitteelta.getAikasynkLaitteelta();
@@ -343,9 +371,13 @@ public class GprsApi {
           .build();
       
       String replyMessageString = String.format("{%s}",
+          /**
+           * Encode message to base64 string and replyMessage to byte array before base64 encoding
+           */
           Base64.encodeBase64String(replyMessage.toByteArray()));
-      
-      // If we end up here, we only want to send timesync message
+      /**
+       * If we end up here, we only want to send timesync message
+       */
       messages.clear();
       messages.add(replyMessageString);
     }

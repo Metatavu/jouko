@@ -42,6 +42,9 @@ import fi.metatavu.jouko.api.model.DeviceEntity;
 import fi.metatavu.jouko.api.model.InterruptionEntity;
 import fi.metatavu.jouko.api.model.MessageType;
 
+/**
+ * File handles communication with the device
+ */
 public class DeviceCommunicator {
   
   private static String ENDPOINT_SETTING = "deviceCommunicator.endpoint";
@@ -72,7 +75,14 @@ public class DeviceCommunicator {
     clock = Clock.systemUTC();
     doPost = this::doPostFunc;
   }
-  
+
+  /**
+   * Deals with doing a POST request
+   *
+   * @param url to send the request to
+   * @return successfully message was sent
+   * @throws DeviceCommunicationException if was unable to process the request
+   */
   private String doPostFunc(String url) {
     try {
       return Request.Post(url.toString())
@@ -84,6 +94,13 @@ public class DeviceCommunicator {
     }
   }
 
+  /**
+   * Sends the Gprs message
+   *
+   * @param message to send
+   * @param controller to send to
+   * @param messageType that is being sent
+   */
   private void sendMessageGprs(ViestiLaitteelle message, ControllerEntity controller, MessageType messageType) {
     byte[] payloadBytes = encodeMessage(message);
     long deviceId = -1;
@@ -95,7 +112,14 @@ public class DeviceCommunicator {
     System.out.println(new String(payloadBytes, StandardCharsets.UTF_8));
     deviceController.queueGprsMessage(controller, deviceId, new String(payloadBytes, StandardCharsets.UTF_8), messageType);
   }
-  
+
+  /**
+   * Sends message to Lora
+   *
+   * @param encodedMessage of the message
+   * @param message that is being sent and encodes it if not
+   * @param controller to send to
+   */
   private void sendMessageLora(String encodedMessage, ViestiLaitteelle message, ControllerEntity controller) {
     System.out.println("LÄHETETÄÄN LORA VIESTI");
     byte[] payloadBytes = null;
@@ -134,7 +158,14 @@ public class DeviceCommunicator {
       throw new DeviceCommunicationException(response);
     }
   }
-  
+
+  /**
+   * Queue lora message
+   *
+   * @param message to send
+   * @param controller to send to
+   * @param messageType of the message
+   */
   private void queueLoraMessage(ViestiLaitteelle message, ControllerEntity controller, MessageType messageType) {
     byte[] payloadBytes = encodeMessage(message);
     long deviceId = -1;
@@ -142,11 +173,23 @@ public class DeviceCommunicator {
     System.out.println(new String(payloadBytes, StandardCharsets.UTF_8));
     deviceController.queueGprsMessage(controller, deviceId, new String(payloadBytes, StandardCharsets.UTF_8), messageType);
   }
-  
+
+  /**
+   * Processes the Lora queue and sends a message from it
+   *
+   * @param message to send
+   * @param controller to send to
+   */
   public void sendLoraMessageFromQueue(String message, ControllerEntity controller) {
     sendMessageLora(message, null, controller);
   }
 
+  /**
+   * Encode the message if it's not encoded yet
+   * 
+   * @param message to encode
+   * @return encoded message
+   */
   private byte[] encodeMessage(ViestiLaitteelle message) {
     ByteArrayOutputStream payloadBytes = new ByteArrayOutputStream();
     byte[] base64 = Base64.encodeBase64(message.toByteArray());
@@ -155,13 +198,26 @@ public class DeviceCommunicator {
     payloadBytes.write(Character.codePointAt("}", 0));
     return payloadBytes.toByteArray();
   }
-  
+
+  /**
+   * If enabled then true
+   *
+   * @return true
+   */
   private boolean isEnabled() {
     return true;
     //String enabledSetting = settingController.getSetting(ENABLED_SETTING, "false");
     //return "true".equals(enabledSetting);
   }
 
+  /**
+   * Sends the message
+   *
+   * @param encodedMessage to send
+   * @param viestiLaitteelle device to send the message to
+   * @param controller to send to
+   * @param messageType of the message
+   */
   private void sendMessage(String encodedMessage, ViestiLaitteelle viestiLaitteelle, ControllerEntity controller, MessageType messageType) {
     switch (controller.getCommunicationChannel()) {
     case LORA:
@@ -170,7 +226,15 @@ public class DeviceCommunicator {
       sendMessageGprs(viestiLaitteelle, controller, messageType);
     }
   }
-  
+
+  /**
+   * Notifies of an update
+   *
+   * @param fileName of file
+   * @param version of update
+   * @param fileParts contents of file
+   * @param communicationChannel the update is being sent to
+   */
   public void notifyUpdate(String fileName, int version, List<FilePart> fileParts, String communicationChannel) {
     List<ControllerEntity> devices = deviceController.listControllerDevices(0, 9999999);
     ViestiLaitteelle viestiLaitteelle = null;
@@ -252,7 +316,13 @@ public class DeviceCommunicator {
       }
     }
   }
-  
+
+  /**
+   * Notify of time sync
+   *
+   * @param messageMatcher
+   * @param controller to notify to
+   */
   public void notifyTimeSync(Matcher messageMatcher, ControllerEntity controller) {
     while (messageMatcher.find()) {
       String base64 = messageMatcher.group(1);
@@ -284,7 +354,12 @@ public class DeviceCommunicator {
       }
     }
   }
-  
+
+  /**
+   * Notify about an interruption
+   *
+   * @param interruption to notify about
+   */
   public void notifyInterruption(InterruptionEntity interruption) {
     if (!isEnabled()) {
       return;
@@ -324,6 +399,11 @@ public class DeviceCommunicator {
     }
   }
 
+  /**
+   * Notify that the interruption was cancelled
+   *
+   * @param interruption that was cancelled
+   */
   public void notifyInterruptionCancellation(InterruptionEntity interruption) {
     if (!isEnabled()) {
       return;

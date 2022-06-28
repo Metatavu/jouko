@@ -18,7 +18,15 @@ import fi.metatavu.jouko.api.model.UserEntity;
 
 @Dependent
 public class DeviceDAO extends AbstractDAO<DeviceEntity> {
-  
+
+  /**
+   * Creates a new device entity.
+   *
+   * @param controller the controller that manages the device
+   * @param name the name of the device
+   * @param user the user that utilizes the device
+   * @return the newly created device
+   */
   public DeviceEntity create(
       ControllerEntity controller,
       String name,
@@ -31,7 +39,13 @@ public class DeviceDAO extends AbstractDAO<DeviceEntity> {
     getEntityManager().persist(device);
     return device;
   }
-  
+
+  /**
+   * Lists the device entities by interruption
+   *
+   * @param entity you want to retrieve interruptions from
+   * @return list of interruptions
+   */
   public List<DeviceEntity> listByInterruption(InterruptionEntity entity) {
     EntityManager em = getEntityManager();
     
@@ -48,6 +62,14 @@ public class DeviceDAO extends AbstractDAO<DeviceEntity> {
     return em.createQuery(criteria).getResultList();
   }
 
+  /**
+   * List the user's devices.
+   *
+   * @param user the user to list the devices of
+   * @param firstResult the first result (index) to return
+   * @param maxResults the maximum amount of results to return
+   * @return the user's devices, sliced as {@code [firstResult...firstResult+maxResults]}
+   */
   public List<DeviceEntity> listByUser(UserEntity user, int firstResult, int maxResults) {
     EntityManager em = getEntityManager();
     

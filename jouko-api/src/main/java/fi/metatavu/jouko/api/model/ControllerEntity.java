@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Creates MySQL table "Controller" and sets data types for columns.
+ */
 @Table(name="Controller")
 @Entity
 public class ControllerEntity {

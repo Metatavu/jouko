@@ -11,7 +11,7 @@
     <licenses>
         <license>
             <name>GNU Affero General Public License v3</name>
-            <url>http://www.gnu.org/licenses/agpl-3.0.html</url>
+            <url>https://www.gnu.org/licenses/agpl-3.0.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -20,7 +20,7 @@
         <developer>
             <name>Metatavu Oy</name>
             <organization>Metatavu Oy</organization>
-            <organizationUrl>http://www.metatavu.fi</organizationUrl>
+            <organizationUrl>https://www.metatavu.fi</organizationUrl>
         </developer>
     </developers>
 
@@ -38,7 +38,7 @@
 
     <organization>
         <name>Metatavu Oy</name>
-        <url>http://www.metatavu.fi</url>
+        <url>https://www.metatavu.fi</url>
     </organization>
 
     <properties>
@@ -56,6 +56,10 @@
         <!-- Wildfly -->
 
         <wildfly-spec-api.version>11.0.0.Final</wildfly-spec-api.version>
+
+        <!-- Keycloak admin client -->
+
+        <keycloak.version>17.0.1</keycloak.version>
 
         <!-- HttpComponents extras -->
         <fluent-hc.version>4.5.13</fluent-hc.version>
@@ -208,13 +212,13 @@
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-admin-client</artifactId>
-            <version>3.4.3.Final</version>
+            <version>${keycloak.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-core</artifactId>
-            <version>3.4.3.Final</version>
+            <version>${keycloak.version}</version>
         </dependency>
 
         <dependency>
@@ -226,21 +230,21 @@
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-adapter-spi</artifactId>
-            <version>3.4.3.Final</version>
+            <version>${keycloak.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-adapter-core</artifactId>
-            <version>3.4.3.Final</version>
+            <version>${keycloak.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-authz-client</artifactId>
-            <version>3.4.3.Final</version>
+            <version>${keycloak.version}</version>
             <scope>provided</scope>
         </dependency>
 
