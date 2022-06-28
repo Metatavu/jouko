@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Creates MySQL table "Interruption" and sets data types for columns.
+ */
 @Table(name="Interruption")
 @Entity
 public class InterruptionEntity {

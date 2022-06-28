@@ -22,7 +22,10 @@ public class LiquibaseProducer {
    */
   @Resource (mappedName = "java:jboss/datasources/jouko-api")
   private DataSource dataSource;
-  
+
+  /**
+   * Writes database changes to a changelog file.
+   */
   @Produces
   @LiquibaseType
   public CDILiquibaseConfig createConfig() {

@@ -11,7 +11,7 @@
     <licenses>
         <license>
             <name>GNU Affero General Public License v3</name>
-            <url>http://www.gnu.org/licenses/agpl-3.0.html</url>
+            <url>https://www.gnu.org/licenses/agpl-3.0.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -20,7 +20,7 @@
         <developer>
             <name>Metatavu Oy</name>
             <organization>Metatavu Oy</organization>
-            <organizationUrl>http://www.metatavu.fi</organizationUrl>
+            <organizationUrl>https://www.metatavu.fi</organizationUrl>
         </developer>
     </developers>
 
@@ -38,7 +38,7 @@
 
     <organization>
         <name>Metatavu Oy</name>
-        <url>http://www.metatavu.fi</url>
+        <url>https://www.metatavu.fi</url>
     </organization>
 
     <properties>
