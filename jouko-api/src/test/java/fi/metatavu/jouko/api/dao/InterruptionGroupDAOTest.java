@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.slf4j.Logger;
 
 import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
 
@@ -14,6 +15,7 @@ import java.time.ZoneOffset;
 public class InterruptionGroupDAOTest {
     private InterruptionGroupDAO interruptionGroupDAO;
     private InterruptionGroupEntity interruptionGroupEntity;
+    private Logger logger;
 
     @Before
     public void setUp() {
@@ -34,7 +36,7 @@ public class InterruptionGroupDAOTest {
         // Check that interruption group exists
         Mockito.when(interruptionGroupDAO.findById(1L)).thenReturn(group);
         Assert.assertEquals(group, interruptionGroupDAO.findById(1L));
-        System.out.println("Interruption group created");
+        logger.info("Interruption group created");
     }
 
     /**
@@ -62,7 +64,7 @@ public class InterruptionGroupDAOTest {
         group.setEndTime(endTimeUpdated);
         Mockito.when(interruptionGroupDAO.update(group, startTimeUpdated, endTimeUpdated)).thenReturn(group);
         Assert.assertEquals(group, interruptionGroupDAO.update(group, startTimeUpdated, endTimeUpdated));
-        System.out.println("Interruption group updated");
+        logger.info("Interruption group updated");
     }
 
     /**
@@ -73,6 +75,6 @@ public class InterruptionGroupDAOTest {
         interruptionGroupDAO.delete(interruptionGroupEntity);
         Mockito.verify(interruptionGroupDAO).delete(interruptionGroupEntity);
         Assert.assertNull(interruptionGroupDAO.findById(1L));
-        System.out.println("Deleted interruption group");
+        logger.info("Deleted interruption group");
     }
 }

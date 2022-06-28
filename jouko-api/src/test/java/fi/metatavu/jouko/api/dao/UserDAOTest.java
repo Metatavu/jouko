@@ -5,12 +5,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.slf4j.Logger;
 
 import java.util.Arrays;
 
 public class UserDAOTest {
     private UserDAO userDAO;
     private UserEntity userEntity;
+    private Logger logger;
 
     @Before
     public void setUp() {
@@ -33,7 +35,7 @@ public class UserDAOTest {
          */
         Mockito.when(userDAO.findById(1L)).thenReturn(user);
         Assert.assertEquals(user, userDAO.findById(1L));
-        System.out.println("User created");
+        logger.info("User created");
     }
 
     /**
@@ -52,7 +54,7 @@ public class UserDAOTest {
          */
         Mockito.when(userDAO.findByKeycloakId("keycloakId")).thenReturn(user);
         Assert.assertEquals(user, userDAO.findByKeycloakId("keycloakId"));
-        System.out.println("User found");
+        logger.info("User found");
     }
 
     /**
@@ -62,7 +64,7 @@ public class UserDAOTest {
     public void testFindUserByKeycloakIdNotFound() {
         UserEntity user = userDAO.findByKeycloakId("keycloakId123");
         Assert.assertNull(user);
-        System.out.println("User not found by keycloak id");
+        logger.info("User not found by keycloak id");
     }
 
     /**
@@ -77,7 +79,7 @@ public class UserDAOTest {
         );
         Mockito.when(userDAO.listAll()).thenReturn(Arrays.asList(user));
         Assert.assertEquals(Arrays.asList(user), userDAO.listAll());
-        System.out.println("Users found");
+        logger.info("Users found");
     }
 
     /**
@@ -92,6 +94,6 @@ public class UserDAOTest {
         );
         userDAO.delete(user);
         Assert.assertNull(userDAO.findByKeycloakId("keycloakId"));
-        System.out.println("User deleted");
+        logger.info("User deleted");
     }
 }
