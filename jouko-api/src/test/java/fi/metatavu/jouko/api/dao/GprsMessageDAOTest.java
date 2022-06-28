@@ -20,7 +20,7 @@ public class GprsMessageDAOTest {
      * Create a new Gprs message (ControllerEntity controller, long deviceId, String content, MessageType messageType)
      */
     @Test
-    public void createGprsMessage() {
+    public void testCreateGprsMessage() {
         UserEntity user = new UserEntity(1L,"keycloakId", "name");
         ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
@@ -36,7 +36,7 @@ public class GprsMessageDAOTest {
      * Find a gprs message by controller (ControllerEntity controller, long deviceId)
      */
     @Test
-    public void findGprsMessageByController() {
+    public void testFindGprsMessageByController() {
         UserEntity user = new UserEntity(1L,"keycloakId", "name");
         ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
@@ -52,7 +52,7 @@ public class GprsMessageDAOTest {
      * List gprs messages by controller (ControllerEntity controller)
      */
     @Test
-    public void listGprsMessagesByController() {
+    public void testListGprsMessagesByController() {
         UserEntity user = new UserEntity(1L,"keycloakId", "name");
         ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
@@ -68,7 +68,7 @@ public class GprsMessageDAOTest {
      * If gprs message not found by controller
      */
     @Test
-    public void findGprsMessageByControllerNotFound() {
+    public void testFindGprsMessageByControllerNotFound() {
         GprsMessageEntity gprsMessage = gprsMessageDAO.findOneByController(null, 5L);
         Assert.assertNull(gprsMessage);
         System.out.println("Gprs message not found by controller");
@@ -78,7 +78,7 @@ public class GprsMessageDAOTest {
      * Delete a gprs message from a controller (ControllerEntity controller, GprsMessageEntity message)
      */
     @Test
-    public void deleteGprsMessage() {
+    public void testDeleteGprsMessage() {
         UserEntity user = new UserEntity(1L,"keycloakId", "name");
         ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
@@ -96,7 +96,7 @@ public class GprsMessageDAOTest {
      * Create a gprs message using a different message type (ControllerEntity controller, long deviceId, String content, MessageType messageType)
      */
     @Test
-    public void createGprsMessageWithDifferentMessageType() {
+    public void testCreateGprsMessageWithDifferentMessageType() {
         UserEntity user = new UserEntity(1L,"keycloakId", "name");
         ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
@@ -112,7 +112,7 @@ public class GprsMessageDAOTest {
      * Clear a controller's gprs messages (ControllerEntity controller)
      */
     @Test
-    public void clearGprsMessages() {
+    public void testClearGprsMessages() {
         UserEntity user = new UserEntity(1L,"keycloakId", "name");
         ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
@@ -130,7 +130,7 @@ public class GprsMessageDAOTest {
      * Clear all Gprs messages
      */
     @Test
-    public void clearAllGprsMessages() {
+    public void testClearAllGprsMessages() {
         UserEntity user = new UserEntity(1L,"keycloakId", "name");
         ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
