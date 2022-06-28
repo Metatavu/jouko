@@ -76,7 +76,7 @@ public class InterruptionDAOTest {
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
         InterruptionGroupEntity group = new InterruptionGroupEntity(1L, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
         InterruptionEntity interruption = interruptionDAO.create(device, group);
-        Mockito.when(interruptionDAO.listByDeviceAndDate(device, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC))).thenReturn(Arrays.asList());
+        Mockito.when(interruptionDAO.listByDeviceAndDate(device, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC))).thenReturn(Arrays.asList(interruption));
         System.out.println("Interruptions by device and date");
     }
 }
