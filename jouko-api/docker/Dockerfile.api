@@ -1,6 +1,23 @@
-FROM jboss/wildfly:26.1.1.Final
+FROM node:lts-gallium
 
-ARG WILDFLY_VERSION=26.1.1.Final
-ARG MYSQL_MODULE_VERSION=17.0.1
-ARG KEYCLOAK_MODULE_VERSION=17.0.1
+ARG WILDFLY_VERSION=24.0.1.Final
+ARG MYSQL_MODULE_VERSION=8.0.29
+ARG KEYCLOAK_VERSION=17.0.1
 
+RUN apt-get update \
+&& apt-get install --y protobuf-compiler
+
+COPY .. .
+ 
+RUN sh build.sh
+
+RUN curl -o /tmp/wildfly.zip -L https://github.com/wildfly/wildfly/releases/download/${WILDFLY_VERSION}/wildfly-preview-${WILDFLY_VERSION}.zip
+RUN curl -o /tmp/keycloak.zip -L https://github.com/keycloak/keycloak/releases/download/${KEYCLOAK_VERSION}/keycloak-legacy-${KEYCLOAK_VERSION}.zip
+RUN curl -o /tmp/mysql-module.zip -L https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-${MYSQL_MODULE_VERSION}.zip
+
+RUN unzip -o /tmp/wildfly.zip -d /opt/jboss/wildfly
+RUN unzip -o /tmp/keycloak.zip -d /opt/jboss/keycloak
+RUN unzip -o /tmp/mysql-module.zip -d /opt/jboss/wildfly/modules/system/layers/base/com/mysql/main
+
+EXPOSE 9080
+EXPOSE 8080
