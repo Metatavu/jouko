@@ -35,6 +35,23 @@ public class InterruptionDAOTest {
     }
 
     /**
+     * Update cancellation time to interruption (InterruptionEntity entity, OffsetDateTime cancellationTime)
+     */
+    @Test
+    public void updateCancellationTime() {
+        UserEntity user = new UserEntity(1L,"keycloakId", "name");
+        ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
+        DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
+        InterruptionGroupEntity group = new InterruptionGroupEntity(1L, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC));
+        InterruptionEntity interruption = new InterruptionEntity(1L, device, group, false, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC));
+        interruption.setCancellationTime(OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
+        Mockito.when(interruptionDAO.findById(1L)).thenReturn(interruption);
+        Assert.assertEquals(interruption, interruptionDAO.findById(1L));
+        Assert.assertEquals(OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC), interruption.getCancellationTime());
+        System.out.println("Cancellation time updated");
+    }
+
+    /**
      * Cancel a interruption (InterruptionEntity interruption, boolean cancelled)
      */
     @Test
