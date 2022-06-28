@@ -92,7 +92,7 @@ class App extends React.Component<{}, AppState> {
   render() {
     let content;
     if (!this.state.keycloakInstance) {
-      content = '';
+      content = 'You are not authorized to access this page';
     } else {
       content = (
         <div>
