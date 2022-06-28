@@ -81,28 +81,17 @@ public class UserDAOTest {
     }
 
     /**
-     * Test deleting a user
+     * Test deleting keycloak user and make sure it doesn't exist
      */
-    // @Test
-    // public void testDeleteUser() {
-    //     UserEntity user = new UserEntity(
-    //             1L,
-    //             "keycloakId",
-    //             "name"
-    //     );
-
-    //     /**
-    //      * Check that user exists
-    //      */
-    //     Mockito.when(userDAO.findById(1L)).thenReturn(user);
-    //     Assert.assertEquals(user, userDAO.findById(1L));
-
-    //     /**
-    //      * Delete user
-    //      */
-    //     userDAO.delete(user);
-    //     Mockito.verify(userDAO).delete(user);
-    //     Assert.assertNull(userDAO.findById(1L));
-    //     System.out.println("User deleted");
-    // }
+    @Test
+    public void testDeleteUser() {
+        UserEntity user = new UserEntity(
+                1L,
+                "keycloakId",
+                "name"
+        );
+        userDAO.delete(user);
+        Assert.assertNull(userDAO.findByKeycloakId("keycloakId"));
+        System.out.println("User deleted");
+    }
 }
