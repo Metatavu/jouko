@@ -23,7 +23,7 @@ public class InterruptionDAOTest {
      * Create a new Interruption (DeviceEntity device, InterruptionGroupEntity group)
      */
     @Test
-    public void createInterruption() {
+    public void testCreateInterruption() {
         UserEntity user = new UserEntity(1L,"keycloakId", "name");
         ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
@@ -38,7 +38,7 @@ public class InterruptionDAOTest {
      * Update cancellation time to interruption (InterruptionEntity entity, OffsetDateTime cancellationTime)
      */
     @Test
-    public void updateCancellationTime() {
+    public void testUpdateCancellationTime() {
         UserEntity user = new UserEntity(1L,"keycloakId", "name");
         ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
@@ -55,7 +55,7 @@ public class InterruptionDAOTest {
      * Cancel a interruption (InterruptionEntity interruption, boolean cancelled)
      */
     @Test
-    public void cancelInterruption() {
+    public void testCancelInterruption() {
         UserEntity user = new UserEntity(1L,"keycloakId", "name");
         ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
@@ -71,7 +71,7 @@ public class InterruptionDAOTest {
      * Delete Interruption
      */
     @Test
-    public void deleteInterruption() {
+    public void testDeleteInterruption() {
         UserEntity user = new UserEntity(1L,"keycloakId", "name");
         ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
@@ -101,7 +101,7 @@ public class InterruptionDAOTest {
      * List interruptions by date (OffsetDateTime fromTime, OffsetDateTime toTime)
      */
     @Test
-    public void listInterruptionsByDate() {
+    public void testListInterruptionsByDate() {
         UserEntity user = new UserEntity(1L,"keycloakId", "name");
         ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
@@ -115,7 +115,7 @@ public class InterruptionDAOTest {
      * List interruptions by group id (Long groupId)
      */
     @Test
-    public void listInterruptionsByGroupId() {
+    public void testListInterruptionsByGroupId() {
         UserEntity user = new UserEntity(1L,"keycloakId", "name");
         ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.GPRS);
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);

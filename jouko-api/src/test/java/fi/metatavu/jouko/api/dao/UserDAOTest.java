@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.Arrays;
+
 public class UserDAOTest {
     UserDAO userDAO;
     UserEntity userEntity;
@@ -61,6 +63,21 @@ public class UserDAOTest {
         UserEntity user = userDAO.findByKeycloakId("keycloakId123");
         Assert.assertNull(user);
         System.out.println("User not found by keycloak id");
+    }
+
+    /**
+     * List all users
+     */
+    @Test
+    public void testListUsers() {
+        UserEntity user = new UserEntity(
+                1L,
+                "keycloakId",
+                "name"
+        );
+        Mockito.when(userDAO.listAll()).thenReturn(Arrays.asList(user));
+        Assert.assertEquals(Arrays.asList(user), userDAO.listAll());
+        System.out.println("Users found");
     }
 
     /**
