@@ -48,7 +48,7 @@ public class ControllerDAOTest {
      */
     @Test
     public void testDeleteController() {
-        ControllerEntity controller = controllerDAO.delete(1L);
+        ControllerEntity controller = controllerDAO.create("EUI", "KEY", ControllerCommunicationChannel.LORA);
         controllerDAO.delete(controller);
         Assert.assertNull(controllerDAO.findByEui("EUI"));
         System.out.println("Controller deleted");
