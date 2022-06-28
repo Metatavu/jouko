@@ -12,8 +12,8 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
 public class InterruptionGroupDAOTest {
-    InterruptionGroupDAO interruptionGroupDAO;
-    InterruptionGroupEntity interruptionGroupEntity;
+    private InterruptionGroupDAO interruptionGroupDAO;
+    private InterruptionGroupEntity interruptionGroupEntity;
 
     @Before
     public void setUp() {

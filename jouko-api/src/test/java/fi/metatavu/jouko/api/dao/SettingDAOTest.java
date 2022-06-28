@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 public class SettingDAOTest {
-    SettingDAO settingDAO;
+    private SettingDAO settingDAO;
 
     @Before
     public void setUp() {

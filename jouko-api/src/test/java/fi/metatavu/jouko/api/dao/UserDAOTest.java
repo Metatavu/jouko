@@ -9,8 +9,8 @@ import org.mockito.Mockito;
 import java.util.Arrays;
 
 public class UserDAOTest {
-    UserDAO userDAO;
-    UserEntity userEntity;
+    private UserDAO userDAO;
+    private UserEntity userEntity;
 
     @Before
     public void setUp() {

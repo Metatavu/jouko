@@ -11,7 +11,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
 public class PowerMeasurementDAOTest {
-    PowerMeasurementDAO powerMeasurementDAO;
+    private PowerMeasurementDAO powerMeasurementDAO;
 
     @Before
     public void setUp() {

@@ -12,8 +12,8 @@ import org.mockito.Mockito;
 import java.util.Arrays;
 
 public class DeviceDAOTest {
-    DeviceDAO deviceDAO;
-    InterruptionDAO interruptionDAO;
+    private DeviceDAO deviceDAO;
+    private InterruptionDAO interruptionDAO;
 
     @Before
     public void setUp() {

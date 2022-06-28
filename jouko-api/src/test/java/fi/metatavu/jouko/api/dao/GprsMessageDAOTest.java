@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import java.util.Arrays;
 
 public class GprsMessageDAOTest {
-    GprsMessageDAO gprsMessageDAO;
+    private GprsMessageDAO gprsMessageDAO;
 
     @Before
     public void setUp() {

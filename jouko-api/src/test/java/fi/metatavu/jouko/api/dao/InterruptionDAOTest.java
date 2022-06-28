@@ -12,7 +12,7 @@ import java.time.ZoneOffset;
 import java.util.Arrays;
 
 public class InterruptionDAOTest {
-    InterruptionDAO interruptionDAO;
+    private InterruptionDAO interruptionDAO;
 
     @Before
     public void setUp() {

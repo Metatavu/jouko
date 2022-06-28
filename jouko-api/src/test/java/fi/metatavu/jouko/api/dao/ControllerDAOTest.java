@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 public class ControllerDAOTest {
-    ControllerDAO controllerDAO;
+    private ControllerDAO controllerDAO;
 
     @Before
     public void setUp() {
