@@ -124,7 +124,8 @@ Replace the YOUR_MYSQL_PASSWORD with your actual mysql password.
 Find the drivers section (right after datasources) and add the following driver
 
     <driver name="mysql" module="com.mysql">
-        <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
+        <driver-class>com.mysql.cj.jdbc.Driver</driver-class>
+        <xa-datasource-class>com.mysql.cj.jdbc.MysqlXADataSource</xa-datasource-class>
     </driver>
 
 
