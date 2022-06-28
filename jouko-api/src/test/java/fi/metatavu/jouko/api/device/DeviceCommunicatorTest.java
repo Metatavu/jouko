@@ -115,4 +115,28 @@ public class DeviceCommunicatorTest {
     Assert.assertEquals(1, postResults.size());
     Assert.assertEquals(expectedPost, postResults.get(0));
   }
+
+  /**
+   * Test that when device is not found, no request is sent
+   */
+  @Test
+  public void testNotifySingleDeviceInterruptionDeviceNotFound() {
+    ControllerEntity controller = new ControllerEntity(1L, "EUI", "KEY", ControllerCommunicationChannel.LORA);
+
+    DeviceEntity device = new DeviceEntity(1L, "Device", null, controller);
+
+    InterruptionGroupEntity group = new InterruptionGroupEntity(
+            1L,
+            OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC),
+            OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
+
+    InterruptionEntity interruption = new InterruptionEntity(1L, device, group, false, null);
+
+    Mockito.when(deviceController.listByInterruption(Mockito.any()))
+            .thenReturn(Arrays.asList());
+
+    subject.notifyInterruption(interruption);
+
+    Assert.assertEquals(0, postResults.size());
+  }
 }
