@@ -62,7 +62,7 @@ Start keycloak by running inside the keycloak directory
 - Create new client with Client ID `jouko-api` with following settings:
   - Client Protocol: openid-connect
   - Hit Save
-- Change Access Type to bearer-only and hit Reset Password
+- Change Access Type to public and hit Reset Password
 
 ### Create user
 
