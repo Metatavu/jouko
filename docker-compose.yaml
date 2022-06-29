@@ -1,0 +1,57 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "jouko_api"
+      MYSQL_USER: "jouko"
+      MYSQL_PASSWORD: "jouko"
+  api:
+    build:
+      dockerfile: ./Dockerfile.api
+      context: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+  keycloak:
+    image: jboss/keycloak:16.1.1
+    hostname: keycloak
+    container_name: keycloak
+    ports:
+      - "9080:9080"
+      - "10990:10990"
+    command: ["-Djboss.socket.binding.port-offset=1000"]
+    volumes:
+      - ./dev/:/opt/keycloak/
+    environment:
+      DB_VENDOR: mysql
+      DB_DATABASE: keycloak
+      DB_USER: root
+      DB_ADDR: mysql
+      DB_PASSWORD: root
+  jouko-ui:
+    build:
+      dockerfile: ./Dockerfile.user-ui
+      context: .
+    ports:
+      - 8000:8000
+    depends_on:
+      - mysql
+      - api
+      - keycloak
+  jouko-admin:
+    build:
+      dockerfile: ./Dockerfile.admin-ui
+      context: .
+    ports:
+      - 8001:8001
+    depends_on:
+      - mysql
+      - api
+      - keycloak

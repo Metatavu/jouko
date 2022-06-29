@@ -1,0 +1,44 @@
+FROM ubuntu:22.04
+
+ARG WILDFLY_VERSION=24.0.1.Final
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+&& apt-get install wget --yes \
+&& apt-get install unzip --yes \
+&& apt-get install default-jdk --yes \
+&& apt-get install maven --yes \
+&& apt-get install build-essential --yes
+
+COPY jouko-api .
+
+RUN wget -O /tmp/protobuf.zip \
+  https://github.com/protocolbuffers/protobuf/releases/download/v21.1/protobuf-java-3.21.1.zip \
+&& unzip /tmp/protobuf.zip -d /tmp
+
+WORKDIR "/tmp/protobuf-3.21.1"
+RUN ./configure
+RUN make
+RUN make install
+RUN ldconfig
+
+WORKDIR /
+
+RUN wget -O /tmp/wildlfy-final.zip \
+  https://download.jboss.org/wildfly/${WILDFLY_VERSION}/wildfly-preview-${WILDFLY_VERSION}.zip \
+&& unzip /tmp/wildlfy-final.zip -d /opt \
+&& rm /tmp/wildlfy-final.zip
+
+RUN mkdir -p target/generated-sources/protobuf/java
+RUN protoc -I=./src/main/proto --java_out=./target/generated-sources/protobuf/java ./src/main/proto/laiteviestit.proto
+RUN mvn clean
+RUN mvn package
+RUN mv target/api-0.0.1-SNAPSHOT.war target/jouko-api.war
+RUN cp target/*.war /opt/wildfly-preview-${WILDFLY_VERSION}/standalone/deployments/
+
+RUN wget -O /tmp/mysql-connector-java-8.0.17.zip \
+  https://static.metatavu.io/wildfly/wildfly-17.0.1.Final-mysql-module-8.0.17.zip \
+&& unzip /tmp/mysql-connector-java-8.0.17.zip -d /opt/wildfly-preview-${WILDFLY_VERSION} \
+&& rm /tmp/mysql-connector-java-8.0.17.zip
+
+EXPOSE 9080
+EXPOSE 8080
