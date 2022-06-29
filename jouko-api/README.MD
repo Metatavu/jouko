@@ -145,7 +145,14 @@ Install maven by running
 
     sudo apt install maven
 
-### Protobuf
+### Protobuf (Binary)
+Install protobuf by running
+
+    sudo apt install protobuf-compiler
+
+You do not need to do the below method for manual installation if you installed the binary.
+
+### Protobuf (Manual)
 
 Use `cd` command to where you want to download protobuf. Install protobuf by running commands:
 
