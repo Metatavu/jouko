@@ -13,7 +13,7 @@ services:
       MYSQL_PASSWORD: "jouko"
   api:
     build:
-      dockerfile: ./Dockerfile.api
+      dockerfile: ./docker/Dockerfile.api
       context: .
     ports:
       - 8080:8080
@@ -37,7 +37,7 @@ services:
       DB_PASSWORD: root
   jouko-ui:
     build:
-      dockerfile: ./Dockerfile.user-ui
+      dockerfile: ./docker/Dockerfile.user-ui
       context: .
     ports:
       - 8000:8000
@@ -47,7 +47,7 @@ services:
       - keycloak
   jouko-admin:
     build:
-      dockerfile: ./Dockerfile.admin-ui
+      dockerfile: ./docker/Dockerfile.admin-ui
       context: .
     ports:
       - 8001:8001
