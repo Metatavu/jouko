@@ -1,6 +1,8 @@
 package fi.metatavu.jouko.api.dao;
 
-import java.util.List;
+import fi.metatavu.jouko.api.model.ControllerCommunicationChannel;
+import fi.metatavu.jouko.api.model.ControllerEntity;
+import fi.metatavu.jouko.api.model.ControllerEntity_;
 
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
@@ -8,10 +10,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
-import fi.metatavu.jouko.api.model.ControllerCommunicationChannel;
-import fi.metatavu.jouko.api.model.ControllerEntity;
-import fi.metatavu.jouko.api.model.ControllerEntity_;
 @Dependent
 public class ControllerDAO extends AbstractDAO<ControllerEntity> {
 
@@ -35,9 +35,10 @@ public class ControllerDAO extends AbstractDAO<ControllerEntity> {
   /**
    * Deletes the controller entity with the given ID.
    *
-   * @param id the ID of the controller entity to delete.
+   * @param id the ID of the controller entity to delete. (e.g 1L)
+   * @return
    */
-  public void delete(Long id) {
+  public ControllerEntity delete(Long id) {
     EntityManager em = getEntityManager();
 
     CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -51,6 +52,7 @@ public class ControllerDAO extends AbstractDAO<ControllerEntity> {
     );
 
     em.createQuery(delete).executeUpdate();
+    return null;
   }
 
   /**

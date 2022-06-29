@@ -4,6 +4,11 @@ import java.time.OffsetDateTime;
 
 import javax.ws.rs.ext.ParamConverter;
 
+/**
+ * OffSetDateTime is the time provided for things like interruptions for example.
+ * Converts OffsetDateTime to String and vice versa.
+ * Returned date is in ISO-8601 format.
+ */
 public class OffsetDateTimeParamConverter
     implements ParamConverter<OffsetDateTime> {
 

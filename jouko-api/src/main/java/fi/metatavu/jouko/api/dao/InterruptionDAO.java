@@ -19,7 +19,14 @@ import fi.metatavu.jouko.api.model.InterruptionGroupEntity_;
 
 @Dependent
 public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
-  
+
+  /**
+   * Creates an interruption to a device
+   *
+   * @param device the device you want ot create an interruption for
+   * @param group the group to assign the device to
+   * @return a new interruption
+   */
   public InterruptionEntity create(
       DeviceEntity device,
       InterruptionGroupEntity group
@@ -33,8 +40,15 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
     getEntityManager().persist(entity);
     return entity;
   }
-    
-  
+
+  /**
+   * List device interruptions by date
+   *
+   * @param device the device you want to retrieve interruptions from
+   * @param fromTime the time of the first interruption to return
+   * @param toTime the time of the last interruption to return
+   * @return the list of interruptions between {@code fromTime} and {@code toTime}
+   */
   public List<InterruptionEntity> listByDeviceAndDate(
       DeviceEntity device,
       OffsetDateTime fromTime,
@@ -59,6 +73,13 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
     return em.createQuery(criteria).getResultList();
   }
 
+  /**
+   * Lists all interruptions by date
+   *
+   * @param fromTime the time of the first interruption to return
+   * @param toTime the time of the last interruption to return
+   * @return the interruptions in the given time period
+   */
   public List<InterruptionEntity> listByDate(OffsetDateTime fromTime, OffsetDateTime toTime) {
     EntityManager em = getEntityManager();
     
@@ -77,7 +98,13 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
     
     return em.createQuery(criteria).getResultList();
   }
-  
+
+  /**
+   * Lists interruptions by the given group ID
+   *
+   * @param groupId the ID of an interruption group
+   * @return all interruptions of the given group
+   */
   public List<InterruptionEntity> listByGroupId(Long groupId) {
     EntityManager em = getEntityManager();
     
@@ -94,7 +121,13 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
     
     return em.createQuery(criteria).getResultList();
   }
-  
+
+  /**
+   * Deletes interruption from device
+   *
+   * @param entity the interruption that you want to delete
+   * @param device the device the interruption is to be deleted from
+   */
   public void deleteInterruptionFromDevice(InterruptionEntity entity, DeviceEntity device) {
     EntityManager em = getEntityManager();
     
@@ -113,7 +146,12 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
     
     em.createQuery(delete).executeUpdate();
   }
-  
+
+  /**
+   * Deletes interruption
+   *
+   * @param entity the interruption to be deleted
+   */
   public void deleteInterruption(InterruptionEntity entity) {
     EntityManager em = getEntityManager();
     
@@ -129,13 +167,27 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
     
     em.createQuery(delete).executeUpdate();
   }
-  
+
+  /**
+   * Mark interruption's cancel state
+   *
+   * @param entity the interruption to be edited
+   * @param cancelled whether the interruption is to be cancelled or not
+   * @return the same interruption entity given as the parameter {@code entity}
+   */
   public InterruptionEntity updateCancelled(InterruptionEntity entity, boolean cancelled) {
     entity.setCancelled(cancelled);
     getEntityManager().persist(entity);
     return entity;
   }
-  
+
+  /**
+   * Update interruption cancellation time
+   *
+   * @param entity the interruption to be edited
+   * @param cancellationTime the cancellation time
+   * @return the same interruption entity given as the parameter {@code entity}
+   */
   public InterruptionEntity updateCancellationTime(InterruptionEntity entity, OffsetDateTime cancellationTime) {
     entity.setCancellationTime(cancellationTime);
     getEntityManager().persist(entity);

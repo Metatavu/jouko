@@ -7,6 +7,9 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Initialises the logger and is used to log information and errors throughtout the API.
+ */
 @Dependent
 public class LoggerProducer {
 

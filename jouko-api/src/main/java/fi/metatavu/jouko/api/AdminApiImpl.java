@@ -60,14 +60,26 @@ public class AdminApiImpl implements AdminApi {
     result.setUserId(entity.getUser().getId());
     return result;
   }
-  
+
+  /**
+   * Get user from entity
+   *
+   * @param entity you want to get user from
+   * @return user
+   */
   private User userFromEntity(UserEntity entity) {
     User result = new User();
     result.setId(entity.getId());
     result.setKeycloakId(UUID.fromString(entity.getKeycloakId()));
     return result;
   }
-  
+
+  /**
+   * Get controller from entity
+   *
+   * @param entity you want to get controller from
+   * @return controller
+   */
   private ControllerDevice controllerDeviceFromEntity(ControllerEntity entity) {
     ControllerDevice result = new ControllerDevice();
     result.setId(entity.getId());
@@ -76,7 +88,13 @@ public class AdminApiImpl implements AdminApi {
     result.setCommunicationChannel(entity.getCommunicationChannelString());
     return result;
   }
-  
+
+  /**
+   * Get interruption group from entity
+   *
+   * @param entity you want to get interruption group from
+   * @return interruption group
+   */
   public InterruptionGroup interruptionGroupFromEntity(InterruptionGroupEntity entity) {
     InterruptionGroup result = new InterruptionGroup();
     result.setStartTime(entity.getStartTime());
@@ -87,6 +105,13 @@ public class AdminApiImpl implements AdminApi {
     return result;
   }
 
+  /**
+   * Create a new interruption group
+   *
+   * @param body of the request
+   * @return created interruption group
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response createInterruptionGroup(InterruptionGroup body)
       throws Exception {
@@ -106,6 +131,14 @@ public class AdminApiImpl implements AdminApi {
     return Response.ok(interruptionGroupFromEntity(group)).build();
   }
 
+  /**
+   * List of all interruption groups
+   *
+   * @param firstResult The offset of the first result
+   * @param maxResults The maximum number of results
+   * @return list of interruption groups
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response listInterruptionGroups(
       Integer firstResult,
@@ -119,6 +152,13 @@ public class AdminApiImpl implements AdminApi {
     return Response.ok(result).build();
   }
 
+  /**
+   * Get interruption group by id
+   *
+   * @param groupId of the interruption group
+   * @return interruption group
+   * @throws Exception if something goes wrong
+    */
   @Override
   public Response retrieveInterruptionGroup(
       Long groupId
@@ -133,6 +173,14 @@ public class AdminApiImpl implements AdminApi {
     return Response.ok(interruptionGroupFromEntity(entity)).build();
   }
 
+  /**
+   * Update interruption group
+   *
+   * @param groupId of the interruption group
+   * @param body of the request
+   * @return updated interruption group
+   * @throws Exception
+   */
   @Override
   public Response updateInterruptionGroup(Long groupId, InterruptionGroup body) throws Exception {
     InterruptionGroupEntity entity = interruptionController.findInterruptionGroupById(groupId);
@@ -149,6 +197,14 @@ public class AdminApiImpl implements AdminApi {
     return Response.ok(body).build();
   }
 
+  /**
+   * List of all devices
+   *
+   * @param firstResult The offset of the first result
+   * @param maxResults The maximum number of results
+   * @return list of devices
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response listAllDevices(Integer firstResult, Integer maxResults)
       throws Exception {
@@ -159,6 +215,13 @@ public class AdminApiImpl implements AdminApi {
     return Response.ok(devices).build();
   }
 
+  /**
+   * Create a new device
+   *
+   * @param body of the request
+   * @return created device
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response createDevice(Device body) throws Exception {
     ControllerEntity controller = deviceController.findControllerById(
@@ -169,6 +232,14 @@ public class AdminApiImpl implements AdminApi {
     return Response.ok(body).build();
   }
 
+  /**
+   * Create a new user
+   *
+   * @param body of the request
+   * @param token to authenticate
+   * @return created user
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response createUser(User body, String token) throws Exception {
     String keycloakId = userController.createKeycloakUser(body, token);   
@@ -177,6 +248,14 @@ public class AdminApiImpl implements AdminApi {
     return Response.ok(newUser).build();
   }
 
+  /**
+   * List of all users
+   *
+   * @param firstResult The offset of the first result
+   * @param maxResults The maximum number of results
+   * @return list of users
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response listAllUsers(Integer firstResult, Integer maxResults)
       throws Exception {
@@ -212,6 +291,13 @@ public class AdminApiImpl implements AdminApi {
     return null;
   }
 
+  /**
+   * Create a new controller device
+   *
+   * @param body of request
+   * @return created controller device
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response createControllerDevice(ControllerDevice body) throws Exception {
     ControllerCommunicationChannel controllerCommunicationChannel = ControllerCommunicationChannel.valueOf(body.getCommunicationChannel());
@@ -222,6 +308,14 @@ public class AdminApiImpl implements AdminApi {
     return null;
   }
 
+  /**
+   * List of all controller devices
+   *
+   * @param firstResult The offset of the first result
+   * @param maxResults The maximum number of results
+   * @return list of controller devices
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response listAllControllerDevices(Integer firstResult, Integer maxResults) throws Exception {
     List<ControllerEntity> entities = deviceController.listControllerDevices(firstResult, maxResults);
@@ -245,6 +339,13 @@ public class AdminApiImpl implements AdminApi {
     return null;
   }
 
+  /**
+   * Delete an interruption from a group
+   *
+   * @param groupId of the group
+   * @return deleted interruption
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response deleteInterruption(Long groupId) throws Exception {
     List<InterruptionEntity> entities = interruptionController.listInterruptionsByGroupId(groupId);
