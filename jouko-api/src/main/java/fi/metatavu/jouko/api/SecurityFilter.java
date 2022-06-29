@@ -13,6 +13,10 @@ import org.apache.commons.lang3.StringUtils;
 
 import fi.metatavu.jouko.api.model.ControllerEntity;
 
+/**
+ * Security filter that checks if the request is authorized.
+ * Uses Basic authentication scheme to authenticate the request.
+ */
 @Provider
 public class SecurityFilter implements ContainerRequestFilter {
   
@@ -30,13 +34,13 @@ public class SecurityFilter implements ContainerRequestFilter {
     if (1 < 10) {
       return;
     }
-    
+
     if (!pathParts[1].equals("gprs") && !pathParts[2].equals("gprs")) {
       return;
     }
 
-    /*
-        * Check that the authorization header is correct and contains correct data.
+    /**
+     * Check that the authorization header is correct and contains correct data.
     */
     String authorizationHeader = requestContext.getHeaderString(AUTHORIZATION_HEADER);
     if (StringUtils.isBlank(authorizationHeader)) {
@@ -78,7 +82,6 @@ public class SecurityFilter implements ContainerRequestFilter {
    * Returns whether method is allowed for the client
    * 
    * @param method method
-   * @param client client
    * @return whether method is allowed for the client
    */
   private boolean isMethodAllowed(String method) {

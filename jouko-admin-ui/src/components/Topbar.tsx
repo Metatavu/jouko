@@ -15,10 +15,10 @@ export class Topbar
         super(props);
     }
     
-    // Search returns the closest matching container (ExampleContainer1)
+    // Search returns the closest matching container (HomeOptionsSubContainer)
     search = (event: React.ChangeEvent<HTMLInputElement>) => {
         const searchTerm = event.target.value.toLowerCase();
-        const buttons = document.getElementsByClassName('ExampleContainer1');
+        const buttons = document.getElementsByClassName('HomeOptionsSubContainer');
         for (let i = 0; i < buttons.length; i++) {
             const button = buttons[i] as HTMLButtonElement;
             const buttonText = button.innerText.toLowerCase();

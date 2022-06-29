@@ -1,22 +1,24 @@
 package fi.metatavu.jouko.api.dao;
 
-import java.util.List;
+import fi.metatavu.jouko.api.model.UserEntity;
+import fi.metatavu.jouko.api.model.UserEntity_;
 
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
-import fi.metatavu.jouko.api.model.DeviceEntity;
-import fi.metatavu.jouko.api.model.InterruptionEntity;
-import fi.metatavu.jouko.api.model.InterruptionGroupEntity;
-import fi.metatavu.jouko.api.model.UserEntity;
-import fi.metatavu.jouko.api.model.UserEntity_;
+import java.util.List;
 
 @Dependent
 public class UserDAO extends AbstractDAO<UserEntity> {
-  
+
+  /**
+   * Creates a new user
+   *
+   * @param user the user to be created
+   * @return the newly created user
+   */
   public UserEntity create(UserEntity user) {
     UserEntity entity = new UserEntity(
         null,
@@ -26,7 +28,14 @@ public class UserDAO extends AbstractDAO<UserEntity> {
     getEntityManager().persist(entity);
     return entity;
   }
-  
+
+  /**
+   * Finds user by keycloak id
+   *
+   * @param keycloakId keycloak user id
+   * @return user or null if not found
+   * @throws RuntimeException if there are multiple users with the same ID
+   */
   public UserEntity findByKeycloakId(String keycloakId) {
     EntityManager em = getEntityManager();
     
@@ -50,5 +59,18 @@ public class UserDAO extends AbstractDAO<UserEntity> {
       throw new RuntimeException("Multiple users with the same keycloakId");
     }
   }
-  
+
+  /**
+   * Lists all users from the database. Returns null if no users are found.
+   */
+  public List<UserEntity> listUsers() {
+    EntityManager em = getEntityManager();
+
+    CriteriaBuilder cr = em.getCriteriaBuilder();
+    CriteriaQuery<UserEntity> criteria = cr.createQuery(UserEntity.class);
+    Root<UserEntity> root = criteria.from(UserEntity.class);
+
+    List<UserEntity> users = em.createQuery(criteria.select(root)).getResultList();
+    return users.isEmpty() ? null : users;
+  }
 }

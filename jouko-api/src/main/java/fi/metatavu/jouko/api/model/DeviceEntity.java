@@ -9,6 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Creates MySQL table "Device" and sets data types for columns.
+ */
 @Table(name="Device")
 @Entity
 public class DeviceEntity {

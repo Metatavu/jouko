@@ -84,6 +84,15 @@ public class UsersApiImpl implements UsersApi {
     return Response.ok(result).build();
   }
 
+  /**
+   * Lists devices of a user
+   *
+   * @param userId of a user
+   * @param firstResult The offset of the first result
+   * @param maxResults The maximum number of results
+   * @return devices of a user
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response listDevices(
       Long userId,
@@ -105,6 +114,16 @@ public class UsersApiImpl implements UsersApi {
     return Response.ok(devices).build();
   }
 
+  /**
+   * List interruptions of a user
+   *
+   * @param userId of a user
+   * @param fromTime filter from where you want results from
+   * @param toTime filter where to you want the results to end
+   * @param deviceId you want the interruptions from
+   * @return list of interruptions of a user
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response listInterruptions(
       Long userId,
@@ -128,6 +147,15 @@ public class UsersApiImpl implements UsersApi {
     return Response.ok(interruptions).build();
   }
 
+  /**
+   * Cancels interruption
+   *
+   * @param userId to cancel specific user's interruptions
+   * @param interruptionId is the interruption you want to cancel specifically
+   * @param body
+   * @return cancelled interruption
+   * @throws Exception if interruption not found
+   */
   @Override
   public Response setInterruptionCancelled(Long userId, Long interruptionId, InterruptionCancellation body) throws Exception {
     InterruptionEntity interruption = interruptionController.findInterruptionById(interruptionId);
@@ -144,6 +172,15 @@ public class UsersApiImpl implements UsersApi {
     return Response.ok(body).build();
   }
 
+  /**
+   * List all measurements of a user
+   *
+   * @param userId of a user
+   * @param fromTime filter from when you want the results from
+   * @param toTime filter to when you want the results to
+   * @return measurements of a user
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response listAllMeasurements(Long userId, OffsetDateTime fromTime, OffsetDateTime toTime) throws Exception {
     UserEntity userEntity = userController.findUserById(userId);
@@ -158,6 +195,16 @@ public class UsersApiImpl implements UsersApi {
     return null;
   }
 
+  /**
+   * List all measurements of a specific device only
+   *
+   * @param userId of a user
+   * @param deviceId of a user
+   * @param fromTime filter from when you want the results
+   * @param toTime filter to when you want the results
+   * @return measurements of a specific device
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response listMeasurementsByDevice(Long userId, Long deviceId, OffsetDateTime fromTime, OffsetDateTime toTime) throws Exception {
     DeviceEntity deviceEntity = deviceController.findById(deviceId);

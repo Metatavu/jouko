@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Creates MySQL table "GprsMessage" and sets data types for columns.
+ */
 @Table(name="GprsMessage")
 @Entity
 public class GprsMessageEntity {
