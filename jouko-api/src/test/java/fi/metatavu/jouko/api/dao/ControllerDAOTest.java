@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 
 public class ControllerDAOTest {
     private ControllerDAO controllerDAO;
-    private Logger logger;
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(ControllerDAOTest.class);
     
 
     @Before

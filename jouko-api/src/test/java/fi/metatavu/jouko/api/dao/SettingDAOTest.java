@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 
 public class SettingDAOTest {
     private SettingDAO settingDAO;
-    private Logger logger;
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(SettingDAOTest.class);
 
     @Before
     public void setUp() {
@@ -22,6 +22,6 @@ public class SettingDAOTest {
     public void testSearchSettingNotFound() {
         Mockito.when(settingDAO.findByKey("key")).thenReturn(null);
         Assert.assertNull(settingDAO.findByKey("key"));
-        logger.info("Setting not found");
+        logger.info(String.format("Setting not found by key %s", "key"));
     }
 }

@@ -15,7 +15,7 @@ import java.time.ZoneOffset;
 public class InterruptionGroupDAOTest {
     private InterruptionGroupDAO interruptionGroupDAO;
     private InterruptionGroupEntity interruptionGroupEntity;
-    private Logger logger;
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(InterruptionGroupDAOTest.class);
 
     @Before
     public void setUp() {
@@ -36,7 +36,7 @@ public class InterruptionGroupDAOTest {
         // Check that interruption group exists
         Mockito.when(interruptionGroupDAO.findById(1L)).thenReturn(group);
         Assert.assertEquals(group, interruptionGroupDAO.findById(1L));
-        logger.info("Interruption group created");
+        logger.info("Interruption group created by id");
     }
 
     /**
@@ -75,6 +75,6 @@ public class InterruptionGroupDAOTest {
         interruptionGroupDAO.delete(interruptionGroupEntity);
         Mockito.verify(interruptionGroupDAO).delete(interruptionGroupEntity);
         Assert.assertNull(interruptionGroupDAO.findById(1L));
-        logger.info("Deleted interruption group");
+        logger.info("Interruption group deleted");
     }
 }

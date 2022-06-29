@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 public class InterruptionDAOTest {
     private InterruptionDAO interruptionDAO;
-    private Logger logger;
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(InterruptionDAOTest.class);
 
     @Before
     public void setUp() {
@@ -33,7 +33,7 @@ public class InterruptionDAOTest {
         InterruptionEntity interruption = interruptionDAO.create(device, group);
         Mockito.when(interruptionDAO.findById(1L)).thenReturn(interruption);
         Assert.assertEquals(interruption, interruptionDAO.findById(1L));
-        logger.info("Interruption created");
+        logger.info("Interruption created by id");
     }
 
     /**
@@ -50,7 +50,7 @@ public class InterruptionDAOTest {
         Mockito.when(interruptionDAO.findById(1L)).thenReturn(interruption);
         Assert.assertEquals(interruption, interruptionDAO.findById(1L));
         Assert.assertEquals(OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC), interruption.getCancellationTime());
-        logger.info("Cancellation time updated");
+        logger.info("Interruption cancellation time updated");
     }
 
     /**
@@ -96,7 +96,7 @@ public class InterruptionDAOTest {
         InterruptionGroupEntity group = new InterruptionGroupEntity(1L, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
         InterruptionEntity interruption = interruptionDAO.create(device, group);
         Mockito.when(interruptionDAO.listByDeviceAndDate(device, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC))).thenReturn(Arrays.asList(interruption));
-        logger.info("Interruptions by device and date");
+        logger.info("Interruptions found by device and date");
     }
 
     /**
@@ -110,7 +110,7 @@ public class InterruptionDAOTest {
         InterruptionGroupEntity group = new InterruptionGroupEntity(1L, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
         InterruptionEntity interruption = interruptionDAO.create(device, group);
         Mockito.when(interruptionDAO.listByDate(OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC))).thenReturn(Arrays.asList(interruption));
-        logger.info("Interruptions by date");
+        logger.info("Interruptions found by date");
     }
 
     /**

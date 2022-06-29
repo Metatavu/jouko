@@ -13,7 +13,7 @@ import java.time.ZoneOffset;
 
 public class PowerMeasurementDAOTest {
     private PowerMeasurementDAO powerMeasurementDAO;
-    private Logger logger;
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(PowerMeasurementDAOTest.class);
 
     @Before
     public void setUp() {
@@ -39,6 +39,6 @@ public class PowerMeasurementDAOTest {
                 false);
         Mockito.when(powerMeasurementDAO.findById(1L)).thenReturn(powerMeasurement);
         Assert.assertEquals(powerMeasurement, powerMeasurementDAO.findById(1L));
-        logger.info("Power measurement created");
+        logger.info("Power measurement created by id");
     }
 }

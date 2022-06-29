@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class UserDAOTest {
     private UserDAO userDAO;
     private UserEntity userEntity;
-    private Logger logger;
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(UserDAOTest.class);
 
     @Before
     public void setUp() {
@@ -35,7 +35,7 @@ public class UserDAOTest {
          */
         Mockito.when(userDAO.findById(1L)).thenReturn(user);
         Assert.assertEquals(user, userDAO.findById(1L));
-        logger.info("User created");
+        logger.info(String.format("User created by id %d", 1L));
     }
 
     /**
@@ -54,7 +54,7 @@ public class UserDAOTest {
          */
         Mockito.when(userDAO.findByKeycloakId("keycloakId")).thenReturn(user);
         Assert.assertEquals(user, userDAO.findByKeycloakId("keycloakId"));
-        logger.info("User found");
+        logger.info(String.format("User found by keycloak id %s", "keycloakId"));
     }
 
     /**
@@ -64,7 +64,7 @@ public class UserDAOTest {
     public void testFindUserByKeycloakIdNotFound() {
         UserEntity user = userDAO.findByKeycloakId("keycloakId123");
         Assert.assertNull(user);
-        logger.info("User not found by keycloak id");
+        logger.info(String.format("User not found by keycloak id %s", "keycloakId123"));
     }
 
     /**
@@ -94,6 +94,6 @@ public class UserDAOTest {
         );
         userDAO.delete(user);
         Assert.assertNull(userDAO.findByKeycloakId("keycloakId"));
-        logger.info("User deleted");
+        logger.info(String.format("User deleted by keycloak id %s", "keycloakId"));
     }
 }

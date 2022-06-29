@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 public class DeviceDAOTest {
     private DeviceDAO deviceDAO;
-    private Logger logger;
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(DeviceDAOTest.class);
 
     @Before
     public void setUp() {

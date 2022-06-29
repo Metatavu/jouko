@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 public class GprsMessageDAOTest {
     private GprsMessageDAO gprsMessageDAO;
-    private Logger logger;
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(GprsMessageDAOTest.class);
 
     @Before
     public void setUp() {
@@ -31,7 +31,7 @@ public class GprsMessageDAOTest {
         GprsMessageEntity gprsMessage = gprsMessageDAO.create(controller, 1L, "test", messageType);
         Mockito.when(gprsMessageDAO.findById(1L)).thenReturn(gprsMessage);
         Assert.assertEquals(gprsMessage, gprsMessageDAO.findById(1L));
-        logger.info("Gprs message created (New interruption)");
+        logger.info("Gprs message created");
     }
 
     /**
