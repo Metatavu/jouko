@@ -1,6 +1,7 @@
 version: "3"
 services:
   mysql:
+    container_name: mysql-server
     image: mysql:5.7
     volumes:
       - ./data/mysql:/var/lib/mysql
@@ -12,6 +13,7 @@ services:
       MYSQL_USER: "jouko"
       MYSQL_PASSWORD: "jouko"
   api:
+    container_name: jouko-api
     build:
       dockerfile: ./docker/Dockerfile.api
       context: .
@@ -20,9 +22,9 @@ services:
     depends_on:
       - mysql
   keycloak:
+    container_name: keycloak
     image: jboss/keycloak:16.1.1
     hostname: keycloak
-    container_name: keycloak
     ports:
       - "9080:9080"
       - "10990:10990"
@@ -36,6 +38,7 @@ services:
       DB_ADDR: mysql
       DB_PASSWORD: root
   jouko-ui:
+    container_name: jouko-ui
     build:
       dockerfile: ./docker/Dockerfile.user-ui
       context: .
@@ -46,6 +49,7 @@ services:
       - api
       - keycloak
   jouko-admin:
+    container_name: jouko-admin-ui
     build:
       dockerfile: ./docker/Dockerfile.admin-ui
       context: .
