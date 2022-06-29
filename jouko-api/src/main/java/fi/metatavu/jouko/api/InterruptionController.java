@@ -69,7 +69,7 @@ public class InterruptionController {
    *
    * @param id of interruption group
    */
-  public void deleteInerruptionGroup(Long id) {
+  public void deleteInterruptionGroup(Long id) {
     interruptionGroupDAO.deleteInterruptionGroupById(id);
   }
 
