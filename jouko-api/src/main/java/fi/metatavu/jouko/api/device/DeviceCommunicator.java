@@ -20,6 +20,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.client.fluent.Request;
 import org.jboss.resteasy.util.Hex;
+import org.slf4j.Logger;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
@@ -59,6 +60,9 @@ public class DeviceCommunicator {
   
   @Inject
   private SettingController settingController;
+
+  @Inject
+  private static final Logger logger = org.slf4j.LoggerFactory.getLogger(DeviceCommunicator.class);
   
   public DeviceCommunicator() {
   }
@@ -109,7 +113,7 @@ public class DeviceCommunicator {
       deviceId = message.getKatkot().getKatkotList().get(0).getLaiteID();
     }
     
-    System.out.println(new String(payloadBytes, StandardCharsets.UTF_8));
+    logger.info(new String(payloadBytes, StandardCharsets.UTF_8));
     deviceController.queueGprsMessage(controller, deviceId, new String(payloadBytes, StandardCharsets.UTF_8), messageType);
   }
 
@@ -121,7 +125,7 @@ public class DeviceCommunicator {
    * @param controller to send to
    */
   private void sendMessageLora(String encodedMessage, ViestiLaitteelle message, ControllerEntity controller) {
-    System.out.println("LÄHETETÄÄN LORA VIESTI");
+    logger.info("LÄHETETÄÄN LORA VIESTI");
     byte[] payloadBytes = null;
     
     if (encodedMessage != null) {
@@ -151,7 +155,7 @@ public class DeviceCommunicator {
     url.append("&Token=");
     url.append(token);
     
-    System.out.println("LÄHTEVÄ LORA VIESTI: " + url.toString());
+    logger.info("LÄHTEVÄ LORA VIESTI: " + url.toString());
     String response = doPost.apply(url.toString());
     if (!"<html><body>Request queued by LRC</body></html>".equals(response)) {
       // Maybe check status code instead, IF none of the errors are 200
@@ -170,7 +174,7 @@ public class DeviceCommunicator {
     byte[] payloadBytes = encodeMessage(message);
     long deviceId = -1;
     
-    System.out.println(new String(payloadBytes, StandardCharsets.UTF_8));
+    logger.info(new String(payloadBytes, StandardCharsets.UTF_8));
     deviceController.queueGprsMessage(controller, deviceId, new String(payloadBytes, StandardCharsets.UTF_8), messageType);
   }
 
@@ -345,7 +349,7 @@ public class DeviceCommunicator {
                     .build())
               .build();
           
-          System.out.println("Aloitetaan viestin lähetys");
+          logger.info("Aloitetaan viestin lähetys");
           sendMessage(null, replyMessage, controller, MessageType.TIME_SYNC);
         }
       } catch (InvalidProtocolBufferException e) {
