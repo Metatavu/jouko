@@ -12,6 +12,9 @@ services:
       MYSQL_DATABASE: "jouko_api"
       MYSQL_USER: "jouko"
       MYSQL_PASSWORD: "jouko"
+    networks:
+      - jouko-api-net
+
   api:
     container_name: jouko-api
     build:
@@ -21,6 +24,7 @@ services:
       - 8080:8080
     depends_on:
       - mysql
+
   keycloak:
     container_name: keycloak
     image: jboss/keycloak:16.1.1
@@ -32,11 +36,14 @@ services:
     volumes:
       - ./dev/:/opt/keycloak/
     environment:
-      DB_VENDOR: mysql
-      DB_DATABASE: keycloak
-      DB_USER: root
-      DB_ADDR: mysql
-      DB_PASSWORD: root
+      - "KEYCLOAK_USER=admin"
+      - "KEYCLOAK_PASSWORD=admin"
+      - "KEYCLOAK_SECRET=admin"
+      - "KEYCLOAK_DB_USER=keycloak"
+      - "KEYCLOAK_DB_PASSWORD=keycloak"
+    networks:
+      - jouko-api-net
+
   jouko-ui:
     container_name: jouko-ui
     build:
@@ -59,3 +66,7 @@ services:
       - mysql
       - api
       - keycloak
+    
+networks:
+  jouko-api-net:
+    driver: bridge
