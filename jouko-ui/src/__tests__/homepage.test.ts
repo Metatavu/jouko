@@ -1,12 +1,12 @@
 import { Home } from '../components/Home';
-import supertest from 'supertest';
+import * as request from 'supertest';
 
 // Test that the homepage loads without error
-test('Homepage loads without error', async () => {
-    const app = await supertest(Home);
+test('renders homepage without error', async () => {
+    const app = request(Home);
     const response = await app.get('/');
     expect(response.status).toBe(200);
 }
-,    10000);
+);
 
 export default {};
