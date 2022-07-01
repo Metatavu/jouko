@@ -25,7 +25,7 @@ export class UpcomingInterruption
     if (!this.props.cancelled) {
       button = (
         <button
-          className="btn2"
+          className="buttonWithArrows"
           onClick={() => {
             if (confirm(_('confirmCancelInterruption'))) {
               this.props.cancelInterruption();
@@ -39,7 +39,7 @@ export class UpcomingInterruption
       );
 
     } else {
-      button = <button className="btn3" >{_('cancelled')}</button>;
+      button = <button className="cancelledButton" >{_('cancelled')}</button>;
     }
 
     let startdate = formatDate(this.props.startTime, 'dd DD.MM.YYYY');
