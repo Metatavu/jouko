@@ -418,6 +418,7 @@ public class AdminApiImpl implements AdminApi {
     }
     
     interruptionController.deleteInerruptionGroup(groupId);
+
     return Response.ok().build();
   }
 
@@ -428,10 +429,8 @@ public class AdminApiImpl implements AdminApi {
   }
 
   // @Override
-  // public Response deleteUser(String keycloakId, String token) throws Exception {
-  //   String IDOfDeletedUser = userController.deleteKeycloakUser(keycloakId, token);
-  //   UserEntity deletedUser = userController.deleteUser(IDOfDeletedUser);
-
-  //   return Response.ok(deletedUser).build();
+  // public Response deleteUser(String keycloakId) throws Exception {
+  //   userController.deleteUser(keycloakId);
+  //   return Response.ok().build();
   // }
 }
