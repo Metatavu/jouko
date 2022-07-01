@@ -36,11 +36,8 @@ services:
     volumes:
       - ./dev/:/opt/keycloak/
     environment:
-      - "KEYCLOAK_USER=admin"
-      - "KEYCLOAK_PASSWORD=admin"
-      - "KEYCLOAK_SECRET=admin"
-      - "KEYCLOAK_DB_USER=keycloak"
-      - "KEYCLOAK_DB_PASSWORD=keycloak"
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
     networks:
       - jouko-api-net
 

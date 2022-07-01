@@ -2,6 +2,8 @@ FROM node:16-alpine3.15
 
 COPY jouko-admin-ui .
 
-CMD ["npm", "run", "start"]
+RUN npm install
+
+RUN npm run build
 
 EXPOSE 8001
