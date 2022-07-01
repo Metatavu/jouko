@@ -33,7 +33,7 @@ public class InterruptionDAOTest {
         InterruptionEntity interruption = interruptionDAO.create(device, group);
         Mockito.when(interruptionDAO.findById(1L)).thenReturn(interruption);
         Assert.assertEquals(interruption, interruptionDAO.findById(1L));
-        logger.info("Interruption created by id");
+        logger.debug("Interruption created by id");
     }
 
     /**
@@ -50,7 +50,7 @@ public class InterruptionDAOTest {
         Mockito.when(interruptionDAO.findById(1L)).thenReturn(interruption);
         Assert.assertEquals(interruption, interruptionDAO.findById(1L));
         Assert.assertEquals(OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC), interruption.getCancellationTime());
-        logger.info("Interruption cancellation time updated");
+        logger.debug("Interruption cancellation time updated");
     }
 
     /**
@@ -66,7 +66,7 @@ public class InterruptionDAOTest {
         interruptionDAO.updateCancelled(interruption, true);
         Mockito.when(interruptionDAO.updateCancelled(interruption, true)).thenReturn(interruption);
         Assert.assertEquals(interruption, interruptionDAO.updateCancelled(interruption, true));
-        logger.info("Interruption cancelled");
+        logger.debug("Interruption cancelled");
     }
 
     /**
@@ -82,7 +82,7 @@ public class InterruptionDAOTest {
         Mockito.when(interruptionDAO.findById(1L)).thenReturn(interruption);
         interruptionDAO.delete(interruption);
         Assert.assertNull(interruptionDAO.findById(1L));
-        logger.info("Interruption deleted");
+        logger.debug("Interruption deleted");
     }
 
     /**
@@ -96,7 +96,7 @@ public class InterruptionDAOTest {
         InterruptionGroupEntity group = new InterruptionGroupEntity(1L, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
         InterruptionEntity interruption = interruptionDAO.create(device, group);
         Mockito.when(interruptionDAO.listByDeviceAndDate(device, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC))).thenReturn(Arrays.asList(interruption));
-        logger.info("Interruptions found by device and date");
+        logger.debug("Interruptions found by device and date");
     }
 
     /**
@@ -110,7 +110,7 @@ public class InterruptionDAOTest {
         InterruptionGroupEntity group = new InterruptionGroupEntity(1L, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
         InterruptionEntity interruption = interruptionDAO.create(device, group);
         Mockito.when(interruptionDAO.listByDate(OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC))).thenReturn(Arrays.asList(interruption));
-        logger.info("Interruptions found by date");
+        logger.debug("Interruptions found by date");
     }
 
     /**
@@ -124,6 +124,6 @@ public class InterruptionDAOTest {
         InterruptionGroupEntity group = new InterruptionGroupEntity(1L, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
         InterruptionEntity interruption = interruptionDAO.create(device, group);
         Mockito.when(interruptionDAO.listByGroupId(1L)).thenReturn(Arrays.asList(interruption));
-        logger.info("Interruptions by group id");
+        logger.debug("Interruptions by group id");
     }
 }

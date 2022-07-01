@@ -22,6 +22,6 @@ public class SettingDAOTest {
     public void testSearchSettingNotFound() {
         Mockito.when(settingDAO.findByKey("key")).thenReturn(null);
         Assert.assertNull(settingDAO.findByKey("key"));
-        logger.info("Setting not found by key works");
+        logger.debug("Setting not found by key works");
     }
 }

@@ -35,7 +35,7 @@ public class UserDAOTest {
          */
         Mockito.when(userDAO.findById(1L)).thenReturn(user);
         Assert.assertEquals(user, userDAO.findById(1L));
-        logger.info(String.format("User created by id %d", 1L));
+        logger.debug(String.format("User created by id %d", 1L));
     }
 
     /**
@@ -54,7 +54,7 @@ public class UserDAOTest {
          */
         Mockito.when(userDAO.findByKeycloakId("keycloakId")).thenReturn(user);
         Assert.assertEquals(user, userDAO.findByKeycloakId("keycloakId"));
-        logger.info(String.format("User found by keycloak id %s", "keycloakId"));
+        logger.debug(String.format("User found by keycloak id %s", "keycloakId"));
     }
 
     /**
@@ -64,7 +64,7 @@ public class UserDAOTest {
     public void testFindUserByKeycloakIdNotFound() {
         UserEntity user = userDAO.findByKeycloakId("keycloakId123");
         Assert.assertNull(user);
-        logger.info(String.format("User not found by keycloak id %s", "keycloakId123"));
+        logger.debug(String.format("User not found by keycloak id %s", "keycloakId123"));
     }
 
     /**
@@ -79,7 +79,7 @@ public class UserDAOTest {
         );
         Mockito.when(userDAO.listAll()).thenReturn(Arrays.asList(user));
         Assert.assertEquals(Arrays.asList(user), userDAO.listAll());
-        logger.info("Users found");
+        logger.debug("Users found");
     }
 
     /**
@@ -94,6 +94,6 @@ public class UserDAOTest {
         );
         userDAO.delete(user);
         Assert.assertNull(userDAO.findByKeycloakId("keycloakId"));
-        logger.info(String.format("User deleted by keycloak id %s", "keycloakId"));
+        logger.debug(String.format("User deleted by keycloak id %s", "keycloakId"));
     }
 }

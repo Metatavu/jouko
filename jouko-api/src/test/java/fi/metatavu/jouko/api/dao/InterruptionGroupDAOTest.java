@@ -36,7 +36,7 @@ public class InterruptionGroupDAOTest {
         // Check that interruption group exists
         Mockito.when(interruptionGroupDAO.findById(1L)).thenReturn(group);
         Assert.assertEquals(group, interruptionGroupDAO.findById(1L));
-        logger.info("Interruption group created by id");
+        logger.debug("Interruption group created by id");
     }
 
     /**
@@ -64,7 +64,7 @@ public class InterruptionGroupDAOTest {
         group.setEndTime(endTimeUpdated);
         Mockito.when(interruptionGroupDAO.update(group, startTimeUpdated, endTimeUpdated)).thenReturn(group);
         Assert.assertEquals(group, interruptionGroupDAO.update(group, startTimeUpdated, endTimeUpdated));
-        logger.info("Interruption group updated");
+        logger.debug("Interruption group updated");
     }
 
     /**
@@ -75,6 +75,6 @@ public class InterruptionGroupDAOTest {
         interruptionGroupDAO.delete(interruptionGroupEntity);
         Mockito.verify(interruptionGroupDAO).delete(interruptionGroupEntity);
         Assert.assertNull(interruptionGroupDAO.findById(1L));
-        logger.info("Interruption group deleted");
+        logger.debug("Interruption group deleted");
     }
 }

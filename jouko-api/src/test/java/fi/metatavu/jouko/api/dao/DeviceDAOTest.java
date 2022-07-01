@@ -35,7 +35,7 @@ public class DeviceDAOTest {
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
         Mockito.when(deviceDAO.create(controller, "Device", user)).thenReturn(device);
         Assert.assertEquals(device, deviceDAO.create(controller, "Device", user));
-        logger.info("Device created");
+        logger.debug("Device created");
     }
 
     /**
@@ -52,6 +52,6 @@ public class DeviceDAOTest {
         DeviceEntity device = new DeviceEntity(1L, "Device", user, controller);
         Mockito.when(deviceDAO.listByUser(user, 0, 10)).thenReturn(Arrays.asList(device));
         Assert.assertEquals(Arrays.asList(device), deviceDAO.listByUser(user, 0, 10));
-        logger.info("Devices found by user");
+        logger.debug("Devices found by user");
     }
 }

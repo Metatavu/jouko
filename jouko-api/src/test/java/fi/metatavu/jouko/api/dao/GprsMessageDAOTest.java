@@ -31,7 +31,7 @@ public class GprsMessageDAOTest {
         GprsMessageEntity gprsMessage = gprsMessageDAO.create(controller, 1L, "test", messageType);
         Mockito.when(gprsMessageDAO.findById(1L)).thenReturn(gprsMessage);
         Assert.assertEquals(gprsMessage, gprsMessageDAO.findById(1L));
-        logger.info("Gprs message created");
+        logger.debug("Gprs message created");
     }
 
     /**
@@ -47,7 +47,7 @@ public class GprsMessageDAOTest {
         GprsMessageEntity gprsMessage = gprsMessageDAO.create(controller, 1L, "test", messageType);
         Mockito.when(gprsMessageDAO.findOneByController(controller, 1L)).thenReturn(gprsMessage);
         Assert.assertEquals(gprsMessage, gprsMessageDAO.findOneByController(controller, 1L));
-        logger.info("Gprs message found by controller");
+        logger.debug("Gprs message found by controller");
     }
 
     /**
@@ -63,7 +63,7 @@ public class GprsMessageDAOTest {
         GprsMessageEntity gprsMessage = gprsMessageDAO.create(controller, 1L, "test", messageType);
         Mockito.when(gprsMessageDAO.listByController(controller)).thenReturn(Arrays.asList(gprsMessage));
         Assert.assertEquals(Arrays.asList(gprsMessage), gprsMessageDAO.listByController(controller));
-        logger.info("Gprs messages found by controller");
+        logger.debug("Gprs messages found by controller");
     }
 
     /**
@@ -73,7 +73,7 @@ public class GprsMessageDAOTest {
     public void testFindGprsMessageByControllerNotFound() {
         GprsMessageEntity gprsMessage = gprsMessageDAO.findOneByController(null, 5L);
         Assert.assertNull(gprsMessage);
-        logger.info("Gprs message not found by controller");
+        logger.debug("Gprs message not found by controller");
     }
 
     /**
@@ -91,7 +91,7 @@ public class GprsMessageDAOTest {
         Assert.assertEquals(gprsMessage, gprsMessageDAO.findById(1L));
         gprsMessageDAO.delete(gprsMessage);
         Assert.assertNull(gprsMessageDAO.findById(1L));
-        logger.info("Gprs message deleted (New interruption)");
+        logger.debug("Gprs message deleted (New interruption)");
     }
 
     /**
@@ -107,7 +107,7 @@ public class GprsMessageDAOTest {
         GprsMessageEntity gprsMessage = gprsMessageDAO.create(controller, 1L, "test", messageType);
         Mockito.when(gprsMessageDAO.findById(1L)).thenReturn(gprsMessage);
         Assert.assertEquals(gprsMessage, gprsMessageDAO.findById(1L));
-        logger.info("Gprs message created (Cancel interruption)");
+        logger.debug("Gprs message created (Cancel interruption)");
     }
 
     /**
@@ -125,7 +125,7 @@ public class GprsMessageDAOTest {
         Assert.assertEquals(gprsMessage, gprsMessageDAO.findById(1L));
         gprsMessageDAO.clearControllerMessages(controller);
         Assert.assertNull(gprsMessageDAO.findById(1L));
-        logger.info("Gprs messages cleared from a controller");
+        logger.debug("Gprs messages cleared from a controller");
     }
 
     /**
@@ -143,6 +143,6 @@ public class GprsMessageDAOTest {
         Assert.assertEquals(gprsMessage, gprsMessageDAO.findById(1L));
         gprsMessageDAO.clear();
         Assert.assertNull(gprsMessageDAO.findById(1L));
-        logger.info("All Gprs messages cleared");
+        logger.debug("All Gprs messages cleared");
     }
 }

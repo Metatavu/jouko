@@ -39,6 +39,6 @@ public class PowerMeasurementDAOTest {
                 false);
         Mockito.when(powerMeasurementDAO.findById(1L)).thenReturn(powerMeasurement);
         Assert.assertEquals(powerMeasurement, powerMeasurementDAO.findById(1L));
-        logger.info("Power measurement created by id");
+        logger.debug("Power measurement created by id");
     }
 }
