@@ -62,6 +62,12 @@ const messages = {
         'de': 'Unterbrechung erfolgreich hinzugefügt!',
         'sv': 'Avbrottsgrupper har lagt till till framgångsrikt!'
     },
+    'alertInterruptiongroupCreatedError': {
+        'fi': 'Keskeytys luominen epäonnistui!',
+        'en': 'Interruption group creation failed!',
+        'de': 'Unterbrechung hinzufügen fehlgeschlagen!',
+        'sv': 'Avbrottsgrupper har inte lagts till!'
+    },
     'alertUserChanged': {
         'fi': 'Käyttäjä on muokattu onnistuneesti!',
         'en': 'User successfully changed!',
