@@ -74,6 +74,12 @@ const messages = {
         'de': 'Benutzer erfolgreich geändert!',
         'sv': 'Användaren har ändrats framgångsrikt!'
     },
+    'alertUserChangedError': {
+        'fi': 'Käyttäjän muokkaaminen epäonnistui!',
+        'en': 'User change failed!',
+        'de': 'Benutzer ändern fehlgeschlagen!',
+        'sv': 'Användaren har inte ändrats!'
+    },
     'alertUserCreated': {
         'fi': 'Käyttäjä on onnistuneesti luotu!',
         'en': 'User successfully created!',
