@@ -349,7 +349,7 @@ public class AdminApiImpl implements AdminApi {
     String key = body.getKey();
     
     deviceController.createControllerDevice(eui, key, controllerCommunicationChannel);
-    return null;
+    return Response.ok(body).build();
   }
 
   /**
@@ -388,7 +388,8 @@ public class AdminApiImpl implements AdminApi {
   }
 
   @Override
-  public Response updateControllerDevice(Long controllerDeviceId, ControllerDevice newControllerDevice)
+  public Response updateControllerDevice(Long controllerDeviceId, ControllerDevice
+          newControllerDevice)
       throws Exception {
     ControllerEntity entity = deviceController.findControllerDeviceById(controllerDeviceId);
     if (entity == null) {
