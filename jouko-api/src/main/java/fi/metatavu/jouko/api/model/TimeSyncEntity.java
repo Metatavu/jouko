@@ -25,20 +25,20 @@ public class TimeSyncEntity {
   }
 
   public void setTime(OffsetDateTime time) {
-        this.time = time;
-    }
+    this.time = time;
+  }
 
-    public void setDevice(DeviceEntity device) {
-        this.device = device;
-    }
+  public void setDevice(DeviceEntity device) {
+    this.device = device;
+  }
 
-    public void setReason(int reason) {
-        this.reason = reason;
-    }
+  public void setReason(int reason) {
+    this.reason = reason;
+  }
 
-    public long getTime() {
-        return time.toEpochSecond();
-    }
+  public long getTime() {
+    return time.toEpochSecond();
+  }
 
   public long getDeviceId() {
     return device.getId();
