@@ -15,7 +15,7 @@ services:
     networks:
       - jouko-api-net
 
-  api:
+  jouko-api:
     container_name: jouko-api
     build:
       dockerfile: ./docker/Dockerfile.api
@@ -53,8 +53,9 @@ services:
       - 8000:8000
     depends_on:
       - mysql
-      - api
+      - jouko-api
       - keycloak
+
   jouko-admin:
     container_name: jouko-admin-ui
     build:
@@ -64,7 +65,7 @@ services:
       - 8001:8001
     depends_on:
       - mysql
-      - api
+      - jouko-api
       - keycloak
     
 networks:

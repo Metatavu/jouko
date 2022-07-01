@@ -11,6 +11,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
 
 COPY jouko-api .
 
+ADD ./docker/scripts/host.cli /opt/docker/host.cli
+ADD ./docker/scripts/jbdc.cli /opt/docker/jbdc.cli
+
 RUN wget -O /tmp/wildlfy-final.zip \
   https://download.jboss.org/wildfly/${WILDFLY_VERSION}/wildfly-preview-${WILDFLY_VERSION}.zip \
 && unzip /tmp/wildlfy-final.zip -d /opt \
@@ -28,6 +31,9 @@ RUN wget -O /tmp/mysql-connector-java-8.0.17.zip \
   https://static.metatavu.io/wildfly/wildfly-17.0.1.Final-mysql-module-8.0.17.zip \
 && unzip /tmp/mysql-connector-java-8.0.17.zip -d /opt/wildfly-preview-${WILDFLY_VERSION} \
 && rm /tmp/mysql-connector-java-8.0.17.zip
+
+RUN /opt/wildfly-preview-${WILDFLY_VERSION}/bin/jboss-cli.sh --file=/opt/docker/host.cli
+RUN /opt/wildfly-preview-${WILDFLY_VERSION}/bin/jboss-cli.sh --file=/opt/docker/jbdc.cli
 
 EXPOSE 9080
 EXPOSE 8080
