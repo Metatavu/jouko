@@ -62,7 +62,7 @@ Start keycloak by running inside the keycloak directory
 - Create new client with Client ID `jouko-api` with following settings:
   - Client Protocol: openid-connect
   - Hit Save
-- Change Access Type to bearer-only and hit Reset Password
+- Change Access Type to public and hit Reset Password
 
 ### Create user
 
@@ -145,7 +145,14 @@ Install maven by running
 
     sudo apt install maven
 
-### Protobuf
+### Protobuf (Binary)
+Install protobuf by running
+
+    sudo apt install protobuf-compiler
+
+You do not need to do the below method for manual installation if you installed the binary.
+
+### Protobuf (Manual)
 
 Use `cd` command to where you want to download protobuf. Install protobuf by running commands:
 
@@ -198,6 +205,8 @@ Start the mysql shell by running `/usr/bin/mysql -u root -p`.
 - On the mysql shell run command `USE jouko_api;` to use the database.
 - Run command `insert into Setting values (1, "keycloakUrl", "http://localhost:9080/auth");`
 - Run command `insert into Setting values (2, "keycloakRealm", "jouko-realm");`
+- Run command `insert into Setting values (3, "deviceCommunicator.asId", "1");`
+- Run command `insert into Setting values (4, "deviceCommunicator.endpoint", "LORA");`
 - Run command `insert into User values (1, "KEYCLOAK_USER_ID", "KEYCLOAK_USER_NAME");`
 
 Replace KEYCLOAK_USER_ID with the id of your Keycloak user and KEYCLOAK_USER_NAME with the username of your Keycloak user.
