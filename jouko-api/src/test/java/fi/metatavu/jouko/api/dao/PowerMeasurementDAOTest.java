@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.slf4j.Logger;
 
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -12,6 +13,7 @@ import java.time.ZoneOffset;
 
 public class PowerMeasurementDAOTest {
     private PowerMeasurementDAO powerMeasurementDAO;
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(PowerMeasurementDAOTest.class);
 
     @Before
     public void setUp() {
@@ -37,6 +39,6 @@ public class PowerMeasurementDAOTest {
                 false);
         Mockito.when(powerMeasurementDAO.findById(1L)).thenReturn(powerMeasurement);
         Assert.assertEquals(powerMeasurement, powerMeasurementDAO.findById(1L));
-        System.out.println("Power measurement created");
+        logger.debug("Power measurement created by id");
     }
 }

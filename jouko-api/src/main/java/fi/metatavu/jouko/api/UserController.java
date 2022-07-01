@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import org.slf4j.Logger;
 
 @Dependent
 public class UserController {
@@ -25,6 +26,9 @@ public class UserController {
 
   @Inject
   private SettingDAO settingDao;
+
+  @Inject
+  private Logger logger;
 
   /**
    * Get user by keycloak id
@@ -106,8 +110,7 @@ public class UserController {
       response = userRessource.create(newUser);
     } catch (Throwable e) {
       e.printStackTrace();
-      System.out.println(e.getMessage());
-      System.out.println(e.getCause());
+      logger.error(e.getCause().getMessage());
     }
 
     if (response != null) {
