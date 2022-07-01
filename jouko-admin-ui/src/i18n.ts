@@ -63,9 +63,9 @@ const messages = {
         'sv': 'Avbrottsgrupper har lagt till till framgångsrikt!'
     },
     'alertInterruptiongroupCreatedError': {
-        'fi': 'Keskeytys luominen epäonnistui!',
-        'en': 'Interruption group creation failed!',
-        'de': 'Unterbrechung hinzufügen fehlgeschlagen!',
+        'fi': 'Keskeytys luominen epäonnistui! Onko laite käytössä?',
+        'en': 'Interruptiongroup creation failed! Is the device in use?',
+        'de': 'Unterbrechung hinzufügen fehlgeschlagen! Ist das Gerät in Benutzung?',
         'sv': 'Avbrottsgrupper har inte lagts till!'
     },
     'alertUserChanged': {

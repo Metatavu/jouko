@@ -54,7 +54,8 @@ export class NewInterruptionGroup
     async handleSubmit(event: React.FormEvent<HTMLInputElement>) {
         let interruptionStartDate = this.state.startDate;
         let interruptionStartTime = this.state.startTime;
-        const starttime = parseDate(interruptionStartDate + 'T' + interruptionStartTime);
+        // Add current date to start time
+        const starttime = parseDate(`${interruptionStartDate} ${interruptionStartTime}`);
         let interruptionDuration = this.state.duration;
         let interruptionDurationHour = Number(interruptionDuration.split(':')[0]);
         let interruptionDurationMinutes = Number(interruptionDuration.split(':')[1]);
@@ -74,7 +75,7 @@ export class NewInterruptionGroup
             apiUrl);
 
         const payload = {
-            id: 0,
+            id: 1,
             startTime: starttime.toISOString(),
             endTime: endtime.toISOString(),
             powerSavingGoalInWatts: powerSavingGoalInWatts,
