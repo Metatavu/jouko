@@ -32,6 +32,12 @@ const messages = {
         'de': 'Gerät erfolgreich hinzugefügt!',
         'sv': 'Enheten har lagts till framgångsrikt!'
     },
+    'alertDeviceCreatedError': {
+        'fi': 'Laite luominen epäonnistui!',
+        'en': 'Device creation failed!',
+        'de': 'Gerät hinzufügen fehlgeschlagen!',
+        'sv': 'Enheten har inte lagts till!'
+    },
     'alertControllerDeviceCreated': {
         'fi': 'Laite luotu',
         'en': 'Device created',
