@@ -35,4 +35,16 @@ public class TimeSyncEntity {
     public void setReason(int reason) {
         this.reason = reason;
     }
+
+    public long getTime() {
+        return time.toEpochSecond();
+    }
+
+  public long getDeviceId() {
+    return device.getId();
+  }
+
+  public long getControllerId() {
+    return device.getController().getId();
+  }
 }
