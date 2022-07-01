@@ -44,13 +44,13 @@ class App extends React.Component<{}, AppState> {
       checkLoginIframe: false,
       onLoad: 'login-required'
     })
-      .success(() => {
+      .then(() => {
       this.fetchUsers(kc);
       // tslint:disable-next-line:no-any
       // console.log(kc.idTokenParsed as any);
     }
     )
-      .error((e) => {console.log(e); } );
+      .catch((e) => {console.log(e); } );
   }
   // tslint:disable-next-line:no-any
   async fetchUsers(kc: any) {
