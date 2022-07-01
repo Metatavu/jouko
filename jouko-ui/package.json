@@ -4,7 +4,6 @@
   "private": true,
   "homepage": "https://jouko2018.metatavu.io/",
   "dependencies": {
-    "@jest/types": "^28.1.1",
     "@types/chart.js": "^2.7.14",
     "chart.js": "^2.7.2",
     "chartjs-plugin-datalabels": "^0.3.0",
@@ -20,8 +19,7 @@
     "react-native-login": "0.0.1-alpha.2",
     "react-router-dom": "^4.2.2",
     "react-scripts-ts": "2.14.0",
-    "react-spinners": "^0.3.2",
-    "ts-node": "^10.8.1"
+    "react-spinners": "^0.3.2"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -35,6 +33,7 @@
     "@babel/core": "^7.18.6",
     "@babel/preset-env": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
+    "@jest/types": "^28.1.1",
     "@testing-library/dom": "^8.13.0",
     "@testing-library/react": "^12.1.4",
     "@types/isomorphic-fetch": "0.0.34",
@@ -52,6 +51,7 @@
     "jest-localstorage-mock": "^2.4.21",
     "supertest": "^6.2.3",
     "ts-jest": "^23.10.5",
+    "ts-node": "^10.8.1",
     "typescript": "^2.8.3"
   }
 }
