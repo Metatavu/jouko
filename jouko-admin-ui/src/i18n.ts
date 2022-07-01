@@ -38,6 +38,12 @@ const messages = {
         'de': 'Gerät erstellt',
         'sv': 'Enhet skapad'
     },
+    'alertControllerDeviceCreatedError': {
+        'fi': 'Tapahtui virhe ohjauslaitteen luodessa. Onko tiedot oikein?',
+        'en': 'Error creating controller device. Are the data correct?',
+        'de': 'Fehler beim Erstellen des Controller-Gerätes. Sind die Daten korrekt?',
+        'sv': 'Fel vid skapandet av kontrollenheten. Är data korrekt?'
+    },
     'alertInterruptiongroupChanged': {
         'fi': 'Keskeytysryhmää on muokattu onnistuneesti!',
         'en': 'Interruptiongroup successfully changed!',
@@ -139,6 +145,12 @@ const messages = {
         'en': 'This user will be deleted!',
         'de': 'Dieser Benutzer wird gelöscht!',
         'sv': 'Den här användaren kommer att raderas!'
+    },
+    'confirmCreateControllerDevice': {
+        'fi': 'Tämä ohjauslaite luodaan!',
+        'en': 'This controller device will be created!',
+        'de': 'Diese Steuervorrichtung wird erstellt!',
+        'sv': 'Detta styranordning kommer att skapas!'
     },
     'controllerDevice': {
         'fi': 'Ohjauslaite',

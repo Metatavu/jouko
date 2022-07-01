@@ -53,27 +53,11 @@ export class ListUser extends
     componentDidMount() {
         this.fetchAllUsers();
     }
-    async handleDeleteUser(event: React.FormEvent<HTMLDivElement>) {
+    handleDeleteUser(event: React.FormEvent<HTMLDivElement>) {
         if (confirm(_('confirmDeleteUser'))) {
-            const configuration = new Configuration({
-                apiKey: `Bearer ${this.props.kc!.token}`
-            });
-    
-            const usersApi = new UsersApi(
-                configuration,
-                apiUrl);
-            // Pass the selected keycloak user as parameter to payload
-            const payload = {
-                keycloakId: event.currentTarget.id
-            };
-
-            // try {
-            //     await usersApi.deleteUser(payload, this.props.kc?.token);
-            //     alert(_('userDeleted'));
-            // } catch (error) {
-            //     alert(_('userDeleteFailed'));
-            // }
+            console.log('Delete');
         }
+        this.forceUpdate();
     }
     // The methods below are used to fetch the data based on the sorting element and direction
     sortByIdASC(event: React.FormEvent<HTMLOptionElement>) {
