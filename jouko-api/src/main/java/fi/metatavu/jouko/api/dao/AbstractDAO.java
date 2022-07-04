@@ -108,6 +108,9 @@ public abstract class AbstractDAO<T> {
    * @param e entity to delete
    */
   public void delete(T e) {
+    if (e == null) {
+      return;
+    }
     getEntityManager().remove(e);
     flush();
   }
