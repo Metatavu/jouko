@@ -270,7 +270,7 @@ export class ListUser extends
                     </tr>
                     </thead>
                     <tbody>
-                        {allUsers}
+                        {allUsers ? allUsers : <tr><td>{_('noUsers')}</td></tr>}
                     </tbody>
                 </table>
             </div>

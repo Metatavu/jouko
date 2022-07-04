@@ -575,8 +575,13 @@ const messages = {
         'en': 'Username',
         'de': 'Benutzername',
         'sv': 'Användarnamn'
-    }
-    ,
+    },
+    'noUsers': {
+        'fi': 'Ei käyttäjiä',
+        'en': 'No users',
+        'de': 'Keine Benutzer',
+        'sv': 'Inga användare'
+    },
     'version': {
         'fi': 'Versionumero',
         'en': 'Version',
