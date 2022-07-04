@@ -278,6 +278,12 @@ public class AdminApiImpl implements AdminApi {
     return Response.ok(users).build();
   }
 
+  /**
+   * Get device by device id
+   * @param deviceId of the device
+   * @return device
+   * @throws Exception if something goes wrong
+   */
   @Override
   public Response retrieveDevice(Long deviceId) throws Exception {
     DeviceEntity device = deviceController.findById(deviceId);
@@ -295,7 +301,7 @@ public class AdminApiImpl implements AdminApi {
    *
    * @param userId of the user you want to get
    * @return the user
-   * @throws Exception
+   * @throws Exception if something goes wrong
    */
   @Override
   public Response retrieveUser(Long userId) throws Exception {
