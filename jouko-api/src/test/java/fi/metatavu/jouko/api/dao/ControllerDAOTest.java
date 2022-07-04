@@ -6,9 +6,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.slf4j.Logger;
 
 public class ControllerDAOTest {
-    ControllerDAO controllerDAO;
+    private ControllerDAO controllerDAO;
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(ControllerDAOTest.class);
+    
 
     @Before
     public void setUp() {
@@ -30,7 +33,7 @@ public class ControllerDAOTest {
         Assert.assertEquals("EUI", controller.getEui());
         Assert.assertEquals("KEY", controller.getKey());
         Assert.assertEquals(ControllerCommunicationChannel.LORA, controller.getCommunicationChannel());
-        System.out.println("Controller created");
+        logger.debug("Controller created");
     }
 
     /**
@@ -40,7 +43,7 @@ public class ControllerDAOTest {
     public void testGetControllerByEui() {
         ControllerEntity controller = controllerDAO.findByEui("EUI2131232132312");
         Assert.assertNull(controller);
-        System.out.println("Controller found by EUI");
+        logger.debug("Controller found by EUI");
     }
 
     /**
@@ -51,7 +54,7 @@ public class ControllerDAOTest {
         ControllerEntity controller = controllerDAO.create("EUI", "KEY", ControllerCommunicationChannel.LORA);
         controllerDAO.delete(controller);
         Assert.assertNull(controllerDAO.findByEui("EUI"));
-        System.out.println("Controller deleted");
+        logger.debug("Controller deleted");
     }
 
     /**
@@ -62,6 +65,6 @@ public class ControllerDAOTest {
         ControllerEntity controller = controllerDAO.create("EUI", "KEY", ControllerCommunicationChannel.LORA);
         Mockito.when(controllerDAO.findByEuiAndKey("EUI", "KEY")).thenReturn(controller);
         Assert.assertEquals(controller, controllerDAO.findByEuiAndKey("EUI", "KEY"));
-        System.out.println("Controller found by EUI and KEY");
+        logger.debug("Controller found by EUI and KEY");
     }
 }

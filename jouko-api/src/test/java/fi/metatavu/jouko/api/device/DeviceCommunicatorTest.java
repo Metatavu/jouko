@@ -19,11 +19,11 @@ import java.util.List;
 
 public class DeviceCommunicatorTest {
 
-  DeviceController deviceController;
-  SettingController settingController;
-  GprsMessageDAO gprsMessageDAO;
+  private DeviceController deviceController;
+  private SettingController settingController;
+  private GprsMessageDAO gprsMessageDAO;
   private List<String> postResults;
-  DeviceCommunicator subject;
+  private DeviceCommunicator subject;
 
   /**
    * Sets up a mock device controller and a setting controller

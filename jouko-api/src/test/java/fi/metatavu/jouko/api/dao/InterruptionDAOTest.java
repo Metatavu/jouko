@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.slf4j.Logger;
 
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -12,7 +13,8 @@ import java.time.ZoneOffset;
 import java.util.Arrays;
 
 public class InterruptionDAOTest {
-    InterruptionDAO interruptionDAO;
+    private InterruptionDAO interruptionDAO;
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(InterruptionDAOTest.class);
 
     @Before
     public void setUp() {
@@ -31,7 +33,7 @@ public class InterruptionDAOTest {
         InterruptionEntity interruption = interruptionDAO.create(device, group);
         Mockito.when(interruptionDAO.findById(1L)).thenReturn(interruption);
         Assert.assertEquals(interruption, interruptionDAO.findById(1L));
-        System.out.println("Interruption created");
+        logger.debug("Interruption created by id");
     }
 
     /**
@@ -48,7 +50,7 @@ public class InterruptionDAOTest {
         Mockito.when(interruptionDAO.findById(1L)).thenReturn(interruption);
         Assert.assertEquals(interruption, interruptionDAO.findById(1L));
         Assert.assertEquals(OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC), interruption.getCancellationTime());
-        System.out.println("Cancellation time updated");
+        logger.debug("Interruption cancellation time updated");
     }
 
     /**
@@ -64,7 +66,7 @@ public class InterruptionDAOTest {
         interruptionDAO.updateCancelled(interruption, true);
         Mockito.when(interruptionDAO.updateCancelled(interruption, true)).thenReturn(interruption);
         Assert.assertEquals(interruption, interruptionDAO.updateCancelled(interruption, true));
-        System.out.println("Interruption cancelled");
+        logger.debug("Interruption cancelled");
     }
 
     /**
@@ -80,7 +82,7 @@ public class InterruptionDAOTest {
         Mockito.when(interruptionDAO.findById(1L)).thenReturn(interruption);
         interruptionDAO.delete(interruption);
         Assert.assertNull(interruptionDAO.findById(1L));
-        System.out.println("Interruption deleted");
+        logger.debug("Interruption deleted");
     }
 
     /**
@@ -94,7 +96,7 @@ public class InterruptionDAOTest {
         InterruptionGroupEntity group = new InterruptionGroupEntity(1L, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
         InterruptionEntity interruption = interruptionDAO.create(device, group);
         Mockito.when(interruptionDAO.listByDeviceAndDate(device, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC))).thenReturn(Arrays.asList(interruption));
-        System.out.println("Interruptions by device and date");
+        logger.debug("Interruptions found by device and date");
     }
 
     /**
@@ -108,7 +110,7 @@ public class InterruptionDAOTest {
         InterruptionGroupEntity group = new InterruptionGroupEntity(1L, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
         InterruptionEntity interruption = interruptionDAO.create(device, group);
         Mockito.when(interruptionDAO.listByDate(OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC))).thenReturn(Arrays.asList(interruption));
-        System.out.println("Interruptions by date");
+        logger.debug("Interruptions found by date");
     }
 
     /**
@@ -122,6 +124,6 @@ public class InterruptionDAOTest {
         InterruptionGroupEntity group = new InterruptionGroupEntity(1L, OffsetDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneOffset.UTC), OffsetDateTime.ofInstant(Instant.ofEpochSecond(100), ZoneOffset.UTC));
         InterruptionEntity interruption = interruptionDAO.create(device, group);
         Mockito.when(interruptionDAO.listByGroupId(1L)).thenReturn(Arrays.asList(interruption));
-        System.out.println("Interruptions by group id");
+        logger.debug("Interruptions by group id");
     }
 }
