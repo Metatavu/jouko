@@ -1,9 +1,0 @@
-swagger-codegen-cli.jar
-node_modules
-.project
-/nbproject
-/jaxrs-spec-generated/target/
-/jaxrs-spec-generated/pom.xml.before
-/jaxrs-spec-generated/pom.xml.releaseBackup
-/jaxrs-spec-generated/release.properties
-

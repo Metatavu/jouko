@@ -582,6 +582,24 @@ const messages = {
         'de': 'Keine Benutzer',
         'sv': 'Inga användare'
     },
+    'noDevices': {
+        'fi': 'Ei laitteita',
+        'en': 'No devices',
+        'de': 'Keine Geräte',
+        'sv': 'Inga enheter'
+    },
+    'noControllerDevices': {
+        'fi': 'Ei kontrollilaitteita',
+        'en': 'No controller devices',
+        'de': 'Keine Kontroller-Geräte',
+        'sv': 'Inga kontroller-enheter'
+    },
+    'noInterruptionGroups': {
+        'fi': 'Ei keskeytysryhmää',
+        'en': 'No interruption groups',
+        'de': 'Keine Unterbrechungsgruppen',
+        'sv': 'Inga avbrottningsgrupper'
+    },
     'version': {
         'fi': 'Versionumero',
         'en': 'Version',
