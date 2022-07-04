@@ -5,7 +5,8 @@ Flexible Power Usage at Home, This is the repository containing the server and u
 ## Directory structure:
 ```jouko-api``` contains the server interface (API). <br>
 ```jouko-ui``` contains the user interface for regular users of the software to monitor their power usage. <br>
-```jouko-admin-ui``` contains the admin user interface that allows management of users, interruptions and so on.
+```jouko-admin-ui``` contains the admin user interface that allows management of users, interruptions and so on. <br>
+```jouko-api-spec``` contains the API specification file (swagger.yml) and other relevant files to build new API routes.
 
 Installation instructions are included in each folder.
 
