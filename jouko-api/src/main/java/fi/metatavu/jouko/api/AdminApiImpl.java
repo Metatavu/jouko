@@ -107,6 +107,10 @@ public class AdminApiImpl implements AdminApi {
         body.getEndTime(),
         body.getOverbookingFactor(),
         (int)((long)body.getPowerSavingGoalInWatts()));
+
+    if (group == null) {
+      return Response.status(Status.BAD_REQUEST).build();
+    }
     
     List<DeviceEntity> devices = deviceController.listAll(null, null);
     
@@ -218,8 +222,16 @@ public class AdminApiImpl implements AdminApi {
   public Response createDevice(Device body) throws Exception {
     ControllerEntity controller = deviceController.findControllerById(
         body.getControllerId());
+    if (controller == null) {
+        return Response.status(Status.NOT_FOUND)
+                         .entity("controller not found")
+                         .build();
+    }
     UserEntity user = userController.findUserById(body.getUserId());
     DeviceEntity device = deviceController.createDevice(controller, body.getName(), user);
+    if (device == null) {
+      return Response.status(Status.BAD_REQUEST).build();
+    }
     body.setId(device.getId());
     return Response.ok(body).build();
   }
@@ -236,7 +248,9 @@ public class AdminApiImpl implements AdminApi {
   public Response createUser(User body, String token) throws Exception {
     String keycloakId = userController.createKeycloakUser(body, token);   
     UserEntity newUser = userController.createUser(body, keycloakId);
-
+    if (newUser == null) {
+      return Response.status(Status.BAD_REQUEST).build();
+    }
     return Response.ok(newUser).build();
   }
 
@@ -347,7 +361,9 @@ public class AdminApiImpl implements AdminApi {
     ControllerCommunicationChannel controllerCommunicationChannel = ControllerCommunicationChannel.valueOf(body.getCommunicationChannel());
     String eui = body.getEui();
     String key = body.getKey();
-    
+    if (eui == null || key == null) {
+      return Response.status(Status.BAD_REQUEST).build();
+    }
     deviceController.createControllerDevice(eui, key, controllerCommunicationChannel);
     return Response.ok(body).build();
   }
@@ -416,7 +432,11 @@ public class AdminApiImpl implements AdminApi {
       deviceCommunicator.notifyInterruptionCancellation(entity);
       interruptionController.deleteInterruption(entity);
     }
-    
+    if (entities.isEmpty()) {
+      return Response.status(Status.NOT_FOUND)
+                     .entity("interruptions not found")
+                     .build();
+    }
     interruptionController.deleteInerruptionGroup(groupId);
 
     return Response.ok().build();
@@ -424,6 +444,9 @@ public class AdminApiImpl implements AdminApi {
 
   @Override
   public Response deleteControllerDevice(Long controllerDeviceId) throws Exception {
+    if (controllerDeviceId == null) {
+      return Response.status(Status.BAD_REQUEST).build();
+    }
     deviceController.deleteControllerDevice(controllerDeviceId);
     return Response.ok().build();
   }
