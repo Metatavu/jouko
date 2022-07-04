@@ -35,5 +35,7 @@ RUN wget -O /tmp/mysql-connector-java-8.0.17.zip \
 RUN /opt/wildfly-preview-${WILDFLY_VERSION}/bin/jboss-cli.sh --file=/opt/docker/host.cli
 RUN /opt/wildfly-preview-${WILDFLY_VERSION}/bin/jboss-cli.sh --file=/opt/docker/jbdc.cli
 
+CMD ["/opt/wildfly-preview-${WILDFLY_VERSION}/bin/standalone.sh", "--server-config=standalone-ha.xml"]
+
 EXPOSE 9080
 EXPOSE 8080
