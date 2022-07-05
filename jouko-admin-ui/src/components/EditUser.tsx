@@ -145,6 +145,24 @@ export class EditUser
         this.setState({rowProps: take(rowProps, 100)});
     }
 
+    async fetchUserDetails() {
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
+        const usersApi = new UsersApi(
+            configuration,
+            apiUrl);
+        const user = await usersApi.retrieveUser(this.props.userId);
+        this.setState({
+            userId: user.id as number,
+            keycloakId: user.keycloakId as string,
+            firstname: user.firstName as string,
+            lastname: user.lastName as string,
+            email: user.email as string
+        });
+    }
+
     render() {
         {/*
         const controllerOption = this.state.rowProps.map(rowProp => {
