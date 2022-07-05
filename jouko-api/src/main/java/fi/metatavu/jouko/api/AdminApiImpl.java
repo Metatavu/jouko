@@ -58,6 +58,11 @@ public class AdminApiImpl implements AdminApi {
     User result = new User();
     result.setId(entity.getId());
     result.setKeycloakId(UUID.fromString(entity.getKeycloakId()));
+     /**
+     * TODO Add email, firstName, lastName and username as results that will be returned
+     * There's a other method that's called exact the same, so it could be that as well but this will be required for the admin UI if want to display all user information
+     * This stores all the user data as well in the Users table, so it would most likely be better in the future to fetch them directly from Keycloak instead for security reasons too than add more data to the Users table
+     */
     return result;
   }
 

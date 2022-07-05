@@ -34,9 +34,6 @@ public class KeycloakUsersApiImpl implements KeycloakUsersApi {
     User result = new User();
     result.setId(entity.getId());
     result.setKeycloakId(UUID.fromString(entity.getKeycloakId()));
-    /**
-     * TODO Add email, firstName, lastName and username as results that will be returned
-     */
     return result;
   }
 
