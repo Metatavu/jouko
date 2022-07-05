@@ -26,6 +26,12 @@ const messages = {
         'de': 'Gerät erfolgreich geändert!',
         'sv': 'Enheten har ändrats framgångsrikt!'
     },
+    'alertDeviceChangedError': {
+        'fi': 'Laitetta ei voitu muokata!',
+        'en': 'Device could not be changed!',
+        'de': 'Gerät konnte nicht geändert werden!',
+        'sv': 'Enheten kunde inte ändras!'
+    },
     'alertDeviceCreated': {
         'fi': 'Laite on luotu!',
         'en': 'Device successfully created!',
