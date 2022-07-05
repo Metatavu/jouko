@@ -70,9 +70,15 @@ const messages = {
     },
     'alertInterruptiongroupChanged': {
         'fi': 'Keskeytysryhmää on muokattu onnistuneesti!',
-        'en': 'Interruptiongroup successfully changed!',
+        'en': 'Interruption group successfully changed!',
         'de': 'Unterbrechung erfolgreich geändert!',
         'sv': 'Avbrottsgrupper har ändrats framgångsrikt!'
+    },
+    'alertInterruptiongroupChangedError': {
+        'fi': 'Keskeytysryhmää ei voitu muokata!',
+        'en': 'Interruption group could not be changed!',
+        'de': 'Unterbrechung konnte nicht geändert werden!',
+        'sv': 'Avbrottsgrupper kunde inte ändras!'
     },
     'alertInterruptiongroupCreated': {
         'fi': 'Keskeytys onnistuneesti luotu!',
