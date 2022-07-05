@@ -133,28 +133,24 @@ export class EditInterruptionGroup
                         type="text"
                         name="starttime"
                         value={formatDate(interruption.startTime, 'dddd DD. MMMM YYYY | HH:MM')}
-                        disabled={true}
                     />
                     <p>{_('endtime')}</p>
                     <input
                         type="text"
                         name="endttime"
                         value={formatDate(interruption.endTime, 'dddd DD. MMMM YYYY | HH:MM')}
-                        disabled={true}
                     />
                     <p>{_('powerToBeSaved')}</p>
                     <input
                         type="text"
                         name="powerSavingGoalInWatts"
                         value={`${interruption.powerSavingGoalInWatts} kW`}
-                        disabled={true}
                     />
                     <p>{_('overbooking')}</p>
                     <input
                         type="text"
                         name="overbookingFactor"
                         value={`${interruption.overbookingFactor} %`}
-                        disabled={true}
                     />
                 </form>
             );
@@ -185,49 +181,6 @@ export class EditInterruptionGroup
                     </div>
                 </div>
                 {editForm}
-                {/*
-                <form className="edit-item-form" key={index.toString()}>
-                    <p>{_('date')}:</p>
-                    <input
-                        type="text"
-                        name="date"
-                        value={interruption.id}
-                        onChange={this.handleStartDateChange}
-                    />
-                    <p>{_('time')}</p>
-                    <input
-                        type="text"
-                        name="starttime"
-                        value={this.state.startTime}
-                        onChange={this.handleStartTimeChange}
-                    />
-                    <p>{_('duration')}</p>
-                    <input
-                        type="text"
-                        name="duration"
-                        value={this.state.duration}
-                        onChange={this.handleDurationChange}
-                    />
-                    <p>{_('powerToBeSaved')}</p>
-                    <input
-                        type="number"
-                        name="powerSavingGoalInWatts"
-                        value={this.state.powerSavingGoalInWatts}
-                        onChange={this.handlePowerSavingGoalInWattsChange}
-                    />
-                    <p>{_('overbooking')}</p>
-                    <input
-                        type="number"
-                        name="overbookingFactor"
-                        value={this.state.overbookingFactor}
-                        onChange={this.handleOverbookingFactorChange}
-                    />
-                    <div className="ActionField">
-                        <input type="reset" value={_('cancel')} />
-                        <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
-                    </div>
-                </form>
-                */}
             </div>
         );
     }
