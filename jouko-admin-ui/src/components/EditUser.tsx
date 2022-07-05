@@ -246,11 +246,11 @@ export class EditUser
                         <tbody className="UserDeviceBody">
                             {usersDevices}
                         </tbody>
-                        <div className="ActionField">
-                            <input type="reset" value={_('cancel')} />
-                            <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
-                        </div>
                     </table>
+                    <div className="ActionField">
+                        <input type="reset" value={_('cancel')} />
+                        <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
+                    </div>
                     </form>
             </div>
         );

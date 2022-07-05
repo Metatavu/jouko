@@ -163,23 +163,6 @@ export class EditInterruptionGroup
                     </NavLink>
                 </h1>
                 <br/><br/><br/>
-                <div className="InformationBox">
-                    <div className="InformationBoxIcon">
-                        <i className="fa fa-exclamation-triangle"/>
-                    </div>
-                    <div className="InformationBoxText">
-                        <h3>
-                            {_('noEditInterruptiongroupPossible1')}
-                            <NavLink to="/ListInterruptiongroups">
-                                {_('noEditInterruptiongroupPossible2')}
-                            </NavLink>
-                            {_('noEditInterruptiongroupPossible3')}
-                            <NavLink to="/NewInterruptionGroup">
-                                {_('noEditInterruptiongroupPossible4')}
-                            </NavLink>
-                        </h3>
-                    </div>
-                </div>
                 {editForm}
             </div>
         );
