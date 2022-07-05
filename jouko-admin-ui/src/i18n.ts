@@ -45,16 +45,28 @@ const messages = {
         'sv': 'Enheten har inte lagts till!'
     },
     'alertControllerDeviceCreated': {
-        'fi': 'Laite luotu',
-        'en': 'Device created',
-        'de': 'Gerät erstellt',
-        'sv': 'Enhet skapad'
+        'fi': 'Ohjauslaite luotu',
+        'en': 'Controller device created',
+        'de': 'Controller-Gerät erstellt',
+        'sv': 'Kontroller-enhet har skapats'
     },
     'alertControllerDeviceCreatedError': {
         'fi': 'Tapahtui virhe ohjauslaitteen luodessa. Onko tiedot oikein?',
         'en': 'Error creating controller device. Are the data correct?',
         'de': 'Fehler beim Erstellen des Controller-Gerätes. Sind die Daten korrekt?',
         'sv': 'Fel vid skapandet av kontrollenheten. Är data korrekt?'
+    },
+    'alertControllerDeviceChanged': {
+        'fi': 'Ohjauslaite muokattu',
+        'en': 'Controller device changed',
+        'de': 'Controller-Gerät geändert',
+        'sv': 'Kontroller-enhet har ändrats'
+    },
+    'alertControllerDeviceChangedError': {
+        'fi': 'Tapahtui virhe ohjauslaitteen muokkauksessa. Onko tiedot oikein?',
+        'en': 'Error changing controller device. Are the data correct?',
+        'de': 'Fehler beim Ändern des Controller-Gerätes. Sind die Daten korrekt?',
+        'sv': 'Fel vid ändring av kontrollenheten. Är data korrekt?'
     },
     'alertInterruptiongroupChanged': {
         'fi': 'Keskeytysryhmää on muokattu onnistuneesti!',

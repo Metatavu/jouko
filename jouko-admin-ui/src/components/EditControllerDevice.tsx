@@ -2,7 +2,7 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { _ } from '../i18n';
-import { InterruptionGroupsApi, Configuration } from 'jouko-ts-client';
+import { InterruptionGroupsApi, ControllerDevicesApi, Configuration } from 'jouko-ts-client';
 import { take } from 'lodash';
 import { apiUrl } from '../config';
 
@@ -47,15 +47,31 @@ export class EditControllerDevice
         this.setState({communicationChannel: event.currentTarget.value});
     }
     handleSubmit(event: React.FormEvent<HTMLInputElement>) {
-        console.log(this.state.eui);
-        console.log(this.state.key);
-        console.log(this.state.communicationChannel);
         event.preventDefault();
-        alert(_('alertCommunicationDeviceChanged')!);
+
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
+        const controllerDevicesApi = new ControllerDevicesApi(configuration);
+
+        const payload = {
+            eui: this.state.eui,
+            key: this.state.key,
+            communicationChannel: this.state.communicationChannel
+        };
+
+        try {
+            controllerDevicesApi.updateControllerDevice(Number(this.props.controllerDeviceId), payload);
+            alert(_('alertControllerDeviceChanged'));
+        } catch (error) {
+            alert(_('alertControllerDeviceChangedError'));
+        }
     }
 
     componentDidMount() {
         this.fetchEditControllerDevices();
+        this.fetchControllerDevices();
     }
     async fetchEditControllerDevices() {
         const configuration = new Configuration({
@@ -75,6 +91,23 @@ export class EditControllerDevice
             });
         }
         this.setState({rowProps: take(rowProps, 100)});
+    }
+
+    async fetchControllerDevices() {
+        const configuration = new Configuration({
+            apiKey: 'Bearer ' + this.props.kc!.token
+        });
+
+        const controllerDevicesApi = new ControllerDevicesApi(
+            configuration,
+            apiUrl);
+
+        const controllerDevice = await controllerDevicesApi.retrieveControllerDevice(this.props.controllerDeviceId);
+        this.setState({
+            eui: controllerDevice.eui,
+            key: controllerDevice.key,
+            communicationChannel: controllerDevice.communicationChannel as string
+        });
     }
 
     render() {
