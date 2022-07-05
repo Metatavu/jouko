@@ -105,7 +105,7 @@ export class EditInterruptionGroup
             id: this.state.interruptionGroupId,
             startTime: this.state.startDate + 'T' + this.state.startTime as string, // '2020-01-01T00:00:00'
             endTime: this.state.startDate + 'T' + this.state.startTime as string, // '2020-01-01T00:00:00'
-            duration: this.state.duration as string, // 'PT1H'
+            duration: this.state.duration as string,
             powerSavingGoalInWatts: this.state.powerSavingGoalInWatts as number,
             overbookingFactor: this.state.overbookingFactor as number
         };
