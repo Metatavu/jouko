@@ -60,13 +60,13 @@ class App extends React.Component<{}, AppState> {
             }
         );
         kc.init({ onLoad: 'login-required' })
-            .success(() => {
+            .then(() => {
                     this.fetchAdmin(kc);
                     // tslint:disable-next-line:no-any
                     // console.log(kc.idTokenParsed as any);
                 }
             )
-            .error((e) => {console.log(e); } );
+            .catch((e) => {console.log(e); } );
     }
     // tslint:disable-next-line:no-any
     async fetchAdmin(kc: any) {
@@ -83,7 +83,6 @@ class App extends React.Component<{}, AppState> {
         const user = await usersApi.getUserByKeycloakId(keycloakId);
         console.log(kc);
         if (user) {
-            console.log('javol');
             this.setState({
                 keycloakInstance : kc,
                 // tslint:disable-next-line:no-any

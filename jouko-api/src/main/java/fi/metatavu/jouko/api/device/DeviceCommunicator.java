@@ -353,8 +353,7 @@ public class DeviceCommunicator {
           sendMessage(null, replyMessage, controller, MessageType.TIME_SYNC);
         }
       } catch (InvalidProtocolBufferException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+        logger.error("Viestin lähetys epäonnistui", e);
       }
     }
   }

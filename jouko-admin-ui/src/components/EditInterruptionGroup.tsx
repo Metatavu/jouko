@@ -91,31 +91,31 @@ export class EditInterruptionGroup
     }
 
     handleSubmit(event: React.FormEvent<HTMLInputElement>) {
-        {/*
-        let interruptionStartDate = this.state.startDate;
-        let interruptionStartTime = this.state.startTime;
-        const starttime = parseDate(interruptionStartDate + 'T' + interruptionStartTime);
-        let interruptionDuration = this.state.duration;
-        let interruptionDurationHour = Number(interruptionDuration.split(':')[0]);
-        let interruptionDurationMinutes = Number(interruptionDuration.split(':')[1]);
-        let endtime = addMinutes(starttime, interruptionDurationMinutes);
-        endtime = addHours(endtime, interruptionDurationHour);
-        let powerSavingGoalInWatts = this.state.powerSavingGoalInWatts;
-        let overbookingFactor = this.state.overbookingFactor;
-        const interruptionGroupsApi = new InterruptionsApi(
-            undefined,
-            'http://127.0.0.1:8080/api-0.0.1-apiUrl/v1');
-        interruptionGroupsApi.createInterruptionGroup(
-            {
-                id: 0,
-                startTime: starttime.toISOString(),
-                endTime: endtime.toISOString(),
-                powerSavingGoalInWatts: powerSavingGoalInWatts,
-                overbookingFactor: overbookingFactor
-            });
-            */}
         event.preventDefault();
-        alert(_('alertInterruptiongroupChanged'));
+
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
+        const interruptionsApi = new InterruptionsApi(
+            configuration,
+            apiUrl);
+        
+        const payload = {
+            id: this.state.interruptionGroupId,
+            startTime: this.state.startDate + 'T' + this.state.startTime as string, // '2020-01-01T00:00:00'
+            endTime: this.state.startDate + 'T' + this.state.startTime as string, // '2020-01-01T00:00:00'
+            duration: this.state.duration as string,
+            powerSavingGoalInWatts: this.state.powerSavingGoalInWatts as number,
+            overbookingFactor: this.state.overbookingFactor as number
+        };
+        
+        try {
+            interruptionsApi.updateInterruptionGroup(this.props.interruptionGroupId, payload);
+            alert(_('alertInterruptiongroupChanged'));
+        } catch (error) {
+            alert(_('alertInterruptiongroupChangedError'));
+        }
     }
     render() {
         const editForm = this.state.interruption.map((interruption, index) => {

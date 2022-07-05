@@ -2,7 +2,7 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { _ } from '../i18n';
-import { InterruptionGroupsApi, Configuration } from 'jouko-ts-client';
+import { InterruptionGroupsApi, DevicesApi, Configuration } from 'jouko-ts-client';
 import { take } from 'lodash';
 import { apiUrl } from '../config';
 
@@ -47,16 +47,33 @@ export class EditDevice
         this.setState({controllerId: event.currentTarget.index});
     }
     handleSubmit(event: React.FormEvent<HTMLInputElement>) {
-        console.log(this.state.deviceName);
-        console.log(this.state.userId);
-        console.log(this.state.controllerId);
         event.preventDefault();
-        alert(_('alertDeviceChanged')!);
+
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
+        const devicesApi = new DevicesApi(configuration);
+        
+        const payload = {
+            name: this.state.deviceName,
+            userId: this.state.userId,
+            controllerId: this.state.controllerId
+        };
+
+        try {
+            devicesApi.updateDevice(Number(this.props.deviceId), payload);
+            alert(_('alertDeviceChanged'));
+        } catch (error) {
+            alert(_('alertDeviceChangedError'));
+        }
     }
 
     componentDidMount() {
         this.fetchEditDevices();
+        this.fetchDeviceDetails();
     }
+    
     async fetchEditDevices() {
         const configuration = new Configuration({
             apiKey: `Bearer ${this.props.kc!.token}`
@@ -75,6 +92,22 @@ export class EditDevice
         }
         this.setState({rowProps: take(rowProps, 100)});
     }
+
+    async fetchDeviceDetails() {
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
+        const devicesApi = new DevicesApi(
+            configuration,
+            apiUrl);
+        const device = await devicesApi.retrieveDevice(this.props.deviceId);
+        this.setState({
+            deviceName: device.name,
+            userId: device.userId as number,
+            controllerId: device.controllerId as number
+        });
+    }       
 
     render() {
         {/*

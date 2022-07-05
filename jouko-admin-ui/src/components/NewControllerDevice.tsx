@@ -43,19 +43,9 @@ export class NewControllerDevice
     handleCommunicationChannelChange(event: React.FormEvent<HTMLInputElement>) {
         this.setState({communicationChannel: event.currentTarget.value});
     }
-    handleSubmit(event: React.FormEvent<HTMLInputElement>) {
-        console.log(this.state.eui);
-        console.log(this.state.key);
-        console.log(this.state.communicationChannel);
+    async handleSubmit(event: React.FormEvent<HTMLInputElement>) {
         event.preventDefault();
-        this.createControllerDevie();
-        alert(_('alertControllerDeviceCreated'));
-    }
 
-    /*componentDidMount() {
-    
-    }*/
-    async createControllerDevie() {
         const configuration = new Configuration({
             apiKey: `Bearer ${this.props.kc!.token}`
         });
@@ -63,14 +53,19 @@ export class NewControllerDevice
         const controllerDevicesApi = new ControllerDevicesApi(
             configuration,
             apiUrl);
-        const interruptionGroups = await controllerDevicesApi.createControllerDevice({
-            id: 3,
+
+        const payload = {
             eui: this.state.eui,
             key: this.state.key,
             communicationChannel: this.state.communicationChannel
-        });
-
-        console.log(interruptionGroups);
+        };
+        
+        try {
+            await controllerDevicesApi.createControllerDevice(payload, this.props.kc!.token);
+            alert(_('alertControllerDeviceCreated'));
+        } catch (error) {
+            alert(_('alertControllerDeviceCreatedError'));
+        }
     }
 
     render() {

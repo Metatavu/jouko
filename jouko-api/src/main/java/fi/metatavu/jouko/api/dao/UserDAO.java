@@ -60,17 +60,7 @@ public class UserDAO extends AbstractDAO<UserEntity> {
     }
   }
 
-  /**
-   * Lists all users from the database. Returns null if no users are found.
-   */
-  public List<UserEntity> listUsers() {
-    EntityManager em = getEntityManager();
-
-    CriteriaBuilder cr = em.getCriteriaBuilder();
-    CriteriaQuery<UserEntity> criteria = cr.createQuery(UserEntity.class);
-    Root<UserEntity> root = criteria.from(UserEntity.class);
-
-    List<UserEntity> users = em.createQuery(criteria.select(root)).getResultList();
-    return users.isEmpty() ? null : users;
+  public void update(UserEntity user) {
+    getEntityManager().merge(user);
   }
 }

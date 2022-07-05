@@ -117,4 +117,9 @@ public class ControllerDAO extends AbstractDAO<ControllerEntity> {
     }
   }
 
+  public void update(ControllerEntity entity, String eui, String key) {
+    entity.setEui(eui);
+    entity.setKey(key);
+    getEntityManager().persist(entity);
+  }
 }

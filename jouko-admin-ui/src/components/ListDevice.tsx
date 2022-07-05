@@ -248,7 +248,7 @@ export class ListDevice
                     </tr>
                     </thead>
                     <tbody className="DeviceBody">
-                        {allDevices}
+                        {allDevices ? allDevices : <tr><td>{_('noDevices')}</td></tr>}
                     </tbody>
                 </table>
             </div>
