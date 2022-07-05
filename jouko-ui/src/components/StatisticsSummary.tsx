@@ -128,6 +128,20 @@ export class StatisticsSummary
     this.setState({allDevices: take(allDevices, 40), loading: false});
   }
 
+  async fetchDevicePowerConsumption(userId: number, deviceId: number, fromTime: string, toTime: string) {
+    const configuration = new Configuration({
+      apiKey: `Bearer ${this.props.kc!.token}`
+    });
+
+    const devicesApi = new DevicesApi(
+      configuration,
+      apiUrl);
+
+    const device = await devicesApi.getPowerConsumption(this.props.currentUserId, deviceId, fromTime, toTime);
+
+    return device;
+}
+
   render() {
     {/*
     const filterOptions = this.state.allDevices.map(device => {

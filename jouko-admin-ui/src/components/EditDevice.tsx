@@ -140,23 +140,6 @@ export class EditDevice
                     </NavLink>
                 </h1>
                 <br/><br/><br/>
-                <div className="InformationBox">
-                    <div className="InformationBoxIcon">
-                        <i className="fa fa-exclamation-triangle"/>
-                    </div>
-                    <div className="InformationBoxText">
-                        <h3>
-                            {_('noEditDevicePossible1')}
-                            <NavLink to="/ListDevice">
-                                {_('noEditDevicePossible2')}
-                            </NavLink>
-                            {_('noEditDevicePossible3')}
-                            <NavLink to="/NewDevice">
-                                {_('noEditDevicePossible4')}
-                            </NavLink>
-                        </h3>
-                    </div>
-                </div>
                 <form className="edit-item-form">
                     <p>ID:</p>
                     <input
@@ -171,28 +154,23 @@ export class EditDevice
                         name="deviceName"
                         value={this.state.deviceName}
                         onChange={this.handleDeviceNameChange}
-                        disabled={true}
                     />
                     <p>{_('user')}:</p>
                     <input
                         type="text"
                         name="userId"
                         value={this.state.userId}
-                        disabled={true}
                     />
                     <p>{_('controllerDevice')}:</p>
                     <input
                         type="text"
                         name="controllerId"
                         value={this.state.controllerId}
-                        disabled={true}
                     />
-                    {/*
                     <div className="ActionField">
                         <input type="reset" value={_('cancel')} />
                         <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
                     </div>
-                    */}
                 </form>
             </div>
         );

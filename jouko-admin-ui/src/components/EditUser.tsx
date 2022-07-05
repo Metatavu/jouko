@@ -198,23 +198,6 @@ export class EditUser
                     </NavLink>
                 </h1>
                 <br/><br/><br/>
-                <div className="InformationBox">
-                    <div className="InformationBoxIcon">
-                        <i className="fa fa-exclamation-triangle"/>
-                    </div>
-                    <div className="InformationBoxText">
-                        <h3>
-                            {_('noEditUserPossible1')}
-                            <NavLink to="/ListUser">
-                                {_('noEditUserPossible2')}
-                            </NavLink>
-                            {_('noEditUserPossible3')}
-                            <NavLink to="/NewUser">
-                                {_('noEditUserPossible4')}
-                            </NavLink>
-                        </h3>
-                    </div>
-                </div>
                 <form className="edit-item-form">
                     <p>{_('userId')}:</p>
                     <input
@@ -227,7 +210,6 @@ export class EditUser
                     <input
                         type="text"
                         name="keycloakId"
-                        disabled={true}
                         value={this.state.keycloakId}
                         onChange={this.handleKeycloakIdChange}
                     />
@@ -237,7 +219,6 @@ export class EditUser
                         name="firstname"
                         value={this.state.firstname}
                         onChange={this.handleFirstnameChange}
-                        disabled={true}
                     />
                     <p>{_('lastname')}:</p>
                     <input
@@ -245,7 +226,6 @@ export class EditUser
                         name="lastname"
                         value={this.state.lastname}
                         onChange={this.handleLastnameChange}
-                        disabled={true}
                     />
                     <p>{_('email')}:</p>
                     <input
@@ -253,7 +233,6 @@ export class EditUser
                         name="email"
                         value={this.state.email}
                         onChange={this.handleEmailChange}
-                        disabled={true}
                     />
                     <p>{_('devices')}:</p>
                     <table className="UserDevice">
@@ -268,64 +247,10 @@ export class EditUser
                             {usersDevices}
                         </tbody>
                     </table>
-                    {/*
-                    <table className="NewUserDevice">
-                        <thead className="NewUserDeviceHead">
-                            <tr>
-                                <th>{_('deviceName')}</th>
-                                <th>{_('controllerDevice')}</th>
-                                <th/>
-                            </tr>
-                        </thead>
-                        <tbody className="NewUserDeviceBody">
-                            <tr>
-                                <th>
-                                    <input
-                                        type="text"
-                                        name="deviceName"
-                                        value={this.state.deviceName}
-                                        onChange={this.handleDeviceNameChange}
-                                    />
-                                </th>
-                                <th>
-                                    <select
-                                        name="controllerId"
-                                        onChange={this.handleControllerIdChange}
-                                    >
-                                        // {controllerOption}
-                                        <option
-                                            value={1}
-                                        >
-                                            1
-                                        </option>
-                                        <option
-                                            value={2}
-                                        >
-                                            2
-                                        </option>
-                                        <option
-                                            value={3}
-                                        >
-                                            3
-                                        </option>
-                                    </select>
-                                </th>
-                                <th>
-                                    <input
-                                        type="submit"
-                                        className="btn-add"
-                                        value={_('addDevice')}
-                                        onClick={(event) => this.handleAddDevice(event)}
-                                    />
-                                </th>
-                            </tr>
-                        </tbody>
-                        <div className="ActionField">
-                            <input type="reset" value={_('cancel')} />
-                            <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
-                        </div>
-                    </table>
-                    */}
+                    <div className="ActionField">
+                        <input type="reset" value={_('cancel')} />
+                        <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
+                    </div>
                     </form>
             </div>
         );
