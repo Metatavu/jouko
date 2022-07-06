@@ -1,3 +1,3 @@
 embed-server --server-config=standalone.xml
 /subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql, driver-module-name=com.mysql.jdbc, xa-datasource-class=com.mysql.jdbc.jdbc2.optional.MysqlXADataSource)
-data-source add --jndi-name=java:jboss/datasources/jouko-api --name=jouko-api --enabled=true --use-java-context=true --connection-url=jdbc:mysql://mysql.jouko:3306/jouko_api --driver-name=mysql --user-name=jouko --password=jouko
+data-source add --jndi-name=java:jboss/datasources/jouko-api --name=jouko-api --enabled=true --use-java-context=true --connection-url=jdbc:mysql://mysql.jouko.local:3306/jouko_api --driver-name=mysql --user-name=jouko --password=jouko

@@ -3,7 +3,7 @@ services:
   jouko-mysql:
     container_name: jouko-mysql-server
     image: mysql:8.0.29
-    hostname: mysql.jouko
+    hostname: mysql.jouko.local
     volumes:
       - ./data/mysql:/var/lib/mysql
     ports:
