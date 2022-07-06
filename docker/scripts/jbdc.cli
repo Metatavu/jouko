@@ -1,3 +1,3 @@
-embed-server --server-config=standalone-full-ha.xml
+embed-server --server-config=standalone.xml
 /subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql, driver-module-name=com.mysql.jdbc, xa-datasource-class=com.mysql.jdbc.jdbc2.optional.MysqlXADataSource)
-data-source add --name=jouko-api --jndi-name=java:jboss/datasources/jouko-api --enabled=true --jta=true --use-ccm=true --connection-url=jdbc:mysql://${env.JOUKO_API_DB_HOST}:${env.JOUKO_API_DB_PORT}/${env.JOUKO_API_DB_NAME}${env.JOUKO_API_DB_OPTS:} --driver-name=mysql --user-name=${env.JOUKO_API_DB_USERNAME} --password=${env.JOUKO_API_DB_PASSWORD} --check-valid-connection-sql="SELECT 1" --validate-on-match=false --share-prepared-statements=false --max-pool-size=1000
+data-source add --jndi-name=java:jboss/datasources/jouko-api --name=jouko-api --enabled=true --use-java-context=true --connection-url=jdbc:mysql://mysql.jouko.fi:3306/jouko_api --driver-name=mysql --user-name=jouko --password=jouko

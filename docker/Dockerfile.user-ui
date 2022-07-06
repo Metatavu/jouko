@@ -1,11 +1,14 @@
-FROM node:lts-gallium
+# Pull the latest LTS version of Node.JS (16.x) and use "as" if want to do production in the future
+FROM node:lts-gallium as user-ui
 
+# Clone project as local COPY never compiles
 RUN git clone https://github.com/Metatavu/jouko.git jouko
 
+# Change current directory to the cloned project
 WORKDIR /jouko/jouko-ui
 
+# Install dependencies
 RUN npm install
 
-RUN npm run build
-
-EXPOSE 8000
+# Run the development server
+CMD ["npm", "run", "start"]

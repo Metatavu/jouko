@@ -1,2 +1,2 @@
-embed-server --server-config=standalone-full-ha.xml
-/subsystem=undertow/server=default-server/host=jouko-api:add(alias=["${env.JOUKO_API_HOST}"],default-web-module="jouko-api.war")
+embed-server --server-config=standalone.xml
+/subsystem=undertow/server=default-server/host=jouko-api:add(alias=["dev.jouko.fi"],default-web-module="jouko-api.war")
