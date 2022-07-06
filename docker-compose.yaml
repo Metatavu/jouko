@@ -18,12 +18,11 @@ services:
 
   jouko-api:
     container_name: jouko-api
-    hostname: dev.jouko.local
+    hostname: api.jouko.local
     build:
       dockerfile: ./docker/Dockerfile.api
       context: .
     ports:
-      - 9990:9990
       - 8080:8080
     depends_on:
       - jouko-mysql
@@ -33,10 +32,9 @@ services:
   keycloak:
     container_name: jouko-keycloak
     image: quay.io/keycloak/keycloak:17.0.1-legacy
-    hostname: keycloak
+    hostname: keycloak.jouko.local
     ports:
       - "9080:9080"
-      - "10990:10990"
     volumes:
       - ./dev/:/opt/keycloak/
     command: ["-Djboss.socket.binding.port-offset=1000"]
@@ -49,6 +47,7 @@ services:
 
   jouko-ui:
     container_name: jouko-ui
+    hostname: ui.jouko.local
     build:
       dockerfile: ./docker/Dockerfile.user-ui
       context: .
@@ -63,6 +62,7 @@ services:
 
   jouko-admin:
     container_name: jouko-admin-ui
+    hostname: admin.jouko.local
     build:
       dockerfile: ./docker/Dockerfile.admin-ui
       context: .
