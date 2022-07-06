@@ -87,5 +87,9 @@ public class DeviceDAO extends AbstractDAO<DeviceEntity> {
              .setMaxResults(maxResults)
              .getResultList();
   }
-  
+
+  public void update(DeviceEntity device, String name) {
+    device.setName(name);
+    getEntityManager().persist(device);
+  }
 }

@@ -311,4 +311,20 @@ public class DeviceController {
   public void clearGprsMessagesForController(ControllerEntity controller) {
     gprsMessageDAO.clearControllerMessages(controller);
   }
+
+  public void updateDevice(DeviceEntity device, String name) {
+    deviceDAO.update(device, name);
+  }
+
+  public void deleteControllerDevice(Long controllerDeviceId) {
+    controllerDAO.delete(controllerDeviceId);
+  }
+
+  public ControllerEntity findControllerDeviceById(Long controllerDeviceId) {
+    return controllerDAO.findById(controllerDeviceId);
+  }
+
+  public void updateControllerDevice(ControllerEntity entity, String eui, String key) {
+    controllerDAO.update(entity, eui, key);
+  }
 }

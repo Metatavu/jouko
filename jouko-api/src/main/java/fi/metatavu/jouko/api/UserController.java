@@ -16,6 +16,8 @@ import javax.inject.Inject;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.UUID;
+import org.slf4j.Logger;
 
 @Dependent
 public class UserController {
@@ -25,6 +27,9 @@ public class UserController {
 
   @Inject
   private SettingDAO settingDao;
+
+  @Inject
+  private Logger logger;
 
   /**
    * Get user by keycloak id
@@ -70,6 +75,14 @@ public class UserController {
     return userDAO.create(entity);
   }
 
+  public UserEntity deleteUser(String keycloakId) {
+    UserEntity entity = userDAO.findByKeycloakId(keycloakId);
+    if (entity != null) {
+      userDAO.delete(entity);
+    }
+    return entity;
+  }
+
   /**
    * Create a new keycloak user
    *
@@ -106,8 +119,7 @@ public class UserController {
       response = userRessource.create(newUser);
     } catch (Throwable e) {
       e.printStackTrace();
-      System.out.println(e.getMessage());
-      System.out.println(e.getCause());
+      logger.error(e.getCause().getMessage());
     }
 
     if (response != null) {
@@ -119,5 +131,37 @@ public class UserController {
     return null;
   }
 
+  public String deleteKeycloakUser(String keycloakId, String token) {
+    String kcUrl = settingDao.findByKey("keycloakUrl").getValue();
+    String realm = settingDao.findByKey("keycloakRealm").getValue();
 
+    Keycloak keycloak = KeycloakBuilder.builder()
+            .serverUrl(kcUrl)
+            .realm(realm)
+            .authorization(token)
+            .build();
+
+    RealmResource realmResource = keycloak.realm(realm);
+    UsersResource userRessource = realmResource.users();
+    Response response = null;
+
+    try {
+      response = userRessource.delete(keycloakId);
+    } catch (Throwable e) {
+      e.printStackTrace();
+      System.out.println(e.getMessage());
+      System.out.println(e.getCause());
+    }
+
+    if (response != null) {
+      return response.getStatusInfo().getReasonPhrase();
+    }
+
+    return null;
+  }
+
+
+  public void updateUser(UserEntity user, UUID keycloakId) {
+    userDAO.update(user);
+  }
 }

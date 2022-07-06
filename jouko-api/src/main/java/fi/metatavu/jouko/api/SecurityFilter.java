@@ -1,17 +1,15 @@
 package fi.metatavu.jouko.api;
 
-import java.io.UnsupportedEncodingException;
+import fi.metatavu.jouko.api.model.ControllerEntity;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.StringUtils;
-
-import fi.metatavu.jouko.api.model.ControllerEntity;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Security filter that checks if the request is authorized.
@@ -83,6 +81,8 @@ public class SecurityFilter implements ContainerRequestFilter {
    * 
    * @param method method
    * @return whether method is allowed for the client
+   *
+   * TODO Might be blocking delete methods on Admin UI at the moment as returns a cors error.
    */
   private boolean isMethodAllowed(String method) {
     return ("POST".equals(method));

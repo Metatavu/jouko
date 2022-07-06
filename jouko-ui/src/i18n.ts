@@ -124,7 +124,7 @@ const messages = {
   },
   'firstname': {
     'fi': 'Etunimi',
-    'en': 'Firstname',
+    'en': 'First name',
     'de': 'Vorname',
     'sv': 'Förnamn'
   },
@@ -172,7 +172,7 @@ const messages = {
   },
   'lastname': {
     'fi': 'Sukunimi',
-    'en': 'Lastname',
+    'en': 'Surname',
     'de': 'Familienname',
     'sv': 'Efternamn'
   },

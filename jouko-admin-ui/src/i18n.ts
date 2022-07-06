@@ -26,23 +26,59 @@ const messages = {
         'de': 'Gerät erfolgreich geändert!',
         'sv': 'Enheten har ändrats framgångsrikt!'
     },
+    'alertDeviceChangedError': {
+        'fi': 'Laitetta ei voitu muokata!',
+        'en': 'Device could not be changed!',
+        'de': 'Gerät konnte nicht geändert werden!',
+        'sv': 'Enheten kunde inte ändras!'
+    },
     'alertDeviceCreated': {
         'fi': 'Laite on luotu!',
         'en': 'Device successfully created!',
         'de': 'Gerät erfolgreich hinzugefügt!',
         'sv': 'Enheten har lagts till framgångsrikt!'
     },
+    'alertDeviceCreatedError': {
+        'fi': 'Laite luominen epäonnistui!',
+        'en': 'Device creation failed!',
+        'de': 'Gerät hinzufügen fehlgeschlagen!',
+        'sv': 'Enheten har inte lagts till!'
+    },
     'alertControllerDeviceCreated': {
-        'fi': 'Laite luotu',
-        'en': 'Device created',
-        'de': 'Gerät erstellt',
-        'sv': 'Enhet skapad'
+        'fi': 'Ohjauslaite luotu',
+        'en': 'Controller device created',
+        'de': 'Controller-Gerät erstellt',
+        'sv': 'Kontroller-enhet har skapats'
+    },
+    'alertControllerDeviceCreatedError': {
+        'fi': 'Tapahtui virhe ohjauslaitteen luodessa. Onko tiedot oikein?',
+        'en': 'Error creating controller device. Are the data correct?',
+        'de': 'Fehler beim Erstellen des Controller-Gerätes. Sind die Daten korrekt?',
+        'sv': 'Fel vid skapandet av kontrollenheten. Är data korrekt?'
+    },
+    'alertControllerDeviceChanged': {
+        'fi': 'Ohjauslaite muokattu',
+        'en': 'Controller device changed',
+        'de': 'Controller-Gerät geändert',
+        'sv': 'Kontroller-enhet har ändrats'
+    },
+    'alertControllerDeviceChangedError': {
+        'fi': 'Tapahtui virhe ohjauslaitteen muokkauksessa. Onko tiedot oikein?',
+        'en': 'Error changing controller device. Are the data correct?',
+        'de': 'Fehler beim Ändern des Controller-Gerätes. Sind die Daten korrekt?',
+        'sv': 'Fel vid ändring av kontrollenheten. Är data korrekt?'
     },
     'alertInterruptiongroupChanged': {
         'fi': 'Keskeytysryhmää on muokattu onnistuneesti!',
-        'en': 'Interruptiongroup successfully changed!',
+        'en': 'Interruption group successfully changed!',
         'de': 'Unterbrechung erfolgreich geändert!',
         'sv': 'Avbrottsgrupper har ändrats framgångsrikt!'
+    },
+    'alertInterruptiongroupChangedError': {
+        'fi': 'Keskeytysryhmää ei voitu muokata!',
+        'en': 'Interruption group could not be changed!',
+        'de': 'Unterbrechung konnte nicht geändert werden!',
+        'sv': 'Avbrottsgrupper kunde inte ändras!'
     },
     'alertInterruptiongroupCreated': {
         'fi': 'Keskeytys onnistuneesti luotu!',
@@ -50,11 +86,23 @@ const messages = {
         'de': 'Unterbrechung erfolgreich hinzugefügt!',
         'sv': 'Avbrottsgrupper har lagt till till framgångsrikt!'
     },
+    'alertInterruptiongroupCreatedError': {
+        'fi': 'Keskeytys luominen epäonnistui! Onko laite käytössä?',
+        'en': 'Interruptiongroup creation failed! Is the device in use?',
+        'de': 'Unterbrechung hinzufügen fehlgeschlagen! Ist das Gerät in Benutzung?',
+        'sv': 'Avbrottsgrupper har inte lagts till!'
+    },
     'alertUserChanged': {
         'fi': 'Käyttäjä on muokattu onnistuneesti!',
         'en': 'User successfully changed!',
         'de': 'Benutzer erfolgreich geändert!',
         'sv': 'Användaren har ändrats framgångsrikt!'
+    },
+    'alertUserChangedError': {
+        'fi': 'Käyttäjän muokkaaminen epäonnistui!',
+        'en': 'User change failed!',
+        'de': 'Benutzer ändern fehlgeschlagen!',
+        'sv': 'Användaren har inte ändrats!'
     },
     'alertUserCreated': {
         'fi': 'Käyttäjä on onnistuneesti luotu!',
@@ -139,6 +187,12 @@ const messages = {
         'en': 'This user will be deleted!',
         'de': 'Dieser Benutzer wird gelöscht!',
         'sv': 'Den här användaren kommer att raderas!'
+    },
+    'confirmCreateControllerDevice': {
+        'fi': 'Tämä ohjauslaite luodaan!',
+        'en': 'This controller device will be created!',
+        'de': 'Diese Steuervorrichtung wird erstellt!',
+        'sv': 'Detta styranordning kommer att skapas!'
     },
     'controllerDevice': {
         'fi': 'Ohjauslaite',
@@ -545,8 +599,31 @@ const messages = {
         'en': 'Username',
         'de': 'Benutzername',
         'sv': 'Användarnamn'
-    }
-    ,
+    },
+    'noUsers': {
+        'fi': 'Ei käyttäjiä',
+        'en': 'No users',
+        'de': 'Keine Benutzer',
+        'sv': 'Inga användare'
+    },
+    'noDevices': {
+        'fi': 'Ei laitteita',
+        'en': 'No devices',
+        'de': 'Keine Geräte',
+        'sv': 'Inga enheter'
+    },
+    'noControllerDevices': {
+        'fi': 'Ei kontrollilaitteita',
+        'en': 'No controller devices',
+        'de': 'Keine Kontroller-Geräte',
+        'sv': 'Inga kontroller-enheter'
+    },
+    'noInterruptionGroups': {
+        'fi': 'Ei keskeytysryhmää',
+        'en': 'No interruption groups',
+        'de': 'Keine Unterbrechungsgruppen',
+        'sv': 'Inga avbrottningsgrupper'
+    },
     'version': {
         'fi': 'Versionumero',
         'en': 'Version',

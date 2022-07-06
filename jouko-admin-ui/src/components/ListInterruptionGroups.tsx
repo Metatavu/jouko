@@ -476,7 +476,7 @@ export class ListInterruptionGroups
                         </tr>
                     </thead>
                     <tbody className="InterruptionsgroupBody">
-                        {rows}
+                        {rows ? rows : <tr><td>{_('noInterruptionGroups')}</td></tr>}
                     </tbody>
                 </table>
             </div>

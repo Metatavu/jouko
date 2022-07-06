@@ -2,7 +2,7 @@ import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import { _ } from '../i18n';
-import { DevicesApi, Configuration } from 'jouko-ts-client';
+import { DevicesApi, UsersApi, Configuration } from 'jouko-ts-client';
 import { take } from 'lodash';
 import { apiUrl } from '../config';
 
@@ -48,6 +48,7 @@ export class ShowUser
         };
     }
     componentDidMount() {
+        this.fetchUser();
         this.fetchUsersDevices();
     }
     async fetchUsersDevices() {
@@ -70,6 +71,20 @@ export class ShowUser
             });
         }
         this.setState({devices: take(devices, 100)});
+    }
+
+    async fetchUser() {
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
+        const usersApi = new UsersApi(
+            configuration,
+            apiUrl);
+        const user = await usersApi.getUserByKeycloakId(this.state.keycloakId);
+        
+        // TODO
+        console.log(user);
     }
 
     render() {

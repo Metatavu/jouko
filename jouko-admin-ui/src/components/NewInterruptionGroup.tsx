@@ -51,10 +51,11 @@ export class NewInterruptionGroup
         this.setState({overbookingFactor: event.currentTarget.valueAsNumber});
     }
 
-    handleSubmit(event: React.FormEvent<HTMLInputElement>) {
+    async handleSubmit(event: React.FormEvent<HTMLInputElement>) {
         let interruptionStartDate = this.state.startDate;
         let interruptionStartTime = this.state.startTime;
-        const starttime = parseDate(interruptionStartDate + 'T' + interruptionStartTime);
+        // Add current date to start time
+        const starttime = parseDate(`${interruptionStartDate} ${interruptionStartTime}`);
         let interruptionDuration = this.state.duration;
         let interruptionDurationHour = Number(interruptionDuration.split(':')[0]);
         let interruptionDurationMinutes = Number(interruptionDuration.split(':')[1]);
@@ -63,6 +64,8 @@ export class NewInterruptionGroup
         let powerSavingGoalInWatts = this.state.powerSavingGoalInWatts;
         let overbookingFactor = this.state.overbookingFactor;
 
+        event.preventDefault();
+
         const configuration = new Configuration({
             apiKey: `Bearer ${this.props.kc!.token}`
         });
@@ -70,17 +73,23 @@ export class NewInterruptionGroup
         const interruptionGroupsApi = new InterruptionGroupsApi(
             configuration,
             apiUrl);
-        interruptionGroupsApi.createInterruptionGroup(
-            {
-                id: 0,
-                startTime: starttime.toISOString(),
-                endTime: endtime.toISOString(),
-                powerSavingGoalInWatts: powerSavingGoalInWatts,
-                overbookingFactor: overbookingFactor
-            });
-        event.preventDefault();
-        alert(_('alertInterruptiongroupCreated'));
+
+        const payload = {
+            id: 1,
+            startTime: starttime.toISOString(),
+            endTime: endtime.toISOString(),
+            powerSavingGoalInWatts: powerSavingGoalInWatts,
+            overbookingFactor: overbookingFactor
+        };
+        
+        try {
+            await interruptionGroupsApi.createInterruptionGroup(payload, this.props.kc!.token);
+            alert(_('alertInterruptiongroupCreated'));
+        } catch (error) {
+            alert(_('alertInterruptiongroupCreatedError'));
+        }
     }
+    
     render() {
         return (
             <div className="">
