@@ -3,7 +3,7 @@
 export const apiUrl =
   process.env.NODE_ENV === 'production'
   ? 'https://jouko-api.metatavu.io/v1'
-  : 'http://dev.jouko:8080/v1';
+  : 'http://dev.jouko.local:8080/v1';
 
 // Keycloak auth URL (default: http://localhost:9080/auth)
 export const authUrl =

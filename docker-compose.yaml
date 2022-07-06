@@ -18,7 +18,7 @@ services:
 
   jouko-api:
     container_name: jouko-api
-    hostname: dev.jouko
+    hostname: dev.jouko.local
     build:
       dockerfile: ./docker/Dockerfile.api
       context: .

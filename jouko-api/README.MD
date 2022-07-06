@@ -131,12 +131,12 @@ Find the drivers section (right after datasources) and add the following driver
 
 Find `<server name="default-server">` from inside of subsystem section and add the following host
 
-    <host name="jouko-api" alias="dev.jouko" default-web-module="jouko-api.war"/>
+    <host name="jouko-api" alias="dev.jouko.local" default-web-module="jouko-api.war"/>
 
 
 Open your terminal and run `sudo nano /etc/hosts` or use another way to open the file. Add the following line and save
 
-    127.0.0.1       dev.jouko
+    127.0.0.1       dev.jouko.local
 
 
 ### Maven
