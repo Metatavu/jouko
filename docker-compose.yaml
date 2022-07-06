@@ -29,7 +29,7 @@ services:
     networks:
       - jouko-api-net
 
-  keycloak:
+  jouko-keycloak:
     container_name: jouko-keycloak
     image: quay.io/keycloak/keycloak:17.0.1-legacy
     hostname: keycloak.jouko.local
@@ -56,7 +56,7 @@ services:
     depends_on:
       - jouko-mysql
       - jouko-api
-      - keycloak
+      - jouko-keycloak
     networks:
       - jouko-api-net
 
@@ -71,7 +71,7 @@ services:
     depends_on:
       - jouko-mysql
       - jouko-api
-      - keycloak
+      - jouko-keycloak
     networks:
       - jouko-api-net
     
