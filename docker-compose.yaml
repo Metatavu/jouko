@@ -3,7 +3,7 @@ services:
   jouko-mysql:
     container_name: jouko-mysql-server
     image: mysql:8.0.29
-    hostname: mysql.jouko.fi
+    hostname: mysql.jouko
     volumes:
       - ./data/mysql:/var/lib/mysql
     ports:
@@ -18,11 +18,12 @@ services:
 
   jouko-api:
     container_name: jouko-api
-    hostname: dev.jouko.fi
+    hostname: dev.jouko
     build:
       dockerfile: ./docker/Dockerfile.api
       context: .
     ports:
+      - 9990:9990
       - 8080:8080
     depends_on:
       - jouko-mysql
@@ -34,6 +35,7 @@ services:
     image: quay.io/keycloak/keycloak:17.0.1-legacy
     hostname: keycloak
     ports:
+      - "9080:9080"
       - "10990:10990"
     volumes:
       - ./dev/:/opt/keycloak/

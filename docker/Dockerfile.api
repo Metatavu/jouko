@@ -44,5 +44,8 @@ ADD ./docker/scripts/jbdc.cli /opt/docker/jbdc.cli
 RUN /opt/wildfly-preview-${WILDFLY_VERSION}/bin/jboss-cli.sh --file=/opt/docker/host.cli
 RUN /opt/wildfly-preview-${WILDFLY_VERSION}/bin/jboss-cli.sh --file=/opt/docker/jbdc.cli
 
+# Clear standalone xml as if it exists then Wildfly crashes if it exists
+RUN rm -rf /opt/wildfly-preview-${WILDFLY_VERSION}/standalone/configuration/standalone_xml_history/current
+
 # Start the API server
 CMD ["/opt/wildfly-preview-24.0.1.Final/bin/standalone.sh"]
