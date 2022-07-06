@@ -21,7 +21,7 @@
     "react-spinners": "^0.3.2"
   },
   "scripts": {
-    "start": "export PORT=8001 react-scripts-ts start",
+    "start": "PORT=8001 react-scripts-ts start",
     "start-windows": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
