@@ -60,6 +60,11 @@ public class UserDAO extends AbstractDAO<UserEntity> {
     }
   }
 
+  /**
+   * Update user details
+   * 
+   * @param user you want to update
+   */
   public void update(UserEntity user) {
     getEntityManager().merge(user);
   }

@@ -125,7 +125,6 @@ public class DeviceCommunicator {
    * @param controller to send to
    */
   private void sendMessageLora(String encodedMessage, ViestiLaitteelle message, ControllerEntity controller) {
-    logger.debug("LÄHETETÄÄN LORA VIESTI");
     byte[] payloadBytes = null;
     
     if (encodedMessage != null) {
@@ -189,7 +188,7 @@ public class DeviceCommunicator {
   }
 
   /**
-   * Encode the message if it's not encoded yet
+   * Encode the message
    * 
    * @param message to encode
    * @return encoded message
@@ -349,7 +348,6 @@ public class DeviceCommunicator {
                     .build())
               .build();
           
-          logger.debug("Aloitetaan viestin lähetys");
           sendMessage(null, replyMessage, controller, MessageType.TIME_SYNC);
         }
       } catch (InvalidProtocolBufferException e) {

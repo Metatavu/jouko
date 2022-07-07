@@ -312,18 +312,43 @@ public class DeviceController {
     gprsMessageDAO.clearControllerMessages(controller);
   }
 
+  /**
+   * Updates device details
+   * 
+   * @param device you want to update
+   * @param name you want to set
+   */
   public void updateDevice(DeviceEntity device, String name) {
     deviceDAO.update(device, name);
   }
 
+  /**
+   * Deletes a controller
+   * 
+   * @param controllerDeviceId you want to delete
+   */
   public void deleteControllerDevice(Long controllerDeviceId) {
     controllerDAO.delete(controllerDeviceId);
   }
 
+  /**
+   * 
+   * Find a controller by its device id
+   * 
+   * @param controllerDeviceId you want to find
+   * @return controller
+   */
   public ControllerEntity findControllerDeviceById(Long controllerDeviceId) {
     return controllerDAO.findById(controllerDeviceId);
   }
 
+  /**
+   * Update a controller
+   * 
+   * @param entity you want to update (controller)
+   * @param eui you want to set
+   * @param key you want to set
+   */
   public void updateControllerDevice(ControllerEntity entity, String eui, String key) {
     controllerDAO.update(entity, eui, key);
   }

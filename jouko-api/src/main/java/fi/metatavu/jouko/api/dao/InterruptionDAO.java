@@ -25,7 +25,7 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
   /**
    * Creates an interruption to a device
    *
-   * @param device the device you want ot create an interruption for
+   * @param device you want to create an interruption to
    * @param group the group to assign the device to
    * @return a new interruption
    */
@@ -46,7 +46,7 @@ public class InterruptionDAO extends AbstractDAO<InterruptionEntity> {
   /**
    * List device interruptions by date
    *
-   * @param device the device you want to retrieve interruptions from
+   * @param device you want to retrieve interruptions from
    * @param fromTime the time of the first interruption to return
    * @param toTime the time of the last interruption to return
    * @return the list of interruptions between {@code fromTime} and {@code toTime}

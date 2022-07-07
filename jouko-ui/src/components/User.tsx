@@ -2,7 +2,7 @@ import * as React from 'react';
 import { _ } from '../i18n';
 import { authUrl, keycloakRealm } from '../config';
 
-const editLink = authUrl + 'realms/' + keycloakRealm + '/account/';
+const editLink = `${authUrl}realms/${keycloakRealm}/account/`;
 
 interface  UserProps {
   username: string;
