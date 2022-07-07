@@ -64,6 +64,6 @@ docker-compose up -d
 - Run command `insert into Setting values (4, "deviceCommunicator.endpoint", "LORA");`
 - Run command `insert into User values (1, "KEYCLOAK_USER_ID", "KEYCLOAK_USER_NAME");`
 
-Now you can login to http://admin.jouko.local and http://ui.jouko.local. If it does not work then re-check Keycloak setup and the MySQL entries.
+Now you can login to http://admin.jouko.local:8001 and http://ui.jouko.local:8000. If it does not work then re-check Keycloak setup and the MySQL entries.
 
 As a note as well that admin and user run on different ports, so if wanted to use both at the same time then you would require two Keycloak clients.
