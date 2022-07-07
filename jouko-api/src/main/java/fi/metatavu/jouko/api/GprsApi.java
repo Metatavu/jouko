@@ -214,9 +214,7 @@ public class GprsApi {
     GprsMessageEntity oldestMessage = deviceController.getQueuedGprsMessageForController(controller, deviceId);
     if (oldestMessage != null) {
       deviceCommunicator.sendLoraMessageFromQueue(oldestMessage.getContent(), controller);
-      logger.debug("PÄIVITYS VIESTI LÄHETETTY");
       deviceController.deleteGprsMessageFromController(controller, oldestMessage);
-      logger.debug("PÄIVITYS VIESTI POISTETTU");
     }
     
     while (messageMatcher2.find()) {
@@ -227,11 +225,9 @@ public class GprsApi {
       try {
         ViestiLaitteelta viestiLaitteelta = ViestiLaitteelta.parseFrom(bytes);
         if (viestiLaitteelta.hasMittaukset()) {
-          logger.debug("HAS MITTAUKSET");
           Mittaukset mittaukset = viestiLaitteelta.getMittaukset();
           deviceId = mittaukset.getLaiteID();
           unpackMittaukset(mittaukset);
-          logger.debug("MITTAUKSET UNPACKATTU!");
         }
       } catch (InvalidDeviceException | InvalidProtocolBufferException ex) {
         return Response

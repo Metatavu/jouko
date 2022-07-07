@@ -4,6 +4,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 
+/**
+ * Creates MySQL table "TimeSync" and sets data types for columns.
+ */
 @Table(name="TimeSync")
 @Entity
 public class TimeSyncEntity {

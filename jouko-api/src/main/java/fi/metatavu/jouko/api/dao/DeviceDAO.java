@@ -87,7 +87,12 @@ public class DeviceDAO extends AbstractDAO<DeviceEntity> {
              .setMaxResults(maxResults)
              .getResultList();
   }
-
+  /**
+   * Update a device entity.
+   * 
+   * @param device you want to update
+   * @param name you want to update the name to
+   */
   public void update(DeviceEntity device, String name) {
     device.setName(name);
     getEntityManager().persist(device);

@@ -117,6 +117,13 @@ public class ControllerDAO extends AbstractDAO<ControllerEntity> {
     }
   }
 
+  /**
+   * Update the controller details
+   * 
+   * @param entity you want to update (controller)
+   * @param eui you want to change to
+   * @param key you want to change to
+   */
   public void update(ControllerEntity entity, String eui, String key) {
     entity.setEui(eui);
     entity.setKey(key);
