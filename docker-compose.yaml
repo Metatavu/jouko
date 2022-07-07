@@ -1,0 +1,80 @@
+version: "3"
+services:
+  jouko-mysql:
+    container_name: jouko-mysql-server
+    image: mysql:8.0.29
+    hostname: mysql.jouko.local
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: "jouko_api"
+      MYSQL_USER: "jouko"
+      MYSQL_PASSWORD: "jouko"
+    networks:
+      - jouko-api-net
+
+  jouko-api:
+    container_name: jouko-api
+    hostname: api.jouko.local
+    build:
+      dockerfile: ./docker/Dockerfile.api
+      context: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - jouko-mysql
+    networks:
+      - jouko-api-net
+
+  jouko-keycloak:
+    container_name: jouko-keycloak
+    image: quay.io/keycloak/keycloak:17.0.1-legacy
+    hostname: keycloak.jouko.local
+    ports:
+      - "9080:9080"
+    volumes:
+      - ./dev/:/opt/keycloak/
+    command: ["-Djboss.socket.binding.port-offset=1000"]
+    environment:
+      DB_VENDOR: h2
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    networks:
+      - jouko-api-net
+
+  jouko-ui:
+    container_name: jouko-ui
+    hostname: ui.jouko.local
+    build:
+      dockerfile: ./docker/Dockerfile.user-ui
+      context: .
+    ports:
+      - 8000:8000
+    depends_on:
+      - jouko-mysql
+      - jouko-api
+      - jouko-keycloak
+    networks:
+      - jouko-api-net
+
+  jouko-admin:
+    container_name: jouko-admin-ui
+    hostname: admin.jouko.local
+    build:
+      dockerfile: ./docker/Dockerfile.admin-ui
+      context: .
+    ports:
+      - 8001:8001
+    depends_on:
+      - jouko-mysql
+      - jouko-api
+      - jouko-keycloak
+    networks:
+      - jouko-api-net
+    
+networks:
+  jouko-api-net:
+    driver: bridge

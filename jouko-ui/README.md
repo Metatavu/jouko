@@ -8,9 +8,13 @@
 
 ## Useful commands:
 
-To run the website in development mode:
+To run the website in development mode (Linux):
 ```
 npm run start
+```
+To run the website in development mode (Windows):
+```
+npm run start-windows
 ```
 To run the website in production locally:
 ```

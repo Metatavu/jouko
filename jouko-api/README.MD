@@ -60,6 +60,7 @@ Start keycloak by running inside the keycloak directory
 - Navigate to Clients tab and click Create
 - Create new realm called `jouko-realm`
 - Create new client with Client ID `jouko-api` with following settings:
+  - Root URL: http://localhost:8001 (If want to use admin panel, otherwise change port to 8000)
   - Client Protocol: openid-connect
   - Hit Save
 - Change Access Type to public and hit Reset Password
@@ -131,12 +132,12 @@ Find the drivers section (right after datasources) and add the following driver
 
 Find `<server name="default-server">` from inside of subsystem section and add the following host
 
-    <host name="jouko-api" alias="dev.jouko.fi" default-web-module="jouko-api.war"/>
+    <host name="jouko-api" alias="api.jouko.local" default-web-module="jouko-api.war"/>
 
 
 Open your terminal and run `sudo nano /etc/hosts` or use another way to open the file. Add the following line and save
 
-    127.0.0.1       dev.jouko.fi
+    127.0.0.1       api.jouko.local
 
 
 ### Maven
