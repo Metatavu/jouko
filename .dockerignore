@@ -1,5 +1,8 @@
-*/node_modules
+*/node_modules/
 .git
 .gitignore
-*/build
-*/webapp
+*/build/
+*/webapp/
+README.md
+Dockerfile
+.dockerignore

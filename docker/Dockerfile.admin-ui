@@ -1,11 +1,11 @@
 # Pull the latest LTS version of Node.JS (16.x) and use "as" if want to do production in the future
 FROM node:lts-gallium as admin-ui
 
-# Clone project as local COPY never compiles
-RUN git clone --branch feature/docker-implementation https://github.com/Metatavu/jouko.git jouko
-
-# Change current directory to the cloned project
+# Create a working directory for the project
 WORKDIR /jouko/jouko-admin-ui
+
+# Copy jouko-admin-ui files to container
+COPY jouko-admin-ui .
 
 # Install dependencies
 RUN npm install
