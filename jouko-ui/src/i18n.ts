@@ -1,3 +1,4 @@
+// Check what language is selected or return Finnish language as default
 let language = localStorage.getItem('language') || 'fi';
 
 const messages = {
@@ -123,7 +124,7 @@ const messages = {
   },
   'firstname': {
     'fi': 'Etunimi',
-    'en': 'Firstname',
+    'en': 'First name',
     'de': 'Vorname',
     'sv': 'Förnamn'
   },
@@ -171,7 +172,7 @@ const messages = {
   },
   'lastname': {
     'fi': 'Sukunimi',
-    'en': 'Lastname',
+    'en': 'Surname',
     'de': 'Familienname',
     'sv': 'Efternamn'
   },

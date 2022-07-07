@@ -68,6 +68,7 @@ export class ListInterruptionGroups
         this.searchBetweenB = this.searchBetweenB.bind(this);
         this.searchColumn = this.searchColumn.bind(this);
     }
+    // The methods below filter the list of interruption groups based on the sortingElement and sortingDirection
     sortByIdASC(event: React.FormEvent<HTMLOptionElement>) {
         this.setState({
             sortingElement: 'interruptiongroupId',
@@ -283,7 +284,8 @@ export class ListInterruptionGroups
         const interruptionGroups = await interruptionGroupsApi.listInterruptionGroups(0, 1000);
 
         const rowProps: InterruptionGroupProps[] = [];
-
+    
+        // For each interruption group, create a row in the table
         for (const interruptionGroup of interruptionGroups) {
             const searchColumn = this.state.searchColumn.toString();
             if (interruptionGroup[searchColumn].toString().match(this.state.searchTerm )) {
@@ -474,7 +476,7 @@ export class ListInterruptionGroups
                         </tr>
                     </thead>
                     <tbody className="InterruptionsgroupBody">
-                        {rows}
+                        {rows ? rows : <tr><td>{_('noInterruptionGroups')}</td></tr>}
                     </tbody>
                 </table>
             </div>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
-import { InterruptionGroupsApi, Configuration } from 'jouko-ts-client';
+import { InterruptionGroupsApi, UsersApi, Configuration } from 'jouko-ts-client';
 import { take } from 'lodash';
 import { _ } from '../i18n';
 import { apiUrl } from '../config';
@@ -98,12 +98,29 @@ export class EditUser
         this.forceUpdate();
     }
     handleSubmit(event: React.FormEvent<HTMLInputElement>) {
-        console.log(this.state.keycloakId);
-        console.log(this.state.firstname);
-        console.log(this.state.lastname);
-        console.log(this.state.deviceName);
         event.preventDefault();
-        alert(_('alertUserChanged'));
+
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
+        const usersApi = new UsersApi(
+            configuration,
+            apiUrl);
+
+        const payload = {
+            keycloakId: this.state.keycloakId,
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            email: this.state.email,
+            devices: this.state.devices
+        };
+        try {
+            usersApi.updateUser(this.props.userId, payload);
+            alert(_('alertUserChanged'));
+        } catch (error) {
+            alert(_('alertUserChangedError'));
+        }   
     }
 
     componentDidMount() {
@@ -126,6 +143,24 @@ export class EditUser
             });
         }
         this.setState({rowProps: take(rowProps, 100)});
+    }
+
+    async fetchUserDetails() {
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
+        const usersApi = new UsersApi(
+            configuration,
+            apiUrl);
+        const user = await usersApi.retrieveUser(this.props.userId);
+        this.setState({
+            userId: user.id as number,
+            keycloakId: user.keycloakId as string,
+            firstname: user.firstName as string,
+            lastname: user.lastName as string,
+            email: user.email as string
+        });
     }
 
     render() {
@@ -163,23 +198,6 @@ export class EditUser
                     </NavLink>
                 </h1>
                 <br/><br/><br/>
-                <div className="InformationBox">
-                    <div className="InformationBoxIcon">
-                        <i className="fa fa-exclamation-triangle"/>
-                    </div>
-                    <div className="InformationBoxText">
-                        <h3>
-                            {_('noEditUserPossible1')}
-                            <NavLink to="/ListUser">
-                                {_('noEditUserPossible2')}
-                            </NavLink>
-                            {_('noEditUserPossible3')}
-                            <NavLink to="/NewUser">
-                                {_('noEditUserPossible4')}
-                            </NavLink>
-                        </h3>
-                    </div>
-                </div>
                 <form className="edit-item-form">
                     <p>{_('userId')}:</p>
                     <input
@@ -192,7 +210,6 @@ export class EditUser
                     <input
                         type="text"
                         name="keycloakId"
-                        disabled={true}
                         value={this.state.keycloakId}
                         onChange={this.handleKeycloakIdChange}
                     />
@@ -202,7 +219,6 @@ export class EditUser
                         name="firstname"
                         value={this.state.firstname}
                         onChange={this.handleFirstnameChange}
-                        disabled={true}
                     />
                     <p>{_('lastname')}:</p>
                     <input
@@ -210,7 +226,6 @@ export class EditUser
                         name="lastname"
                         value={this.state.lastname}
                         onChange={this.handleLastnameChange}
-                        disabled={true}
                     />
                     <p>{_('email')}:</p>
                     <input
@@ -218,7 +233,6 @@ export class EditUser
                         name="email"
                         value={this.state.email}
                         onChange={this.handleEmailChange}
-                        disabled={true}
                     />
                     <p>{_('devices')}:</p>
                     <table className="UserDevice">
@@ -233,64 +247,10 @@ export class EditUser
                             {usersDevices}
                         </tbody>
                     </table>
-                    {/*
-                    <table className="NewUserDevice">
-                        <thead className="NewUserDeviceHead">
-                            <tr>
-                                <th>{_('deviceName')}</th>
-                                <th>{_('controllerDevice')}</th>
-                                <th/>
-                            </tr>
-                        </thead>
-                        <tbody className="NewUserDeviceBody">
-                            <tr>
-                                <th>
-                                    <input
-                                        type="text"
-                                        name="deviceName"
-                                        value={this.state.deviceName}
-                                        onChange={this.handleDeviceNameChange}
-                                    />
-                                </th>
-                                <th>
-                                    <select
-                                        name="controllerId"
-                                        onChange={this.handleControllerIdChange}
-                                    >
-                                        // {controllerOption}
-                                        <option
-                                            value={1}
-                                        >
-                                            1
-                                        </option>
-                                        <option
-                                            value={2}
-                                        >
-                                            2
-                                        </option>
-                                        <option
-                                            value={3}
-                                        >
-                                            3
-                                        </option>
-                                    </select>
-                                </th>
-                                <th>
-                                    <input
-                                        type="submit"
-                                        className="btn-add"
-                                        value={_('addDevice')}
-                                        onClick={(event) => this.handleAddDevice(event)}
-                                    />
-                                </th>
-                            </tr>
-                        </tbody>
-                        <div className="ActionField">
-                            <input type="reset" value={_('cancel')} />
-                            <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
-                        </div>
-                    </table>
-                    */}
+                    <div className="ActionField">
+                        <input type="reset" value={_('cancel')} />
+                        <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
+                    </div>
                     </form>
             </div>
         );

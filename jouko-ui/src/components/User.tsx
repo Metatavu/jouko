@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { _ } from '../i18n';
-import { authUrl } from '../config';
+import { authUrl, keycloakRealm } from '../config';
 
-const editLink = authUrl + 'realms/jouko-realm/account/';
+const editLink = `${authUrl}realms/${keycloakRealm}/account/`;
 
 interface  UserProps {
   username: string;

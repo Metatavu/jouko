@@ -44,7 +44,15 @@ public class DeviceController {
   ) {
     return deviceDAO.create(controller, name, user);
   }
-  
+
+  /**
+   * Create a device controller
+   *
+   * @param eui for controller
+   * @param key for controller
+   * @param communicationChannel the controller uses
+   * @return the newly created controller
+   */
   public ControllerEntity createControllerDevice(
       String eui, 
       String key, 
@@ -52,14 +60,28 @@ public class DeviceController {
     ) {
     return controllerDAO.create(eui, key, communicationChannel);
   }
-  
+
+  /**
+   * List all devices
+   *
+   * @param firstResult
+   * @param maxResults for how many devices you want to return
+   * @return all devices
+   */
   public List<DeviceEntity> listAll(
       Integer firstResult,
       Integer maxResults
   ) {
     return deviceDAO.listAll(firstResult, maxResults);
   }
-  
+
+  /**
+   * List all controllers
+   *
+   * @param firstResult to start from
+   * @param maxResults how many controllers want to return
+   * @return all controllers
+   */
   public List<ControllerEntity> listControllerDevices(
       Integer firstResult,
       Integer maxResults
@@ -67,6 +89,14 @@ public class DeviceController {
     return controllerDAO.listAll(firstResult, maxResults);
   }
 
+  /**
+   * List devices by user
+   *
+   * @param user you want to get devices from
+   * @param firstResult to start from
+   * @param maxResults how many results you want
+   * @return devices of a user
+   */
   public List<DeviceEntity> listByUser(
       UserEntity user,
       Integer firstResult,
@@ -74,27 +104,70 @@ public class DeviceController {
   ) {
     return deviceDAO.listByUser(user, firstResult, maxResults);
   }
-  
+
+  /**
+   * List devices by interruption
+   *
+   * @param interruption you want to return
+   * @return interruptions of devices
+   */
   public List<DeviceEntity> listByInterruption(InterruptionEntity interruption) {
     return deviceDAO.listByInterruption(interruption);
   }
 
+  /**
+   * Find a device using the deviceId
+   *
+   * @param deviceId you want to find
+   * @return device
+   */
   public DeviceEntity findById(Long deviceId) {
     return deviceDAO.findById(deviceId);
   }
-  
+
+  /**
+   * Find controller by id
+   *
+   * @param id of a controller
+   * @return controller
+   */
   public ControllerEntity findControllerById(long id) {
     return controllerDAO.findById(id);
   }
 
+  /**
+   * Find controller using euid instead
+   *
+   * @param eui of a controller
+   * @return controller
+   */
   public ControllerEntity findControllerByEui(String eui) {
     return controllerDAO.findByEui(eui);
   }
-  
+
+  /**
+   * Find controller using Eui and Key
+   *
+   * @param eui of a controller
+   * @param key of a device
+   * @return controller
+   */
   public ControllerEntity findControllerByEuiAndKey(String eui, String key) {
     return controllerDAO.findByEuiAndKey(eui, key);
   }
-  
+
+  /**
+   * Add a power measurement
+   *
+   * @param device you want to add a power measurement to
+   * @param measurementValue that was measured
+   * @param measurementType that was used
+   * @param startTime from when
+   * @param endTime from to
+   * @param phaseNumber of the measurement
+   * @param relayIsOpen if the relay is open
+   * @return adds a measurement to a device
+   */
   public DevicePowerMeasurementEntity addPowerMeasurement(
       DeviceEntity device,
       double measurementValue,
@@ -113,7 +186,15 @@ public class DeviceController {
         phaseNumber,
         relayIsOpen);
   }
-      
+
+  /**
+   * Get the average consumption of a device in Watts
+   *
+   * @param device you want to get consumption from
+   * @param fromTime you want the results from
+   * @param toTime where you want to filter to
+   * @return average consumption in watts
+   */
   public double averageConsumptionInWatts(DeviceEntity device, OffsetDateTime fromTime, OffsetDateTime toTime) {
     // TODO handle different measurement durations
     // TODO do in database
@@ -149,15 +230,39 @@ public class DeviceController {
     
     return averagePowerInWatts;
   }
-  
+
+  /**
+   * List power measurements by devices
+   *
+   * @param devices you want to get power measurements from
+   * @param fromTime you want the results from
+   * @param toTime where you want to filter to
+   * @return power measurements
+   */
   public List<DevicePowerMeasurementEntity> listPowerMeasurementsByDevices(List<DeviceEntity> devices, OffsetDateTime fromTime, OffsetDateTime toTime) {
     return powerMeasurementDAO.listByDevices(devices, fromTime, toTime);
   }
-  
+
+  /**
+   * List power measurements of a single device
+   *
+   * @param device you want to get power measurements from
+   * @param fromTime you want the results from
+   * @param toTime where you want to filter to
+   * @return power measurements
+   */
   public List<DevicePowerMeasurementEntity> listPowerMeasurementsByDevice(DeviceEntity device, OffsetDateTime fromTime, OffsetDateTime toTime) {
     return powerMeasurementDAO.listByDevice(device, fromTime, toTime);
   }
-  
+
+  /**
+   * Create a Gprs message
+   *
+   * @param controller you want to use
+   * @param deviceId you want to create the message for
+   * @param message you want to send
+   * @param messageType you want to use
+   */
   public void queueGprsMessage(ControllerEntity controller, long deviceId, String message, MessageType messageType) {
     gprsMessageDAO.create(controller, deviceId, message, messageType);
   }
@@ -177,11 +282,24 @@ public class DeviceController {
                          .map(GprsMessageEntity::getContent)
                          .collect(Collectors.toList());
   }
-  
+
+  /**
+   * Get queued messages of a controller
+   *
+   * @param controller you want to get the messages from
+   * @param deviceId you want to check
+   * @return queued messages
+   */
   public GprsMessageEntity getQueuedGprsMessageForController(ControllerEntity controller, long deviceId) {
     return gprsMessageDAO.findOneByController(controller, deviceId);
   }
-  
+
+  /**
+   * Deletes a Gprs message from a controller
+   *
+   * @param controller you want to delete a message from
+   * @param message you want to delete specifically
+   */
   public void deleteGprsMessageFromController(ControllerEntity controller, GprsMessageEntity message) {
     gprsMessageDAO.deleteGprsMessageFromController(controller, message); 
   }
@@ -192,5 +310,46 @@ public class DeviceController {
 
   public void clearGprsMessagesForController(ControllerEntity controller) {
     gprsMessageDAO.clearControllerMessages(controller);
+  }
+
+  /**
+   * Updates device details
+   * 
+   * @param device you want to update
+   * @param name you want to set
+   */
+  public void updateDevice(DeviceEntity device, String name) {
+    deviceDAO.update(device, name);
+  }
+
+  /**
+   * Deletes a controller
+   * 
+   * @param controllerDeviceId you want to delete
+   */
+  public void deleteControllerDevice(Long controllerDeviceId) {
+    controllerDAO.delete(controllerDeviceId);
+  }
+
+  /**
+   * 
+   * Find a controller by its device id
+   * 
+   * @param controllerDeviceId you want to find
+   * @return controller
+   */
+  public ControllerEntity findControllerDeviceById(Long controllerDeviceId) {
+    return controllerDAO.findById(controllerDeviceId);
+  }
+
+  /**
+   * Update a controller
+   * 
+   * @param entity you want to update (controller)
+   * @param eui you want to set
+   * @param key you want to set
+   */
+  public void updateControllerDevice(ControllerEntity entity, String eui, String key) {
+    controllerDAO.update(entity, eui, key);
   }
 }

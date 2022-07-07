@@ -22,8 +22,9 @@ import { ShowUser } from './components/ShowUser';
 import * as Keycloak from 'keycloak-js';
 import { UsersApi, Configuration } from 'jouko-ts-client';
 import { EditInterruptionGroup } from './components/EditInterruptionGroup';
-import { apiUrl, authUrl } from './config';
+import { apiUrl, authUrl, keycloakRealm, keycloakClientId } from './config';
 
+// Initialise Keycloak
 interface AppState {
     keycloakInstance?: Keycloak.KeycloakInstance;
     username?: string;
@@ -54,18 +55,18 @@ class App extends React.Component<{}, AppState> {
         const kc = Keycloak(
             {
                 url: authUrl,
-                realm: 'jouko-realm',
-                clientId: 'admin-jouko'
+                realm: keycloakRealm,
+                clientId: keycloakClientId,
             }
         );
         kc.init({ onLoad: 'login-required' })
-            .success(() => {
+            .then(() => {
                     this.fetchAdmin(kc);
                     // tslint:disable-next-line:no-any
                     // console.log(kc.idTokenParsed as any);
                 }
             )
-            .error((e) => {console.log(e); } );
+            .catch((e) => {console.log(e); } );
     }
     // tslint:disable-next-line:no-any
     async fetchAdmin(kc: any) {
@@ -75,14 +76,13 @@ class App extends React.Component<{}, AppState> {
 
         // tslint:disable-next-line:no-any
         const keycloakId = (kc.idTokenParsed as any).sub;
+        // Initialise jouko-ts-client
         const usersApi = new UsersApi(
             configuration,
             apiUrl);
         const user = await usersApi.getUserByKeycloakId(keycloakId);
-        console.log('ahahhaa');
         console.log(kc);
         if (user) {
-            console.log('javol');
             this.setState({
                 keycloakInstance : kc,
                 // tslint:disable-next-line:no-any
@@ -103,11 +103,11 @@ class App extends React.Component<{}, AppState> {
             this.state.keycloakInstance.logout();
         }
     }
-
+  // Creates the different website paths and uses the website components to render the pages
   public render() {
       let content;
       if (!this.state.keycloakInstance) {
-          content = '';
+          content = 'You are not authorized to access this page';
       } else {
           content = (
 

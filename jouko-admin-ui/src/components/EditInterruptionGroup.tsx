@@ -91,31 +91,31 @@ export class EditInterruptionGroup
     }
 
     handleSubmit(event: React.FormEvent<HTMLInputElement>) {
-        {/*
-        let interruptionStartDate = this.state.startDate;
-        let interruptionStartTime = this.state.startTime;
-        const starttime = parseDate(interruptionStartDate + 'T' + interruptionStartTime);
-        let interruptionDuration = this.state.duration;
-        let interruptionDurationHour = Number(interruptionDuration.split(':')[0]);
-        let interruptionDurationMinutes = Number(interruptionDuration.split(':')[1]);
-        let endtime = addMinutes(starttime, interruptionDurationMinutes);
-        endtime = addHours(endtime, interruptionDurationHour);
-        let powerSavingGoalInWatts = this.state.powerSavingGoalInWatts;
-        let overbookingFactor = this.state.overbookingFactor;
-        const interruptionGroupsApi = new InterruptionsApi(
-            undefined,
-            'http://127.0.0.1:8080/api-0.0.1-apiUrl/v1');
-        interruptionGroupsApi.createInterruptionGroup(
-            {
-                id: 0,
-                startTime: starttime.toISOString(),
-                endTime: endtime.toISOString(),
-                powerSavingGoalInWatts: powerSavingGoalInWatts,
-                overbookingFactor: overbookingFactor
-            });
-            */}
         event.preventDefault();
-        alert(_('alertInterruptiongroupChanged'));
+
+        const configuration = new Configuration({
+            apiKey: `Bearer ${this.props.kc!.token}`
+        });
+
+        const interruptionsApi = new InterruptionsApi(
+            configuration,
+            apiUrl);
+        
+        const payload = {
+            id: this.state.interruptionGroupId,
+            startTime: this.state.startDate + 'T' + this.state.startTime as string, // '2020-01-01T00:00:00'
+            endTime: this.state.startDate + 'T' + this.state.startTime as string, // '2020-01-01T00:00:00'
+            duration: this.state.duration as string,
+            powerSavingGoalInWatts: this.state.powerSavingGoalInWatts as number,
+            overbookingFactor: this.state.overbookingFactor as number
+        };
+        
+        try {
+            interruptionsApi.updateInterruptionGroup(this.props.interruptionGroupId, payload);
+            alert(_('alertInterruptiongroupChanged'));
+        } catch (error) {
+            alert(_('alertInterruptiongroupChangedError'));
+        }
     }
     render() {
         const editForm = this.state.interruption.map((interruption, index) => {
@@ -133,28 +133,24 @@ export class EditInterruptionGroup
                         type="text"
                         name="starttime"
                         value={formatDate(interruption.startTime, 'dddd DD. MMMM YYYY | HH:MM')}
-                        disabled={true}
                     />
                     <p>{_('endtime')}</p>
                     <input
                         type="text"
                         name="endttime"
                         value={formatDate(interruption.endTime, 'dddd DD. MMMM YYYY | HH:MM')}
-                        disabled={true}
                     />
                     <p>{_('powerToBeSaved')}</p>
                     <input
                         type="text"
                         name="powerSavingGoalInWatts"
                         value={`${interruption.powerSavingGoalInWatts} kW`}
-                        disabled={true}
                     />
                     <p>{_('overbooking')}</p>
                     <input
                         type="text"
                         name="overbookingFactor"
                         value={`${interruption.overbookingFactor} %`}
-                        disabled={true}
                     />
                 </form>
             );
@@ -167,67 +163,7 @@ export class EditInterruptionGroup
                     </NavLink>
                 </h1>
                 <br/><br/><br/>
-                <div className="InformationBox">
-                    <div className="InformationBoxIcon">
-                        <i className="fa fa-exclamation-triangle"/>
-                    </div>
-                    <div className="InformationBoxText">
-                        <h3>
-                            {_('noEditInterruptiongroupPossible1')}
-                            <NavLink to="/ListInterruptiongroups">
-                                {_('noEditInterruptiongroupPossible2')}
-                            </NavLink>
-                            {_('noEditInterruptiongroupPossible3')}
-                            <NavLink to="/NewInterruptionGroup">
-                                {_('noEditInterruptiongroupPossible4')}
-                            </NavLink>
-                        </h3>
-                    </div>
-                </div>
                 {editForm}
-                {/*
-                <form className="edit-item-form" key={index.toString()}>
-                    <p>{_('date')}:</p>
-                    <input
-                        type="text"
-                        name="date"
-                        value={interruption.id}
-                        onChange={this.handleStartDateChange}
-                    />
-                    <p>{_('time')}</p>
-                    <input
-                        type="text"
-                        name="starttime"
-                        value={this.state.startTime}
-                        onChange={this.handleStartTimeChange}
-                    />
-                    <p>{_('duration')}</p>
-                    <input
-                        type="text"
-                        name="duration"
-                        value={this.state.duration}
-                        onChange={this.handleDurationChange}
-                    />
-                    <p>{_('powerToBeSaved')}</p>
-                    <input
-                        type="number"
-                        name="powerSavingGoalInWatts"
-                        value={this.state.powerSavingGoalInWatts}
-                        onChange={this.handlePowerSavingGoalInWattsChange}
-                    />
-                    <p>{_('overbooking')}</p>
-                    <input
-                        type="number"
-                        name="overbookingFactor"
-                        value={this.state.overbookingFactor}
-                        onChange={this.handleOverbookingFactorChange}
-                    />
-                    <div className="ActionField">
-                        <input type="reset" value={_('cancel')} />
-                        <input type="submit" value={_('edit')} onClick={(event) => this.handleSubmit(event)}/>
-                    </div>
-                </form>
-                */}
             </div>
         );
     }

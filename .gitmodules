@@ -1,0 +1,3 @@
+[submodule "jouko-api-spec"]
+	path = jouko-api-spec
+	url = https://github.com/Metatavu/jouko-api-spec

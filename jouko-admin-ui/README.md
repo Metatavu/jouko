@@ -1,9 +1,32 @@
-In the project directory, you can run:
+# Jouko Admin UI
 
-### `npm start`
+## Setup:
+1. Refer to [Jouko API's README](https://github.com/Metatavu/jouko/blob/master/jouko-api/README.MD) first to setup the backend API.
+2. ```npm install``` in the root directory of jouko-ui.
+3. Change ```src/config.ts``` if your Java API endpoint is different from default.
+4. Follow the instructions below if want to run the website in development or production.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Useful commands:
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+To run the website in development mode (Linux):
+```
+npm run start
+```
+To run the website in development mode (Windows):
+```
+npm run start-windows
+```
+To run the website in production locally:
+```
+npm run build
+```
+```
+npm install -g serve
+```
+```
+serve -s build
+```
+To run tests:
+```
+npm run test
+```

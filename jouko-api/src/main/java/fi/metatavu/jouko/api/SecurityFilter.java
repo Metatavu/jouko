@@ -1,18 +1,20 @@
 package fi.metatavu.jouko.api;
 
-import java.io.UnsupportedEncodingException;
+import fi.metatavu.jouko.api.model.ControllerEntity;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
+import java.io.UnsupportedEncodingException;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.StringUtils;
-
-import fi.metatavu.jouko.api.model.ControllerEntity;
-
+/**
+ * Security filter that checks if the request is authorized.
+ * Uses Basic authentication scheme to authenticate the request.
+ */
 @Provider
 public class SecurityFilter implements ContainerRequestFilter {
   
@@ -30,11 +32,14 @@ public class SecurityFilter implements ContainerRequestFilter {
     if (1 < 10) {
       return;
     }
-    
+
     if (!pathParts[1].equals("gprs") && !pathParts[2].equals("gprs")) {
       return;
     }
-    
+
+    /**
+     * Check that the authorization header is correct and contains correct data.
+    */
     String authorizationHeader = requestContext.getHeaderString(AUTHORIZATION_HEADER);
     if (StringUtils.isBlank(authorizationHeader)) {
       handleUnuauthorizedRequest(requestContext, "Missing authorization header");
@@ -75,8 +80,9 @@ public class SecurityFilter implements ContainerRequestFilter {
    * Returns whether method is allowed for the client
    * 
    * @param method method
-   * @param client client
    * @return whether method is allowed for the client
+   *
+   * TODO Might be blocking delete methods on Admin UI at the moment as returns a cors error.
    */
   private boolean isMethodAllowed(String method) {
     return ("POST".equals(method));

@@ -270,7 +270,7 @@ export class ListControllerDevice
                     </tr>
                     </thead>
                     <tbody className="DeviceBody">
-                        {allControllerDevices}
+                        {allControllerDevices ? allControllerDevices : <tr><td>{_('noControllerDevices')}</td></tr>}
                     </tbody>
                 </table>
             </div>

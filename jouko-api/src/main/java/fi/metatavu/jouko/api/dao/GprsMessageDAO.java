@@ -1,31 +1,36 @@
 package fi.metatavu.jouko.api.dao;
 
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.enterprise.context.Dependent;
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Order;
-import javax.persistence.criteria.Root;
-
 import fi.metatavu.jouko.api.model.ControllerEntity;
-import fi.metatavu.jouko.api.model.DevicePowerMeasurementEntity_;
 import fi.metatavu.jouko.api.model.GprsMessageEntity;
 import fi.metatavu.jouko.api.model.GprsMessageEntity_;
 import fi.metatavu.jouko.api.model.MessageType;
 
+import javax.enterprise.context.Dependent;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
+import java.util.List;
+
 @Dependent
 public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
+  /**
+   * Creates a new GPRS message
+   *
+   * @param controller you want to use for the message
+   * @param deviceId the device you want to send the message to
+   * @param content the content of the message
+   * @param messageType type of message
+   * @return new Gprs message
+   */
   public GprsMessageEntity create(ControllerEntity controller, long deviceId, String content, MessageType messageType) {
     GprsMessageEntity result = new GprsMessageEntity(null, deviceId, content, controller, messageType);
     getEntityManager().persist(result);
     return result;
-  } 
-  
+  }
+
+  /**
+   * Clears all GPRS messages
+   */
   public void clear() {
     EntityManager em = getEntityManager();
     
@@ -36,6 +41,11 @@ public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
     em.createQuery(delete).executeUpdate();
   }
 
+  /**
+   * Clear a controller's messages
+   *
+   * @param controller the controller to clear the messages for
+   */
   public void clearControllerMessages(
       ControllerEntity controller
   ) {
@@ -51,7 +61,13 @@ public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
     
     em.createQuery(delete).executeUpdate();
   }
-  
+
+  /**
+   * List the given controller's messages
+   *
+   * @param controller the controller to list the messages for
+   * @return the messages of the given controller
+   */
   public List<GprsMessageEntity> listByController(
       ControllerEntity controller
   ) {
@@ -68,7 +84,14 @@ public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
     
     return em.createQuery(criteria).getResultList();
   }
-  
+
+  /**
+   * Find a message for the device using the controller and the device ID.
+   *
+   * @param controller the controller the message was sent tto
+   * @param deviceId the device ID that sent the message
+   * @return the found message
+   */
   public GprsMessageEntity findOneByController(ControllerEntity controller, long deviceId) {
     EntityManager em = getEntityManager();
     
@@ -114,8 +137,10 @@ public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
             criteriaBuilder.equal(root.get(GprsMessageEntity_.deviceId), deviceId)
         )
     );
-    
-    // Order results by ID
+
+    /*
+     * Order results by ID
+     */
     orderList.add(criteriaBuilder.asc(root.get(GprsMessageEntity_.id)));
     criteria.orderBy(orderList);
     
@@ -126,8 +151,10 @@ public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
     elseQuery = criteria.where(
       criteriaBuilder.equal(root.get(GprsMessageEntity_.controller), controller)
     );
-    
-    // Order results by ID
+
+    /*
+     * Order results by ID
+     */
     orderList.add(criteriaBuilder.asc(root.get(GprsMessageEntity_.id)));
     criteria.orderBy(orderList);
     
@@ -137,7 +164,13 @@ public class GprsMessageDAO extends AbstractDAO<GprsMessageEntity> {
     
     return null;
   }
-  
+
+  /**
+   * Delete a Gprs message from specified controller
+   *
+   * @param controller the controller to delete the message from
+   * @param message the message to delete
+   */
   public void deleteGprsMessageFromController(ControllerEntity controller, GprsMessageEntity message) {
     EntityManager em = getEntityManager();
     

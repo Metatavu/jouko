@@ -81,9 +81,12 @@ export class NewDevice
             userId: this.state.userId,
             controllerId: this.state.controllerId
         };
-
+        try {
         await devicesApi.createDevice(device);
         alert(_('alertDeviceCreated'));
+        } catch (error) {
+            alert(_('alertDeviceCreatedError'));
+        }
     }
 
     componentDidMount() {

@@ -59,6 +59,7 @@ export class ListUser extends
         }
         this.forceUpdate();
     }
+    // The methods below are used to fetch the data based on the sorting element and direction
     sortByIdASC(event: React.FormEvent<HTMLOptionElement>) {
         this.setState({
             sortingElement: 'deviceId',
@@ -149,6 +150,7 @@ export class ListUser extends
                 });
             }
         }
+        // Return data in ascending order if ASC is selected and descending order otherwise
         if (this.state.sortingDirection === 'ASC') {
             const sortingElement = this.state.sortingElement.toString();
             if (sortingElement === 'username') {
@@ -268,7 +270,7 @@ export class ListUser extends
                     </tr>
                     </thead>
                     <tbody>
-                        {allUsers}
+                        {allUsers ? allUsers : <tr><td>{_('noUsers')}</td></tr>}
                     </tbody>
                 </table>
             </div>
