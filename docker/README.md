@@ -32,6 +32,7 @@ docker-compose up -d
 - Navigate to Clients tab and click Create
 - Create new realm called `jouko-realm`
 - Create new client with Client ID `jouko-api` with following settings:
+  - Root URL: http://admin.jouko.local:8001 (If want to use admin panel, otherwise change to http://ui.jouko.local:8000)
   - Client Protocol: openid-connect
   - Hit Save
 - Change Access Type to public and hit Reset Password
@@ -59,3 +60,5 @@ docker-compose up -d
 - Run command `insert into User values (1, "KEYCLOAK_USER_ID", "KEYCLOAK_USER_NAME");`
 
 Now you can login to http://admin.jouko.local and http://ui.jouko.local. If it does not work then re-check Keycloak setup and the MySQL entries.
+
+As a note as well that admin and user run on different ports, so if wanted to use both at the same time then you would require two Keycloak clients.

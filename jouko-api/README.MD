@@ -60,6 +60,7 @@ Start keycloak by running inside the keycloak directory
 - Navigate to Clients tab and click Create
 - Create new realm called `jouko-realm`
 - Create new client with Client ID `jouko-api` with following settings:
+  - Root URL: http://localhost:8001 (If want to use admin panel, otherwise change port to 8000)
   - Client Protocol: openid-connect
   - Hit Save
 - Change Access Type to public and hit Reset Password
