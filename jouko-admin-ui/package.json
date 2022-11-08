@@ -17,7 +17,7 @@
     "react-chartjs-2": "^2.7.2",
     "react-dom": "^16.3.2",
     "react-router-dom": "^4.2.2",
-    "react-scripts-ts": "2.15.1",
+    "react-scripts-ts": "4.0.8",
     "react-spinners": "^0.3.2"
   },
   "scripts": {
