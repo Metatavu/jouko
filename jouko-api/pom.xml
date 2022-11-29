@@ -59,7 +59,7 @@
 
         <!-- Keycloak admin client -->
 
-        <keycloak.version>17.0.1</keycloak.version>
+        <keycloak.version>20.0.0</keycloak.version>
 
         <!-- HttpComponents extras -->
         <fluent-hc.version>4.5.13</fluent-hc.version>
